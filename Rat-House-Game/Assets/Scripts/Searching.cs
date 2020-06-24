@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Searching : MonoBehaviour
@@ -20,6 +21,7 @@ public class Searching : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             Debug.Log("Found player");
+            SceneManager.LoadScene("LoseScreen");
         }
     }
 }

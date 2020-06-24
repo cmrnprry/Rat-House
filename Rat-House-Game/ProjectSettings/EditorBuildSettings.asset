@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Leann Stealth Minigame Prototype.unity
+    guid: 330c7cf575a30df4e95699d8d939c237
+  - enabled: 1
+    path: Assets/Scenes/LoseScreen.unity
+    guid: 1d2ff50d7ff77ee43870e57f80145be5
   m_configObjects: {}

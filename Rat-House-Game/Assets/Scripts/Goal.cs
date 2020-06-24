@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Goal : MonoBehaviour
@@ -21,6 +22,7 @@ public class Goal : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             Debug.Log("Won Minigame");
+            SceneManager.LoadScene("LeannStrengthGame");
         }
     }
 }
