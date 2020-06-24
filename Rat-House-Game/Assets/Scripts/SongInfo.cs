@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arrow : MonoBehaviour
+public class SongInfo : MonoBehaviour
 {
+    [Header("Audio")]
+    //an AudioSource attached to this GameObject that will play the music.
+    public AudioSource source;
+    public float bpm;
+    public float[] notes;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,11 +19,6 @@ public class Arrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position -= new Vector3(0f, GameManager.instance.beatsPerSec * Time.deltaTime, 0f);
-
-        if (transform.position.y <= -10f)
-        {
-            Destroy(this.gameObject);
-        }
+        
     }
 }

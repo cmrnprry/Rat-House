@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 23933578613599788}
   m_Layer: 0
   m_Name: PeakPoint
-  m_TagString: Untagged
+  m_TagString: Peak
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 4536838457428552}
   m_Layer: 0
   m_Name: Point
-  m_TagString: Untagged
+  m_TagString: Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class ButtonController : MonoBehaviour
 {
     public SpriteRenderer sr;
+    public TextMeshProUGUI text;
     private GameObject arrow = null;
+
+    float time = .60f;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,10 +28,32 @@ public class ButtonController : MonoBehaviour
             Hit();
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            var s = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(s);
+        }
+
         if (Input.GetKeyUp(KeyCode.Space))
         {
             sr.color = Color.white;
-           // Debug.Log("Released Space");
+            // Debug.Log("Released Space");
+        }
+
+        if (text.IsActive())
+        {
+            time -= Time.deltaTime;
+
+            if (time <= 0)
+            {
+                text.gameObject.SetActive(false);
+                time = .60f;
+            }
         }
     }
 
@@ -50,9 +77,12 @@ public class ButtonController : MonoBehaviour
     {
         if (arrow != null)
         {
-            arrow.SetActive(false);
+            arrow.GetComponent<SpriteRenderer>().enabled = false;
             arrow = null;
             Debug.Log("Hit");
+
+            text.text = "Hit!";
+            text.gameObject.SetActive(true);
         }
     }
 
@@ -62,6 +92,9 @@ public class ButtonController : MonoBehaviour
         {
             arrow = null;
             Debug.Log("Miss");
+
+            text.text = "Miss!";
+            text.gameObject.SetActive(true);
         }
     }
 }
