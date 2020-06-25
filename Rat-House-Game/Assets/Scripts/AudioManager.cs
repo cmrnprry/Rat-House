@@ -97,11 +97,11 @@ public class AudioManager : MonoBehaviour
         //Record the time when the music starts
         dspSongTime = (float)AudioSettings.dspTime;
 
-        StartCoroutine(WaitToStart());
+        //StartCoroutine(WaitToStart());
     }
 
     //A way to delay starting the music
-    IEnumerator WaitToStart()
+    public IEnumerator WaitToStart()
     {
         //wait a few seconds before changing the text
         yield return new WaitForSecondsRealtime(wait);

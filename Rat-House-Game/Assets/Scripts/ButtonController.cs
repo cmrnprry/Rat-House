@@ -10,11 +10,17 @@ public class ButtonController : MonoBehaviour
     public TextMeshProUGUI text;
     private GameObject arrow = null;
 
+    //TESTING
+    public AudioSource glass;
+    public GameObject breaking;
+    public GameObject pouring;
+
     float time = .60f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        pouring.SetActive(true);
+
     }
 
     // Update is called once per frame
@@ -47,11 +53,15 @@ public class ButtonController : MonoBehaviour
 
         if (text.IsActive())
         {
+
             time -= Time.deltaTime;
 
             if (time <= 0)
             {
                 text.gameObject.SetActive(false);
+                breaking.SetActive(false);
+                pouring.SetActive(true);
+
                 time = .60f;
             }
         }
@@ -95,6 +105,11 @@ public class ButtonController : MonoBehaviour
 
             text.text = "Miss!";
             text.gameObject.SetActive(true);
+
+            glass.Play();
+            pouring.SetActive(false);
+
+            breaking.SetActive(true);
         }
     }
 }
