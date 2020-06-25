@@ -147,10 +147,24 @@ public class AudioManager : MonoBehaviour
         if (songPositionInBeats >= (completedLoops + 1) * beatsPerLoop)
         {
             completedLoops++;
+           
+        }
+
+        //TESTING
+        if (completedLoops >= 1)
+        {
+            End();
+            yield break;
         }
 
         yield return new WaitForEndOfFrame();
         StartCoroutine(UpdateBeats());
+    }
+
+    void End()
+    {
+        musicSource.Stop();
+        GameManager.instance.End();
     }
 
     //IMPORTANT: ALL BEATS/LOOPS ARE 0 INDEXED

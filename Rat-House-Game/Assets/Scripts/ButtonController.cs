@@ -13,19 +13,37 @@ public class ButtonController : MonoBehaviour
     //TESTING
     public AudioSource glass;
     public GameObject breaking;
+    public TextMeshProUGUI Scoretext;
+    public int score;
     public GameObject pouring;
+    public static ButtonController instance;
 
+ 
+        
+    
     float time = .60f;
     // Start is called before the first frame update
     void Start()
     {
         pouring.SetActive(true);
+        Scoretext.gameObject.SetActive(true);
 
+
+        //TESTING
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        Scoretext.text = "Score: " + score;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             sr.color = Color.gray;
@@ -91,6 +109,7 @@ public class ButtonController : MonoBehaviour
             arrow = null;
             Debug.Log("Hit");
 
+            score += 100;
             text.text = "Hit!";
             text.gameObject.SetActive(true);
         }
@@ -105,6 +124,8 @@ public class ButtonController : MonoBehaviour
 
             text.text = "Miss!";
             text.gameObject.SetActive(true);
+
+            score -= 50;
 
             glass.Play();
             pouring.SetActive(false);
