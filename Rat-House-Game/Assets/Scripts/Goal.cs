@@ -22,7 +22,7 @@ public class Goal : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             Debug.Log("Won Minigame");
-            SceneManager.LoadScene("LeannStrengthGame");
+            SceneManager.LoadScene("StealthConvo2");
         }
     }
 }
