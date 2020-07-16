@@ -164,7 +164,6 @@ public class AudioManager : MonoBehaviour
     void End()
     {
         musicSource.Stop();
-        GameManager.instance.End();
     }
 
     //IMPORTANT: ALL BEATS/LOOPS ARE 0 INDEXED
