@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
 
     private Rigidbody _rb;
+    private bool _canFight = false;
 
     // Start is called before the first frame update
     void Start()
@@ -15,10 +16,23 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(PlayerMovement());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        //if (Input.GetButtonDown("SelectAction"))
+        //{
+        //    Debug.Log("pressed enter");
+        //    if (_canFight)
+        //    {
+        //        Debug.Log("Stop Movement and Start Battle");
 
+        //        GameManager.instance.StartBattle();
+        //        //StopCoroutine(PlayerMovement());
+        //        _canFight = false;
+
+        //        //yield break;
+        //    }
+
+        //}
     }
 
     //An Enumerator that controls the player movement
@@ -31,6 +45,20 @@ public class PlayerController : MonoBehaviour
 
         _rb.velocity = movement;
 
+        if (Input.GetButton("SelectAction"))
+        {
+            if (_canFight)
+            {
+                Debug.Log("Stop Movement and Start Battle");
+
+                GameManager.instance.SetGameState(GameState.Battle);
+                _canFight = false;
+
+                yield break;
+            }
+
+        }
+
         yield return new WaitForEndOfFrame();
         StartCoroutine(PlayerMovement());
     }
@@ -39,19 +67,11 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.gameObject.tag == "Enemy")
         {
-            Debug.Log("Press Space to Start Combat");
-        }
-    }
+            Debug.Log("Press Enter to Start Combat");
 
-    void OnCollisionStay(Collision collider)
-    {
-        if (collider.gameObject.tag == "Enemy")
-        {
-            if(Input.GetKeyDown(KeyCode.Return))
-            {
-                StopCoroutine(PlayerMovement());
-                GameManager.instance.StartBattle();
-            }
+            //tells the Combat Manager which enemies the player could possibly fight
+            CombatController.instance.SetEnemies(collider.gameObject.GetComponent<EnemyController>().enemiesInBattle);
+            _canFight = true;
         }
     }
 
@@ -59,6 +79,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.gameObject.tag == "Enemy")
         {
+            _canFight = false;
             Debug.Log("No Combat");
         }
     }

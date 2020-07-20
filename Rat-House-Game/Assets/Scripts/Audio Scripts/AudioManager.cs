@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using static BeatMapReader;
+using System;
 
 
 //Base class was written by Graham Tattersall
@@ -9,7 +11,39 @@ using TMPro;
 //https://www.gamasutra.com/blogs/GrahamTattersall/20190515/342454/Coding_to_the_Beat__Under_the_Hood_of_a_Rhythm_Game_in_Unity.php
 public class AudioManager : MonoBehaviour
 {
-    [Header("Beats")]
+    [Header("Audio Sources")]
+    //Background Combat Music
+    public AudioSource bgMusic;
+
+    //Attack Audio Source
+    public AudioSource attackMusic;
+
+    [Header("BeatMap Beats")]
+    //List of possible music to play
+    public AudioClip[] attackClips;
+
+    //map bmp
+    public float mapBpm;
+
+    //The number of seconds for each map beat
+    public float mapSecPerBeat;
+
+    //map Beats per second
+    public float mapBeatsPerSec;
+
+    //Current map position, in seconds
+    public float mapPosition;
+
+    //Current map position, in beats
+    public float mapPositionInBeats;
+
+    //How many seconds have passed since the song started
+    public float dspMapTime;
+
+    //Beat Maps
+    public List<BeatMapStruct> beatMap = new List<BeatMapStruct>();
+
+    [Header("BG Beats")]
     //Song beats per minute
     public float songBpm;
 
@@ -28,23 +62,6 @@ public class AudioManager : MonoBehaviour
     //How many seconds have passed since the song started
     public float dspSongTime;
 
-    //The offset to the first beat of the song in seconds
-    public float firstBeatOffset;
-
-    //Peaks
-    public List<float> peaks;
-
-    [Header("Audio")]
-    //Array of all the songs in the game
-    public SongInfo[] songs;
-
-    [HideInInspector]
-    //the current song playing
-    public SongInfo currSong;
-
-    //an AudioSource attached to this GameObject that will play the music.
-    private AudioSource musicSource;
-
     [Header("Loops")]
     //the number of beats in each loop
     public float beatsPerLoop;
@@ -58,12 +75,8 @@ public class AudioManager : MonoBehaviour
     //The current relative position of the song within the loop measured between 0 and 1.
     public float loopPositionInAnalog;
 
-    [Header("Start")]
-    //Ready Text
-    public TextMeshProUGUI text;
-    public float wait = 2f;
-    public bool start = false;
 
+    //Instance of the Audio Manager
     public static AudioManager instance;
 
     void Awake()
@@ -77,14 +90,15 @@ public class AudioManager : MonoBehaviour
             instance = this;
         }
 
-        //TODO: Add more than one track
-        //For not just use the 0 index
-        musicSource = songs[0].source;
-        currSong = songs[0];
-        songBpm = songs[0].bpm;
+        // Do not destroy this object, when we load a new scene.
+        DontDestroyOnLoad(this.gameObject);
     }
+
+
     void Start()
     {
+        //BACKGROUND
+
         //Calculate the number of seconds in each beat
         secPerBeat = 60f / songBpm;
 
@@ -92,46 +106,38 @@ public class AudioManager : MonoBehaviour
         beatsPerSec = songBpm / 60f;
 
         //number of beats per loop
-        beatsPerLoop = musicSource.clip.length * beatsPerSec;
+        beatsPerLoop = bgMusic.clip.length * beatsPerSec;
 
+        //Calculate the number of seconds in each beat
+        mapSecPerBeat = 60f / mapBpm;
+
+        //Calculate the number of beats in each second
+        mapBeatsPerSec = mapBpm / 60f;
+    }
+
+    public void StartCombatMusic()
+    {
         //Record the time when the music starts
         dspSongTime = (float)AudioSettings.dspTime;
 
-        //StartCoroutine(WaitToStart());
-    }
-
-    //A way to delay starting the music
-    public IEnumerator WaitToStart()
-    {
-        //wait a few seconds before changing the text
-        yield return new WaitForSecondsRealtime(wait);
-        text.text = "Start!";
-
-        //wait a few seconds before starting the game
-        yield return new WaitForSecondsRealtime(wait);
-
-
-        //Set Notes using the Peaks
-        //SetNotes();
-
-        //Turn off the text
-        text.gameObject.SetActive(false);
-
-        //Wait for the end of frame and startt the game
-        yield return new WaitForEndOfFrame();
-
-        //Set a bool to stay game has started
-        start = true; 
-
-        //Start the music
-        musicSource.Play();
+        Debug.Log("Start BG Music");
+        //Start the background music
+        bgMusic.Play();
 
         //Start the update loop
         StartCoroutine(UpdateBeats());
-
     }
 
-    //Serving as a more controlled Update loop
+    public void StopCombatMusic()
+    {
+        //Start the background music
+        bgMusic.Stop();
+
+        //Start the update loop
+        StopAllCoroutines();
+    }
+
+    //Updates the BG song position
     IEnumerator UpdateBeats()
     {
         //determine how many seconds since the song started
@@ -147,35 +153,54 @@ public class AudioManager : MonoBehaviour
         if (songPositionInBeats >= (completedLoops + 1) * beatsPerLoop)
         {
             completedLoops++;
-           
-        }
-
-        //TESTING
-        if (completedLoops >= 1)
-        {
-            End();
-            yield break;
         }
 
         yield return new WaitForEndOfFrame();
         StartCoroutine(UpdateBeats());
     }
 
-    void End()
+    //Waits a second before starting the attack music
+    public IEnumerator SetMap(int action)
     {
-        musicSource.Stop();
+        Debug.Log("Set Map");
+        float currPos = songPositionInBeats;
+
+        //TODO: Implement more attack clips when we have them
+        // attackMusic.clip = attackClips[action];
+
+        // Wait until the next second
+
+        while (!(Math.Truncate(currPos) + beatsPerSec <= songPositionInBeats))
+        {
+            yield return null;
+        }
+
+
+        dspMapTime = (float)AudioSettings.dspTime;
+        attackMusic.Play();
+        StartCoroutine(StartBasicAttack());
     }
 
-    //IMPORTANT: ALL BEATS/LOOPS ARE 0 INDEXED
-    void SetNotes()
+    //Keeps track of the position of the attack music
+    //Will also possibly deal with handling Hit/Misses of the player but probably not
+    //After each attack there should be a check if all the enemies have been defeated
+    public IEnumerator StartBasicAttack()
     {
+        mapPosition = (float)(AudioSettings.dspTime - dspMapTime);
+        mapPositionInBeats = mapPosition / mapSecPerBeat;
 
-        var peak = GameObject.FindGameObjectsWithTag("Peak");
-        Debug.Log("Peaks: " + peaks.Count);
+        if (!attackMusic.isPlaying)
+        {
+            yield break;
+        }
 
 
-        currSong.notes = peaks.ToArray();
-        SpawnNote.notes = peaks.ToArray();
+        yield return new WaitForEndOfFrame();
+        StartCoroutine(StartBasicAttack());
+    }
 
+    public void SetBeatMaps(List<BeatMapStruct> bm)
+    {
+        beatMap = bm;
     }
 }

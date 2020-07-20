@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - BattleMenu
+  - CombatStats
+  - Note
   layers:
   - Default
   - TransparentFX
