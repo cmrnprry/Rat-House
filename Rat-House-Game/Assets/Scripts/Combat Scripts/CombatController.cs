@@ -17,10 +17,7 @@ public class CombatController : MonoBehaviour
     //Current selected player action
     public ActionType selectedAction;
 
-    //Hide the player menu
-    public GameObject battleMenu;
-
-    //List of enemies currently on the board
+    //List of enemy Types currently on the board
     public List<EnemyType> enemyList; //MAX OF 5
 
     //List of enemy placements
@@ -37,11 +34,22 @@ public class CombatController : MonoBehaviour
     //Current indext of _actionList
     private int _selected = 0;
 
+    //Current enemy selected
+    private int _selectedEnemy = 0;
+
     //Checks to see if the player can select from the action list
     private bool _canSelect;
 
     //Keeps trackof player/enemy stats in battle
     private CombatStats _stats;
+
+    //list of enemies in battle
+    [HideInInspector]
+    public List<GameObject> _inBattle = new List<GameObject>();
+
+    //Hide the player menu
+    [HideInInspector]
+    public GameObject battleMenu;
 
     void Awake()
     {
@@ -58,14 +66,6 @@ public class CombatController : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-
-    private void Start()
-    {
-        //Add Enemy prefabs to the list
-        //_enemyPrefabs.Add(GameObject.FindGameObjectWithTag("Coffee"));
-        //_enemyPrefabs.Add(GameObject.FindGameObjectWithTag("Intern"));
-        //_enemyPrefabs.Add(GameObject.FindGameObjectWithTag("Water_Cooler"));
-    }
     void ResetBattle()
     {
         _selected = 0;
@@ -84,37 +84,23 @@ public class CombatController : MonoBehaviour
         var parent = GameObject.FindGameObjectWithTag("Enemy Parent");
         foreach (var e in enemyList)
         {
-
-
-            //GameObject obj = Resources.Load("/Enemies/" + e.ToString(), typeof(GameObject)) as GameObject;
-            Debug.Log("/Enemies/" + e.ToString());
+            //Instasiate the enmy of Type
             GameObject enemy = Instantiate(Resources.Load("Enemies/" + e.ToString(), typeof(GameObject)) as GameObject, enemyPlacement[index], Quaternion.identity);
+
+            //Add it to the list of enemy game objects
+            _inBattle.Add(enemy);
+
+            
+            //Parent enemy
             enemy.transform.parent = parent.transform;
 
-            //switch (e)
-            //{
-            //    case EnemyType.Coffee:
-            //        MakeCoffeeEnemy(index, parent);
-            //        break;
-            //    case EnemyType.Water_Cooler:
-            //        break;
-            //    case EnemyType.Intern:
-            //        break;
-            //    default:
-            //        Debug.LogError("Something has gone wrong with setting up the enemies");
-            //        break;
-            //}
-
+            //increase the index
             index++;
         }
-    }
 
-    void MakeCoffeeEnemy(int index, GameObject parent)
-    {
-        var obj = GameObject.FindGameObjectWithTag("Coffee");
+        Debug.Log("in Battle Count: " + _inBattle.Count);
 
-        var enemy = Instantiate(obj, enemyPlacement[index], Quaternion.identity);
-        enemy.transform.parent = parent.transform;
+        _stats.SetStats();
     }
 
     //Handles the player choosing which action to take
@@ -146,12 +132,14 @@ public class CombatController : MonoBehaviour
         }
         else if (Input.GetButton("SelectAction") && _canSelect)
         {
+            _canSelect = false;
+
             switch (_actionList[_selected])
             {
                 case ActionType.Basic_Attack:
                     Debug.Log("Basic Attack");
                     battleMenu.SetActive(false);
-                    StartCoroutine(AudioManager.instance.SetMap(0));
+                    StartCoroutine(ChooseEnemy());
                     break;
                 //case ActionType.Item:
                 //    Debug.Log("Open Item Menu");
@@ -172,13 +160,54 @@ public class CombatController : MonoBehaviour
     }
 
 
+    IEnumerator ChooseEnemy()
+    {
+        if (Input.GetButton("Up"))
+        {
+            if (_selectedEnemy == 0)
+            {
+                _selectedEnemy = enemyList.Count - 1;
+            }
+            else
+            {
+                _selectedEnemy--;
+            }
+        }
+        else if (Input.GetButton("Down"))
+        {
+            if (_selectedEnemy == enemyList.Count - 1)
+            {
+                _selectedEnemy = 0;
+            }
+            else
+            {
+                _selectedEnemy++;
+            }
+        }
+        else if (Input.GetButton("SelectAction") && _canSelect)
+        {
+            StartCoroutine(AudioManager.instance.SetMap(_selected));
+
+            _canSelect = false;
+            yield break;
+        }
+
+        //TODO:Add some sort of visual display to show the selected enemy
+        Debug.Log("selected enemy: " + _inBattle[_selectedEnemy].name);
+
+        _canSelect = true;
+        yield return new WaitForSecondsRealtime(0.20f);
+        StartCoroutine(ChooseEnemy());
+    }
+
     //Tells the Combat Stats to deal with damage
     public void DealDamage()
     {
         //Want to send over what enemy was targeted
         //what attack was done
         //is defaulted to 0 untile multiple enemes are implemented
-        _stats.DealDamageToEnemy();
+        Debug.Log("Selected Enemy: " + _selectedEnemy);
+        _stats.DealDamageToEnemy(_selectedEnemy);
     }
 
     //Will play through the enemy turn

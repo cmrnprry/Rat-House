@@ -179,6 +179,7 @@ public class AudioManager : MonoBehaviour
     //Waits a second before starting the attack music
     public IEnumerator SetMap(int action)
     {
+        Debug.Log("Attack Type: " + action);
         Debug.Log("Set Map");
         float currPos = songPositionInBeats;
 

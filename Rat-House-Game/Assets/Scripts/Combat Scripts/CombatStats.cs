@@ -24,19 +24,19 @@ public class CombatStats : MonoBehaviour
     //base damage that attacks can do
     private List<float> _attackDamage;
 
-    // Start is called before the first frame update
-    void Start()
+    // Sets the stats
+    public void SetStats()
     {
         _attackDamage = CombatController.instance.attackDamage;
 
         //for each enemy on the board add their health to the list
-        foreach (var e in CombatController.instance.enemyList)
+        foreach (GameObject e in CombatController.instance._inBattle)
         {
-            enemyHealth.Add(50f);
+            enemyHealth.Add(e.GetComponent<Enemy>().GetStartingHealth());
         }
+
+        Debug.Log("Enemy Count: " + enemyHealth.Count);
     }
-
-
 
     private void Update()
     {
@@ -71,26 +71,28 @@ public class CombatStats : MonoBehaviour
         {
             //play enemy death animiation
 
-            //remove enemy from list
+            //Destroy Enemy
+            Destroy(CombatController.instance._inBattle[enemyAttacked].gameObject);
+
+            Debug.Log("Enemy Dead: " + CombatController.instance._inBattle[enemyAttacked].name);
+
+            //remove enemy from list(s)
+            CombatController.instance._inBattle.Remove(CombatController.instance._inBattle[enemyAttacked]);
+            CombatController.instance.enemyList.Remove(CombatController.instance.enemyList[enemyAttacked]);
             enemyHealth.Remove(enemyHealth[enemyAttacked]);
 
-            Debug.Log("Enemy Dead");
 
             //If there are no more enemies, return to overworld
             if (enemyHealth.Count <= 0)
             {
                 StartCoroutine(GameManager.instance.BattleWon());
+                return;
             }
         }
-        else
-        {
-            //After the damage has been delt we want to switch to the enemies turn
-            StartCoroutine(CombatController.instance.EnemyPhase());
-        }
 
+        //After the damage has been delt we want to switch to the enemies turn
+        StartCoroutine(CombatController.instance.EnemyPhase());
     }
-
-
 
     float DamageModifier(float dmg)
     {
