@@ -14,25 +14,21 @@ public class PlayerController : MonoBehaviour
     {
         _rb = this.GetComponent<Rigidbody>();
         StartCoroutine(PlayerMovement());
-    }
 
-    private void Update()
-    {
-        //if (Input.GetButtonDown("SelectAction"))
-        //{
-        //    Debug.Log("pressed enter");
-        //    if (_canFight)
-        //    {
-        //        Debug.Log("Stop Movement and Start Battle");
+        //Items the player starts with
+        //THIS IS MAINLY FOR TESTING
+        GameManager.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2));
+        GameManager.instance.itemList.Add(new Items(ItemType.Basic_Damage, 1));
 
-        //        GameManager.instance.StartBattle();
-        //        //StopCoroutine(PlayerMovement());
-        //        _canFight = false;
+        GameManager.instance.itemList.Add(new Items(ItemType.Basic_Heath, 5));
 
-        //        //yield break;
-        //    }
+        GameManager.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2));
 
-        //}
+        GameManager.instance.itemList.Add(new Items(ItemType.Basic_Heath, 5));
+
+
+
+        GameManager.instance.CollapseItemList();
     }
 
     //An Enumerator that controls the player movement

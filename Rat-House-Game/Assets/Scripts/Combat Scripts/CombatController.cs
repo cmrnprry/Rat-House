@@ -10,26 +10,54 @@ public enum ActionType
     Basic_Attack = 0,
 }
 
+public enum ItemType
+{
+    Basic_Heath = 0,
+    Basic_Damage = 1,
+}
+
+public struct Items
+{
+    public Items(ItemType i, int c)
+    {
+        item = i;
+        count = c;
+    }
+
+    public ItemType item { get; set; }
+    public int count { get; set; }
+}
+
 public class CombatController : MonoBehaviour
 {
     public static CombatController instance;
 
-    //Current selected player action
-    public ActionType selectedAction;
-
+    [Header("Lists")]
     //List of enemy Types currently on the board
     public List<EnemyType> enemyList; //MAX OF 5
-
-    //List of enemy placements
-    public List<Vector3> enemyPlacement;
-
-    //base damage that attacks can do
-    public List<float> attackDamage;
-
 
     //List of all potential player actions
     [SerializeField]
     private List<ActionType> _actionList;
+
+    //List of all potential player item
+    [SerializeField]
+    private List<Items> _itemList = new List<Items>();
+
+    //base damage that attacks can do
+    public List<float> attackDamage;
+
+    //List of enemy placements
+    public List<Vector3> enemyPlacement;
+
+    //list of enemies in battle
+    [HideInInspector]
+    public List<GameObject> _inBattle = new List<GameObject>();
+
+
+    [Header("Currently Selected")]
+    //Current selected player action
+    public ActionType selectedAction;
 
     //Current indext of _actionList
     private int _selected = 0;
@@ -37,19 +65,21 @@ public class CombatController : MonoBehaviour
     //Current enemy selected
     private int _selectedEnemy = 0;
 
+    //Current enemy selected
+    private int _selectedItem = 0;
+
     //Checks to see if the player can select from the action list
     private bool _canSelect;
 
     //Keeps trackof player/enemy stats in battle
     private CombatStats _stats;
 
-    //list of enemies in battle
-    [HideInInspector]
-    public List<GameObject> _inBattle = new List<GameObject>();
-
+    [Header("Menus")]
     //Hide the player menu
     [HideInInspector]
     public GameObject battleMenu;
+    public GameObject itemMenu;
+    public GameObject menuSelect;
 
     void Awake()
     {
@@ -77,7 +107,11 @@ public class CombatController : MonoBehaviour
     {
         //set the stats
         battleMenu = GameObject.FindGameObjectWithTag("BattleMenu");
+        itemMenu = GameObject.FindGameObjectWithTag("ItemMenu");
         _stats = GameObject.FindGameObjectWithTag("CombatStats").GetComponent<CombatStats>();
+        menuSelect = GameObject.FindGameObjectWithTag("MenuSelect");
+
+        _itemList = GameManager.instance.itemList;
 
 
         int index = 0;
@@ -138,12 +172,13 @@ public class CombatController : MonoBehaviour
             {
                 case ActionType.Basic_Attack:
                     Debug.Log("Basic Attack");
-                    battleMenu.SetActive(false);
+                    TurnOffHighlight();
                     StartCoroutine(ChooseEnemy());
                     break;
-                //case ActionType.Item:
-                //    Debug.Log("Open Item Menu");
-                //    break;
+                case ActionType.Item:
+                    ShowItems();
+                    Debug.Log("Open Item Menu");
+                    break;
                 default:
                     Debug.LogError("Something has gone wrong in Combat Controller");
                     break;
@@ -153,12 +188,131 @@ public class CombatController : MonoBehaviour
             yield break;
         }
 
+        HighlightMenuItem();
         ShowSelectedAction();
         _canSelect = true;
         yield return new WaitForSecondsRealtime(0.20f);
         StartCoroutine(ChooseAction());
     }
 
+    void TurnOffHighlight()
+    {
+        battleMenu.SetActive(false);
+        menuSelect.SetActive(false);
+        itemMenu.SetActive(false);
+
+        //turn off particles
+        var parent = GameObject.FindGameObjectWithTag("Enemy Parent");
+        parent.transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
+    }
+
+    void HighlightMenuItem()
+    {
+        menuSelect.SetActive(true);
+        if (battleMenu.activeSelf)
+        {
+            var x = battleMenu.transform.GetChild(_selected);
+            menuSelect.transform.position = x.position;
+        }
+        else if (itemMenu.activeSelf)
+        {
+            var x = itemMenu.transform.GetChild(_selectedItem);
+            menuSelect.transform.position = x.position;
+        }
+    }
+
+    void ShowItems()
+    {
+        var text = battleMenu.transform.GetChild(0).gameObject;
+        battleMenu.SetActive(false);
+        itemMenu.SetActive(true);
+
+        foreach(var i in _itemList)
+        {
+            var item = i.item.ToString().Replace('_', ' ');
+            var obj = Instantiate(text, itemMenu.transform);
+            
+            obj.GetComponent<TextMeshProUGUI>().text = item + " (" + i.count + ")";
+        }
+
+        StartCoroutine(ChooseItem());
+    }
+
+    public IEnumerator ChooseItem()
+    {
+        //Debug.Log("Choose Action");
+        if (Input.GetButton("Up"))
+        {
+            if (_selectedItem == 0)
+            {
+                _selectedItem = _itemList.Count - 1;
+            }
+            else
+            {
+                _selectedItem--;
+            }
+        }
+        else if (Input.GetButton("Down"))
+        {
+            if (_selectedItem == _itemList.Count - 1)
+            {
+                _selectedItem = 0;
+            }
+            else
+            {
+                _selectedItem++;
+            }
+        }
+        else if (Input.GetButton("SelectAction") && _canSelect)
+        {
+            _canSelect = false;
+
+            switch (_itemList[_selectedItem].item)
+            {
+                case ItemType.Basic_Heath:
+                    Debug.Log("Basic Heath Item");
+                    break;
+                case ItemType.Basic_Damage:
+                    Debug.Log("Basic Heath Damage");
+                    break;
+                default:
+                    Debug.LogError("Something has gone wrong in Combat Controller");
+                    break;
+            }
+
+            _canSelect = false;
+           // yield break;
+        }
+        else if (Input.GetButton("Back"))
+        {
+            _canSelect = false;
+
+            ReturnToBattleMenu();
+
+             yield break;
+        }
+
+        HighlightMenuItem();
+        _canSelect = true;
+        yield return new WaitForSecondsRealtime(0.05f);
+        StartCoroutine(ChooseItem());
+    }
+
+    void ReturnToBattleMenu()
+    {
+        StartCoroutine(ChooseAction());
+        battleMenu.SetActive(true);
+
+
+        //Clear Item Menu
+        foreach (Transform child in itemMenu.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+
+        itemMenu.SetActive(false);
+    }
 
     IEnumerator ChooseEnemy()
     {
@@ -186,6 +340,7 @@ public class CombatController : MonoBehaviour
         }
         else if (Input.GetButton("SelectAction") && _canSelect)
         {
+            TurnOffHighlight();
             StartCoroutine(AudioManager.instance.SetMap(_selected));
 
             _canSelect = false;
@@ -193,11 +348,22 @@ public class CombatController : MonoBehaviour
         }
 
         //TODO:Add some sort of visual display to show the selected enemy
+        HighlightEnemy();
         Debug.Log("selected enemy: " + _inBattle[_selectedEnemy].name);
 
         _canSelect = true;
-        yield return new WaitForSecondsRealtime(0.20f);
+        yield return new WaitForSecondsRealtime(0.15f);
         StartCoroutine(ChooseEnemy());
+    }
+
+    void HighlightEnemy()
+    {
+        var parent = GameObject.FindGameObjectWithTag("Enemy Parent");
+        var particles = parent.transform.GetChild(0);
+
+        particles.transform.position = enemyPlacement[_selectedEnemy];
+
+        particles.GetComponent<ParticleSystem>().Play();
     }
 
     //Tells the Combat Stats to deal with damage

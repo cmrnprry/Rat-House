@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    //Items the Player currently has
+    public List<Items> itemList = new List<Items>();
+
     //Keeps track of the current game state
     private GameState _currState = GameState.Overworld;
 
@@ -59,6 +62,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Makes ot so there is only one of each item type in the list
+    public void CollapseItemList()
+    {
+        for (int i = 0; i < itemList.Count; i++)
+        {
+            for (int k = i + 1; k < itemList.Count; k++)
+            {
+                if (itemList[i].item == itemList[k].item)
+                {
+                    Debug.Log(itemList[i].count);
+                    Debug.Log(itemList[k].count);
+                    var total = itemList[i].count + itemList[k].count;
+                    var newItem = new Items(itemList[i].item, total);
+
+                    itemList.RemoveAt(k);
+                    itemList.RemoveAt(i);
+
+                    itemList.Insert(i, newItem);
+                    
+                }
+            }
+        }
+    }
 
     /** Start Combat by:
     * Switching to the correct scene
