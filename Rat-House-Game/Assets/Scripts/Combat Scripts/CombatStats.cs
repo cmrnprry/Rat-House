@@ -11,6 +11,7 @@ public class CombatStats : MonoBehaviour
     //Enemy Stats
     private List<float> enemyHealth = new List<float>();
     private List<float> enemyBaseAccuracy;
+    private int _enemiesLeft = 0;
 
     //Track Player Damage
     private bool _canHit;
@@ -33,6 +34,7 @@ public class CombatStats : MonoBehaviour
         foreach (GameObject e in CombatController.instance._inBattle)
         {
             enemyHealth.Add(e.GetComponent<Enemy>().GetStartingHealth());
+            _enemiesLeft++;
         }
 
         Debug.Log("Enemy Count: " + enemyHealth.Count);
@@ -71,19 +73,22 @@ public class CombatStats : MonoBehaviour
         {
             //play enemy death animiation
 
+            //decrease the number o f enemies left
+            _enemiesLeft -= 1;
+
             //Destroy Enemy
             Destroy(CombatController.instance._inBattle[enemyAttacked].gameObject);
 
             Debug.Log("Enemy Dead: " + CombatController.instance._inBattle[enemyAttacked].name);
 
             //remove enemy from list(s)
-            CombatController.instance._inBattle.Remove(CombatController.instance._inBattle[enemyAttacked]);
-            CombatController.instance.enemyList.Remove(CombatController.instance.enemyList[enemyAttacked]);
-            enemyHealth.Remove(enemyHealth[enemyAttacked]);
+            CombatController.instance._inBattle[enemyAttacked] = null;
+            //CombatController.instance.enemyList.Remove(CombatController.instance.enemyList[enemyAttacked]);
 
+            Debug.Log(CombatController.instance._inBattle[enemyAttacked]);
 
             //If there are no more enemies, return to overworld
-            if (enemyHealth.Count <= 0)
+            if (_enemiesLeft <= 0)
             {
                 StartCoroutine(GameManager.instance.BattleWon());
                 return;

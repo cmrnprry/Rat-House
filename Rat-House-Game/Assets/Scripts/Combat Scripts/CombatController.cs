@@ -124,7 +124,7 @@ public class CombatController : MonoBehaviour
             //Add it to the list of enemy game objects
             _inBattle.Add(enemy);
 
-            
+
             //Parent enemy
             enemy.transform.parent = parent.transform;
 
@@ -227,11 +227,11 @@ public class CombatController : MonoBehaviour
         battleMenu.SetActive(false);
         itemMenu.SetActive(true);
 
-        foreach(var i in _itemList)
+        foreach (var i in _itemList)
         {
             var item = i.item.ToString().Replace('_', ' ');
             var obj = Instantiate(text, itemMenu.transform);
-            
+
             obj.GetComponent<TextMeshProUGUI>().text = item + " (" + i.count + ")";
         }
 
@@ -281,7 +281,7 @@ public class CombatController : MonoBehaviour
             }
 
             _canSelect = false;
-           // yield break;
+            // yield break;
         }
         else if (Input.GetButton("Back"))
         {
@@ -289,7 +289,7 @@ public class CombatController : MonoBehaviour
 
             ReturnToBattleMenu();
 
-             yield break;
+            yield break;
         }
 
         HighlightMenuItem();
@@ -320,20 +320,30 @@ public class CombatController : MonoBehaviour
         {
             if (_selectedEnemy == 0)
             {
-                _selectedEnemy = enemyList.Count - 1;
+                _selectedEnemy = _inBattle.Count - 1;
             }
             else
+            {
+                _selectedEnemy--;
+            }
+
+            if (_inBattle[_selectedEnemy] == null)
             {
                 _selectedEnemy--;
             }
         }
         else if (Input.GetButton("Down"))
         {
-            if (_selectedEnemy == enemyList.Count - 1)
+            if (_selectedEnemy == _inBattle.Count - 1)
             {
                 _selectedEnemy = 0;
             }
             else
+            {
+                _selectedEnemy++;
+            }
+
+            if (_inBattle[_selectedEnemy] == null)
             {
                 _selectedEnemy++;
             }
@@ -399,6 +409,17 @@ public class CombatController : MonoBehaviour
 
         //Give the player control back
         battleMenu.SetActive(true);
+
+        //Find the first non-defeated enemy
+        for (int i = 0; i < _inBattle.Count; i++)
+        {
+            if (_inBattle[i] != null)
+            {
+                _selectedEnemy = i;
+                break;
+            }
+        }
+
         StartCoroutine(ChooseAction());
     }
 
