@@ -8,6 +8,10 @@ TagManager:
   - BattleMenu
   - CombatStats
   - Note
+  - Coffee
+  - Intern
+  - Water_Cooler
+  - Enemy Parent
   layers:
   - Default
   - TransparentFX

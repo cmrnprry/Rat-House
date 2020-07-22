@@ -8,28 +8,31 @@ using UnityEngine;
 //https://www.gamasutra.com/blogs/YuChao/20170316/293814/Music_Syncing_in_Rhythm_Games.php
 public class Note : MonoBehaviour
 {
-    //Number of beats shown in advance
-    private float beatsShownInAdvance;
-
     //Notes to be hit
     public GameObject note;
 
     //Parent holder for the notes
     public GameObject noteParent;
 
-    //Bool to tell if you can hit the 
+    //Point to reset the slider
+    public Vector3 restartPoint;
 
-    public Vector3 destroyPoint;
-    //beat of this note
-    private float beat;
+    //Current action selected
     private ActionType _curAction;
+
+    //List of the beats to be hit
     private List<float> beats = new List<float>();
+
+    //Starting X position of the slider
+    private float _startX;
 
 
     private void Start()
     {
+        _startX = this.gameObject.transform.localPosition.x;
         ShowBeats();
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -44,11 +47,11 @@ public class Note : MonoBehaviour
 
             transform.position += new Vector3(AudioManager.instance.mapBeatsPerSec * Time.deltaTime, 0f, 0f);
 
-            if (gameObject.transform.localPosition.x <= destroyPoint.x)
+            if (gameObject.transform.localPosition.x <= restartPoint.x)
             {
                 Debug.Log("Stop Attack Music");
                 AudioManager.instance.attackMusic.Stop();
-                gameObject.transform.localPosition = new Vector3(4.9f, this.gameObject.transform.localPosition.y, 3.5f);
+                gameObject.transform.localPosition = new Vector3(_startX, this.gameObject.transform.localPosition.y, this.gameObject.transform.localPosition.z);
 
                 //Calculate Damage
                 CombatController.instance.DealDamage();
@@ -78,11 +81,10 @@ public class Note : MonoBehaviour
 
     private void ShowBeats()
     {
-        Debug.Log("Show Beats");
-        Debug.Log(_curAction != ActionType.Item);
         if (_curAction != ActionType.Item)
         {
             beats = AudioManager.instance.beatMap[(int)_curAction].beatsToHit;
+            CombatStats._totalHits = beats.Count;
         }
 
 
@@ -90,13 +92,14 @@ public class Note : MonoBehaviour
 
         foreach (var beat in beats)
         {
-            Debug.Log("add");
             spawnPoint.x = this.gameObject.transform.position.x + beat + 1f;
             var note = Instantiate(this.note, spawnPoint, Quaternion.identity);
             note.transform.parent = noteParent.transform;
         }
+
+        //gameObject.transform.localPosition = new Vector3(4.9f, this.gameObject.transform.localPosition.y, 3.5f);
     }
 
 
-   
+
 }

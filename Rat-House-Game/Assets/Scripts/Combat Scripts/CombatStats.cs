@@ -15,7 +15,11 @@ public class CombatStats : MonoBehaviour
     //Track Player Damage
     private bool _canHit;
     private int _amountHit = 0;
-    private int _totalHits = 0;
+    public static int _totalHits = 0;
+
+    //Checks for player hitting on time
+    private float _startHit;
+    private float _emdHit;
 
     //base damage that attacks can do
     private List<float> _attackDamage;
@@ -53,9 +57,7 @@ public class CombatStats : MonoBehaviour
 
     public void DealDamageToEnemy(int enemyAttacked = 0)
     {
-        var damage = _attackDamage[(int)CombatController.instance.selectedAction];
-
-        damage = DamageModifier(damage);
+        var damage = DamageModifier(_attackDamage[(int)CombatController.instance.selectedAction]);
 
         Debug.Log("Damange Dealt: " + damage);
 
@@ -63,6 +65,7 @@ public class CombatStats : MonoBehaviour
 
         Debug.Log("Enemy Health: " + enemyHealth[enemyAttacked]);
 
+        _amountHit = 0;
 
         if (enemyHealth[enemyAttacked] <= 0)
         {
@@ -111,6 +114,7 @@ public class CombatStats : MonoBehaviour
             dmg = 0;
         }
 
+
         return dmg;
     }
 
@@ -119,7 +123,7 @@ public class CombatStats : MonoBehaviour
         if (other.gameObject.tag == "Note")
         {
             _canHit = true;
-            _totalHits++;
+
             Debug.Log("Can hit");
         }
     }

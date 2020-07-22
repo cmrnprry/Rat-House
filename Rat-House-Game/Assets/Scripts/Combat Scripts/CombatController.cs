@@ -21,7 +21,10 @@ public class CombatController : MonoBehaviour
     public GameObject battleMenu;
 
     //List of enemies currently on the board
-    public List<EnemyType> enemyList;
+    public List<EnemyType> enemyList; //MAX OF 5
+
+    //List of enemy placements
+    public List<Vector3> enemyPlacement;
 
     //base damage that attacks can do
     public List<float> attackDamage;
@@ -55,6 +58,14 @@ public class CombatController : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+
+    private void Start()
+    {
+        //Add Enemy prefabs to the list
+        //_enemyPrefabs.Add(GameObject.FindGameObjectWithTag("Coffee"));
+        //_enemyPrefabs.Add(GameObject.FindGameObjectWithTag("Intern"));
+        //_enemyPrefabs.Add(GameObject.FindGameObjectWithTag("Water_Cooler"));
+    }
     void ResetBattle()
     {
         _selected = 0;
@@ -68,7 +79,42 @@ public class CombatController : MonoBehaviour
         battleMenu = GameObject.FindGameObjectWithTag("BattleMenu");
         _stats = GameObject.FindGameObjectWithTag("CombatStats").GetComponent<CombatStats>();
 
-        //TODO:Set up enemy placement
+
+        int index = 0;
+        var parent = GameObject.FindGameObjectWithTag("Enemy Parent");
+        foreach (var e in enemyList)
+        {
+
+
+            //GameObject obj = Resources.Load("/Enemies/" + e.ToString(), typeof(GameObject)) as GameObject;
+            Debug.Log("/Enemies/" + e.ToString());
+            GameObject enemy = Instantiate(Resources.Load("Enemies/" + e.ToString(), typeof(GameObject)) as GameObject, enemyPlacement[index], Quaternion.identity);
+            enemy.transform.parent = parent.transform;
+
+            //switch (e)
+            //{
+            //    case EnemyType.Coffee:
+            //        MakeCoffeeEnemy(index, parent);
+            //        break;
+            //    case EnemyType.Water_Cooler:
+            //        break;
+            //    case EnemyType.Intern:
+            //        break;
+            //    default:
+            //        Debug.LogError("Something has gone wrong with setting up the enemies");
+            //        break;
+            //}
+
+            index++;
+        }
+    }
+
+    void MakeCoffeeEnemy(int index, GameObject parent)
+    {
+        var obj = GameObject.FindGameObjectWithTag("Coffee");
+
+        var enemy = Instantiate(obj, enemyPlacement[index], Quaternion.identity);
+        enemy.transform.parent = parent.transform;
     }
 
     //Handles the player choosing which action to take

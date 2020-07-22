@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
         switch (_currState)
         {
             case GameState.Overworld:
+                StartCoroutine(ReturnToOverworld());
                 break;
             case GameState.Battle:
                 StartCoroutine(StartBattle());
@@ -88,8 +89,14 @@ public class GameManager : MonoBehaviour
 
         //Show new attack gained if any
 
+        yield return new WaitForEndOfFrame();
+
         //Set Game State
         GameManager.instance.SetGameState(GameState.Overworld);
+    }
+
+    private IEnumerator ReturnToOverworld()
+    {
         AudioManager.instance.StopCombatMusic();
 
         yield return new WaitForEndOfFrame();
@@ -97,7 +104,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
 
         yield return new WaitForEndOfFrame();
-        
+
         //Show any Dialogue
     }
 

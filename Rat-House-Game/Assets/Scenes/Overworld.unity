@@ -757,7 +757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a93dfec451f7f5418dc21c1a79bb99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesInBattle: 00000000
+  enemiesInBattle: 000000000100000002000000
 --- !u!1 &1551452190
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,7 +787,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3b2d456e45a81c44eb53bac8df28b48c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.374
+  m_Volume: 0.44
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -917,6 +917,12 @@ MonoBehaviour:
   selectedAction: 0
   battleMenu: {fileID: 0}
   enemyList: 
+  enemyPlacement:
+  - {x: 1.15, y: 0, z: 0}
+  - {x: 2.65, y: 0, z: 2}
+  - {x: 2.65, y: 0, z: -1.93}
+  - {x: 4.37, y: 0, z: 0.73}
+  - {x: 4.59, y: 0, z: -2.89}
   attackDamage:
   - 20
   _actionList: 00000000ffffffff
@@ -973,11 +979,14 @@ MonoBehaviour:
   mapPosition: 0
   mapPositionInBeats: 0
   dspMapTime: 0
+  offset: 0
+  hasStarted: 0
   songBpm: 120
   secPerBeat: 0
   beatsPerSec: 0
   songPosition: 0
   songPositionInBeats: 0
+  soundDeltaTime: 0
   dspSongTime: 0
   beatsPerLoop: 0
   completedLoops: 0
