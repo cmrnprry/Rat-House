@@ -24,13 +24,16 @@ public class Note : MonoBehaviour
     private List<float> beats = new List<float>();
 
     //Starting X position of the slider
-    private float _startX;
+    public Vector3 startPoint;
+
+    private float _length;
 
 
     private void Start()
     {
-        _startX = this.gameObject.transform.localPosition.x;
+        //startPoint = this.gameObject.transform.position;
         ShowBeats();
+        _length = Vector3.Distance(startPoint, restartPoint);
     }
 
     // Update is called once per frame
@@ -45,13 +48,15 @@ public class Note : MonoBehaviour
             //    (AudioManager.instance.mapBeatsPerSec)
             //);
 
-            transform.position += new Vector3(AudioManager.instance.mapBeatsPerSec * Time.deltaTime, 0f, 0f);
+            //transform.position += new Vector3(AudioManager.instance.mapBeatsPerSec * Time.deltaTime, 0f, 0f);
+
+            transform.localPosition = Vector3.Lerp(startPoint, restartPoint, AudioManager.instance.mapProgression);
 
             if (gameObject.transform.localPosition.x <= restartPoint.x)
             {
                 Debug.Log("Stop Attack Music");
                 AudioManager.instance.attackMusic.Stop();
-                gameObject.transform.localPosition = new Vector3(_startX, this.gameObject.transform.localPosition.y, this.gameObject.transform.localPosition.z);
+                gameObject.transform.localPosition = startPoint;
 
                 //Calculate Damage
                 CombatController.instance.DealDamage();

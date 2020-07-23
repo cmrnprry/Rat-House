@@ -37,11 +37,15 @@ public class AudioManager : MonoBehaviour
     //Current map position, in beats
     public float mapPositionInBeats;
 
+    //Totals beats in map
+    public float totalBeats;
+
     //How many seconds have passed since the song started
     public float dspMapTime;
 
-    //offset
-    public float offset;
+    //Tracks where you are in the beat map
+    // Stays between 0 and 1
+    public float mapProgression = 0;
 
     //start moving slider
     public bool hasStarted;
@@ -102,7 +106,6 @@ public class AudioManager : MonoBehaviour
         // Do not destroy this object, when we load a new scene.
         DontDestroyOnLoad(this.gameObject);
     }
-
 
     void Start()
     {
@@ -186,6 +189,8 @@ public class AudioManager : MonoBehaviour
         //TODO: Implement more attack clips when we have them
         // attackMusic.clip = attackClips[action];
 
+        totalBeats = mapBeatsPerSec * attackMusic.clip.length;
+
         // Wait until the next second
         hasStarted = true;
         while (!(Math.Truncate(currPos) + beatsPerSec <= songPositionInBeats))
@@ -206,6 +211,9 @@ public class AudioManager : MonoBehaviour
     {
         mapPosition = (float)(AudioSettings.dspTime - dspMapTime);
         mapPositionInBeats = mapPosition / mapSecPerBeat;
+        mapProgression = mapPosition / attackMusic.clip.length;
+
+        Debug.Log(mapProgression);
 
         if (!attackMusic.isPlaying)
         {
