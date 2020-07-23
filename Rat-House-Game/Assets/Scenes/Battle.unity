@@ -213,8 +213,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 3.2561104, y: 0, z: 1}
   m_LocalScale: {x: 0.34876922, y: 1, z: 1}
-  m_Children:
-  - {fileID: 781903191}
+  m_Children: []
   m_Father: {fileID: 952563423}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -275,12 +274,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 781903190}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.96, y: 5.4, z: -0.41}
-  m_LocalScale: {x: 12, y: 0.1, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.91, y: 0.1, z: 3.58}
+  m_LocalScale: {x: 4.1852303, y: 0.10000001, z: 0}
   m_Children: []
-  m_Father: {fileID: 384298640}
-  m_RootOrder: 0
+  m_Father: {fileID: 952563423}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &781903192
 BoxCollider:
@@ -466,6 +465,7 @@ Transform:
   m_Children:
   - {fileID: 384298640}
   - {fileID: 1505789938}
+  - {fileID: 781903191}
   - {fileID: 1409779558}
   m_Father: {fileID: 661900796}
   m_RootOrder: 0
@@ -5753,11 +5753,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409779557}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.895327, y: 0, z: 3.5000005}
+  m_LocalPosition: {x: 4.9, y: 0, z: 3.5000005}
   m_LocalScale: {x: 0.17438461, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 952563423}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1436055240
 GameObject:
@@ -5934,7 +5934,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1505789937}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.9, y: 0, z: 3.5000005}
+  m_LocalPosition: {x: 4.9, y: 0, z: 3.56}
   m_LocalScale: {x: 0.17438461, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 952563423}
@@ -6013,9 +6013,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   note: {fileID: 1536818765659724104, guid: cbf2ead56ed6434488796b5dcff534b6, type: 3}
-  noteParent: {fileID: 1409779557}
-  restartPoint: {x: 1.6, y: 0, z: 3.5}
-  startPoint: {x: 4.9, y: 0, z: 3.5}
+  noteParent: {fileID: 952563422}
+  restartPoint: {x: 1.6, y: 0, z: 3.56}
+  startPoint: {x: 4.9, y: 0, z: 3.56}
 --- !u!54 &1505789943
 Rigidbody:
   m_ObjectHideFlags: 0

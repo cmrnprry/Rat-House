@@ -32,7 +32,7 @@ public class Note : MonoBehaviour
     private void Start()
     {
         //startPoint = this.gameObject.transform.position;
-        ShowBeats();
+        //ShowBeats();
         _length = Vector3.Distance(startPoint, restartPoint);
     }
 
@@ -50,6 +50,7 @@ public class Note : MonoBehaviour
 
             //transform.position += new Vector3(AudioManager.instance.mapBeatsPerSec * Time.deltaTime, 0f, 0f);
 
+            //Moves the block based on where we are in the the music in BEATS
             transform.localPosition = Vector3.Lerp(startPoint, restartPoint, AudioManager.instance.mapProgression);
 
             if (gameObject.transform.localPosition.x <= restartPoint.x)
@@ -84,6 +85,7 @@ public class Note : MonoBehaviour
         beats = new List<float>();
     }
 
+    //Display the BeatMap in game
     private void ShowBeats()
     {
         if (_curAction != ActionType.Item)
@@ -92,19 +94,27 @@ public class Note : MonoBehaviour
             CombatStats._totalHits = beats.Count;
         }
 
-
         var spawnPoint = this.gameObject.transform.position;
 
         foreach (var beat in beats)
         {
-            spawnPoint.x = this.gameObject.transform.position.x + beat + 1f;
-            var note = Instantiate(this.note, spawnPoint, Quaternion.identity);
-            note.transform.parent = noteParent.transform;
+            //Want each beat in terms of the map progression
+            var beatFraction = (beat + 1) / AudioManager.instance.totalBeats;
+
+            Debug.Log("Beat: " + beat);
+            Debug.Log("Fraction: " + beatFraction);
+            Debug.Log("Length: " + _length);
+
+            //Spawn the Beat based on the start point, length and position of the beat
+            //this is also just the unity.lerp equation lol
+            spawnPoint = Vector3.Lerp(startPoint, restartPoint, beatFraction);
+
+            Debug.Log("Point: " + Vector3.Lerp(startPoint, restartPoint, beatFraction));
+
+            this.note.transform.localPosition = spawnPoint;
+            var note = Instantiate(this.note, noteParent.transform, true);
+            note.transform.localPosition = spawnPoint;
+            //note.transform.parent = noteParent.transform;
         }
-
-        //gameObject.transform.localPosition = new Vector3(4.9f, this.gameObject.transform.localPosition.y, 3.5f);
     }
-
-
-
 }
