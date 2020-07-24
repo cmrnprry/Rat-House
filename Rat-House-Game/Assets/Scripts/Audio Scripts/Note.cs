@@ -66,7 +66,7 @@ public class Note : MonoBehaviour
         }
         else if (CombatController.instance.selectedAction != _curAction)
         {
-            ClearBeats();
+           // ClearBeats();
 
             _curAction = CombatController.instance.selectedAction;
 

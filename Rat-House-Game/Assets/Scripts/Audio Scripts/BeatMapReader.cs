@@ -28,19 +28,29 @@ public class BeatMapReader : MonoBehaviour
     {
         List<BeatMapStruct> maps = new List<BeatMapStruct>();
         List<string[]> tempList = new List<string[]>();
-        StreamReader reader = new StreamReader("./Assets/Beatmaps/BeatMaps.tsv");
+        //var path = Application.dataPath + "/Resources/BeatMaps/BeatMaps.tsv";
+        TextAsset path = Resources.Load("BeatMaps/BeatMaps") as TextAsset;
 
-        string line;
+        //StreamReader reader = new StreamReader(path.text);
+
+        string[] data = path.text.Split('\t');
+        maps.Add(ToStruct(data));
+
+
+        //maps.Add(ToStruct(data));
+        // Debug.Log(file.text);
+
+        // string line;
 
         // Read and display lines from the file until the end of 
         // the file is reached.
-        while ((line = reader.ReadLine()) != null)
-        {
-            string[] data = line.Split('\t');
+        //while ((line = reader.ReadLine()) != null)
+        //{
+        //    string[] data = line.Split('\t');
 
-            if (data[0] != "Attack_Type")
-                maps.Add(ToStruct(data));
-        }
+        //    if (data[0] != "Attack_Type")
+        //        maps.Add(ToStruct(data));
+        //}
 
         AudioManager.instance.SetBeatMaps(maps);
     }
