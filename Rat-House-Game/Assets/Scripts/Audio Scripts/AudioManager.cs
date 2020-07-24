@@ -37,11 +37,15 @@ public class AudioManager : MonoBehaviour
     //Current map position, in beats
     public float mapPositionInBeats;
 
+    //Totals beats in map
+    public float totalBeats;
+
     //How many seconds have passed since the song started
     public float dspMapTime;
 
-    //offset
-    public float offset;
+    //Tracks where you are in the beat map
+    // Stays between 0 and 1
+    public float mapProgression = 0;
 
     //start moving slider
     public bool hasStarted;
@@ -103,7 +107,6 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-
     void Start()
     {
         //BACKGROUND
@@ -148,7 +151,7 @@ public class AudioManager : MonoBehaviour
         StopAllCoroutines();
     }
 
-    //Updates the BG song position
+    //Updates the BG song position and some other variables
     IEnumerator UpdateBeats()
     {
         var lastFrame = songPosition;
@@ -172,6 +175,19 @@ public class AudioManager : MonoBehaviour
             completedLoops++;
         }
 
+        //Updates what music the player has selected assuimung it's not an item
+        if (CombatController.instance.selectedAction != ActionType.Item)
+        {
+            attackMusic.clip = attackClips[(int)CombatController.instance.selectedAction];
+
+            float length = (float)(Math.Truncate((double)attackMusic.clip.length * 100.0) / 100.0);
+            totalBeats = mapBeatsPerSec * length;
+            Debug.Log("Total Beats: " + totalBeats);
+            Debug.Log("Total Length: " + attackMusic.clip.length);
+        }
+
+
+
         yield return new WaitForEndOfFrame();
         StartCoroutine(UpdateBeats());
     }
@@ -182,9 +198,6 @@ public class AudioManager : MonoBehaviour
         Debug.Log("Attack Type: " + action);
         Debug.Log("Set Map");
         float currPos = songPositionInBeats;
-
-        //TODO: Implement more attack clips when we have them
-        // attackMusic.clip = attackClips[action];
 
         // Wait until the next second
         hasStarted = true;
@@ -206,6 +219,9 @@ public class AudioManager : MonoBehaviour
     {
         mapPosition = (float)(AudioSettings.dspTime - dspMapTime);
         mapPositionInBeats = mapPosition / mapSecPerBeat;
+        mapProgression = mapPositionInBeats / totalBeats;
+
+        Debug.Log(mapProgression);
 
         if (!attackMusic.isPlaying)
         {

@@ -1092,13 +1092,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 320525864}
-  m_LocalRotation: {x: 0.24842441, y: -0, z: -0, w: 0.9686513}
-  m_LocalPosition: {x: 0, y: 4.58, z: -8.48}
+  m_LocalRotation: {x: 0.26766738, y: 0.016459525, z: 0.017513782, w: 0.9632116}
+  m_LocalPosition: {x: -0.18, y: 9.52, z: -8.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1105736726}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 28.769001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 31.002, y: 2.7470002, z: 2.845}
 --- !u!81 &320525866
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1133,7 +1133,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -3042,19 +3042,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198acfe9c15b7cc44a764da2f114fa6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedAction: 0
   enemyList: 000000000100000002000000
+  _actionList: 00000000ffffffff
+  attackDamage:
+  - 20
   enemyPlacement:
   - {x: 1.15, y: 0, z: 0}
   - {x: 2.65, y: 0, z: 2}
   - {x: 2.65, y: 0, z: -1.93}
   - {x: 4.37, y: 0, z: 0.73}
   - {x: 4.59, y: 0, z: -2.89}
-  attackDamage:
-  - 20
-  _actionList: 00000000ffffffff
   _inBattle: []
+  selectedAction: 0
   battleMenu: {fileID: 0}
+  itemMenu: {fileID: 0}
+  menuSelect: {fileID: 0}
 --- !u!4 &957395662
 Transform:
   m_ObjectHideFlags: 0
@@ -3495,7 +3497,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105736720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0.04}
+  m_LocalPosition: {x: 0, y: -0.5, z: -0.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 320525865}
@@ -4833,8 +4835,9 @@ MonoBehaviour:
   mapBeatsPerSec: 0
   mapPosition: 0
   mapPositionInBeats: 0
+  totalBeats: 0
   dspMapTime: 0
-  offset: 0
+  mapProgression: 0
   hasStarted: 0
   songBpm: 120
   secPerBeat: 0
