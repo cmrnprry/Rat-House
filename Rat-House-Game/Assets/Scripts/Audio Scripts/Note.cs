@@ -32,7 +32,7 @@ public class Note : MonoBehaviour
     private void Start()
     {
         //startPoint = this.gameObject.transform.position;
-        //ShowBeats();
+        ShowBeats();
         _length = Vector3.Distance(startPoint, restartPoint);
     }
 
@@ -66,23 +66,26 @@ public class Note : MonoBehaviour
         }
         else if (CombatController.instance.selectedAction != _curAction)
         {
-           // ClearBeats();
+            ClearBeats();
 
             _curAction = CombatController.instance.selectedAction;
 
             ShowBeats();
+            CombatStats.hitList.Sort();
         }
     }
 
     private void ClearBeats()
     {
         Debug.Log("clear");
-        foreach (Transform child in gameObject.transform)
+        foreach (Transform child in noteParent.transform)
         {
-            GameObject.Destroy(child.gameObject);
+            Debug.Log(child.position);
+            Destroy(child.gameObject);
         }
 
         beats = new List<float>();
+        CombatStats.hitList = new List<Vector3>();
     }
 
     //Display the BeatMap in game
@@ -109,12 +112,13 @@ public class Note : MonoBehaviour
             //this is also just the unity.lerp equation lol
             spawnPoint = Vector3.Lerp(startPoint, restartPoint, beatFraction);
 
-            Debug.Log("Point: " + Vector3.Lerp(startPoint, restartPoint, beatFraction));
+            //add the "perfect" hit point to the list
+            CombatStats.hitList.Add(spawnPoint);
 
-            this.note.transform.localPosition = spawnPoint;
+            //Create a note object and position it correctly
             var note = Instantiate(this.note, noteParent.transform, true);
             note.transform.localPosition = spawnPoint;
-            //note.transform.parent = noteParent.transform;
+            note.transform.parent = noteParent.transform;
         }
     }
 }

@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
         AudioManager.instance.StopCombatMusic();
 
         yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
 
         SceneManager.LoadScene(0);
 
