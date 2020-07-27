@@ -298,6 +298,11 @@ public class CombatController : MonoBehaviour
         StartCoroutine(ChooseItem());
     }
 
+    void UseHealthItem(ItemType item)
+    {
+
+    }
+
     void ReturnToBattleMenu()
     {
         StartCoroutine(ChooseAction());
@@ -426,7 +431,7 @@ public class CombatController : MonoBehaviour
     void ShowSelectedAction()
     {
         selectedAction = _actionList[_selected];
-        Debug.Log(selectedAction);
+       // Debug.Log(selectedAction);
     }
 
     //Setter to tell the Combat Controller what enemies are on the board

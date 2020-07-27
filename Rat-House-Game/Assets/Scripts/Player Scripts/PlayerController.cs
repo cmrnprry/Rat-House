@@ -5,9 +5,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
+    public GameObject sprite;
+    public SpriteRenderer sr;
+    public Animator anim;
 
     private Rigidbody _rb;
     private bool _canFight = false;
+    private bool _isFacingRight;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +42,32 @@ public class PlayerController : MonoBehaviour
         float v = Input.GetAxisRaw("Vertical");
 
         Vector3 movement = new Vector3(h * speed, 0.0f, v * speed);
+        if (h > 0 || h < 0)
+        {
+            anim.SetBool("Left", true);
+            anim.SetBool("Down", false);
+            anim.SetBool("Up", false);
+
+        }
+        else if (h == 0 && v < 0)
+        {
+            anim.SetBool("Left", false);
+            anim.SetBool("Down", true);
+            anim.SetBool("Up", false);
+
+        }
+        else if (h == 0 && v > 0)
+        {
+            anim.SetBool("Left", false);
+            anim.SetBool("Down", false);
+            anim.SetBool("Up", true);
+        }
+        else
+        {
+            anim.SetBool("Left", false);
+            anim.SetBool("Down", false);
+            anim.SetBool("Up", false);
+        }
 
         _rb.velocity = movement;
 
@@ -80,4 +110,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    protected void Flip()
+    {
+        _isFacingRight = !_isFacingRight;
+
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+    }
 }

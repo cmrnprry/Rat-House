@@ -125,6 +125,10 @@ public class AudioManager : MonoBehaviour
 
         //Calculate the number of beats in each second
         mapBeatsPerSec = mapBpm / 60f;
+
+        //Sets the total beats for the first clip
+        float length = (float)(Math.Truncate((double)attackMusic.clip.length * 100.0) / 100.0);
+        totalBeats = mapBeatsPerSec * length;
     }
 
     //Start BG music when a fight starts
@@ -182,8 +186,8 @@ public class AudioManager : MonoBehaviour
 
             float length = (float)(Math.Truncate((double)attackMusic.clip.length * 100.0) / 100.0);
             totalBeats = mapBeatsPerSec * length;
-            Debug.Log("Total Beats: " + totalBeats);
-            Debug.Log("Total Length: " + attackMusic.clip.length);
+            //Debug.Log("Total Beats: " + totalBeats);
+            //Debug.Log("Total Length: " + attackMusic.clip.length);
         }
 
 
@@ -196,7 +200,7 @@ public class AudioManager : MonoBehaviour
     public IEnumerator SetMap(int action)
     {
         Debug.Log("Attack Type: " + action);
-        Debug.Log("Set Map");
+       // Debug.Log("Set Map");
         float currPos = songPositionInBeats;
 
         // Wait until the next second
@@ -221,7 +225,7 @@ public class AudioManager : MonoBehaviour
         mapPositionInBeats = mapPosition / mapSecPerBeat;
         mapProgression = mapPositionInBeats / totalBeats;
 
-        Debug.Log(mapProgression);
+       // Debug.Log(mapProgression);
 
         if (!attackMusic.isPlaying)
         {

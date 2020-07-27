@@ -71,8 +71,7 @@ public class GameManager : MonoBehaviour
             {
                 if (itemList[i].item == itemList[k].item)
                 {
-                    Debug.Log(itemList[i].count);
-                    Debug.Log(itemList[k].count);
+                
                     var total = itemList[i].count + itemList[k].count;
                     var newItem = new Items(itemList[i].item, total);
 
@@ -125,6 +124,7 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.instance.StopCombatMusic();
 
+        yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
 
         SceneManager.LoadScene(0);
