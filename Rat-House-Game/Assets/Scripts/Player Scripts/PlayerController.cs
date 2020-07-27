@@ -21,18 +21,13 @@ public class PlayerController : MonoBehaviour
 
         //Items the player starts with
         //THIS IS MAINLY FOR TESTING
-        GameManager.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2));
-        GameManager.instance.itemList.Add(new Items(ItemType.Basic_Damage, 1));
-
-        GameManager.instance.itemList.Add(new Items(ItemType.Basic_Heath, 5));
-
-        GameManager.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2));
-
-        GameManager.instance.itemList.Add(new Items(ItemType.Basic_Heath, 5));
+        CombatController.instance.itemList.Add(new Items(ItemType.Basic_Heath, 3, 10));
+        CombatController.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2, 10));
 
 
 
-        GameManager.instance.CollapseItemList();
+
+        GameManager.instance.CollapseItemList(CombatController.instance.itemList);
     }
 
     //An Enumerator that controls the player movement
