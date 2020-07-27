@@ -298,6 +298,11 @@ public class CombatController : MonoBehaviour
         StartCoroutine(ChooseItem());
     }
 
+    void UseHealthItem(ItemType item)
+    {
+
+    }
+
     void ReturnToBattleMenu()
     {
         StartCoroutine(ChooseAction());

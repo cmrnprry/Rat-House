@@ -200,7 +200,7 @@ public class AudioManager : MonoBehaviour
     public IEnumerator SetMap(int action)
     {
         Debug.Log("Attack Type: " + action);
-        Debug.Log("Set Map");
+       // Debug.Log("Set Map");
         float currPos = songPositionInBeats;
 
         // Wait until the next second

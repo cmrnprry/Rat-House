@@ -25,15 +25,29 @@ public class Note : MonoBehaviour
 
     //Starting X position of the slider
     public Vector3 startPoint;
+    Renderer rend;
+    private float offsetSlider;
+
 
     private float _length;
 
 
     private void Start()
     {
+        rend = GetComponent<Renderer>();
         //startPoint = this.gameObject.transform.position;
         ShowBeats();
         _length = Vector3.Distance(startPoint, restartPoint);
+
+        //half the width
+        offsetSlider = -rend.bounds.size.x * .5f;
+        transform.position += new Vector3(offsetSlider, 0f, 0f);
+
+        //Debug.Log("Collider pos : " + transform.position);
+        //Debug.Log("Collider Center : " + rend.bounds.center);
+        //Debug.Log("Collider Size : " + rend.bounds.size);
+        //Debug.Log("Collider bound Minimum : " + rend.bounds.min);
+        //Debug.Log("Collider bound Maximum : " + rend.bounds.max);
     }
 
     // Update is called once per frame
@@ -55,9 +69,10 @@ public class Note : MonoBehaviour
 
             if (gameObject.transform.localPosition.x <= restartPoint.x)
             {
-                Debug.Log("Stop Attack Music");
+                //Debug.Log("Stop Attack Music");
                 AudioManager.instance.attackMusic.Stop();
                 gameObject.transform.localPosition = startPoint;
+                transform.position += new Vector3(offsetSlider, 0f, 0f);
 
                 //Calculate Damage
                 CombatController.instance.DealDamage();
@@ -71,7 +86,12 @@ public class Note : MonoBehaviour
             _curAction = CombatController.instance.selectedAction;
 
             ShowBeats();
-            CombatStats.hitList.Sort();
+
+            if (_curAction != ActionType.Item)
+            {
+                CombatStats.hitList.Sort();
+            }
+
         }
     }
 
@@ -85,7 +105,7 @@ public class Note : MonoBehaviour
         }
 
         beats = new List<float>();
-        CombatStats.hitList = new List<Vector3>();
+        CombatStats.hitList = new List<float>();
     }
 
     //Display the BeatMap in game
@@ -113,7 +133,7 @@ public class Note : MonoBehaviour
             spawnPoint = Vector3.Lerp(startPoint, restartPoint, beatFraction);
 
             //add the "perfect" hit point to the list
-            CombatStats.hitList.Add(spawnPoint);
+            CombatStats.hitList.Add(spawnPoint.x);
 
             //Create a note object and position it correctly
             var note = Instantiate(this.note, noteParent.transform, true);

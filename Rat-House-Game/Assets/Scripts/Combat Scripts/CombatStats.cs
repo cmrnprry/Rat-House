@@ -25,7 +25,7 @@ public class CombatStats : MonoBehaviour
     private float _emdHit;
 
     //List of the "perfect" hits of a given rhythm
-    public static List<Vector3> hitList = new List<Vector3>();
+    public static List<float> hitList = new List<float>();
     private float _currNote;
 
     //If the player hit the note too late or early
