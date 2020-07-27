@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
         //Items the player starts with
         //THIS IS MAINLY FOR TESTING
-        GameManager.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2));
+       GameManager.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2));
         GameManager.instance.itemList.Add(new Items(ItemType.Basic_Damage, 1));
 
         GameManager.instance.itemList.Add(new Items(ItemType.Basic_Heath, 5));
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
         GameManager.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2));
 
         GameManager.instance.itemList.Add(new Items(ItemType.Basic_Heath, 5));
-
+     
 
 
         GameManager.instance.CollapseItemList();
