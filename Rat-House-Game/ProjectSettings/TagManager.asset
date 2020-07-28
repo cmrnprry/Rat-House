@@ -19,6 +19,7 @@ TagManager:
   - water_effect
   - Button
   - DeadScreen
+  - Interactable
   layers:
   - Default
   - TransparentFX
