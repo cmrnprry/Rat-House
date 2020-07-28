@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public List<string> randomDialogueList;
+    //public List<string> randomDialogueList;
     public Dialogue dialogue;
 
     private bool canInteract = false;
-    private bool isPerson = false;
+    public bool isPerson;
 
     private void Start()
     {
-        randomDialogueList = new List<string>();
+        //randomDialogueList = new List<string>();
 
         if(gameObject.tag == "Enemy")
         {
@@ -49,11 +49,11 @@ public class DialogueTrigger : MonoBehaviour
     {
         if(isPerson == true)
         {
-            FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+            //FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
         }
-        else if(isPerson == false)
-        {
-            FindObjectOfType<DialogueManager>().StartRandomDialogue(dialogue);
-        }
+        //else if(isPerson == false)
+        //{
+        //    FindObjectOfType<DialogueManager>().StartDialogueOne(dialogue);
+        //}
     }
 }

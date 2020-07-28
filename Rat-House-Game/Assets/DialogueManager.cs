@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,8 +9,6 @@ public class DialogueManager : MonoBehaviour
 
     public Text nameText;
     public Text dialogueText;
-
-    public DialogueTrigger dialogueTrigger;
 
     //private List<string> randomSentences;
     private Queue<string> sentences;
@@ -28,9 +25,9 @@ public class DialogueManager : MonoBehaviour
         anim.SetBool("isOpen", true);
         nameText.text = dialogue.name;
 
-        sentences.Clear();        
+        sentences.Clear();
 
-        foreach(string sentence in dialogue.sentences)
+        foreach (string sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
@@ -38,23 +35,30 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
     }
 
-    public void StartRandomDialogue(Dialogue dialogue)
+    //public void StartRandomDialogue(Dialogue dialogue)
+    //{
+    //    anim.SetBool("isOpen", true);
+    //    nameText.text = dialogue.name;
+
+    //    sentences.Clear();
+
+    //    foreach (string sentence in dialogue.sentences)
+    //    {
+    //        sentences.Enqueue(sentence);
+    //    }
+
+    //    CloseItemBox();
+    //}
+
+    public void CloseItemBox()
     {
-        anim.SetBool("isOpen", true);
-        nameText.text = dialogue.name;
-
-        sentences.Clear();
-
-        string sentence = dialogueTrigger.randomDialogueList[Random.Range(0, dialogueTrigger.randomDialogueList.Count)];
-
-        Debug.Log(sentence);
-
-        //dialogueText.text = dialogue.sentences[Random.Range(0, dialogue.sentences.Count)];
+        anim.SetBool("isOpen", false);
+        string sentence = sentences.Dequeue();
     }
 
     public void DisplayNextSentence()
     {
-        if(sentences.Count == 0)
+        if (sentences.Count == 0)
         {
             EndDialogue();
             return;
@@ -68,7 +72,7 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TypeSentence(string sentence)
     {
         dialogueText.text = "";
-        foreach(char letter in sentence.ToCharArray())
+        foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
             yield return null;
