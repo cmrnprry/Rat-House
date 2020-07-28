@@ -1189,7 +1189,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Name
+  m_Text: Joe
 --- !u!222 &326348429
 CanvasRenderer:
   m_ObjectHideFlags: 0

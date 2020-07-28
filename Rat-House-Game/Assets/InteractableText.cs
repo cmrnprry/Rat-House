@@ -14,21 +14,18 @@ public class InteractableText : MonoBehaviour
 
     public bool playerInRange;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
+        //If you press space when the player is close enough...
         if (Input.GetKeyDown(KeyCode.Space) && playerInRange)
         {
+            //close the text box if it's open...
             if (anim.GetBool("isOpen") == true)
             {
                 anim.SetBool("isOpen", false);
             }
+            //or open it if it's closed
             else
             {
                 anim.SetBool("isOpen", true);
@@ -37,6 +34,7 @@ public class InteractableText : MonoBehaviour
         }
     }
 
+    //Check if the player is close enough
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -45,10 +43,12 @@ public class InteractableText : MonoBehaviour
         }
     }
 
+    //If the player moves too far...
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            //close the text box
             playerInRange = false;
             anim.SetBool("isOpen", false);
         }
