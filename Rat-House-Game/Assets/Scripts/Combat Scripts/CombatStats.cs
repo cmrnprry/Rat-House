@@ -147,6 +147,11 @@ public class CombatStats : MonoBehaviour
     public void UpdatePlayerHealth(float delta)
     {
         playerHealth += delta;
+
+        if (playerHealth <= 0)
+        {
+
+        }
     }
 
     public void DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false, int itemDmg = 0)
@@ -165,6 +170,7 @@ public class CombatStats : MonoBehaviour
         if (enemyHealth[enemyAttacked] <= 0)
         {
             //play enemy death animiation
+            Debug.Log("Enemy Dead");
 
             //decrease the number o f enemies left
             _enemiesLeft -= 1;
@@ -176,7 +182,7 @@ public class CombatStats : MonoBehaviour
 
             //remove enemy from list(s)
             CombatController.instance._inBattle[enemyAttacked] = null;
-            //CombatController.instance.enemyList.Remove(CombatController.instance.enemyList[enemyAttacked]);
+            CombatController.instance.enemyList[enemyAttacked] = EnemyType.NULL;
 
             Debug.Log(CombatController.instance._inBattle[enemyAttacked]);
 

@@ -123,9 +123,9 @@ public class Note : MonoBehaviour
             //Want each beat in terms of the map progression
             var beatFraction = (beat + 1) / AudioManager.instance.totalBeats;
 
-            Debug.Log("Beat: " + beat);
-            Debug.Log("Fraction: " + beatFraction);
-            Debug.Log("Length: " + _length);
+            //Debug.Log("Beat: " + beat);
+            //Debug.Log("Fraction: " + beatFraction);
+            //Debug.Log("Length: " + _length);
 
             //Spawn the Beat based on the start point, length and position of the beat
             //this is also just the unity.lerp equation lol

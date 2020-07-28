@@ -14,6 +14,9 @@ TagManager:
   - Enemy Parent
   - ItemMenu
   - MenuSelect
+  - intern_effect
+  - coffee_effect
+  - water_effect
   layers:
   - Default
   - TransparentFX

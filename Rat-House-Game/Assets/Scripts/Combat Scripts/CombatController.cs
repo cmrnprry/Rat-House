@@ -196,32 +196,6 @@ public class CombatController : MonoBehaviour
         StartCoroutine(ChooseAction());
     }
 
-    void TurnOffHighlight()
-    {
-        battleMenu.SetActive(false);
-        menuSelect.SetActive(false);
-        itemMenu.SetActive(false);
-
-        //turn off particles
-        var parent = GameObject.FindGameObjectWithTag("Enemy Parent");
-        parent.transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
-    }
-
-    void HighlightMenuItem()
-    {
-        menuSelect.SetActive(true);
-        if (battleMenu.activeSelf)
-        {
-            var x = battleMenu.transform.GetChild(_selected);
-            menuSelect.transform.position = x.position;
-        }
-        else if (itemMenu.activeSelf && itemList.Count > 0)
-        {
-            var x = itemMenu.transform.GetChild(_selectedItem);
-            menuSelect.transform.position = x.position;
-        }
-    }
-
     void ShowItems()
     {
         var text = battleMenu.transform.GetChild(0).gameObject;
@@ -269,6 +243,7 @@ public class CombatController : MonoBehaviour
             else if (Input.GetButton("SelectAction") && _canSelect)
             {
                 _canSelect = false;
+                TurnOffHighlight();
 
                 switch (itemList[_selectedItem].item)
                 {
@@ -317,7 +292,7 @@ public class CombatController : MonoBehaviour
         itemList.Add(new Items(item.item, -1, item.delta));
         GameManager.instance.CollapseItemList(itemList);
 
-        //update the player's health
+        //Choose the item to use
         StartCoroutine(ChooseEnemy(true));
 
         ClearItemMenu();
@@ -333,8 +308,11 @@ public class CombatController : MonoBehaviour
         //update the player's health
         _stats.UpdatePlayerHealth(item.delta);
 
-        //return to main battle menu
-        ReturnToBattleMenu();
+        //Clear Item Menu
+        ClearItemMenu();
+
+        //Start Enemy Phase
+        StartCoroutine(EnemyPhase());
     }
 
 
@@ -428,26 +406,41 @@ public class CombatController : MonoBehaviour
     // Default is 0
     public IEnumerator EnemyPhase(int enemy = 0)
     {
-        /*
-            For each enemy they should act according to their enemy type
-            Basically code would look like :
-                if (enemy >= _enemyList.Count)
-                    EnemyAttack(_enemyList[enemy]) <- enemy will preform their attack and check if all the enemies have been defeated
+        yield return new WaitForSecondsRealtime(0.5f);
+        Debug.Log("Enemy Phase Start");
 
-                    yield return new WaitForEndOfFrame();
+        if (enemy < _inBattle.Count)
+        {
+            if (_inBattle[enemy] != null)
+            {
+                var e = _inBattle[enemy].GetComponent<Enemy>();
+                e.AttackPlayer(enemyList[enemy]);
 
-                    StartCoroutine(EnemyPhase(enemy + 1)); 
-                else
-                    give control back to the player
-         */
-        Debug.Log("Enemy Attack");
+                //Deal Damage to Player
+                _stats.UpdatePlayerHealth(e.GetBaseAttack());
+
+                //Waits untik this returns true
+                while (!e.IsTurnOver())
+                {
+                    Debug.Log("Turn is not yet over");
+                    yield return null;
+                }
+
+                //Reset the IsTurnOver to be false
+                e.SetIsTurnOver(false);
+            }
+
+           
+            StartCoroutine(EnemyPhase(enemy + 1));
+            yield break;
+        }
 
         yield return new WaitForEndOfFrame();
 
         //Give the player control back
         battleMenu.SetActive(true);
 
-        //Find the first non-defeated enemy
+        //Find the first non-defeated enemy to have selected
         for (int i = 0; i < _inBattle.Count; i++)
         {
             if (_inBattle[i] != null)
@@ -457,7 +450,38 @@ public class CombatController : MonoBehaviour
             }
         }
 
+        Debug.Log("Enemy Phase Over");
         StartCoroutine(ChooseAction());
+        yield break;
+    }
+
+
+    //Turns off all the highlights and menus
+    void TurnOffHighlight()
+    {
+        battleMenu.SetActive(false);
+        menuSelect.SetActive(false);
+        itemMenu.SetActive(false);
+
+        //turn off particles
+        var parent = GameObject.FindGameObjectWithTag("Enemy Parent");
+        parent.transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
+    }
+
+    //Adds highlight to the battle menu
+    void HighlightMenuItem()
+    {
+        menuSelect.SetActive(true);
+        if (battleMenu.activeSelf)
+        {
+            var x = battleMenu.transform.GetChild(_selected);
+            menuSelect.transform.position = x.position;
+        }
+        else if (itemMenu.activeSelf && itemList.Count > 0)
+        {
+            var x = itemMenu.transform.GetChild(_selectedItem);
+            menuSelect.transform.position = x.position;
+        }
     }
 
     //Returns to the Battle Menu

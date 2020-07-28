@@ -123,4 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fbdf2dc74f7fd409f9e62071e5644f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 15
+  _maxHealth: 15
+  _baseAcuracy: 0
+  _baseAttack: 2
+  effectName: intern_effect
