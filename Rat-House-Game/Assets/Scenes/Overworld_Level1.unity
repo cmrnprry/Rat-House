@@ -3715,7 +3715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dia: {fileID: 1102210830}
-  name: {fileID: 326348428}
+  speakerName: {fileID: 326348428}
   speakers:
   - Joe
   - Intern
@@ -3971,7 +3971,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277cb92b1ebd32344a69c1574772516b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Joe
 --- !u!1 &1138302739
 GameObject:
   m_ObjectHideFlags: 0

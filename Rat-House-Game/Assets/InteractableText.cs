@@ -18,7 +18,7 @@ public class InteractableText : MonoBehaviour
     void Update()
     {
         //If you press space when the player is close enough...
-        if (Input.GetKeyDown(KeyCode.Space) && playerInRange)
+        if (Input.GetButtonDown("SelectAction") && playerInRange)
         {
             //close the text box if it's open...
             if (anim.GetBool("isOpen") == true)
@@ -29,7 +29,7 @@ public class InteractableText : MonoBehaviour
             else
             {
                 anim.SetBool("isOpen", true);
-                dialogueText.text = itemComments[Random.Range(0, itemComments.Length)];
+                dialogueText.text = itemComments[Random.Range(0, itemComments.Length - 1)];
             }
         }
     }

@@ -18,7 +18,7 @@ public class TriggerDialogue : MonoBehaviour
         if(playerInRange == true && convoInProgress == false)
         {
             //when you hit space...
-            if (Input.GetKeyDown("space"))
+            if (Input.GetButtonDown("SelectAction"))
             {
                 //open the text box and start dialogue
                 anim.SetBool("isOpen", true);
@@ -30,7 +30,7 @@ public class TriggerDialogue : MonoBehaviour
         else if (playerInRange == true && convoInProgress == true)
         {
             //when you press space...
-            if (Input.GetKeyDown("space"))
+            if (Input.GetButtonDown("SelectAction"))
             {
                 //load next sentence
                 dialogue.NextSentence();
