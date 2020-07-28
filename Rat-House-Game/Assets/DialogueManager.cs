@@ -1,85 +1,97 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
+//using UnityEngine.UI;
 
-public class DialogueManager : MonoBehaviour
-{
-    public Animator anim;
+//public enum ConvoState { START, PLAYERTALK, OTHERTALK, END }
+//public class DialogueManager : MonoBehaviour
+//{
+//    public ConvoState state;
 
-    public Text nameText;
-    public Text dialogueText;
+//    public Animator anim;
 
-    //private List<string> randomSentences;
-    private Queue<string> sentences;
+//    public Text nameText;
+//    public Text dialogueText;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //randomSentences = new List<string>();
-        sentences = new Queue<string>();
-    }
+//    //private
+//    private Queue<string> sentences;
 
-    public void StartDialogue(Dialogue dialogue)
-    {
-        anim.SetBool("isOpen", true);
-        nameText.text = dialogue.name;
+//    // Start is called before the first frame update
+//    void Start()
+//    {
+//        sentences = new Queue<string>();
+//    }
 
-        sentences.Clear();
+//    public void StartDialogue(Dialogue dialogue)
+//    {
+//        state = ConvoState.START;
 
-        foreach (string sentence in dialogue.sentences)
-        {
-            sentences.Enqueue(sentence);
-        }
+//        anim.SetBool("isOpen", true);
+//        //nameText.text = dialogue.name;
 
-        DisplayNextSentence();
-    }
+//        sentences.Clear();
 
-    //public void StartRandomDialogue(Dialogue dialogue)
-    //{
-    //    anim.SetBool("isOpen", true);
-    //    nameText.text = dialogue.name;
+//        //foreach (string sentence in dialogue.sentences)
+//        //{
+//        //    sentences.Enqueue(sentence);
+//        //}
 
-    //    sentences.Clear();
+//        //state = ConvoState.OTHERTALK;
+//        //DisplayNextSentence();
+//        if (Input.GetKeyDown("space"))
+//        {
+//            Debug.Log("Hit space");
+//        }
 
-    //    foreach (string sentence in dialogue.sentences)
-    //    {
-    //        sentences.Enqueue(sentence);
-    //    }
+//        state = ConvoState.OTHERTALK;
+//        DisplayEvilSentence(dialogue);
+//    }
 
-    //    CloseItemBox();
-    //}
+//    public void DisplayEvilSentence(Dialogue dialogue)
+//    {
+//        nameText.text = dialogue.enemyName;
 
-    public void CloseItemBox()
-    {
-        anim.SetBool("isOpen", false);
-        string sentence = sentences.Dequeue();
-    }
+//        foreach (string sentence in dialogue.sentences)
+//        {
+//            sentences.Enqueue(sentence);
+//        }
 
-    public void DisplayNextSentence()
-    {
-        if (sentences.Count == 0)
-        {
-            EndDialogue();
-            return;
-        }
+//        if (sentences.Count == 0)
+//        {
+//            state = ConvoState.END;
+//            EndDialogue();
+//        }
+//    }
 
-        string sentence = sentences.Dequeue();
-        StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence));
-    }
+//    public void EndDialogue()
+//    {
+//        anim.SetBool("isOpen", false);
+//    }
 
-    IEnumerator TypeSentence(string sentence)
-    {
-        dialogueText.text = "";
-        foreach (char letter in sentence.ToCharArray())
-        {
-            dialogueText.text += letter;
-            yield return null;
-        }
-    }
-    public void EndDialogue()
-    {
-        anim.SetBool("isOpen", false);
-    }
-}
+//    //public void DisplayNextSentence()
+//    //{
+//    //    if (sentences.Count == 0)
+//    //    {
+//    //        EndDialogue();
+//    //        return;
+//    //    }
+
+//    //    string sentence = sentences.Dequeue();
+//    //    StopAllCoroutines();
+//    //    StartCoroutine(TypeSentence(sentence));
+//    //}
+
+//    //IEnumerator TypeSentence(string sentence)
+//    //{
+//    //    dialogueText.text = "";
+//    //    foreach (char letter in sentence.ToCharArray())
+//    //    {
+//    //        dialogueText.text += letter;
+//    //        yield return null;
+//    //    }
+//    //}
+//    //public void EndDialogue()
+//    //{
+//    //    anim.SetBool("isOpen", false);
+//    //}
+//}

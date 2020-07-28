@@ -3793,6 +3793,7 @@ GameObject:
   - component: {fileID: 1105736723}
   - component: {fileID: 1105736722}
   - component: {fileID: 1105736721}
+  - component: {fileID: 1105736727}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3904,6 +3905,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1105736727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105736720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 277cb92b1ebd32344a69c1574772516b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: Joe
 --- !u!1 &1138302739
 GameObject:
   m_ObjectHideFlags: 0
@@ -5302,7 +5316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: 
+    enemyName: 
     sentences: []
   isPerson: 0
 --- !u!65 &1723028404
@@ -5869,7 +5883,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Joe  Vampire
+    enemyName: 
     sentences:
     - Oh look it's a random box.
     - I wonder what would happen if I walked up to it.
@@ -6293,6 +6307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895cda037df888e4da3cc0e68ce60706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   anim: {fileID: 1512865609}
   nameText: {fileID: 326348428}
   dialogueText: {fileID: 1102210830}
