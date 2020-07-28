@@ -24,9 +24,6 @@ public class PlayerController : MonoBehaviour
         CombatController.instance.itemList.Add(new Items(ItemType.Basic_Heath, 3, 10));
         CombatController.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2, 10));
 
-
-
-
         GameManager.instance.CollapseItemList(CombatController.instance.itemList);
     }
 
