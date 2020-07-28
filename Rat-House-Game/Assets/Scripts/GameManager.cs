@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     //Items the Player currently has
-    public List<Items> itemList = new List<Items>();
+    //public List<Items> itemList = new List<Items>();
 
     //Keeps track of the current game state
     private GameState _currState = GameState.Overworld;
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     }
 
     //Makes ot so there is only one of each item type in the list
-    public void CollapseItemList()
+    public void CollapseItemList(List<Items> itemList)
     {
         for (int i = 0; i < itemList.Count; i++)
         {
@@ -78,7 +78,12 @@ public class GameManager : MonoBehaviour
                     itemList.RemoveAt(k);
                     itemList.RemoveAt(i);
 
-                    itemList.Insert(i, newItem);
+
+                    if (newItem.count > 0)
+                    {
+                        itemList.Insert(i, newItem);
+                    }
+                    
                     
                 }
             }

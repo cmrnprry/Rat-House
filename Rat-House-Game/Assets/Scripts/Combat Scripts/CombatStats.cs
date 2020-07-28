@@ -143,9 +143,16 @@ public class CombatStats : MonoBehaviour
         //}
     }
 
-    public void DealDamageToEnemy(int enemyAttacked = 0)
+    //Updates the player's health, both damage and healing
+    public void UpdatePlayerHealth(float delta)
     {
-        var damage = DamageModifier(_attackDamage[(int)CombatController.instance.selectedAction]);
+        playerHealth += delta;
+    }
+
+    public void DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false, int itemDmg = 0)
+    {
+        // if isItem is true set damage to item damage otherwise do the damage calculation
+        var damage = isItem == true ? itemDmg : DamageModifier(_attackDamage[(int)CombatController.instance.selectedAction]);
 
         Debug.Log("Damange Dealt: " + damage);
 

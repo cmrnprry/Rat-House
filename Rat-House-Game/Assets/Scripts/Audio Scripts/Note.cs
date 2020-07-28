@@ -100,7 +100,6 @@ public class Note : MonoBehaviour
         Debug.Log("clear");
         foreach (Transform child in noteParent.transform)
         {
-            Debug.Log(child.position);
             Destroy(child.gameObject);
         }
 
