@@ -14,6 +14,7 @@ TagManager:
   - Enemy Parent
   - ItemMenu
   - MenuSelect
+  - Interactable
   layers:
   - Default
   - TransparentFX
