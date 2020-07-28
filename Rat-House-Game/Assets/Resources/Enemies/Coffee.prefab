@@ -125,5 +125,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 35
   _baseAcuracy: 0
-  _baseAttack: 5
+  _baseAttack: 10
   effectName: coffee_effect

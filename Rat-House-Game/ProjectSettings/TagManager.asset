@@ -17,6 +17,8 @@ TagManager:
   - intern_effect
   - coffee_effect
   - water_effect
+  - Button
+  - DeadScreen
   layers:
   - Default
   - TransparentFX

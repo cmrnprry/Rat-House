@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FINAL SCENES/Battle-FINAL.unity
     guid: 3e4f3eabfbd91254382ee2040c8c44f6
+  - enabled: 1
+    path: Assets/Scenes/FINAL SCENES/Joe Is Dead-FINAL.unity
+    guid: fa49cef7f19fd76479ff43cc287f2e40
   m_configObjects: {}

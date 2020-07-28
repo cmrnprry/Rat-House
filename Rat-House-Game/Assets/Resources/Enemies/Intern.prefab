@@ -125,5 +125,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 15
   _baseAcuracy: 0
-  _baseAttack: 2
+  _baseAttack: 5
   effectName: intern_effect

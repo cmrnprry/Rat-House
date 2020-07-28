@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,7 @@ public enum GameState
     Battle = 1,
     Boss = 2,
     CutScene = 3,
+    Dead = 4,
 }
 
 public class GameManager : MonoBehaviour
@@ -22,6 +24,8 @@ public class GameManager : MonoBehaviour
 
     //Keeps track of the current game state
     private GameState _currState = GameState.Overworld;
+
+    public GameObject _deathScreen;
 
     void Awake()
     {
@@ -51,6 +55,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Battle:
                 StartCoroutine(StartBattle());
+                
                 break;
             case GameState.Boss:
                 break;
@@ -71,7 +76,7 @@ public class GameManager : MonoBehaviour
             {
                 if (itemList[i].item == itemList[k].item)
                 {
-                
+
                     var total = itemList[i].count + itemList[k].count;
                     var newItem = new Items(itemList[i].item, total);
 
@@ -83,8 +88,8 @@ public class GameManager : MonoBehaviour
                     {
                         itemList.Insert(i, newItem);
                     }
-                    
-                    
+
+
                 }
             }
         }
@@ -111,6 +116,62 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CombatController.instance.ChooseAction());
     }
 
+    private IEnumerator ReturnToOverworld()
+    {
+        AudioManager.instance.StopCombatMusic();
+        CombatController.instance.ClearBattle();
+
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
+        SceneManager.LoadScene(0);
+
+        yield return new WaitForEndOfFrame();
+
+        //Show any Dialogue
+    }
+
+    //The Battle was won
+    //TODO: Set the beaten enemy to Beaten
+    public IEnumerator BattleLost()
+    {
+
+        //Play some sort of death animation or something
+
+        //while animaiotn is playing, return null
+
+        yield return null;
+
+        //  SceneManager.LoadScene("Joe Is Dead-FINAL");
+        _deathScreen.SetActive(true);
+
+
+        //Set Buttons
+        var buttons = GameObject.FindGameObjectsWithTag("Button");
+        var retry = buttons[0].GetComponent<Button>();
+        var quit = buttons[1].GetComponent<Button>();
+
+        //Set buttons on Click
+        retry.onClick.AddListener(RetryBattle);
+        quit.onClick.AddListener(QuitBattle);
+    }
+
+    //Retry the current battle
+    public void RetryBattle()
+    {
+        CombatController.instance.ResetBattle();
+        //StartCoroutine(StartBattle());
+    }
+
+    //Retrun to the overworld
+    public void QuitBattle()
+    {
+        _currState = GameState.Overworld;
+        UpdateGameState();
+    }
+
+    //The Battle was won
+    //TODO: Set the beaten enemy to Beaten
     public IEnumerator BattleWon()
     {
         //Play win music if any
@@ -123,20 +184,6 @@ public class GameManager : MonoBehaviour
 
         //Set Game State
         GameManager.instance.SetGameState(GameState.Overworld);
-    }
-
-    private IEnumerator ReturnToOverworld()
-    {
-        AudioManager.instance.StopCombatMusic();
-
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForEndOfFrame();
-
-        SceneManager.LoadScene(0);
-
-        yield return new WaitForEndOfFrame();
-
-        //Show any Dialogue
     }
 
     //Set the current game state

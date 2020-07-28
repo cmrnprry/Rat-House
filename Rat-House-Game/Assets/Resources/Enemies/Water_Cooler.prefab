@@ -125,5 +125,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 45
   _baseAcuracy: 0
-  _baseAttack: 5
+  _baseAttack: 15
   effectName: water_effect

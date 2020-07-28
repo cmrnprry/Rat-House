@@ -101,9 +101,38 @@ public class CombatController : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    void ResetBattle()
+    //Holds all the values to reset the battle
+    public void ResetBattle()
     {
+        //Clear old enemies obj and reset sleected
+        ClearBattle();
+
+        PlaceEnemies();
+
+        //Reset Stats
+        _stats.SetStats();
+
+        GameManager.instance._deathScreen.SetActive(false);
+        battleMenu.SetActive(true);
+        StartCoroutine(ChooseAction());
+    }
+
+    public void ClearBattle()
+    {
+        //Reset selected
         _selected = 0;
+        _selectedItem = 0;
+        _selectedEnemy = 0;
+
+        var parent = GameObject.FindGameObjectWithTag("Enemy Parent");
+
+        foreach (Transform child in parent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        //Reset Enemy lists
+        _inBattle = new List<GameObject>();
     }
 
     //Method to set up battles
@@ -115,9 +144,20 @@ public class CombatController : MonoBehaviour
         itemMenu = GameObject.FindGameObjectWithTag("ItemMenu");
         _stats = GameObject.FindGameObjectWithTag("CombatStats").GetComponent<CombatStats>();
         menuSelect = GameObject.FindGameObjectWithTag("MenuSelect");
+        GameManager.instance._deathScreen = GameObject.FindGameObjectWithTag("DeadScreen");
+        GameManager.instance._deathScreen.SetActive(false);
 
-        int index = 0;
+        PlaceEnemies();
+        Debug.Log("in Battle Count: " + _inBattle.Count);
+
+        _stats.SetStats();
+    }
+
+    void PlaceEnemies()
+    {
+        var index = 0;
         var parent = GameObject.FindGameObjectWithTag("Enemy Parent");
+
         foreach (var e in enemyList)
         {
             //Instasiate the enmy of Type
@@ -126,17 +166,12 @@ public class CombatController : MonoBehaviour
             //Add it to the list of enemy game objects
             _inBattle.Add(enemy);
 
-
             //Parent enemy
             enemy.transform.parent = parent.transform;
 
             //increase the index
             index++;
         }
-
-        Debug.Log("in Battle Count: " + _inBattle.Count);
-
-        _stats.SetStats();
     }
 
     //Handles the player choosing which action to take
@@ -416,9 +451,6 @@ public class CombatController : MonoBehaviour
                 var e = _inBattle[enemy].GetComponent<Enemy>();
                 e.AttackPlayer(enemyList[enemy]);
 
-                //Deal Damage to Player
-                _stats.UpdatePlayerHealth(e.GetBaseAttack());
-
                 //Waits untik this returns true
                 while (!e.IsTurnOver())
                 {
@@ -428,9 +460,17 @@ public class CombatController : MonoBehaviour
 
                 //Reset the IsTurnOver to be false
                 e.SetIsTurnOver(false);
+
+                //Deal Damage to Player
+                _stats.UpdatePlayerHealth(-1 * e.GetBaseAttack());
+
+                if (_stats.playerHealth <= 0)
+                {
+                    yield break;
+                }
             }
 
-           
+
             StartCoroutine(EnemyPhase(enemy + 1));
             yield break;
         }
