@@ -12,6 +12,8 @@ TagManager:
   - Intern
   - Water_Cooler
   - Enemy Parent
+  - ItemMenu
+  - MenuSelect
   layers:
   - Default
   - TransparentFX
