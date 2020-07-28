@@ -12,6 +12,7 @@ public enum GameState
     Battle = 1,
     Boss = 2,
     CutScene = 3,
+    Tutorial,
     Dead = 4,
 }
 
@@ -55,11 +56,12 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Battle:
                 StartCoroutine(StartBattle());
-                
                 break;
             case GameState.Boss:
                 break;
             case GameState.CutScene:
+                break;
+            case GameState.Tutorial:
                 break;
             default:
                 Debug.LogError("Something has gone wrong in GameState Update loop");
@@ -103,7 +105,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartBattle()
     {
         Debug.Log("Load Battle Scene");
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
 
         yield return new WaitForFixedUpdate();
 
@@ -124,7 +126,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
 
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
 
         yield return new WaitForEndOfFrame();
 
