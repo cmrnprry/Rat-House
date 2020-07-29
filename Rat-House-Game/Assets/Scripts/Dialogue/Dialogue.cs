@@ -11,9 +11,11 @@ public class Dialogue : MonoBehaviour
     public string[] speakers;
     public string[] sentences;
 
-    private int index;
+    [HideInInspector]
+    public int index;
 
     public float typingSpeed;
+    public bool isTyping = false;
 
     public Animator anim;
 
@@ -57,8 +59,11 @@ public class Dialogue : MonoBehaviour
         }
     }
 
-    IEnumerator Type()
+    public IEnumerator Type()
     {
+        isTyping = true;
+        Debug.Log(isTyping);
+
         //Type each letter in the sentence one at a time at a speed of one letter per unit of typingSpeed
         foreach (char letter in sentences[index].ToCharArray())
         {
@@ -66,6 +71,9 @@ public class Dialogue : MonoBehaviour
 
             yield return new WaitForSeconds(typingSpeed);
         }
+
+        isTyping = false;
+        Debug.Log(isTyping);
     }
     
 }

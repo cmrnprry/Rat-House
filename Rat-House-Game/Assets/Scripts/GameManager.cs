@@ -24,9 +24,14 @@ public class GameManager : MonoBehaviour
     //public List<Items> itemList = new List<Items>();
 
     //Keeps track of the current game state
-    private GameState _currState = GameState.Overworld;
+    private GameState _currState = GameState.Tutorial;
 
+    [HideInInspector]
     public GameObject _deathScreen;
+
+    [Header("Tutorial Script")]
+    //tutorial
+    public TutorialScript tutorial;
 
     void Awake()
     {
@@ -41,6 +46,12 @@ public class GameManager : MonoBehaviour
 
         // Do not destroy this object, when we load a new scene.
         DontDestroyOnLoad(this.gameObject);
+    }
+
+
+    private void Start()
+    {
+        UpdateGameState();
     }
 
     /** Method that is called when the game state needs to be updated
@@ -62,6 +73,7 @@ public class GameManager : MonoBehaviour
             case GameState.CutScene:
                 break;
             case GameState.Tutorial:
+                StartTutorial();
                 break;
             default:
                 Debug.LogError("Something has gone wrong in GameState Update loop");
@@ -202,5 +214,17 @@ public class GameManager : MonoBehaviour
     public GameState GetGameState()
     {
         return _currState;
+    }
+
+    //Handles the tutorial stuff
+    void StartTutorial()
+    {
+        Debug.Log("start tutorial");
+        //open the text box and start dialogue
+        tutorial.anim.SetBool("isOpen", true);
+        tutorial.dialogue.StartDialogue();
+
+        //start the dialogue in the tutorial script
+        StartCoroutine(tutorial.ShowStartDialogue());
     }
 }
