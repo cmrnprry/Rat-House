@@ -42,7 +42,7 @@ public class CombatStats : MonoBehaviour
         _attackDamage = CombatController.instance.attackDamage;
 
         //Player Stats
-        playerHealth = 50f;
+        playerHealth = 100f;
         playerBaseAccuracy = 100f;
 
         //for each enemy on the board add their health to the list

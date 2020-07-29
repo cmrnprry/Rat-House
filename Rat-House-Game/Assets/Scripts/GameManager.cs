@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartBattle()
     {
         Debug.Log("Load Battle Scene");
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("Battle-FINAL");
 
         yield return new WaitForFixedUpdate();
 
@@ -133,12 +133,14 @@ public class GameManager : MonoBehaviour
     private IEnumerator ReturnToOverworld()
     {
         AudioManager.instance.StopCombatMusic();
-        CombatController.instance.ClearBattle();
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Battle-FINAL"))
+            CombatController.instance.ClearBattle();
 
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Overworld_Level1-FINAL");
 
         yield return new WaitForEndOfFrame();
 
@@ -225,6 +227,6 @@ public class GameManager : MonoBehaviour
         tutorial.dialogue.StartDialogue();
 
         //start the dialogue in the tutorial script
-        StartCoroutine(tutorial.ShowStartDialogue());
+        StartCoroutine(tutorial.ShowOpeningDialogue());
     }
 }

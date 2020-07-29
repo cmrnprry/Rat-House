@@ -20,6 +20,7 @@ TagManager:
   - Button
   - DeadScreen
   - Interactable
+  - Dialogue
   layers:
   - Default
   - TransparentFX

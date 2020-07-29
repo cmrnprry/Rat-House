@@ -5,7 +5,8 @@ using UnityEngine;
  // Different Types of Potential Enemies
 public enum EnemyType
 {
-    NULL = -1,
+    NULL = -2,
+    Tutorial_Intern = -1,
     Coffee = 0,
     Intern = 1,
     Water_Cooler = 2,

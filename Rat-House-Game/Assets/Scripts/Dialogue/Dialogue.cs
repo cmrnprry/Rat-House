@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Dialogue : MonoBehaviour
 {
-    public Text dia;
-    public Text speakerName;
+    public TextMeshProUGUI dia;
+    public TextMeshProUGUI speakerName;
 
     public string[] speakers;
     public string[] sentences;

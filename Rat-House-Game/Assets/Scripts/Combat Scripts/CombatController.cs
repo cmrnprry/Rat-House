@@ -7,7 +7,8 @@ using static EnemyController;
 public enum ActionType
 {
     Item = -1,
-    Basic_Attack = 0,
+    Punch = 0,
+    Kick = 1,
 }
 
 public enum ItemType
@@ -206,8 +207,13 @@ public class CombatController : MonoBehaviour
 
             switch (_actionList[_selected])
             {
-                case ActionType.Basic_Attack:
-                    Debug.Log("Basic Attack");
+                case ActionType.Punch:
+                    Debug.Log("Punch");
+                    TurnOffHighlight();
+                    StartCoroutine(ChooseEnemy(false));
+                    break;
+                case ActionType.Kick:
+                    Debug.Log("Kick");
                     TurnOffHighlight();
                     StartCoroutine(ChooseEnemy(false));
                     break;
@@ -350,7 +356,6 @@ public class CombatController : MonoBehaviour
         StartCoroutine(EnemyPhase());
     }
 
-
     //Allows the player to choose which enemy they will attack
     IEnumerator ChooseEnemy(bool isItem)
     {
@@ -416,7 +421,7 @@ public class CombatController : MonoBehaviour
         StartCoroutine(ChooseEnemy(isItem));
     }
 
-    void HighlightEnemy()
+    public void HighlightEnemy()
     {
         var parent = GameObject.FindGameObjectWithTag("Enemy Parent");
         var particles = parent.transform.GetChild(0);
@@ -497,7 +502,7 @@ public class CombatController : MonoBehaviour
 
 
     //Turns off all the highlights and menus
-    void TurnOffHighlight()
+    public void TurnOffHighlight()
     {
         battleMenu.SetActive(false);
         menuSelect.SetActive(false);
@@ -509,7 +514,7 @@ public class CombatController : MonoBehaviour
     }
 
     //Adds highlight to the battle menu
-    void HighlightMenuItem()
+    public void HighlightMenuItem()
     {
         menuSelect.SetActive(true);
         if (battleMenu.activeSelf)
@@ -525,7 +530,7 @@ public class CombatController : MonoBehaviour
     }
 
     //Returns to the Battle Menu
-    void ReturnToBattleMenu()
+    public void ReturnToBattleMenu()
     {
         StartCoroutine(ChooseAction());
         battleMenu.SetActive(true);
@@ -553,5 +558,18 @@ public class CombatController : MonoBehaviour
     public void SetEnemies(List<EnemyType> e)
     {
         enemyList = e;
+    }
+
+
+    //Sets up the tutorial Battle Scene
+    public void TutorialSetUp()
+    {
+        //Find the correct things
+        battleMenu = GameObject.FindGameObjectWithTag("BattleMenu");
+        itemMenu = GameObject.FindGameObjectWithTag("ItemMenu");
+        _stats = GameObject.FindGameObjectWithTag("CombatStats").GetComponent<CombatStats>();
+        menuSelect = GameObject.FindGameObjectWithTag("MenuSelect");
+
+        PlaceEnemies();
     }
 }

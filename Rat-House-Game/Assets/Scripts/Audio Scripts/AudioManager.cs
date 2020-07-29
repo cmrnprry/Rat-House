@@ -199,6 +199,10 @@ public class AudioManager : MonoBehaviour
     //Waits a second before starting the attack music
     public IEnumerator SetMap(int action)
     {
+        //Placeholder until more are added
+        if (action == 1)
+            action = 0;
+
         Debug.Log("Attack Type: " + action);
        // Debug.Log("Set Map");
         float currPos = songPositionInBeats;

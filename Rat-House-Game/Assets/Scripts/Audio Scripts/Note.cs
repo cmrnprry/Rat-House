@@ -74,8 +74,14 @@ public class Note : MonoBehaviour
                 gameObject.transform.localPosition = startPoint;
                 transform.position += new Vector3(offsetSlider, 0f, 0f);
 
-                //Calculate Damage
-                CombatController.instance.DealDamage();
+                //IF WE ARE NOT IN THE TUTORIAL DEAL DAMAGE
+                if (GameManager.instance.GetGameState() != GameState.Tutorial)
+                {
+                    //Calculate Damage
+                    CombatController.instance.DealDamage();
+                }
+
+
             }
 
         }
