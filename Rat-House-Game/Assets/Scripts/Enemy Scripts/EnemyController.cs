@@ -5,6 +5,8 @@ using UnityEngine;
  // Different Types of Potential Enemies
 public enum EnemyType
 {
+    NULL = -2,
+    Tutorial_Intern = -1,
     Coffee = 0,
     Intern = 1,
     Water_Cooler = 2,
@@ -28,15 +30,4 @@ public class EnemyController : MonoBehaviour
          
          */
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

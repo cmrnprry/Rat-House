@@ -5,11 +5,11 @@ using UnityEngine;
 public class CombatStats : MonoBehaviour
 {
     //Player Stats
-    private float playerHealth = 100f;
+    public float playerHealth = 50f;
     private float playerBaseAccuracy = 100f;
 
     //Enemy Stats
-    private List<float> enemyHealth = new List<float>();
+    private List<float> enemyHealth;
     private List<float> enemyBaseAccuracy;
     private int _enemiesLeft = 0;
 
@@ -38,7 +38,12 @@ public class CombatStats : MonoBehaviour
     // Sets the stats
     public void SetStats()
     {
+        enemyHealth = new List<float>();
         _attackDamage = CombatController.instance.attackDamage;
+
+        //Player Stats
+        playerHealth = 100f;
+        playerBaseAccuracy = 100f;
 
         //for each enemy on the board add their health to the list
         foreach (GameObject e in CombatController.instance._inBattle)
@@ -147,6 +152,14 @@ public class CombatStats : MonoBehaviour
     public void UpdatePlayerHealth(float delta)
     {
         playerHealth += delta;
+
+        Debug.Log("Playe Health: " + playerHealth);
+
+        if (playerHealth <= 0)
+        {
+            Debug.Log("Joe is Dead");
+            StartCoroutine(GameManager.instance.BattleLost());
+        }
     }
 
     public void DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false, int itemDmg = 0)
@@ -165,6 +178,7 @@ public class CombatStats : MonoBehaviour
         if (enemyHealth[enemyAttacked] <= 0)
         {
             //play enemy death animiation
+            Debug.Log("Enemy Dead");
 
             //decrease the number o f enemies left
             _enemiesLeft -= 1;
@@ -176,7 +190,7 @@ public class CombatStats : MonoBehaviour
 
             //remove enemy from list(s)
             CombatController.instance._inBattle[enemyAttacked] = null;
-            //CombatController.instance.enemyList.Remove(CombatController.instance.enemyList[enemyAttacked]);
+          //  CombatController.instance.enemyList[enemyAttacked] = EnemyType.NULL;
 
             Debug.Log(CombatController.instance._inBattle[enemyAttacked]);
 
@@ -235,7 +249,7 @@ public class CombatStats : MonoBehaviour
         if (other.gameObject.tag == "Note")
         {
             _canHit = false;
-          //  Debug.Log("Can NOT hit");
+            //  Debug.Log("Can NOT hit");
         }
     }
 }

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class InteractableText : MonoBehaviour
 {
     public Animator anim;
 
-    public Text nameText;
-    public Text dialogueText;
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI dialogueText;
 
     public string[] itemComments;
 

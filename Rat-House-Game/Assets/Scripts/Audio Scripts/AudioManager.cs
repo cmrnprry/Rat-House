@@ -182,6 +182,11 @@ public class AudioManager : MonoBehaviour
         //Updates what music the player has selected assuimung it's not an item
         if (CombatController.instance.selectedAction != ActionType.Item)
         {
+            if (CombatController.instance.selectedAction == ActionType.Kick)
+            {
+                CombatController.instance.selectedAction = ActionType.Punch;
+            }
+
             attackMusic.clip = attackClips[(int)CombatController.instance.selectedAction];
 
             float length = (float)(Math.Truncate((double)attackMusic.clip.length * 100.0) / 100.0);
@@ -199,6 +204,10 @@ public class AudioManager : MonoBehaviour
     //Waits a second before starting the attack music
     public IEnumerator SetMap(int action)
     {
+        //Placeholder until more are added
+        if (action == 1)
+            action = 0;
+
         Debug.Log("Attack Type: " + action);
        // Debug.Log("Set Map");
         float currPos = songPositionInBeats;
