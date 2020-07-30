@@ -9397,8 +9397,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198acfe9c15b7cc44a764da2f114fa6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyList: 000000000100000002000000
-  _actionList: 00000000ffffffff
+  enemyList: 
+  _actionList: 0000000001000000ffffffff
   attackDamage:
   - 20
   enemyPlacement:
