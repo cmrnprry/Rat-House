@@ -20,9 +20,6 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(PlayerMovement());
 
         //Items the player starts with
-        //THIS IS MAINLY FOR TESTING
-        CombatController.instance.itemList.Add(new Items(ItemType.Basic_Heath, 3, 10));
-        CombatController.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2, 10));
 
         GameManager.instance.CollapseItemList(CombatController.instance.itemList);
     }

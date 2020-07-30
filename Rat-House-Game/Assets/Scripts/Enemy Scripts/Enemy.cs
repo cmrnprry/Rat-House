@@ -44,6 +44,10 @@ public class Enemy : MonoBehaviour
                 Debug.Log("Intern attack");
                 StartCoroutine(InternAttack());
                 break;
+            case EnemyType.Tutorial_Intern:
+                Debug.Log("Tutorial Intern attack");
+                StartCoroutine(TutorialInternAttack());
+                break;
             default:
                 Debug.LogError("Error in Enemy Attack");
                 break;
@@ -93,6 +97,27 @@ public class Enemy : MonoBehaviour
     }
 
     IEnumerator WaterAttack()
+    {
+        //Play some animation
+        _attackAnim.Play();
+        Debug.Log("Play attack animation");
+
+        //while the animation is playing wait
+
+        while (!_attackAnim.isStopped)
+        {
+            Debug.Log("attack animation Over: " + _attackAnim.isStopped);
+            yield return null;
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        _turnOver = true;
+    }
+
+
+    //Handles attacks for Intern
+    IEnumerator TutorialInternAttack()
     {
         //Play some animation
         _attackAnim.Play();

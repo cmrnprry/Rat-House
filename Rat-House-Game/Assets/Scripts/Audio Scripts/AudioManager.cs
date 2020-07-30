@@ -182,6 +182,11 @@ public class AudioManager : MonoBehaviour
         //Updates what music the player has selected assuimung it's not an item
         if (CombatController.instance.selectedAction != ActionType.Item)
         {
+            if (CombatController.instance.selectedAction == ActionType.Kick)
+            {
+                CombatController.instance.selectedAction = ActionType.Punch;
+            }
+
             attackMusic.clip = attackClips[(int)CombatController.instance.selectedAction];
 
             float length = (float)(Math.Truncate((double)attackMusic.clip.length * 100.0) / 100.0);

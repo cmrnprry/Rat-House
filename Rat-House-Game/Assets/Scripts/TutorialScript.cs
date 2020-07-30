@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class TutorialScript : MonoBehaviour
 {
@@ -9,12 +10,22 @@ public class TutorialScript : MonoBehaviour
     private int _index = 0;
     private bool hasHit = false;
 
+    //Checks if enemy has been selected
+    private bool _enemySelected = false;
+
     //Checks if the battle action is done
     private bool _isFinished = false;
+    private bool _canSelect = false;
+
+    //Variables for any attack
+    private int _selected = 0;
+    private int _maxBattleOptions = 3;
 
     public Animator anim;
 
     public Dialogue dialogue;
+
+    public string[] afterBattleDialogue;
 
     //Shows the Opening Dialogue for the tutorial
     public IEnumerator ShowOpeningDialogue()
@@ -31,7 +42,7 @@ public class TutorialScript : MonoBehaviour
         //wait for the player to press enter/space
         while (!Input.GetButton("SelectAction"))
         {
-            Debug.Log("waiting for player to hit enter/space");
+
             yield return null;
         }
 
@@ -39,7 +50,7 @@ public class TutorialScript : MonoBehaviour
         if (Input.GetButton("SelectAction"))
         {
             //When we're at the end of the intro dialogue
-            if (_index == 0)//dialogue.sentences.Length)
+            if (_index == dialogue.sentences.Length)
             {
                 //Lower the text box
                 anim.SetBool("isOpen", false);
@@ -114,6 +125,21 @@ public class TutorialScript : MonoBehaviour
             case 4:
                 StartCoroutine(StartAttackMusic(0));
                 break;
+            case 6:
+                StartCoroutine(Kick());
+                break;
+            case 8:
+                StartCoroutine(UseAttackItem());
+                break;
+            case 10:
+                StartCoroutine(EnemyAttacks());
+                break;
+            case 12:
+                StartCoroutine(UseHealthItem());
+                break;
+            case 14:
+                StartCoroutine(AnyAttack());
+                break;
             default:
                 Debug.LogError("Something has gone wrong :(");
                 break;
@@ -126,6 +152,34 @@ public class TutorialScript : MonoBehaviour
             yield return null;
         }
 
+        //If this is the last bit of dialogue
+        if (_index == 14)
+        {
+            //Stop the music
+            AudioManager.instance.StopCombatMusic();
+
+            //Load the Scene
+            SceneManager.LoadScene("Tutorial-FINAL");
+
+            yield return new WaitForSecondsRealtime(0.5f);
+
+            var d = GameObject.FindGameObjectsWithTag("Dialogue");
+
+            anim = d[0].GetComponent<Animator>();
+            dialogue = d[1].GetComponent<Dialogue>();
+            anim.SetBool("isOpen", true);
+
+            dialogue.sentences = afterBattleDialogue;
+
+            _index = 0;
+
+            //Start dialogue
+            dialogue.StartDialogue();
+            StartCoroutine(ShowAfterBattleDialogue());
+
+            yield break;
+        }
+
         //reset the bool to fase
         _isFinished = false;
 
@@ -133,6 +187,45 @@ public class TutorialScript : MonoBehaviour
         dialogue.NextSentence();
 
         StartCoroutine(ShowBattleDialogue());
+    }
+
+    IEnumerator ShowAfterBattleDialogue()
+    {
+        Debug.Log("index: " + _index);
+
+        //Waits for the text to stop typing
+        while (dialogue.isTyping)
+        {
+            Debug.Log("Wait until done typing");
+            yield return null;
+        }
+
+        //wait for the player to press enter/space
+        while (!Input.GetButton("SelectAction"))
+        {
+            yield return null;
+        }
+
+        //when you press space...
+        if (Input.GetButtonDown("SelectAction"))
+        {
+            //When we're at the end of the intro dialogue
+            if (_index == dialogue.sentences.Length)
+            {
+                yield return new WaitForSecondsRealtime(.5f);
+                GameManager.instance.SetGameState(GameState.Overworld);
+            }
+
+            Debug.Log("Next Line");
+
+            _index++;
+
+            //load next sentence
+            dialogue.NextSentence();
+            StartCoroutine(ShowAfterBattleDialogue());
+            yield break;
+        }
+
     }
 
     IEnumerator StartAttackMusic(int selected)
@@ -151,7 +244,7 @@ public class TutorialScript : MonoBehaviour
         CombatController.instance.battleMenu.SetActive(true);
         CombatController.instance.HighlightMenuItem();
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(.5f);
 
         _isFinished = true;
     }
@@ -163,35 +256,488 @@ public class TutorialScript : MonoBehaviour
         //wait for the player to press enter/space
         while (!Input.GetButtonDown("SelectAction"))
         {
-            Debug.Log("waiting for player to hit enter/space");
             yield return null;
         }
 
-        //yield return new WaitForFixedUpdate();
         yield return new WaitForEndOfFrame();
 
         //when you hit space...
-        CombatController.instance.TurnOffHighlight();
-        CombatController.instance.HighlightEnemy();
-
         StartCoroutine(SelectEnemy());
 
+        //wait for the player to slesct enemy
+        while (!_enemySelected)
+            yield return null;
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        _enemySelected = false;
+        _isFinished = true;
     }
 
-    IEnumerator SelectEnemy()
+    IEnumerator Kick()
     {
-        Debug.Log("Select");
+        Debug.Log("Kick");
+
+        //wait for the player to press hit down
+        while (!Input.GetButtonDown("Down"))
+        {
+            Debug.Log("wait for the player to press hit down");
+            yield return null;
+        }
+
+        //Change selected action
+        CombatController.instance.selectedAction = ActionType.Kick;
+
+        //Change the selected action
+        var x = CombatController.instance.battleMenu.transform.GetChild(1);
+        CombatController.instance.menuSelect.transform.position = x.position;
+
+        yield return new WaitForEndOfFrame();
 
         //wait for the player to press enter/space
         while (!Input.GetButtonDown("SelectAction"))
         {
-            Debug.Log("waiting for player to hit enter/space");
+            yield return null;
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        //when you hit space...
+        StartCoroutine(SelectEnemy());
+
+        //wait for the player to slesct enemy
+        while (!_enemySelected)
+            yield return null;
+
+        yield return new WaitForEndOfFrame();
+
+        StartCoroutine(StartAttackMusic(0));
+
+        _enemySelected = false;
+
+        //Change selected action
+        CombatController.instance.selectedAction = ActionType.Punch;
+    }
+
+    IEnumerator UseAttackItem()
+    {
+        //hit down twice then enter down enter
+        Debug.Log("Use attack Item");
+
+        //wait for the player to press hit down
+        while (!Input.GetButtonDown("Down"))
+        {
+            Debug.Log("wait for the player to press hit down");
+            yield return null;
+        }
+
+        //Change the selected action
+        var x = CombatController.instance.battleMenu.transform.GetChild(1);
+        CombatController.instance.menuSelect.transform.position = x.position;
+
+        //Change selected action
+        CombatController.instance.selectedAction = ActionType.Kick;
+
+        yield return new WaitForEndOfFrame();
+
+        //wait for the player to press hit down
+        while (!Input.GetButtonDown("Down"))
+        {
+            Debug.Log("wait for the player to press hit down");
+            yield return null;
+        }
+
+        //Change the selected action
+        var y = CombatController.instance.battleMenu.transform.GetChild(2);
+        CombatController.instance.menuSelect.transform.position = y.position;
+
+        //Change selected action
+        CombatController.instance.selectedAction = ActionType.Item;
+
+        yield return new WaitForEndOfFrame();
+
+        //wait for the player to press enter/space
+        while (!Input.GetButtonDown("SelectAction"))
+        {
+
+            yield return null;
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        //change to item menu
+        ShowItemMenu(2, 2);
+
+        while (!Input.GetButtonDown("Down"))
+        {
+            Debug.Log("wait for the player to press hit down");
+            yield return null;
+        }
+
+        var z = CombatController.instance.itemMenu.transform.GetChild(1);
+        CombatController.instance.menuSelect.transform.position = z.position;
+
+        yield return new WaitForEndOfFrame();
+
+        //wait for the player to press enter/space
+        while (!Input.GetButtonDown("SelectAction"))
+        {
+
+            yield return null;
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        //when you hit space...
+        StartCoroutine(SelectEnemy());
+
+        //wait for the player to slesct enemy
+        while (!_enemySelected)
+            yield return null;
+
+        yield return new WaitForEndOfFrame();
+
+        //Play some animation
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        _isFinished = true;
+        //Change selected action
+        CombatController.instance.selectedAction = ActionType.Punch;
+    }
+
+    IEnumerator EnemyAttacks()
+    {
+        Debug.Log("Enemy Attacks!");
+
+        //Turn off the battle menu
+        CombatController.instance.TurnOffHighlight();
+
+
+
+        //WHEN WE HAVE THE DODGING IN PLACE THAT HERE
+
+
+        //For now this is the placeholder attacks
+        var e = CombatController.instance._inBattle[0].GetComponent<Enemy>();
+
+        e.AttackPlayer(EnemyType.Tutorial_Intern);
+
+        while (!e.IsTurnOver())
+        {
+            Debug.Log("Turn is not yet over");
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        _isFinished = true;
+        ShowBattleMenu();
+        CombatController.instance.HighlightMenuItem();
+    }
+
+    IEnumerator UseHealthItem()
+    {
+        //hit down twice then twice enter
+        Debug.Log("Use health Item");
+
+        //wait for the player to press hit down
+        while (!Input.GetButtonDown("Down"))
+        {
+            Debug.Log("wait for the player to press hit down");
+            yield return null;
+        }
+
+        //Change the selected action
+        var x = CombatController.instance.battleMenu.transform.GetChild(1);
+        CombatController.instance.menuSelect.transform.position = x.position;
+
+        //Change selected action
+        CombatController.instance.selectedAction = ActionType.Kick;
+
+        yield return new WaitForEndOfFrame();
+
+        //wait for the player to press hit down
+        while (!Input.GetButtonDown("Down"))
+        {
+            Debug.Log("wait for the player to press hit down");
+            yield return null;
+        }
+
+        //Change the selected action
+        var y = CombatController.instance.battleMenu.transform.GetChild(2);
+        CombatController.instance.menuSelect.transform.position = y.position;
+
+        //Change selected action
+        CombatController.instance.selectedAction = ActionType.Item;
+
+        yield return new WaitForEndOfFrame();
+
+        //wait for the player to press enter/space
+        while (!Input.GetButtonDown("SelectAction"))
+        {
+
+            yield return null;
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        //change to item menu
+        ShowItemMenu(2, 1);
+
+        yield return new WaitForEndOfFrame();
+
+        //wait for the player to press enter/space
+        while (!Input.GetButtonDown("SelectAction"))
+        {
+
+            yield return null;
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        //Play some animation
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        _isFinished = true;
+        ShowBattleMenu();
+        CombatController.instance.HighlightMenuItem();
+        //Change selected action
+        CombatController.instance.selectedAction = ActionType.Punch;
+    }
+
+    IEnumerator AnyAttack()
+    {
+        Debug.Log("Choose Action");
+        if (Input.GetButton("Up"))
+        {
+            if (_selected == 0)
+            {
+                _selected = _maxBattleOptions - 1;
+            }
+            else
+            {
+                _selected--;
+            }
+        }
+        else if (Input.GetButton("Down"))
+        {
+            if (_selected == _maxBattleOptions - 1)
+            {
+                _selected = 0;
+            }
+            else
+            {
+                _selected++;
+            }
+        }
+        else if (Input.GetButton("SelectAction") && _canSelect)
+        {
+            _canSelect = false;
+            switch (_selected)
+            {
+                case 0:
+                    Debug.Log("Punch");
+                    StartCoroutine(ChooseAttack());
+                    break;
+                case 1:
+                    Debug.Log("Kick");
+                    StartCoroutine(ChooseAttack());
+                    break;
+                case 2:
+                    Debug.Log("Items");
+                    _selected = 0;
+                    ShowItemMenu(2, 1);
+                    StartCoroutine(ChooseItem());
+                    break;
+                default:
+                    Debug.LogError("Something has gone wrong in Combat Controller");
+                    break;
+            }
+
+            _selected = 0;
+            yield break;
+        }
+
+        //Fix Highlight
+        var x = CombatController.instance.battleMenu.transform.GetChild(_selected);
+        CombatController.instance.menuSelect.transform.position = x.position;
+
+        //Change selected action
+        if (_selected == 0)
+        {
+            CombatController.instance.selectedAction = ActionType.Punch;
+        }
+        else if (_selected == 1)
+        {
+            CombatController.instance.selectedAction = ActionType.Kick;
+        }
+        else
+        {
+            CombatController.instance.selectedAction = ActionType.Item;
+        }
+
+        _canSelect = true;
+        yield return new WaitForSecondsRealtime(.15f);
+        StartCoroutine(AnyAttack());
+    }
+
+    //Choose Attack to be final attack
+    IEnumerator ChooseAttack()
+    {
+        StartCoroutine(SelectEnemy());
+
+        //wait for the player to slesct enemy
+        while (!_enemySelected)
+            yield return null;
+
+        yield return new WaitForEndOfFrame();
+
+        StartCoroutine(StartAttackMusic(_selected));
+    }
+
+    IEnumerator ChooseItem()
+    {
+        Debug.Log("Choose Item");
+        if (Input.GetButton("Up"))
+        {
+            if (_selected == 0)
+            {
+                _selected = 1;
+            }
+            else
+            {
+                _selected--;
+            }
+        }
+        else if (Input.GetButton("Down"))
+        {
+            if (_selected == 1)
+            {
+                _selected = 0;
+            }
+            else
+            {
+                _selected++;
+            }
+        }
+        else if (Input.GetButton("SelectAction") && _canSelect)
+        {
+            _canSelect = false;
+            switch (_selected)
+            {
+                case 1:
+                    Debug.Log("Action Item");
+                    StartCoroutine(SelectEnemy());
+
+                    //wait for the player to slesct enemy
+                    while (!_enemySelected)
+                        yield return null;
+
+                    yield return new WaitForEndOfFrame();
+
+                    //Play some animation
+
+                    yield return new WaitForSecondsRealtime(0.5f);
+
+                    _isFinished = true;
+
+                    _enemySelected = false;
+                    break;
+                case 0:
+                    Debug.Log("Heal");
+                    StartCoroutine(ChooseItem());
+                    break;
+                default:
+                    Debug.LogError("Something has gone wrong in Combat Controller");
+                    break;
+            }
+
+            _selected = 0;
+            yield break;
+        }
+        else if (Input.GetButton("Back"))
+        {
+            ShowBattleMenu();
+            CombatController.instance.HighlightMenuItem();
+            CombatController.instance.selectedAction = ActionType.Punch;
+            _selected = 0;
+
+            StartCoroutine(AnyAttack());
+
+            yield break;
+        }
+
+        //Fix Highlight
+        var x = CombatController.instance.battleMenu.transform.GetChild(_selected);
+        CombatController.instance.menuSelect.transform.position = x.position;
+
+        _canSelect = true;
+        yield return new WaitForSecondsRealtime(.15f);
+
+        StartCoroutine(ChooseItem());
+    }
+
+
+    IEnumerator SelectEnemy()
+    {
+        Debug.Log("Select Enemy");
+        CombatController.instance.TurnOffHighlight();
+        CombatController.instance.HighlightEnemy();
+
+        _enemySelected = false;
+        //wait for the player to press enter/space
+        while (!Input.GetButtonDown("SelectAction"))
+        {
+
             yield return null;
         }
 
         CombatController.instance.TurnOffHighlight();
+        _enemySelected = true;
+    }
 
-        _isFinished = true;
+    void ShowItemMenu(int health, int damage)
+    {
+        //sets the text pos
+        var text = CombatController.instance.battleMenu.transform.GetChild(0).gameObject;
+
+        //turns on the correct menus
+        CombatController.instance.battleMenu.SetActive(false);
+        CombatController.instance.itemMenu.SetActive(true);
+
+        foreach (var i in CombatController.instance.itemList)
+        {
+            var item = i.item.ToString().Replace('_', ' ');
+            var obj = Instantiate(text, CombatController.instance.itemMenu.transform);
+            if (i.item == ItemType.Basic_Damage)
+            {
+                obj.GetComponent<TextMeshProUGUI>().text = item + " (" + damage + ")";
+            }
+            else if (i.item == ItemType.Basic_Heath)
+            {
+                obj.GetComponent<TextMeshProUGUI>().text = item + " (" + health + ")";
+            }
+
+        }
+
+        //resets highlight to 0
+        var x = CombatController.instance.itemMenu.transform.GetChild(0);
+        CombatController.instance.menuSelect.transform.position = x.position;
+    }
+
+    void ShowBattleMenu()
+    {
+        CombatController.instance.battleMenu.SetActive(true);
+
+        //Clear Item Menu
+        foreach (Transform child in CombatController.instance.itemMenu.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        CombatController.instance.itemMenu.SetActive(false);
     }
 
     //Shows the Battle Dialogue for the tutorial
@@ -210,7 +756,7 @@ public class TutorialScript : MonoBehaviour
         //wait for the player to press enter/space
         while (!Input.GetButton("SelectAction"))
         {
-            Debug.Log("waiting for player to hit enter/space");
+
             yield return null;
         }
 

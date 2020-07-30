@@ -51,6 +51,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        //Items the player starts off with
+        CombatController.instance.itemList.Add(new Items(ItemType.Basic_Heath, 3, 10));
+        CombatController.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2, 10));
+
         UpdateGameState();
     }
 

@@ -118,6 +118,11 @@ public class Note : MonoBehaviour
     {
         if (_curAction != ActionType.Item)
         {
+            //TODO: Implement other attacks
+            if (_curAction == ActionType.Kick)
+            {
+                _curAction = ActionType.Punch;
+            }
             beats = AudioManager.instance.beatMap[(int)_curAction].beatsToHit;
             CombatStats._totalHits = beats.Count;
         }

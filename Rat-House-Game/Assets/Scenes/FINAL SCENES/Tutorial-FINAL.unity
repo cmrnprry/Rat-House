@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 22989727}
   m_Layer: 5
   m_Name: Dialogue Box
-  m_TagString: Untagged
+  m_TagString: Dialogue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10087,7 +10087,7 @@ GameObject:
   - component: {fileID: 1021941633}
   m_Layer: 0
   m_Name: Dialogue Manager
-  m_TagString: Untagged
+  m_TagString: Dialogue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12511,6 +12511,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 22989727}
   dialogue: {fileID: 1021941633}
+  afterBattleDialogue:
+  - Ha! That'll show you not to get between me and my mug!
+  - Hang on, muggy...Lord Joethius P. Bradford III, Esquire's coming.
 --- !u!1 &1270840854
 GameObject:
   m_ObjectHideFlags: 0
