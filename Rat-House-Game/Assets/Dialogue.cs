@@ -8,8 +8,12 @@ public class Dialogue : MonoBehaviour
     public Text dia;
     public Text speakerName;
 
+    public Image speakerHead;
+
     public string[] speakers;
     public string[] sentences;
+
+    public Sprite[] heads;
 
     private int index;
 
@@ -22,6 +26,7 @@ public class Dialogue : MonoBehaviour
     {
         //Set the first speaker's name, set the text to empty, start at the first sentence, and start typing
         speakerName.text = speakers[0];
+        speakerHead.sprite = heads[0];
         dia.text = "";
         index = 0;
         StartCoroutine(Type());
@@ -37,10 +42,12 @@ public class Dialogue : MonoBehaviour
             if (speakerName.text == speakers[0])
             {
                 speakerName.text = speakers[1];
+                speakerHead.sprite = heads[1];
             }
             else if (speakerName.text == speakers[1])
             {
                 speakerName.text = speakers[0];
+                speakerHead.sprite = heads[0];
             }
 
             //load the next sentence, erase the previous one, and start typing
