@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     //public List<Items> itemList = new List<Items>();
 
     //Keeps track of the current game state
-    private GameState _currState = GameState.Overworld;
+    private GameState _currState = GameState.Tutorial;
 
     [HideInInspector]
     public GameObject _deathScreen;

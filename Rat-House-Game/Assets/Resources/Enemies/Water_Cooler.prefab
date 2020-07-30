@@ -124,7 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fbdf2dc74f7fd409f9e62071e5644f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 45
+  _maxHealth: 45
+  _baseAcuracy: 50
+  _baseAttack: 10
+  effectName: coffee_effect
 --- !u!1 &7195869509373582166
 GameObject:
   m_ObjectHideFlags: 0
