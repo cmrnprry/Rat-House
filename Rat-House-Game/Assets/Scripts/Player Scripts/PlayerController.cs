@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
 
             //tells the Combat Manager which enemies the player could possibly fight
             CombatController.instance.SetEnemies(collider.gameObject.GetComponent<EnemyController>().enemiesInBattle);
+            GameManager.instance.currEnemy = collider.gameObject;
             _canFight = true;
         }
     }

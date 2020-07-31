@@ -17,6 +17,8 @@ public class EnemyController : MonoBehaviour
     [Header("Enemies to Appear in an Encounter")]
     public List<EnemyType> enemiesInBattle;
 
+    public bool isBeaten = false;
+
 
     /*
      PLANNED CODE:

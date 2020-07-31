@@ -25,7 +25,14 @@ public class TutorialScript : MonoBehaviour
 
     public Dialogue dialogue;
 
+    [TextArea(3, 5)]
     public string[] afterBattleDialogue;
+
+    [TextArea(3, 5)]
+    public string[] duringBattleDialogue;
+
+    [TextArea(3, 5)]
+    public string[] beforeBattleDialogue;
 
     //Shows the Opening Dialogue for the tutorial
     public IEnumerator ShowOpeningDialogue()
@@ -35,14 +42,12 @@ public class TutorialScript : MonoBehaviour
         //Waits for the text to stop typing
         while (dialogue.isTyping)
         {
-            Debug.Log("Wait until done typing");
             yield return null;
         }
 
         //wait for the player to press enter/space
         while (!Input.GetButton("SelectAction"))
         {
-
             yield return null;
         }
 
@@ -76,17 +81,10 @@ public class TutorialScript : MonoBehaviour
 
             Debug.Log("Next Line");
 
-            if (_index == 0 || _index == 5)
-            {
-                //trick the code into thinking the other person is talking
-                dialogue.speakerName.text = dialogue.speakers[1];
-            }
-
             _index++;
 
             //load next sentence
             dialogue.NextSentence();
-            // dialogue.index += 1;
 
             StartCoroutine(ShowOpeningDialogue());
             yield break;
@@ -100,12 +98,10 @@ public class TutorialScript : MonoBehaviour
 
         Debug.Log("start Tutorial Battle");
 
-        //Set som stuff
-        var d = GameObject.FindGameObjectsWithTag("Dialogue");
-
-        anim = d[0].GetComponent<Animator>();
-        dialogue = d[1].GetComponent<Dialogue>();
         anim.SetBool("isOpen", true);
+
+        //set the sentences in the dialogue manager
+        dialogue.sentences = duringBattleDialogue;
 
         //Start dialogue
         dialogue.StartDialogue();
@@ -152,26 +148,28 @@ public class TutorialScript : MonoBehaviour
             yield return null;
         }
 
+        GameManager.instance.battleAnimator.SetBool("isOpen", false);
+
+        yield return new WaitForSecondsRealtime(.2f);
+
         //If this is the last bit of dialogue
-        if (_index == 14)
+        if (_index == duringBattleDialogue.Length)
         {
             //Stop the music
             AudioManager.instance.StopCombatMusic();
+
+            //set thesentences in the dialogue manager
+            dialogue.sentences = afterBattleDialogue;
 
             //Load the Scene
             SceneManager.LoadScene("Tutorial-FINAL");
 
             yield return new WaitForSecondsRealtime(0.5f);
 
-            var d = GameObject.FindGameObjectsWithTag("Dialogue");
-
-            anim = d[0].GetComponent<Animator>();
-            dialogue = d[1].GetComponent<Dialogue>();
-            anim.SetBool("isOpen", true);
-
-            dialogue.sentences = afterBattleDialogue;
-
+            //Reset index
             _index = 0;
+
+            anim.SetBool("isOpen", true);
 
             //Start dialogue
             dialogue.StartDialogue();
@@ -496,6 +494,8 @@ public class TutorialScript : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
+        GameManager.instance.battleAnimator.SetBool("isOpen", false);
+
         //Play some animation
 
         yield return new WaitForSecondsRealtime(0.5f);
@@ -679,11 +679,10 @@ public class TutorialScript : MonoBehaviour
         StartCoroutine(ChooseItem());
     }
 
-
     IEnumerator SelectEnemy()
     {
         Debug.Log("Select Enemy");
-        CombatController.instance.TurnOffHighlight();
+        GameManager.instance.battleAnimator.SetBool("isOpen", false);
         CombatController.instance.HighlightEnemy();
 
         _enemySelected = false;
@@ -770,7 +769,12 @@ public class TutorialScript : MonoBehaviour
                 anim.SetBool("isOpen", false);
 
                 yield return new WaitForSecondsRealtime(.2f);
+
                 _index++;
+
+                GameManager.instance.battleAnimator.SetBool("isOpen", true);
+
+                yield return new WaitForSecondsRealtime(.2f);
 
                 StartCoroutine(ReturnControlToPlayer());
                 yield break;

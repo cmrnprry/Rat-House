@@ -81,8 +81,6 @@ public class CombatController : MonoBehaviour
     private CombatStats _stats;
 
     [Header("Menus")]
-    //Hide the player menu
-    [HideInInspector]
     public GameObject battleMenu;
     public GameObject itemMenu;
     public GameObject menuSelect;
@@ -113,7 +111,7 @@ public class CombatController : MonoBehaviour
         //Reset Stats
         _stats.SetStats();
 
-        GameManager.instance._deathScreen.SetActive(false);
+        GameManager.instance.deathScreenParent.SetActive(false);
         battleMenu.SetActive(true);
         StartCoroutine(ChooseAction());
     }
@@ -140,13 +138,7 @@ public class CombatController : MonoBehaviour
     //Will basically place the enemies in the correct spots
     public void SetUpBattleScene()
     {
-        //set the stats
-        battleMenu = GameObject.FindGameObjectWithTag("BattleMenu");
-        itemMenu = GameObject.FindGameObjectWithTag("ItemMenu");
         _stats = GameObject.FindGameObjectWithTag("CombatStats").GetComponent<CombatStats>();
-        menuSelect = GameObject.FindGameObjectWithTag("MenuSelect");
-        GameManager.instance._deathScreen = GameObject.FindGameObjectWithTag("DeadScreen");
-        GameManager.instance._deathScreen.SetActive(false);
 
         PlaceEnemies();
         Debug.Log("in Battle Count: " + _inBattle.Count);
@@ -154,7 +146,7 @@ public class CombatController : MonoBehaviour
         _stats.SetStats();
     }
 
-    void PlaceEnemies()
+    public void PlaceEnemies()
     {
         var index = 0;
         var parent = GameObject.FindGameObjectWithTag("Enemy Parent");
@@ -546,6 +538,7 @@ public class CombatController : MonoBehaviour
         itemMenu.SetActive(false);
     }
 
+    //Clears all Items in the menu
     void ClearItemMenu()
     {
         foreach (Transform child in itemMenu.transform)
@@ -560,15 +553,10 @@ public class CombatController : MonoBehaviour
         enemyList = e;
     }
 
-
-    //Sets up the tutorial Battle Scene
+    //Sets up the tutorial battle scene
     public void TutorialSetUp()
     {
-        //Find the correct things
-        battleMenu = GameObject.FindGameObjectWithTag("BattleMenu");
-        itemMenu = GameObject.FindGameObjectWithTag("ItemMenu");
         _stats = GameObject.FindGameObjectWithTag("CombatStats").GetComponent<CombatStats>();
-        menuSelect = GameObject.FindGameObjectWithTag("MenuSelect");
 
         PlaceEnemies();
     }
