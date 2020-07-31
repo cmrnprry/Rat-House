@@ -52,6 +52,11 @@ public class GameManager : MonoBehaviour
     //Death Screen Parent
     public GameObject deathScreenParent;
 
+    //Health Bar Parent
+    public GameObject healthParent;
+    public GameObject topOverlay;
+
+
     [Header("Tutorial Script")]
     //tutorial
     public TutorialScript tutorial;
@@ -84,6 +89,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        //FOR TESTING
         if (Input.GetKeyDown(KeyCode.W))
         {
             SetGameState(GameState.Overworld);
@@ -156,6 +162,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartBattle()
     {
         Debug.Log("Load Battle Scene");
+        topOverlay.SetActive(false);
+
         SceneManager.LoadScene("Battle-FINAL");
 
         yield return new WaitForFixedUpdate();
@@ -187,6 +195,9 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
+
+
+        topOverlay.SetActive(true);
 
         //Load the Overworld Scene
         SceneManager.LoadScene("Overworld_Level1-FINAL");

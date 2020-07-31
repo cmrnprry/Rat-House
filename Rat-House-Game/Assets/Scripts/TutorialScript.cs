@@ -65,6 +65,9 @@ public class TutorialScript : MonoBehaviour
 
                 //play some sort of screen wipe
 
+                GameManager.instance.topOverlay.SetActive(false);
+                GameManager.instance.healthParent.SetActive(true);
+
                 //load correct scene
                 SceneManager.LoadScene("Tutorial_Battle-FINAL");
 
@@ -161,6 +164,9 @@ public class TutorialScript : MonoBehaviour
 
             //Load the Scene
             SceneManager.LoadScene("Tutorial-FINAL");
+
+            GameManager.instance.topOverlay.SetActive(true);
+            GameManager.instance.healthParent.SetActive(false);
 
             yield return new WaitForSecondsRealtime(0.5f);
 

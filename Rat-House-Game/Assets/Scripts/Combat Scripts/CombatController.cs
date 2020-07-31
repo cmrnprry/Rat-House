@@ -173,7 +173,6 @@ public class CombatController : MonoBehaviour
     //Handles the player choosing which action to take
     public IEnumerator ChooseAction()
     {
-        Debug.Log("Choose Action");
         if (Input.GetButton("Up"))
         {
             if (_selected == 0)
