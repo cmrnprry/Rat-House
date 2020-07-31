@@ -87,7 +87,9 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             SetGameState(GameState.Overworld);
-            Destroy(tutorial.gameObject);
+            tutorial.StopAllCoroutines();
+            tutorial.anim.SetBool("isOpen", false);
+            //Destroy(tutorial.gameObject);
         }
     }
 

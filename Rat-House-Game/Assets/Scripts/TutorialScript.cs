@@ -55,7 +55,7 @@ public class TutorialScript : MonoBehaviour
         if (Input.GetButton("SelectAction"))
         {
             //When we're at the end of the intro dialogue
-            if (_index == dialogue.sentences.Length)
+            if (_index == 0)//dialogue.sentences.Length)
             {
                 //Lower the text box
                 anim.SetBool("isOpen", false);
@@ -148,8 +148,6 @@ public class TutorialScript : MonoBehaviour
             yield return null;
         }
 
-        GameManager.instance.battleAnimator.SetBool("isOpen", false);
-
         yield return new WaitForSecondsRealtime(.2f);
 
         //If this is the last bit of dialogue
@@ -239,7 +237,11 @@ public class TutorialScript : MonoBehaviour
             yield return null;
         }
 
-        CombatController.instance.battleMenu.SetActive(true);
+        GameManager.instance.battleAnimator.SetBool("isOpen", false);
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        CombatController.instance.attackMenuParent.SetActive(true);
         CombatController.instance.HighlightMenuItem();
 
         yield return new WaitForSecondsRealtime(.5f);
@@ -287,7 +289,7 @@ public class TutorialScript : MonoBehaviour
         CombatController.instance.selectedAction = ActionType.Kick;
 
         //Change the selected action
-        var x = CombatController.instance.battleMenu.transform.GetChild(1);
+        var x = CombatController.instance.attackMenu.transform.GetChild(1);
         CombatController.instance.menuSelect.transform.position = x.position;
 
         yield return new WaitForEndOfFrame();
@@ -319,63 +321,39 @@ public class TutorialScript : MonoBehaviour
 
     IEnumerator UseAttackItem()
     {
-        //hit down twice then enter down enter
         Debug.Log("Use attack Item");
 
-        //wait for the player to press hit down
-        while (!Input.GetButtonDown("Down"))
+        //wait for the player to press hit right
+        while (!Input.GetButtonDown("Right"))
         {
             Debug.Log("wait for the player to press hit down");
             yield return null;
         }
 
-        //Change the selected action
-        var x = CombatController.instance.battleMenu.transform.GetChild(1);
-        CombatController.instance.menuSelect.transform.position = x.position;
-
-        //Change selected action
-        CombatController.instance.selectedAction = ActionType.Kick;
-
-        yield return new WaitForEndOfFrame();
-
-        //wait for the player to press hit down
-        while (!Input.GetButtonDown("Down"))
-        {
-            Debug.Log("wait for the player to press hit down");
-            yield return null;
-        }
-
-        //Change the selected action
-        var y = CombatController.instance.battleMenu.transform.GetChild(2);
-        CombatController.instance.menuSelect.transform.position = y.position;
-
-        //Change selected action
+        //Change selected action to Items
         CombatController.instance.selectedAction = ActionType.Item;
-
-        yield return new WaitForEndOfFrame();
-
-        //wait for the player to press enter/space
-        while (!Input.GetButtonDown("SelectAction"))
-        {
-
-            yield return null;
-        }
 
         yield return new WaitForEndOfFrame();
 
         //change to item menu
         ShowItemMenu(2, 2);
 
+
+        
+        //wait for the player to press hit down
         while (!Input.GetButtonDown("Down"))
         {
             Debug.Log("wait for the player to press hit down");
             yield return null;
         }
 
-        var z = CombatController.instance.itemMenu.transform.GetChild(1);
-        CombatController.instance.menuSelect.transform.position = z.position;
+        //Change the selected action
+        var x = CombatController.instance.itemMenu.transform.GetChild(1);
+        CombatController.instance.menuSelect.transform.position = x.position;
 
         yield return new WaitForEndOfFrame();
+
+
 
         //wait for the player to press enter/space
         while (!Input.GetButtonDown("SelectAction"))
@@ -411,8 +389,6 @@ public class TutorialScript : MonoBehaviour
         //Turn off the battle menu
         CombatController.instance.TurnOffHighlight();
 
-
-
         //WHEN WE HAVE THE DODGING IN PLACE THAT HERE
 
 
@@ -427,6 +403,8 @@ public class TutorialScript : MonoBehaviour
             yield return null;
         }
 
+        GameManager.instance.battleAnimator.SetBool("isOpen", false);
+
         yield return new WaitForSecondsRealtime(0.5f);
 
         _isFinished = true;
@@ -436,52 +414,21 @@ public class TutorialScript : MonoBehaviour
 
     IEnumerator UseHealthItem()
     {
-        //hit down twice then twice enter
         Debug.Log("Use health Item");
 
         //wait for the player to press hit down
-        while (!Input.GetButtonDown("Down"))
+        while (!Input.GetButtonDown("Right"))
         {
             Debug.Log("wait for the player to press hit down");
             yield return null;
         }
-
-        //Change the selected action
-        var x = CombatController.instance.battleMenu.transform.GetChild(1);
-        CombatController.instance.menuSelect.transform.position = x.position;
-
-        //Change selected action
-        CombatController.instance.selectedAction = ActionType.Kick;
-
-        yield return new WaitForEndOfFrame();
-
-        //wait for the player to press hit down
-        while (!Input.GetButtonDown("Down"))
-        {
-            Debug.Log("wait for the player to press hit down");
-            yield return null;
-        }
-
-        //Change the selected action
-        var y = CombatController.instance.battleMenu.transform.GetChild(2);
-        CombatController.instance.menuSelect.transform.position = y.position;
 
         //Change selected action
         CombatController.instance.selectedAction = ActionType.Item;
 
-        yield return new WaitForEndOfFrame();
-
-        //wait for the player to press enter/space
-        while (!Input.GetButtonDown("SelectAction"))
-        {
-
-            yield return null;
-        }
-
-        yield return new WaitForEndOfFrame();
-
         //change to item menu
         ShowItemMenu(2, 1);
+
 
         yield return new WaitForEndOfFrame();
 
@@ -561,7 +508,7 @@ public class TutorialScript : MonoBehaviour
         }
 
         //Fix Highlight
-        var x = CombatController.instance.battleMenu.transform.GetChild(_selected);
+        var x = CombatController.instance.attackMenu.transform.GetChild(_selected);
         CombatController.instance.menuSelect.transform.position = x.position;
 
         //Change selected action
@@ -670,7 +617,7 @@ public class TutorialScript : MonoBehaviour
         }
 
         //Fix Highlight
-        var x = CombatController.instance.battleMenu.transform.GetChild(_selected);
+        var x = CombatController.instance.attackMenu.transform.GetChild(_selected);
         CombatController.instance.menuSelect.transform.position = x.position;
 
         _canSelect = true;
@@ -682,10 +629,13 @@ public class TutorialScript : MonoBehaviour
     IEnumerator SelectEnemy()
     {
         Debug.Log("Select Enemy");
+
+        //Make battle menu disappear and highlight the correct enemy
         GameManager.instance.battleAnimator.SetBool("isOpen", false);
         CombatController.instance.HighlightEnemy();
 
         _enemySelected = false;
+
         //wait for the player to press enter/space
         while (!Input.GetButtonDown("SelectAction"))
         {
@@ -694,17 +644,18 @@ public class TutorialScript : MonoBehaviour
         }
 
         CombatController.instance.TurnOffHighlight();
+      
         _enemySelected = true;
     }
 
     void ShowItemMenu(int health, int damage)
     {
         //sets the text pos
-        var text = CombatController.instance.battleMenu.transform.GetChild(0).gameObject;
+        var text = CombatController.instance.attackMenu.transform.GetChild(0).gameObject;
 
         //turns on the correct menus
-        CombatController.instance.battleMenu.SetActive(false);
-        CombatController.instance.itemMenu.SetActive(true);
+        CombatController.instance.attackMenuParent.SetActive(false);
+        CombatController.instance.itemMenuParent.SetActive(true);
 
         foreach (var i in CombatController.instance.itemList)
         {
@@ -728,7 +679,7 @@ public class TutorialScript : MonoBehaviour
 
     void ShowBattleMenu()
     {
-        CombatController.instance.battleMenu.SetActive(true);
+        CombatController.instance.attackMenuParent.SetActive(true);
 
         //Clear Item Menu
         foreach (Transform child in CombatController.instance.itemMenu.transform)
@@ -736,7 +687,7 @@ public class TutorialScript : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        CombatController.instance.itemMenu.SetActive(false);
+        CombatController.instance.itemMenuParent.SetActive(false);
     }
 
     //Shows the Battle Dialogue for the tutorial

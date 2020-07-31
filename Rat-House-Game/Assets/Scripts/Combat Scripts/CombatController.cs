@@ -81,7 +81,9 @@ public class CombatController : MonoBehaviour
     private CombatStats _stats;
 
     [Header("Menus")]
-    public GameObject battleMenu;
+    public GameObject attackMenuParent;
+    public GameObject attackMenu;
+    public GameObject itemMenuParent;
     public GameObject itemMenu;
     public GameObject menuSelect;
 
@@ -112,7 +114,7 @@ public class CombatController : MonoBehaviour
         _stats.SetStats();
 
         GameManager.instance.deathScreenParent.SetActive(false);
-        battleMenu.SetActive(true);
+        attackMenuParent.SetActive(true);
         StartCoroutine(ChooseAction());
     }
 
@@ -130,8 +132,10 @@ public class CombatController : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        //Reset Enemy lists
-        _inBattle = new List<GameObject>();
+        ClearItemMenu();
+
+         //Reset Enemy lists
+         _inBattle = new List<GameObject>();
     }
 
     //Method to set up battles
@@ -141,7 +145,6 @@ public class CombatController : MonoBehaviour
         _stats = GameObject.FindGameObjectWithTag("CombatStats").GetComponent<CombatStats>();
 
         PlaceEnemies();
-        Debug.Log("in Battle Count: " + _inBattle.Count);
 
         _stats.SetStats();
     }
@@ -209,14 +212,19 @@ public class CombatController : MonoBehaviour
                     TurnOffHighlight();
                     StartCoroutine(ChooseEnemy(false));
                     break;
-                case ActionType.Item:
-                    Debug.Log("Open Item Menu");
-                    ShowItems();
-                    break;
                 default:
                     Debug.LogError("Something has gone wrong in Combat Controller");
                     break;
             }
+
+            _selected = 0;
+            yield break;
+        }
+
+        if (Input.GetButtonDown("Right"))
+        {
+            Debug.Log("Open Item Menu");
+            ShowItems();
 
             _selected = 0;
             yield break;
@@ -231,9 +239,9 @@ public class CombatController : MonoBehaviour
 
     void ShowItems()
     {
-        var text = battleMenu.transform.GetChild(0).gameObject;
-        battleMenu.SetActive(false);
-        itemMenu.SetActive(true);
+        var text = attackMenu.transform.GetChild(0).gameObject;
+        attackMenuParent.SetActive(false);
+        itemMenuParent.SetActive(true);
 
         foreach (var i in itemList)
         {
@@ -296,7 +304,7 @@ public class CombatController : MonoBehaviour
                 _selectedItem = 0;
                 yield break;
             }
-            else if (Input.GetButton("Back"))
+            else if (Input.GetButton("Left"))
             {
                 menuSelect.SetActive(false);
                 _canSelect = false;
@@ -305,6 +313,7 @@ public class CombatController : MonoBehaviour
 
                 yield break;
             }
+
             HighlightMenuItem();
         }
         else
@@ -475,7 +484,7 @@ public class CombatController : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         //Give the player control back
-        battleMenu.SetActive(true);
+        attackMenu.SetActive(true);
 
         //Find the first non-defeated enemy to have selected
         for (int i = 0; i < _inBattle.Count; i++)
@@ -492,13 +501,12 @@ public class CombatController : MonoBehaviour
         yield break;
     }
 
-
     //Turns off all the highlights and menus
     public void TurnOffHighlight()
     {
-        battleMenu.SetActive(false);
+        attackMenuParent.SetActive(false);
         menuSelect.SetActive(false);
-        itemMenu.SetActive(false);
+        itemMenuParent.SetActive(false);
 
         //turn off particles
         var parent = GameObject.FindGameObjectWithTag("Enemy Parent");
@@ -509,12 +517,13 @@ public class CombatController : MonoBehaviour
     public void HighlightMenuItem()
     {
         menuSelect.SetActive(true);
-        if (battleMenu.activeSelf)
+
+        if (attackMenuParent.activeSelf)
         {
-            var x = battleMenu.transform.GetChild(_selected);
+            var x = attackMenu.transform.GetChild(_selected);
             menuSelect.transform.position = x.position;
         }
-        else if (itemMenu.activeSelf && itemList.Count > 0)
+        else if (itemMenuParent.activeSelf && itemList.Count > 0)
         {
             var x = itemMenu.transform.GetChild(_selectedItem);
             menuSelect.transform.position = x.position;
@@ -525,17 +534,14 @@ public class CombatController : MonoBehaviour
     public void ReturnToBattleMenu()
     {
         StartCoroutine(ChooseAction());
-        battleMenu.SetActive(true);
+        attackMenuParent.SetActive(true);
 
 
         //Clear Item Menu
-        foreach (Transform child in itemMenu.transform)
-        {
-            Destroy(child.gameObject);
-        }
+        ClearItemMenu();
 
 
-        itemMenu.SetActive(false);
+        itemMenuParent.SetActive(false);
     }
 
     //Clears all Items in the menu
