@@ -1,0 +1,572 @@
+fileFormatVersion: 2
+guid: 5c4a22da4a4f45a48af979238b51c718
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7695587697744593878
+    second: JoeWalkSide_0
+  - first:
+      213: 9159905774597632436
+    second: JoeWalkSide_1
+  - first:
+      213: 7468422596698594338
+    second: JoeWalkSide_2
+  - first:
+      213: 469812794214244892
+    second: JoeWalkSide_3
+  - first:
+      213: -4134963170289451664
+    second: JoeWalkSide_4
+  - first:
+      213: -8095820228301222896
+    second: JoeWalkSide_5
+  - first:
+      213: -7478494381194622794
+    second: JoeWalkSide_6
+  - first:
+      213: 4339178336539625375
+    second: JoeWalkSide_7
+  - first:
+      213: -314243025062152020
+    second: JoeWalkSide_8
+  - first:
+      213: -5977665324887471485
+    second: JoeWalkSide_9
+  - first:
+      213: -7771611061159950285
+    second: JoeWalkSide_10
+  - first:
+      213: 3909721623569117951
+    second: JoeWalkSide_11
+  - first:
+      213: -5171986250404233211
+    second: JoeWalkSide_12
+  - first:
+      213: -4804841567057168308
+    second: JoeWalkSide_13
+  - first:
+      213: -3929489896429196711
+    second: JoeWalkSide_14
+  - first:
+      213: 8854421323213456254
+    second: JoeWalkSide_15
+  - first:
+      213: -6405928731743740230
+    second: JoeWalkSide_16
+  - first:
+      213: -7933562355901879778
+    second: JoeWalkSide_17
+  - first:
+      213: -1852817251529647799
+    second: JoeWalkSide_18
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: JoeWalkSide_0
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 1265
+        width: 306
+        height: 756
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d3cee5fc383cca60800000000000000
+      internalID: 7695587697744593878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_1
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 1271
+        width: 282
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b1f0fe45c58e1f70800000000000000
+      internalID: 9159905774597632436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_2
+      rect:
+        serializedVersion: 2
+        x: 860
+        y: 1269
+        width: 298
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22c58b448ca25a760800000000000000
+      internalID: 7468422596698594338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_3
+      rect:
+        serializedVersion: 2
+        x: 1309
+        y: 1269
+        width: 246
+        height: 706
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c12e2164f3c158600800000000000000
+      internalID: 469812794214244892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_4
+      rect:
+        serializedVersion: 2
+        x: 1729
+        y: 1267
+        width: 230
+        height: 726
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07df29397e8ad96c0800000000000000
+      internalID: -4134963170289451664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_5
+      rect:
+        serializedVersion: 2
+        x: 2171
+        y: 1279
+        width: 198
+        height: 708
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01c0fa6556ed5af80800000000000000
+      internalID: -8095820228301222896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_6
+      rect:
+        serializedVersion: 2
+        x: 2589
+        y: 1271
+        width: 202
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b8c32aabfc073890800000000000000
+      internalID: -7478494381194622794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_7
+      rect:
+        serializedVersion: 2
+        x: 3001
+        y: 1279
+        width: 318
+        height: 698
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f97c38605bbd73c30800000000000000
+      internalID: 4339178336539625375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_8
+      rect:
+        serializedVersion: 2
+        x: 3405
+        y: 1273
+        width: 342
+        height: 702
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca8b60632a593abf0800000000000000
+      internalID: -314243025062152020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_9
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 1243
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38a89ebde011b0da0800000000000000
+      internalID: -5977665324887471485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_10
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 481
+        width: 334
+        height: 690
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33880176ae0b52490800000000000000
+      internalID: -7771611061159950285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_11
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 493
+        width: 318
+        height: 672
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff2308f1a1f124630800000000000000
+      internalID: 3909721623569117951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_12
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 485
+        width: 288
+        height: 710
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 500837958e96938b0800000000000000
+      internalID: -5171986250404233211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_13
+      rect:
+        serializedVersion: 2
+        x: 1339
+        y: 489
+        width: 246
+        height: 692
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c48b6894d06c15db0800000000000000
+      internalID: -4804841567057168308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_14
+      rect:
+        serializedVersion: 2
+        x: 1747
+        y: 483
+        width: 208
+        height: 704
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95ae9de22c5a779c0800000000000000
+      internalID: -3929489896429196711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_15
+      rect:
+        serializedVersion: 2
+        x: 2139
+        y: 471
+        width: 280
+        height: 718
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7348cdd74931ea70800000000000000
+      internalID: 8854421323213456254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_16
+      rect:
+        serializedVersion: 2
+        x: 2551
+        y: 475
+        width: 280
+        height: 716
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abe12ff22c19917a0800000000000000
+      internalID: -6405928731743740230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_17
+      rect:
+        serializedVersion: 2
+        x: 2963
+        y: 473
+        width: 266
+        height: 720
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1aae05321356e190800000000000000
+      internalID: -7933562355901879778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkSide_18
+      rect:
+        serializedVersion: 2
+        x: 3355
+        y: 462
+        width: 298
+        height: 751
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9491cd0c6887946e0800000000000000
+      internalID: -1852817251529647799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,500 @@
+fileFormatVersion: 2
+guid: 80dad259ba63d0b4e842fa3863fb7565
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8116652714625296267
+    second: JoeWalkBack_0
+  - first:
+      213: 2120074853976028530
+    second: JoeWalkBack_1
+  - first:
+      213: 2876274669464144515
+    second: JoeWalkBack_2
+  - first:
+      213: -1463118999615081868
+    second: JoeWalkBack_3
+  - first:
+      213: -7283954079719295247
+    second: JoeWalkBack_4
+  - first:
+      213: -506163065299678691
+    second: JoeWalkBack_5
+  - first:
+      213: -207359559928152937
+    second: JoeWalkBack_6
+  - first:
+      213: 9016526057211938978
+    second: JoeWalkBack_7
+  - first:
+      213: 8033712192684685159
+    second: JoeWalkBack_8
+  - first:
+      213: 2830861406935835499
+    second: JoeWalkBack_9
+  - first:
+      213: 7411877820695240236
+    second: JoeWalkBack_10
+  - first:
+      213: -2239645011219325625
+    second: JoeWalkBack_11
+  - first:
+      213: -2322183954569629028
+    second: JoeWalkBack_12
+  - first:
+      213: -5852613549361410892
+    second: JoeWalkBack_13
+  - first:
+      213: 6364689508057207359
+    second: JoeWalkBack_14
+  - first:
+      213: 5839867425083755226
+    second: JoeWalkBack_15
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: JoeWalkBack_0
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 1263
+        width: 308
+        height: 742
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5789c832c5bdb5f80800000000000000
+      internalID: -8116652714625296267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_1
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 1269
+        width: 286
+        height: 738
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 275ba78d8d40c6d10800000000000000
+      internalID: 2120074853976028530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_2
+      rect:
+        serializedVersion: 2
+        x: 817
+        y: 1291
+        width: 276
+        height: 710
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38a4ddd92949ae720800000000000000
+      internalID: 2876274669464144515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_3
+      rect:
+        serializedVersion: 2
+        x: 1231
+        y: 1312
+        width: 214
+        height: 699
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47271d39505f1bbe0800000000000000
+      internalID: -1463118999615081868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_4
+      rect:
+        serializedVersion: 2
+        x: 1519
+        y: 1299
+        width: 300
+        height: 578
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f6f2164b523aea90800000000000000
+      internalID: -7283954079719295247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_5
+      rect:
+        serializedVersion: 2
+        x: 1877
+        y: 1295
+        width: 302
+        height: 712
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1ac366bf5fb9f8f0800000000000000
+      internalID: -506163065299678691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_6
+      rect:
+        serializedVersion: 2
+        x: 2243
+        y: 1295
+        width: 302
+        height: 712
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79c73b1349f4f1df0800000000000000
+      internalID: -207359559928152937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_7
+      rect:
+        serializedVersion: 2
+        x: 2589
+        y: 1301
+        width: 308
+        height: 696
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a8cb2c6da2212d70800000000000000
+      internalID: 9016526057211938978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_8
+      rect:
+        serializedVersion: 2
+        x: 2977
+        y: 1303
+        width: 284
+        height: 698
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 767f1b0ccaa7d7f60800000000000000
+      internalID: 8033712192684685159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_9
+      rect:
+        serializedVersion: 2
+        x: 3345
+        y: 1305
+        width: 278
+        height: 690
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b63e5c8737d394720800000000000000
+      internalID: 2830861406935835499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_10
+      rect:
+        serializedVersion: 2
+        x: 3710
+        y: 1305
+        width: 279
+        height: 690
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2ed22dab974cd660800000000000000
+      internalID: 7411877820695240236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_11
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 509
+        width: 210
+        height: 706
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74ddb4b7abe2be0e0800000000000000
+      internalID: -2239645011219325625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_12
+      rect:
+        serializedVersion: 2
+        x: 493
+        y: 501
+        width: 204
+        height: 736
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c92f3cc2ff1f5cfd0800000000000000
+      internalID: -2322183954569629028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_13
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 499
+        width: 256
+        height: 726
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bcccae3cf657cea0800000000000000
+      internalID: -5852613549361410892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_14
+      rect:
+        serializedVersion: 2
+        x: 1161
+        y: 491
+        width: 290
+        height: 730
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f32d761d26be35850800000000000000
+      internalID: 6364689508057207359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JoeWalkBack_15
+      rect:
+        serializedVersion: 2
+        x: 1519
+        y: 489
+        width: 294
+        height: 732
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ada0e7f6b706b0150800000000000000
+      internalID: 5839867425083755226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
