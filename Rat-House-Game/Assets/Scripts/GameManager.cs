@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     [Header("Game State")]
     //Keeps track of the current game state
     [SerializeField]
-    private GameState _currState = GameState.Tutorial;
+    private GameState _currState = GameState.Overworld;
 
     //Keeps track of the current enemy that is being fought
     public GameObject currEnemy;
@@ -93,9 +93,13 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W))
         {
             SetGameState(GameState.Overworld);
-            tutorial.StopAllCoroutines();
+            tutorial.SkipTutorial();
             tutorial.anim.SetBool("isOpen", false);
-            //Destroy(tutorial.gameObject);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
         }
     }
 
@@ -187,7 +191,7 @@ public class GameManager : MonoBehaviour
         AudioManager.instance.StopCombatMusic();
 
         //Turn off the battle UI
-        battleParent.SetActive(false);
+        battleAnimator.SetBool("IsOpen", false);
 
         //If we were in the battle scene, make sure to clear it out
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Battle-FINAL"))

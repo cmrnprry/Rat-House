@@ -208,19 +208,20 @@ public class AudioManager : MonoBehaviour
         if (action == 1)
             action = 0;
 
-        Debug.Log("Attack Type: " + action);
-       // Debug.Log("Set Map");
+        //Debug.Log("Attack Type: " + action);
+        // Debug.Log("Set Map");
         float currPos = songPositionInBeats;
 
         // Wait until the next second
-        hasStarted = true;
         while (!(Math.Truncate(currPos) + beatsPerSec <= songPositionInBeats))
         {
             yield return null;
         }
 
-
         dspMapTime = (float)AudioSettings.dspTime;
+
+        yield return new WaitForFixedUpdate();
+
         attackMusic.Play();
         StartCoroutine(StartBasicAttack());
     }
@@ -230,19 +231,20 @@ public class AudioManager : MonoBehaviour
     //After each attack there should be a check if all the enemies have been defeated
     public IEnumerator StartBasicAttack()
     {
-        mapPosition = (float)(AudioSettings.dspTime - dspMapTime);
+
+        mapPosition = (float)(AudioSettings.dspTime - dspMapTime) < 0 ? 0: (float)(AudioSettings.dspTime - dspMapTime);
         mapPositionInBeats = mapPosition / mapSecPerBeat;
         mapProgression = mapPositionInBeats / totalBeats;
 
-       // Debug.Log(mapProgression);
+        Debug.Log("map Pos: " + mapPosition);
+        Debug.Log("map progress: " + mapProgression);
 
         if (!attackMusic.isPlaying)
         {
-            hasStarted = false;
             yield break;
         }
 
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForFixedUpdate();
         StartCoroutine(StartBasicAttack());
     }
 

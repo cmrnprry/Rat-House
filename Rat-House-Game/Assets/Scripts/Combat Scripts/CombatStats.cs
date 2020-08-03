@@ -79,7 +79,7 @@ public class CombatStats : MonoBehaviour
                 //Debug.Log("Pos: " + transform.localPosition.x);
                 //Debug.Log("Pos Note: " + _currNote);
                 //if the player missed the note
-                if (transform.localPosition.x < _currNote + offset && !_hitNote && !_shownMiss) //greater than the pos + offset
+                if (transform.localPosition.x > _currNote + offset && !_hitNote && !_shownMiss) //greater than the pos + offset
                 {
                     //play MISS animation
                     Debug.Log("Miss!");
@@ -98,14 +98,14 @@ public class CombatStats : MonoBehaviour
         //Debug.Log("Pos: " + transform.localPosition.x);
         //Debug.Log("Pos Note: " + _currNote);
         //if the player hits late
-        if (pos.x >= _currNote + delta && pos.x <= _currNote + offset) //between the pos and offset
+        if (pos.x <= _currNote + delta && pos.x >= _currNote + offset) //between the pos and offset
         {
             //play Late animation
             Debug.Log("Late!");
             _hitNote = true;
         }
         //if the player is "perfect"
-        else if (pos.x <= _currNote + delta && pos.x >= _currNote - delta) //between the pos +/- delta
+        else if (pos.x >= _currNote + delta && pos.x <= _currNote - delta) //between the pos +/- delta
         {
             //play Perfect animation
             Debug.Log("Perfect!");
@@ -113,7 +113,7 @@ public class CombatStats : MonoBehaviour
             _hitNote = true;
         }
         //the player is early
-        else if (pos.x >= _currNote - delta && pos.x <= _currNote - offset) //between the pos and -offset
+        else if (pos.x <= _currNote - delta && pos.x >= _currNote - offset) //between the pos and -offset
         {
             //play Early animation
             Debug.Log("Early!");
@@ -165,7 +165,7 @@ public class CombatStats : MonoBehaviour
     public void DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false, int itemDmg = 0)
     {
         // if isItem is true set damage to item damage otherwise do the damage calculation
-        var damage = isItem == true ? itemDmg : DamageModifier(_attackDamage[(int)CombatController.instance.selectedAction]);
+        var damage = (isItem == true ? itemDmg : DamageModifier(_attackDamage[(int)CombatController.instance.selectedAction]));
 
         Debug.Log("Damange Dealt: " + damage);
 

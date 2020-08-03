@@ -14,6 +14,9 @@ public class Note : MonoBehaviour
     //Parent holder for the notes
     public GameObject noteParent;
 
+    //Starting X position of the slider
+    public Vector3 startPoint;
+
     //Point to reset the slider
     public Vector3 restartPoint;
 
@@ -23,8 +26,7 @@ public class Note : MonoBehaviour
     //List of the beats to be hit
     private List<float> beats = new List<float>();
 
-    //Starting X position of the slider
-    public Vector3 startPoint;
+
     Renderer rend;
     private float offsetSlider;
 
@@ -41,13 +43,13 @@ public class Note : MonoBehaviour
 
         //half the width
         offsetSlider = -rend.bounds.size.x * .5f;
-        transform.position += new Vector3(offsetSlider, 0f, 0f);
+        // transform.position += new Vector3(offsetSlider, 0f, 0f);
 
-        //Debug.Log("Collider pos : " + transform.position);
-        //Debug.Log("Collider Center : " + rend.bounds.center);
-        //Debug.Log("Collider Size : " + rend.bounds.size);
-        //Debug.Log("Collider bound Minimum : " + rend.bounds.min);
-        //Debug.Log("Collider bound Maximum : " + rend.bounds.max);
+        Debug.Log("start: " + startPoint);
+        Debug.Log("end: " + restartPoint);
+        Debug.Log("Local Pos: " + Vector3.Lerp(startPoint, restartPoint, 0));
+        Debug.Log("Local Pos: " + Vector3.Lerp(startPoint, restartPoint, 0.5f));
+        Debug.Log("Local Pos: " + Vector3.Lerp(startPoint, restartPoint, 1f));
     }
 
     // Update is called once per frame
@@ -56,23 +58,16 @@ public class Note : MonoBehaviour
         //if the attact music is playing, then the player is playing the rhythm mini-game
         if (AudioManager.instance.attackMusic.isPlaying)
         {
-            //transform.position = Vector3.Lerp(
-            //    gameObject.transform.position,
-            //    destroyPoint,
-            //    (AudioManager.instance.mapBeatsPerSec)
-            //);
-
-            //transform.position += new Vector3(AudioManager.instance.mapBeatsPerSec * Time.deltaTime, 0f, 0f);
-
             //Moves the block based on where we are in the the music in BEATS
-            transform.localPosition = Vector3.Lerp(startPoint, restartPoint, AudioManager.instance.mapProgression);
+            gameObject.transform.position = Vector3.Lerp(startPoint, restartPoint, AudioManager.instance.mapProgression);
 
-            if (gameObject.transform.localPosition.x <= restartPoint.x)
+            if (gameObject.transform.position.x >= restartPoint.x)
             {
-                //Debug.Log("Stop Attack Music");
                 AudioManager.instance.attackMusic.Stop();
-                gameObject.transform.localPosition = startPoint;
-                transform.position += new Vector3(offsetSlider, 0f, 0f);
+
+                gameObject.transform.position = startPoint;
+
+                //  transform.position += new Vector3(offsetSlider, 0f, 0f);
 
                 //IF WE ARE NOT IN THE TUTORIAL DEAL DAMAGE
                 if (GameManager.instance.GetGameState() != GameState.Tutorial)
@@ -80,8 +75,6 @@ public class Note : MonoBehaviour
                     //Calculate Damage
                     CombatController.instance.DealDamage();
                 }
-
-
             }
 
         }
@@ -134,12 +127,7 @@ public class Note : MonoBehaviour
             //Want each beat in terms of the map progression
             var beatFraction = (beat + 1) / AudioManager.instance.totalBeats;
 
-            //Debug.Log("Beat: " + beat);
-            //Debug.Log("Fraction: " + beatFraction);
-            //Debug.Log("Length: " + _length);
-
             //Spawn the Beat based on the start point, length and position of the beat
-            //this is also just the unity.lerp equation lol
             spawnPoint = Vector3.Lerp(startPoint, restartPoint, beatFraction);
 
             //add the "perfect" hit point to the list
@@ -147,7 +135,10 @@ public class Note : MonoBehaviour
 
             //Create a note object and position it correctly
             var note = Instantiate(this.note, noteParent.transform, true);
-            note.transform.localPosition = spawnPoint;
+
+            //make sure the rotation is 0 and put the parent in the right place
+            note.transform.rotation = Quaternion.Euler(0, 0, 0);
+            note.transform.localPosition = spawnPoint;// new Vector3(spawnPoint.x, note.transform.localPosition.y, 0f);
             note.transform.parent = noteParent.transform;
         }
     }

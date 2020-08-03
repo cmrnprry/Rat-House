@@ -11977,7 +11977,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1291760750}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -20730,6 +20730,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: enemiesInBattle.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: enemiesInBattle.Array.data[3]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: enemiesInBattle.Array.data[4]
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c9c3f00faed8045b4ef147a8f4af91, type: 3}
