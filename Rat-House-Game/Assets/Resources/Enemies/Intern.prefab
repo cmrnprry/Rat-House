@@ -208,4 +208,6 @@ MonoBehaviour:
   _maxHealth: 15
   _baseAcuracy: 0
   _baseAttack: 5
+  numberOfAttacks: 1
+  chancesOfHitting: 64000000
   effectName: intern_effect

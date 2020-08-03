@@ -9,7 +9,8 @@ using UnityEngine;
 public class Note : MonoBehaviour
 {
     //Notes to be hit
-    public GameObject note;
+    public GameObject whole;
+    public GameObject half;
 
     //Parent holder for the notes
     public GameObject noteParent;
@@ -26,30 +27,24 @@ public class Note : MonoBehaviour
     //List of the beats to be hit
     private List<float> beats = new List<float>();
 
-
     Renderer rend;
     private float offsetSlider;
 
-
     private float _length;
+
+    public static bool showDodge = false;
 
 
     private void Start()
     {
         rend = GetComponent<Renderer>();
         //startPoint = this.gameObject.transform.position;
-        ShowBeats();
+        ShowAttackBeats();
         _length = Vector3.Distance(startPoint, restartPoint);
 
         //half the width
         offsetSlider = -rend.bounds.size.x * .5f;
         // transform.position += new Vector3(offsetSlider, 0f, 0f);
-
-        Debug.Log("start: " + startPoint);
-        Debug.Log("end: " + restartPoint);
-        Debug.Log("Local Pos: " + Vector3.Lerp(startPoint, restartPoint, 0));
-        Debug.Log("Local Pos: " + Vector3.Lerp(startPoint, restartPoint, 0.5f));
-        Debug.Log("Local Pos: " + Vector3.Lerp(startPoint, restartPoint, 1f));
     }
 
     // Update is called once per frame
@@ -63,11 +58,11 @@ public class Note : MonoBehaviour
 
             if (gameObject.transform.position.x >= restartPoint.x)
             {
+                ClearBeats();
+
                 AudioManager.instance.attackMusic.Stop();
 
                 gameObject.transform.position = startPoint;
-
-                //  transform.position += new Vector3(offsetSlider, 0f, 0f);
 
                 //IF WE ARE NOT IN THE TUTORIAL DEAL DAMAGE
                 if (GameManager.instance.GetGameState() != GameState.Tutorial)
@@ -78,19 +73,64 @@ public class Note : MonoBehaviour
             }
 
         }
+        else if (AudioManager.instance.dodgeMusic.isPlaying)
+        {
+            //Moves the block based on where we are in the the music in BEATS
+            gameObject.transform.position = Vector3.Lerp(restartPoint, startPoint, AudioManager.instance.mapProgression);
+
+            if (gameObject.transform.position.x <= restartPoint.x)
+            {
+                AudioManager.instance.attackMusic.Stop();
+
+                gameObject.transform.position = startPoint;
+            }
+        }
         else if (CombatController.instance.selectedAction != _curAction)
         {
             ClearBeats();
 
             _curAction = CombatController.instance.selectedAction;
 
-            ShowBeats();
+            ShowAttackBeats();
 
             if (_curAction != ActionType.Item)
             {
                 CombatStats.hitList.Sort();
             }
 
+        }
+
+        if (showDodge)
+        {
+            ShowDodgeBeats();
+            showDodge = false;
+        }
+    }
+
+    public void ShowDodgeBeats()
+    {
+        var spawnPoint = gameObject.transform.position;
+
+        foreach (var beat in AudioManager.instance.chosenEnemyAttack)
+        {
+            //Want each beat in terms of the map progression
+            var beatFraction = (beat + 1) / AudioManager.instance.totalBeats;
+
+            //Spawn the Beat based on the start point, length and position of the beat
+            spawnPoint = Vector3.Lerp(startPoint, restartPoint, beatFraction);
+
+            //add the "perfect" hit point to the list
+            CombatStats.hitList.Add(spawnPoint.x);
+
+            var type = (beat % 1 == 0) ? whole : half;
+
+            //Create a note object and position it correctly
+            var note = Instantiate(type, noteParent.transform, true);
+
+            //make sure the rotation is 0 and put the parent in the right place
+            note.transform.rotation = Quaternion.Euler(0, 0, 0);
+            note.transform.localPosition = spawnPoint;// new Vector3(spawnPoint.x, note.transform.localPosition.y, 0f);
+            note.transform.parent = noteParent.transform;
         }
     }
 
@@ -107,16 +147,12 @@ public class Note : MonoBehaviour
     }
 
     //Display the BeatMap in game
-    private void ShowBeats()
+    private void ShowAttackBeats()
     {
         if (_curAction != ActionType.Item)
         {
             //TODO: Implement other attacks
-            if (_curAction == ActionType.Kick)
-            {
-                _curAction = ActionType.Punch;
-            }
-            beats = AudioManager.instance.beatMap[(int)_curAction].beatsToHit;
+            beats = AudioManager.instance.playerBeatMap[(int)_curAction].beatsToHit;
             CombatStats._totalHits = beats.Count;
         }
 
@@ -133,13 +169,23 @@ public class Note : MonoBehaviour
             //add the "perfect" hit point to the list
             CombatStats.hitList.Add(spawnPoint.x);
 
+            var type = (beat % 1 == 0) ? whole : half;
+
             //Create a note object and position it correctly
-            var note = Instantiate(this.note, noteParent.transform, true);
+            var note = Instantiate(type, noteParent.transform, true);
 
             //make sure the rotation is 0 and put the parent in the right place
             note.transform.rotation = Quaternion.Euler(0, 0, 0);
-            note.transform.localPosition = spawnPoint;// new Vector3(spawnPoint.x, note.transform.localPosition.y, 0f);
+            note.transform.localPosition = spawnPoint;
             note.transform.parent = noteParent.transform;
         }
+    }
+
+    //flip the fangs when dodging
+    private void Flip()
+    {
+        Vector3 theScale = transform.GetChild(0).localScale;
+        theScale.x *= -1;
+        transform.GetChild(0).localScale = theScale;
     }
 }

@@ -5,8 +5,7 @@ using UnityEngine;
 public class CombatStats : MonoBehaviour
 {
     //Player Stats
-    public float playerHealth = 50f;
-    private float playerBaseAccuracy = 100f;
+    public float playerHealth;
 
     //Enemy Stats
     private List<float> enemyHealth;
@@ -43,7 +42,9 @@ public class CombatStats : MonoBehaviour
 
         //Player Stats
         playerHealth = 100f;
-        playerBaseAccuracy = 100f;
+
+        //Update the player health slider
+        CombatController.instance.playerHealthSlider.value = 1f;
 
         //for each enemy on the board add their health to the list
         foreach (GameObject e in CombatController.instance._inBattle)
@@ -119,33 +120,6 @@ public class CombatStats : MonoBehaviour
             Debug.Log("Early!");
             _hitNote = true;
         }
-
-
-        ////if the player missed the note
-        //if (pos.x > hitList[_index].x + offset) //greater than the pos + offset
-        //{
-        //    //play MISS animation
-        //    Debug.Log("Miss!");
-        //}
-        ////if the player hits late
-        //else if (pos.x >= hitList[_index].x + delta && pos.x <= hitList[_index].x + offset) //between the pos and offset
-        //{
-        //    //play Late animation
-        //    Debug.Log("Late!");
-        //}
-        ////if the player is "perfect"
-        //else if (pos.x >= hitList[_index].x + delta && pos.x <= hitList[_index].x - delta) //between the pos +/- delta
-        //{
-        //    //play Perfect animation
-        //    Debug.Log("Perfect!");
-        //    _amountHit += 1;
-        //}
-        ////the player is early
-        //else if (pos.x >= hitList[_index].x + delta && pos.x <= hitList[_index].x + offset) //between the pos and -offset
-        //{
-        //    //play Early animation
-        //    Debug.Log("Early!");
-        //}
     }
 
     //Updates the player's health, both damage and healing
@@ -153,8 +127,15 @@ public class CombatStats : MonoBehaviour
     {
         playerHealth += delta;
 
-        Debug.Log("Playe Health: " + playerHealth);
+        Debug.Log("Player Health: " + playerHealth);
 
+        //Make the health a number between 0 and 1
+        float health = playerHealth / 100;
+
+        //Update the player health slider
+        CombatController.instance.playerHealthSlider.value = health;
+
+        //If the player dies
         if (playerHealth <= 0)
         {
             Debug.Log("Joe is Dead");

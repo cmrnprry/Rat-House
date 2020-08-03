@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
+public struct BeatMapStruct
+{
+    public BeatMapStruct(string at, int d, List<float> beats)
+    {
+        action_type = at;
+        base_damage = d;
+        beatsToHit = beats;
+    }
+    public string action_type { get; }
+    public int base_damage { get; }
+    public List<float> beatsToHit { get; }
 
+}
 public class BeatMapReader : MonoBehaviour
 {
-    public struct BeatMapStruct
-    {
-        public BeatMapStruct(string at, List<float> beats)
-        {
-            attack_type = at;
-            beatsToHit = beats;
-        }
-        public string attack_type { get; }
-        public List<float> beatsToHit { get; }
-
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -26,51 +26,58 @@ public class BeatMapReader : MonoBehaviour
 
     public void ReadTSVFile()
     {
-        List<BeatMapStruct> maps = new List<BeatMapStruct>();
-        List<string[]> tempList = new List<string[]>();
+        List<BeatMapStruct> p_maps = new List<BeatMapStruct>();
+        List<BeatMapStruct> e_maps = new List<BeatMapStruct>();
+
         //var path = Application.dataPath + "/Resources/BeatMaps/BeatMaps.tsv";
-        TextAsset path = Resources.Load("BeatMaps/BeatMaps") as TextAsset;
+        TextAsset playerActions = Resources.Load("BeatMaps/PlayerBeatMaps") as TextAsset;
+        TextAsset enemyActions = Resources.Load("BeatMaps/EnemyBeatMaps") as TextAsset;
 
         //StreamReader reader = new StreamReader(path.text);
 
-        string[] data = path.text.Split('\t');
-        maps.Add(ToStruct(data));
+        string[] p_data = playerActions.text.Split(',');
+        foreach (string str in p_data)
+        {
+            string[] action = str.Split('\t');
+
+            Debug.Log(str);
+
+            foreach (string d in action)
+            {
+                Debug.Log(d);
+            }
+
+            p_maps.Add(ToStruct(action));
+        }
 
 
-        //maps.Add(ToStruct(data));
-        // Debug.Log(file.text);
+        string[] e_data = enemyActions.text.Split(',');
+        foreach (string str in e_data)
+        {
+            string[] action = str.Split('\t');
 
-        // string line;
+            e_maps.Add(ToStruct(action));
+        }
 
-        // Read and display lines from the file until the end of 
-        // the file is reached.
-        //while ((line = reader.ReadLine()) != null)
-        //{
-        //    string[] data = line.Split('\t');
 
-        //    if (data[0] != "Attack_Type")
-        //        maps.Add(ToStruct(data));
-        //}
-
-        AudioManager.instance.SetBeatMaps(maps);
+        AudioManager.instance.SetBeatMaps(p_maps, e_maps);
     }
 
     BeatMapStruct ToStruct(string[] data)
     {
         string name = data[0];
+        int dmg = Int32.Parse(data[1]);
         List<float> list = new List<float>();
 
-        //Debug.Log("Name: " + name);
-
-        for (int i = 1; i < data.Length; i++)
+        for (int i = 2; i < data.Length; i++)
         {
-            var x = Int32.Parse(data[i]);
-           // Debug.Log("Beat: " + x);
-
-            list.Add(x);
+            if (data[i] != "X")
+            {
+                float x = float.Parse(data[i]);
+                list.Add(x);
+            }
         }
 
-
-        return new BeatMapStruct(name, list);
+        return new BeatMapStruct(name, dmg, list);
     }
 }

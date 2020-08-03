@@ -262,7 +262,7 @@ public class TutorialScript : MonoBehaviour
         GameManager.instance.battleAnimator.SetBool("IsOpen", false);
 
         //Set up the attack
-        StartCoroutine(AudioManager.instance.SetMap(selected));
+        StartCoroutine(AudioManager.instance.SetAttackMap(selected));
 
         yield return new WaitForSecondsRealtime(1f);
 

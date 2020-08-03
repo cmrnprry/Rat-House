@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using static EnemyController;
 
@@ -87,6 +88,7 @@ public class CombatController : MonoBehaviour
     public GameObject itemMenu;
     public GameObject menuSelect;
     private GameObject _enemyParent;
+    public Slider playerHealthSlider;
 
     void Awake()
     {
@@ -212,6 +214,9 @@ public class CombatController : MonoBehaviour
         {
             //Turn off the highlight
             TurnOffHighlight();
+
+            //Turn off the attack 
+            GameManager.instance.battleAnimator.SetBool("IsOpen", false);
 
             //Select the correct action
             switch (_actionList[_selectedAction])
@@ -451,7 +456,7 @@ public class CombatController : MonoBehaviour
             else
             {
                 Debug.Log("Set Map");
-                StartCoroutine(AudioManager.instance.SetMap(_selectedAction));
+                StartCoroutine(AudioManager.instance.SetAttackMap(_selectedAction));
             }
 
             yield break;
@@ -485,7 +490,7 @@ public class CombatController : MonoBehaviour
     }
 
     //Will play through the enemy turn
-    // paramater here is used to track which enemy will be tal=king their turn
+    // paramater here is used to track which enemy will be taking their turn
     // Default is 0
     public IEnumerator EnemyPhase(int enemy = 0)
     {
@@ -500,11 +505,7 @@ public class CombatController : MonoBehaviour
                 e.AttackPlayer(enemyList[enemy]);
 
                 //Waits untik this returns true
-                while (!e.IsTurnOver())
-                {
-                    Debug.Log("Turn is not yet over");
-                    yield return null;
-                }
+                yield return new WaitUntil(() => e.IsTurnOver());
 
                 //Reset the IsTurnOver to be false
                 e.SetIsTurnOver(false);
