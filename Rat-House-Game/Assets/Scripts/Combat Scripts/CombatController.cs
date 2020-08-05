@@ -42,7 +42,7 @@ public class CombatController : MonoBehaviour
 
     [Header("Lists")]
     //List of enemy Types currently on the board
-    public List<EnemyType> enemyList; //MAX OF 5
+    public List<EnemyType> enemyList = new List<EnemyType>(); //MAX OF 5
 
     //List of all potential player actions
     [SerializeField]
@@ -52,10 +52,11 @@ public class CombatController : MonoBehaviour
     public List<Items> itemList = new List<Items>();
 
     //base damage that attacks can do
-    public List<float> attackDamage;
+    public List<float> attackDamage = new List<float>();
 
     //List of enemy placements
     public List<Vector3> enemyPlacement;
+    public List<Slider> enemyHealthBars;
 
     //list of enemies in battle
     [HideInInspector]
@@ -88,8 +89,10 @@ public class CombatController : MonoBehaviour
     public GameObject itemMenu;
     public GameObject menuSelect;
     private GameObject _enemyParent;
+    private GameObject _enemyHealthParent;
     public Slider playerHealthSlider;
     public TextMeshProUGUI playerHealthText;
+    public TextMeshProUGUI hitDetectionText;
 
     void Awake()
     {
@@ -172,6 +175,8 @@ public class CombatController : MonoBehaviour
 
             //Add it to the list of enemy game objects
             _inBattle.Add(enemy);
+            enemyHealthBars[index].gameObject.SetActive(true);
+            enemy.GetComponent<Enemy>().health = enemyHealthBars[index];
 
             //Parent enemy
             enemy.transform.parent = _enemyParent.transform;
@@ -603,6 +608,14 @@ public class CombatController : MonoBehaviour
         foreach (Transform child in itemMenu.transform)
         {
             Destroy(child.gameObject);
+        }
+    }
+
+    public void SetBasePlayerDamage(List<BeatMapStruct> player)
+    {
+        foreach(var a in player)
+        {
+            attackDamage.Add(a.base_damage);
         }
     }
 

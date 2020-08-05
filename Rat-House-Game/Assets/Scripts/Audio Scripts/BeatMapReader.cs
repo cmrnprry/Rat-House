@@ -54,6 +54,7 @@ public class BeatMapReader : MonoBehaviour
 
 
         AudioManager.instance.SetBeatMaps(p_maps, e_maps);
+        CombatController.instance.SetBasePlayerDamage(p_maps);
     }
 
     BeatMapStruct ToStruct(string[] data)

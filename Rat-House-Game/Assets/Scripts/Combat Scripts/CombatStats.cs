@@ -15,9 +15,9 @@ public class CombatStats : MonoBehaviour
     private int _enemiesLeft = 0;
 
     //Track Player Damage
-    private bool _hitNote = false;
+    public static bool hitNote = false;
     public static float amountHit = 0;
-    public static int _totalHits = 0;
+    public static int totalHits = 0;
 
     //List of the "perfect" hits of a given rhythm
     public static List<float> hitList = new List<float>();
@@ -30,7 +30,6 @@ public class CombatStats : MonoBehaviour
     //base damage that attacks can do
     private List<float> _attackDamage;
 
-    // Sets the stats
     public void SetStats()
     {
         enemyHealth = new List<float>();
@@ -55,114 +54,138 @@ public class CombatStats : MonoBehaviour
         //if the attact music is playing, then check if the player has hit or miss
         if (AudioManager.instance.attackMusic.isPlaying && index < hitList.Count)
         {
-
-            //Debug.Log("Pos: " + transform.position.x);
-            //Debug.Log("Pos Note: " + _currNote);
             //inceasese the index if the player misses OR hits a note since the cannot do both
             if (Input.GetButtonDown("SelectAction"))
             {
                 //if the slider is within the offset range
                 //Basically if it's at the start bounds of being early and the far bounds of being 
-                if (transform.position.x >= hitList[index] - offset && transform.position.x <= hitList[index] + offset && !_hitNote)
+                if (transform.position.x >= hitList[index] - offset && transform.position.x <= hitList[index] + offset && !hitNote)
                 {
-                    DetectHit(transform.position);
+                    CombatController.instance.hitDetectionText.gameObject.SetActive(true);
+                    DetectAttackHit(transform.position);
                 }
             }
 
             //if the note wasn't hit, then show that it was missed
-            if (!_hitNote && transform.position.x > hitList[index] + offset)
+            if (!hitNote && transform.position.x > hitList[index] + offset)
             {
-                if (transform.position.x > hitList[index] + offset && !_hitNote) //greater than the pos + offset
+                if (transform.position.x > hitList[index] + offset && !hitNote) //greater than the pos + offset
                 {
                     //play MISS animation
+                    CombatController.instance.hitDetectionText.text = "Miss!";
+                    CombatController.instance.hitDetectionText.gameObject.SetActive(true);
                     Debug.Log("Miss!");
                     index++;
                 }
 
-                _hitNote = false;
+                hitNote = false;
             }
             // if the note has been hit and is past the late offset
-            else if (_hitNote && transform.position.x > hitList[index - 1] + offset)
+            else if (hitNote && transform.position.x > hitList[index - 1] + offset)
             {
-                _hitNote = false;
+                hitNote = false;
             }
         }
         else if (AudioManager.instance.dodgeMusic.isPlaying && index < hitList.Count)
         {
-
-            //Debug.Log("Pos: " + transform.position.x);
-            //Debug.Log("Pos Note: " + _currNote);
             //inceasese the index if the player misses OR hits a note since the cannot do both
             if (Input.GetButtonDown("SelectAction"))
             {
                 //if the slider is within the offset range
                 //Basically if it's at the start bounds of being early and the far bounds of being 
-                if (transform.position.x <= hitList[index] - offset && transform.position.x >= hitList[index] + offset && !_hitNote)
+                if (transform.position.x >= hitList[index] - offset && transform.position.x <= hitList[index] + offset && !hitNote)
                 {
-                    DetectHit(transform.position, true);
+                    CombatController.instance.hitDetectionText.gameObject.SetActive(true);
+                    DetectDodgeHit(transform.position);
                 }
             }
 
             //if the note wasn't hit, then show that it was missed
-            if (!_hitNote && transform.position.x < hitList[index] - offset)
+            if (!hitNote && transform.position.x < hitList[index] - offset)
             {
-                if (transform.position.x < hitList[index] - offset && !_hitNote) //greater than the pos + offset
+                if (transform.position.x < hitList[index] - offset && !hitNote) //greater than the pos + offset
                 {
                     //play MISS animation
+                    CombatController.instance.hitDetectionText.text = "Miss!";
+                    CombatController.instance.hitDetectionText.gameObject.SetActive(true);
                     Debug.Log("Miss!");
                     index++;
                 }
 
-                _hitNote = false;
+                hitNote = false;
             }
             // if the note has been hit and is past the late offset
-            else if (_hitNote && transform.position.x < hitList[index - 1] - offset)
+            else if (hitNote && transform.position.x < hitList[index - 1] - offset)
             {
-                _hitNote = false;
+                hitNote = false;
             }
-        }
-        else
-        {
-            _hitNote = false;
         }
     }
 
-    private void DetectHit(Vector3 pos, bool isRevese = false)
+    private void DetectAttackHit(Vector3 pos)
     {
         Debug.Log("hit detected");
 
-        var off = offset;
-        var del = delta;
-        if (isRevese)
-        {
-            off *= -1;
-            del *= -1;
-        }
-
         //if the player hits late
-        if (pos.x > hitList[index] + del && pos.x <= hitList[index] + off) //between the pos and offset
+        if (pos.x > hitList[index] + delta && pos.x <= hitList[index] + offset) //between the pos and offset
         {
             //play Late animation
+            CombatController.instance.hitDetectionText.text = "Late!";
             Debug.Log("Late!");
             amountHit += .5f;
         }
         //if the player is "perfect"
-        else if (pos.x <= hitList[index] + del && pos.x >= hitList[index] - del) //between the pos +/- delta
+        else if (pos.x <= hitList[index] + delta && pos.x >= hitList[index] - delta) //between the pos +/- delta
         {
             //play Perfect animation
+            CombatController.instance.hitDetectionText.text = "Perfect!";
             Debug.Log("Perfect!");
             amountHit += 1;
         }
         //the player is early
-        else if (pos.x < hitList[index] - del && pos.x >= hitList[index] - off) //between the pos and -offset
+        else if (pos.x < hitList[index] - delta && pos.x >= hitList[index] - offset) //between the pos and -offset
         {
             //play Early animation
+            CombatController.instance.hitDetectionText.text = "Early!";
             Debug.Log("Early!");
             amountHit += .5f;
         }
 
         index++;
-        _hitNote = true;
+        hitNote = true;
+    }
+
+    private void DetectDodgeHit(Vector3 pos)
+    {
+        Debug.Log("hit detected");
+
+        //if the player hits Early
+        if (pos.x > hitList[index] + delta && pos.x <= hitList[index] + offset) //between the pos and offset
+        {
+            //play Late animation
+            CombatController.instance.hitDetectionText.text = "Early!";
+            Debug.Log("Early!");
+            amountHit += .5f;
+        }
+        //if the player is "perfect"
+        else if (pos.x <= hitList[index] + delta && pos.x >= hitList[index] - delta) //between the pos +/- delta
+        {
+            //play Perfect animation
+            CombatController.instance.hitDetectionText.text = "Perfect!";
+            Debug.Log("Perfect!");
+            amountHit += 1;
+        }
+        //the player is late
+        else if (pos.x < hitList[index] - delta && pos.x >= hitList[index] - offset) //between the pos and -offset
+        {
+            //play Early animation
+            CombatController.instance.hitDetectionText.text = "Late!";
+            Debug.Log("Late!");
+            amountHit += .5f;
+        }
+
+        index++;
+        hitNote = true;
     }
 
     //Updates the player's health, both damage and healing
@@ -171,7 +194,7 @@ public class CombatStats : MonoBehaviour
         //If the player was hit
         if (delta < 0)
         {
-            delta = (_totalHits == 0 ? delta : EnemyDamageModifier(delta));
+            delta = (totalHits == 0 ? delta : EnemyDamageModifier(delta));
         }
 
         playerHealth += delta;
@@ -184,6 +207,9 @@ public class CombatStats : MonoBehaviour
         //Update the player health slider
         CombatController.instance.playerHealthSlider.value = health;
         CombatController.instance.playerHealthText.text = playerHealth + "%";
+
+        totalHits = 0;
+        amountHit = 0;
 
         //If the player dies
         if (playerHealth <= 0)
@@ -201,9 +227,11 @@ public class CombatStats : MonoBehaviour
         Debug.Log("Damange Dealt: " + damage);
 
         enemyHealth[enemyAttacked] -= damage;
+        CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>().UpdateHealth(damage);
 
         Debug.Log("Enemy Health: " + enemyHealth[enemyAttacked]);
 
+        totalHits = 0;
         amountHit = 0;
 
         if (enemyHealth[enemyAttacked] <= 0)
@@ -219,9 +247,9 @@ public class CombatStats : MonoBehaviour
 
             Debug.Log("Enemy Dead: " + CombatController.instance._inBattle[enemyAttacked].name);
 
-            //remove enemy from list(s)
+            //remove enemy from list(s) && turn off health
             CombatController.instance._inBattle[enemyAttacked] = null;
-            //  CombatController.instance.enemyList[enemyAttacked] = EnemyType.NULL;
+            CombatController.instance.enemyHealthBars[index].gameObject.SetActive(false);
 
             Debug.Log(CombatController.instance._inBattle[enemyAttacked]);
 
@@ -239,21 +267,24 @@ public class CombatStats : MonoBehaviour
 
     float EnemyDamageModifier(float dmg)
     {
-        var half = _totalHits / 2;
-        var quareter = _totalHits / 4;
+        Debug.Log("amount hit: " + amountHit);
+        Debug.Log("total hit: " + totalHits);
+
+        var half = totalHits / 2;
+        var quareter = totalHits / 4;
 
         //if hit all, take no damage
-        if (amountHit == _totalHits)
+        if (amountHit == totalHits)
         {
             dmg = 0;
         }
         else if (amountHit >= half) //if half, take half damage
         {
-            dmg /= 2f;
+            dmg *= .5f;
         }
-        else if (amountHit >= quareter) //if quarter, take quarter
+        else if (amountHit >= quareter) //if quarter, take 3/4
         {
-            dmg /= 4f;
+            dmg *= .75f;
         }
 
         return dmg;
@@ -261,10 +292,12 @@ public class CombatStats : MonoBehaviour
 
     float PlayerDamageModifier(float dmg)
     {
-        var half = _totalHits / 2;
-        var quareter = _totalHits / 4;
+        Debug.Log("amount hit: " + amountHit);
+        Debug.Log("total hit: " + totalHits);
+        var half = totalHits / 2;
+        var quareter = totalHits / 4;
 
-        if (amountHit == _totalHits)
+        if (amountHit == totalHits)
         {
             dmg *= 1.5f;
         }
@@ -276,7 +309,7 @@ public class CombatStats : MonoBehaviour
         {
             dmg *= 1.1f;
         }
-        else if (amountHit < 1)
+        else
         {
             dmg = 0;
         }

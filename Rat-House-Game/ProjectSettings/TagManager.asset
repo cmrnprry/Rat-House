@@ -19,8 +19,8 @@ TagManager:
   - water_effect
   - Button
   - DeadScreen
-  - Interactable
   - Dialogue
+  - Enemy Health Parent
   layers:
   - Default
   - TransparentFX

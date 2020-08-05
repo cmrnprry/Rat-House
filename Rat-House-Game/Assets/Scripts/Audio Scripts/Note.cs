@@ -18,8 +18,13 @@ public class Note : MonoBehaviour
     //Starting X position of the slider
     public Vector3 startPoint;
 
+    //end for player dodge
+    public Vector3 endPoint;
+
     //Point to reset the slider
     public Vector3 restartPoint;
+
+
 
     //Current action selected
     private ActionType _curAction;
@@ -81,14 +86,11 @@ public class Note : MonoBehaviour
         else if (AudioManager.instance.dodgeMusic.isPlaying)
         {
             //Moves the block based on where we are in the the music in BEATS
-            gameObject.transform.position = Vector3.Lerp(restartPoint, startPoint, AudioManager.instance.mapProgression);
+            gameObject.transform.position = Vector3.Lerp(restartPoint, endPoint, AudioManager.instance.mapProgression);
 
-            if (gameObject.transform.position.x <= startPoint.x)
+            if (gameObject.transform.position.x <= endPoint.x)
             {
                 ClearBeats();
-
-                //reset the amount of beats hit
-                CombatStats.amountHit = 0;
 
                 AudioManager.instance.dodgeMusic.Stop();
 
@@ -127,6 +129,7 @@ public class Note : MonoBehaviour
     public void ShowDodgeBeats()
     {
         var spawnPoint = gameObject.transform.position;
+        CombatStats.totalHits = AudioManager.instance.chosenEnemyAttack.Count;
 
         foreach (var beat in AudioManager.instance.chosenEnemyAttack)
         {
@@ -153,6 +156,8 @@ public class Note : MonoBehaviour
 
     private void ClearBeats()
     {
+        CombatController.instance.hitDetectionText.gameObject.SetActive(false); 
+
         Debug.Log("clear");
         foreach (Transform child in noteParent.transform)
         {
@@ -160,9 +165,11 @@ public class Note : MonoBehaviour
         }
 
         beats = new List<float>();
+
+        //Reset the Combat Stats to empty/0
         CombatStats.hitList = new List<float>();
         CombatStats.index = 0;
-        CombatStats._totalHits = 0;
+        CombatStats.hitNote = false;
     }
 
     //Display the BeatMap in game
@@ -171,7 +178,7 @@ public class Note : MonoBehaviour
         if (_curAction != ActionType.Item)
         {
             beats = AudioManager.instance.playerBeatMap[(int)_curAction].beatsToHit;
-            CombatStats._totalHits = beats.Count;
+            CombatStats.totalHits = beats.Count;
         }
 
         var spawnPoint = this.gameObject.transform.position;

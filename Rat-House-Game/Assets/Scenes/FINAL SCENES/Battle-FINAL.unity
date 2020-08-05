@@ -104632,6 +104632,7 @@ MonoBehaviour:
   half: {fileID: 1536818765659724104, guid: d022adb154573924b9dd3bbdd57180f3, type: 3}
   noteParent: {fileID: 1331135218}
   startPoint: {x: 3, y: 6.19, z: 0}
+  endPoint: {x: 2.3, y: 6.19, z: 0}
   restartPoint: {x: 12.5, y: 6.19, z: 0}
 --- !u!65 &1618190313
 BoxCollider:
