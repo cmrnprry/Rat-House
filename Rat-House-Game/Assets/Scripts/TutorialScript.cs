@@ -39,8 +39,6 @@ public class TutorialScript : MonoBehaviour
     //Shows the Opening Dialogue for the tutorial
     public IEnumerator ShowOpeningDialogue()
     {
-        Debug.Log("Show Openinng Dialogue");
-
         //Waits for the text to stop typing
         yield return new WaitUntil(() => dialogue.isTyping == false);
 

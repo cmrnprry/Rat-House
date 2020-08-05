@@ -146,7 +146,6 @@ public class AudioManager : MonoBehaviour
         //Record the time when the music starts
         dspSongTime = (float)AudioSettings.dspTime;
 
-        Debug.Log("Start BG Music");
         //Start the background music
         bgMusic.Play();
 
@@ -191,12 +190,7 @@ public class AudioManager : MonoBehaviour
         //Updates what music the player has selected assuimung it's not an item
         if (CombatController.instance.selectedAction != ActionType.Item)
         {
-            if (CombatController.instance.selectedAction == ActionType.Kick)
-            {
-                CombatController.instance.selectedAction = ActionType.Punch;
-            }
-
-            attackMusic.clip = attackClips[(int)CombatController.instance.selectedAction];
+            //attackMusic.clip = attackClips[(int)CombatController.instance.selectedAction];
 
             float length = (float)(Math.Truncate((double)attackMusic.clip.length * 100.0) / 100.0);
             totalBeats = mapBeatsPerSec * length;
@@ -239,9 +233,11 @@ public class AudioManager : MonoBehaviour
         //TODO: Change this to have 
 
         //set the correct dodge music
-        dodgeMusic.clip = dodgeClips[action];
+        //dodgeMusic.clip = dodgeClips[action];
 
         float currPos = songPositionInBeats;
+
+        Debug.Log(currPos);
 
         // Wait until the next second
         yield return new WaitUntil(() => (Math.Truncate(currPos) + beatsPerSec <= songPositionInBeats));
@@ -251,6 +247,7 @@ public class AudioManager : MonoBehaviour
         yield return new WaitForFixedUpdate();
 
         dodgeMusic.Play();
+        Debug.Log("Play dodge");
         StartCoroutine(StartMapUpdates());
     }
 
@@ -260,16 +257,15 @@ public class AudioManager : MonoBehaviour
     public IEnumerator StartMapUpdates()
     {
 
-        mapPosition = (float)(AudioSettings.dspTime - dspMapTime) < 0 ? 0: (float)(AudioSettings.dspTime - dspMapTime);
+        mapPosition = (float)(AudioSettings.dspTime - dspMapTime) < 0 ? 0 : (float)(AudioSettings.dspTime - dspMapTime);
         mapPositionInBeats = mapPosition / mapSecPerBeat;
         mapProgression = mapPositionInBeats / totalBeats;
-
-        Debug.Log("map Pos: " + mapPosition);
-        Debug.Log("map progress: " + mapProgression);
 
         //if neither attack or dodge music is playing
         if (!attackMusic.isPlaying && !dodgeMusic.isPlaying)
         {
+            Debug.Log("reset beats");
+
             mapPosition = 0;
             mapPositionInBeats = 0;
             mapProgression = 0;

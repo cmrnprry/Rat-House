@@ -165,7 +165,6 @@ public class GameManager : MonoBehaviour
     **/
     public IEnumerator StartBattle()
     {
-        Debug.Log("Load Battle Scene");
         topOverlay.SetActive(false);
 
         SceneManager.LoadScene("Battle-FINAL");
@@ -174,8 +173,6 @@ public class GameManager : MonoBehaviour
 
         //Spawn the correct enemies 
         CombatController.instance.SetUpBattleScene();
-
-        Debug.Log("Start Battle");
 
         AudioManager.instance.StartCombatMusic();
         StartCoroutine(CombatController.instance.ChooseAction());
@@ -276,7 +273,6 @@ public class GameManager : MonoBehaviour
     //Handles the tutorial stuff
     void StartTutorial()
     {
-        Debug.Log("start tutorial");
         //open the text box and start dialogue
         tutorial.anim.SetBool("isOpen", true);
 

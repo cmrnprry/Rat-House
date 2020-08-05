@@ -64,8 +64,6 @@ public class PlayerController : MonoBehaviour
         {
             if (_canFight)
             {
-                Debug.Log("Stop Movement and Start Battle");
-
                 GameManager.instance.SetGameState(GameState.Battle);
                 _canFight = false;
 
@@ -82,8 +80,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.gameObject.tag == "Enemy")
         {
-            Debug.Log("Press Enter to Start Combat");
-
             //tells the Combat Manager which enemies the player could possibly fight
             CombatController.instance.SetEnemies(collider.gameObject.GetComponent<EnemyController>().enemiesInBattle);
             GameManager.instance.currEnemy = collider.gameObject;

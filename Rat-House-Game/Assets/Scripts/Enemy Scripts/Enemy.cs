@@ -33,8 +33,8 @@ public class Enemy : MonoBehaviour
         var beats = AudioManager.instance.enemyBeatMap;
 
         //Set the enemy types to have the correct beats
-        coffeeBeats = beats.GetRange(0, 2);
-        waterBeats = beats.GetRange(2, 2);
+        waterBeats = beats.GetRange(0, 2);
+        coffeeBeats = beats.GetRange(2, 2);
         internBeats = beats.GetRange(4, 1);
         computerBeats = beats.GetRange(5, 3);
 
@@ -86,12 +86,26 @@ public class Enemy : MonoBehaviour
 
         if (chance >= 70)
         {
+            //Set the beats to hit and the total hits
             AudioManager.instance.chosenEnemyAttack = coffeeBeats[0].beatsToHit;
+            CombatStats._totalHits = coffeeBeats[0].beatsToHit.Count;
+
+            //Set the base attack
+            _baseAttack = coffeeBeats[0].base_damage;
+            
+            //set the music clip number
             music = 2;
         }
         else
         {
+            //Set the beats to hit and the total hits
             AudioManager.instance.chosenEnemyAttack = coffeeBeats[1].beatsToHit;
+            CombatStats._totalHits = coffeeBeats[1].beatsToHit.Count;
+
+            //Set the base attack
+            _baseAttack = coffeeBeats[1].base_damage;
+
+            //set the music clip number
             music = 3;
         }
 
@@ -99,11 +113,13 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        AudioManager.instance.SetDodgeMap(music);
+        StartCoroutine(AudioManager.instance.SetDodgeMap(music));
 
         //Play some animation
         _attackAnim.Play();
         Debug.Log("Play attack animation");
+
+        yield return new WaitUntil(() => AudioManager.instance.dodgeMusic.isPlaying);
 
         //while the animation is playing wait
         yield return new WaitUntil(() => !AudioManager.instance.dodgeMusic.isPlaying);
@@ -112,9 +128,8 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.5f);
 
-       _turnOver = true;
+        _turnOver = true;
     }
-
 
     //Handles attacks for Intern
     IEnumerator InternAttack()
@@ -125,7 +140,14 @@ public class Enemy : MonoBehaviour
 
         if (chance >= 0)
         {
+            //Set the beats to hit and the total hits
             AudioManager.instance.chosenEnemyAttack = internBeats[0].beatsToHit;
+            CombatStats._totalHits = internBeats[0].beatsToHit.Count;
+
+            //Set the base attack
+            _baseAttack = internBeats[0].base_damage;
+
+            //set the music clip number
             music = 4;
         }
         else
@@ -138,11 +160,13 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        AudioManager.instance.SetDodgeMap(music);
+        StartCoroutine(AudioManager.instance.SetDodgeMap(music));
 
         //Play some animation
         _attackAnim.Play();
         Debug.Log("Play attack animation");
+
+        yield return new WaitUntil(() => AudioManager.instance.dodgeMusic.isPlaying);
 
         //while the animation is playing wait
         yield return new WaitUntil(() => !AudioManager.instance.dodgeMusic.isPlaying);
@@ -162,12 +186,26 @@ public class Enemy : MonoBehaviour
 
         if (chance >= 60)
         {
+            //Set the beats to hit and the total hits
             AudioManager.instance.chosenEnemyAttack = waterBeats[0].beatsToHit;
+            CombatStats._totalHits = waterBeats[0].beatsToHit.Count;
+
+            //Set the base attack
+            _baseAttack = waterBeats[0].base_damage;
+
+            //set the music clip number
             music = 0;
         }
         else
         {
+            //Set the beats to hit and the total hits
             AudioManager.instance.chosenEnemyAttack = waterBeats[1].beatsToHit;
+            CombatStats._totalHits = waterBeats[1].beatsToHit.Count;
+
+            //Set the base attack
+            _baseAttack = waterBeats[1].base_damage;
+
+            //set the music clip number
             music = 1;
         }
 
@@ -175,11 +213,13 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        AudioManager.instance.SetDodgeMap(music);
+        StartCoroutine(AudioManager.instance.SetDodgeMap(music));
 
         //Play some animation
         _attackAnim.Play();
         Debug.Log("Play attack animation");
+
+        yield return new WaitUntil(() => AudioManager.instance.dodgeMusic.isPlaying);
 
         //while the animation is playing wait
         yield return new WaitUntil(() => !AudioManager.instance.dodgeMusic.isPlaying);

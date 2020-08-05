@@ -40,13 +40,6 @@ public class BeatMapReader : MonoBehaviour
         {
             string[] action = str.Split('\t');
 
-            Debug.Log(str);
-
-            foreach (string d in action)
-            {
-                Debug.Log(d);
-            }
-
             p_maps.Add(ToStruct(action));
         }
 

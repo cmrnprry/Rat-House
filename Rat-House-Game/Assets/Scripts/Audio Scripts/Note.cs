@@ -43,6 +43,7 @@ public class Note : MonoBehaviour
         _length = Vector3.Distance(startPoint, restartPoint);
 
         //half the width
+        Debug.Log(rend.bounds.size.x * .5f);
         offsetSlider = -rend.bounds.size.x * .5f;
         // transform.position += new Vector3(offsetSlider, 0f, 0f);
     }
@@ -60,9 +61,13 @@ public class Note : MonoBehaviour
             {
                 ClearBeats();
 
+                //reset the amount of beats hit
+                CombatStats.amountHit = 0;
+
                 AudioManager.instance.attackMusic.Stop();
 
-                gameObject.transform.position = startPoint;
+                //gameObject.transform.position = startPoint;
+                Flip();
 
                 //IF WE ARE NOT IN THE TUTORIAL DEAL DAMAGE
                 if (GameManager.instance.GetGameState() != GameState.Tutorial)
@@ -78,11 +83,16 @@ public class Note : MonoBehaviour
             //Moves the block based on where we are in the the music in BEATS
             gameObject.transform.position = Vector3.Lerp(restartPoint, startPoint, AudioManager.instance.mapProgression);
 
-            if (gameObject.transform.position.x <= restartPoint.x)
+            if (gameObject.transform.position.x <= startPoint.x)
             {
-                AudioManager.instance.attackMusic.Stop();
+                ClearBeats();
 
-                gameObject.transform.position = startPoint;
+                //reset the amount of beats hit
+                CombatStats.amountHit = 0;
+
+                AudioManager.instance.dodgeMusic.Stop();
+
+                gameObject.transform.position = restartPoint;
             }
         }
         else if (CombatController.instance.selectedAction != _curAction)
@@ -91,13 +101,20 @@ public class Note : MonoBehaviour
 
             _curAction = CombatController.instance.selectedAction;
 
-            ShowAttackBeats();
 
             if (_curAction != ActionType.Item)
             {
                 CombatStats.hitList.Sort();
+                ShowAttackBeats();
             }
 
+        }
+
+        if (CombatController.instance.enemyTurnOver)
+        {
+            ShowAttackBeats();
+            Flip();
+            gameObject.transform.position = startPoint;
         }
 
         if (showDodge)
@@ -117,7 +134,7 @@ public class Note : MonoBehaviour
             var beatFraction = (beat + 1) / AudioManager.instance.totalBeats;
 
             //Spawn the Beat based on the start point, length and position of the beat
-            spawnPoint = Vector3.Lerp(startPoint, restartPoint, beatFraction);
+            spawnPoint = Vector3.Lerp(restartPoint, startPoint, beatFraction);
 
             //add the "perfect" hit point to the list
             CombatStats.hitList.Add(spawnPoint.x);
@@ -129,7 +146,7 @@ public class Note : MonoBehaviour
 
             //make sure the rotation is 0 and put the parent in the right place
             note.transform.rotation = Quaternion.Euler(0, 0, 0);
-            note.transform.localPosition = spawnPoint;// new Vector3(spawnPoint.x, note.transform.localPosition.y, 0f);
+            note.transform.position = spawnPoint;// new Vector3(spawnPoint.x, note.transform.localPosition.y, 0f);
             note.transform.parent = noteParent.transform;
         }
     }
@@ -144,6 +161,8 @@ public class Note : MonoBehaviour
 
         beats = new List<float>();
         CombatStats.hitList = new List<float>();
+        CombatStats.index = 0;
+        CombatStats._totalHits = 0;
     }
 
     //Display the BeatMap in game
@@ -151,7 +170,6 @@ public class Note : MonoBehaviour
     {
         if (_curAction != ActionType.Item)
         {
-            //TODO: Implement other attacks
             beats = AudioManager.instance.playerBeatMap[(int)_curAction].beatsToHit;
             CombatStats._totalHits = beats.Count;
         }
@@ -176,7 +194,7 @@ public class Note : MonoBehaviour
 
             //make sure the rotation is 0 and put the parent in the right place
             note.transform.rotation = Quaternion.Euler(0, 0, 0);
-            note.transform.localPosition = spawnPoint;
+            note.transform.position = spawnPoint;
             note.transform.parent = noteParent.transform;
         }
     }

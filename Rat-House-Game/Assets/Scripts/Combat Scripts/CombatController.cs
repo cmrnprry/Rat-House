@@ -76,7 +76,7 @@ public class CombatController : MonoBehaviour
     private int _selectedItem = 0;
 
     //Checks to see if the player can select from the action list
-    private bool _canSelect;
+    public bool enemyTurnOver = false;
 
     //Keeps trackof player/enemy stats in battle
     private CombatStats _stats;
@@ -89,6 +89,7 @@ public class CombatController : MonoBehaviour
     public GameObject menuSelect;
     private GameObject _enemyParent;
     public Slider playerHealthSlider;
+    public TextMeshProUGUI playerHealthText;
 
     void Awake()
     {
@@ -183,11 +184,11 @@ public class CombatController : MonoBehaviour
     //Handles the player choosing which action to take
     public IEnumerator ChooseAction()
     {
+        Debug.Log(selectedAction);
         //Wait until a correct key is pressed
         yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("SelectAction") || Input.GetButtonDown("Right"));
 
-        Debug.Log("Key Pressed");
-
+        Debug.Log(selectedAction);
         if (Input.GetButtonDown("Up"))
         {
             if (_selectedAction == 0)
@@ -242,6 +243,7 @@ public class CombatController : MonoBehaviour
         }
         else if (Input.GetButtonDown("Right"))
         {
+            selectedAction = ActionType.Item;
             Debug.Log("Open Item Menu");
 
             //Wait a frame before showing anything
@@ -249,6 +251,7 @@ public class CombatController : MonoBehaviour
 
             //Switch to the menu selection
             ShowItems();
+            HighlightMenuItem();
 
             //reset the selected action to 0
             _selectedAction = 0;
@@ -260,6 +263,7 @@ public class CombatController : MonoBehaviour
 
         //Set the correct selected action
         selectedAction = _actionList[_selectedAction];
+        Debug.Log(selectedAction);
 
         //Wait a frame to  rerun the coroutine
         yield return new WaitForEndOfFrame();
@@ -321,7 +325,6 @@ public class CombatController : MonoBehaviour
             }
             else if (Input.GetButtonDown("SelectAction"))
             {
-                _canSelect = false;
                 TurnOffHighlight();
 
                 switch (itemList[_selectedItem].item)
@@ -352,7 +355,7 @@ public class CombatController : MonoBehaviour
 
         if (Input.GetButton("Left"))
         {
-
+            selectedAction = ActionType.Punch;
             Debug.Log("Open Action Menu");
 
             //Wait a frame before showing anything
@@ -360,13 +363,13 @@ public class CombatController : MonoBehaviour
 
             //Switch to the action selection
             ReturnToBattleMenu();
+            HighlightMenuItem();
 
             //reset the selected item to 0
             _selectedItem = 0;
             yield break;
         }
 
-        _canSelect = true;
         yield return new WaitForSecondsRealtime(0.15f);
         StartCoroutine(ChooseItem());
     }
@@ -465,7 +468,6 @@ public class CombatController : MonoBehaviour
         //TODO:Add some sort of visual display to show the selected enemy
         HighlightEnemy();
 
-        _canSelect = true;
         yield return new WaitForEndOfFrame();
         StartCoroutine(ChooseEnemy(isItem));
     }
@@ -507,6 +509,8 @@ public class CombatController : MonoBehaviour
                 //Waits untik this returns true
                 yield return new WaitUntil(() => e.IsTurnOver());
 
+                Debug.Log("Turn Over");
+
                 //Reset the IsTurnOver to be false
                 e.SetIsTurnOver(false);
 
@@ -519,15 +523,15 @@ public class CombatController : MonoBehaviour
                 }
             }
 
+            yield return new WaitForEndOfFrame();
 
             StartCoroutine(EnemyPhase(enemy + 1));
             yield break;
         }
 
-        yield return new WaitForEndOfFrame();
+        enemyTurnOver = true;
 
-        //Give the player control back
-        attackMenu.SetActive(true);
+        yield return new WaitForEndOfFrame();
 
         //Find the first non-defeated enemy to have selected
         for (int i = 0; i < _inBattle.Count; i++)
@@ -539,6 +543,15 @@ public class CombatController : MonoBehaviour
             }
         }
 
+        //Turn on the highlight
+        HighlightMenuItem();
+
+        //Turn on the attack 
+        GameManager.instance.battleAnimator.SetBool("IsOpen", true);
+
+        yield return new WaitForEndOfFrame();
+
+        enemyTurnOver = false;
         Debug.Log("Enemy Phase Over");
         StartCoroutine(ChooseAction());
         yield break;
