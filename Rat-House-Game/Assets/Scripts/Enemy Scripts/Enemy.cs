@@ -23,6 +23,11 @@ public class Enemy : MonoBehaviour
     public int numberOfAttacks;
     public int[] chancesOfHitting;
 
+    //SFX
+    public AudioSource sfx;
+    public AudioClip hit;
+    public AudioClip miss;
+
     private bool _turnOver = false;
 
     public string effectName;
