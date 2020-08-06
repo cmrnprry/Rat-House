@@ -128,10 +128,10 @@ public class Enemy : MonoBehaviour
         _attackAnim.Play();
         Debug.Log("Play attack animation");
 
-        yield return new WaitUntil(() => AudioManager.instance.dodgeMusic.isPlaying);
+        yield return new WaitUntil(() => AudioManager.instance.startDodge);
 
         //while the animation is playing wait
-        yield return new WaitUntil(() => !AudioManager.instance.dodgeMusic.isPlaying);
+        yield return new WaitUntil(() => !AudioManager.instance.startDodge);
 
         _attackAnim.Stop();
 
@@ -175,10 +175,10 @@ public class Enemy : MonoBehaviour
         _attackAnim.Play();
         Debug.Log("Play attack animation");
 
-        yield return new WaitUntil(() => AudioManager.instance.dodgeMusic.isPlaying);
+        yield return new WaitUntil(() => AudioManager.instance.startDodge);
 
         //while the animation is playing wait
-        yield return new WaitUntil(() => !AudioManager.instance.dodgeMusic.isPlaying);
+        yield return new WaitUntil(() => !AudioManager.instance.startDodge);
 
         _attackAnim.Stop();
 
@@ -228,10 +228,10 @@ public class Enemy : MonoBehaviour
         _attackAnim.Play();
         Debug.Log("Play attack animation");
 
-        yield return new WaitUntil(() => AudioManager.instance.dodgeMusic.isPlaying);
+        yield return new WaitUntil(() => AudioManager.instance.startDodge);
 
         //while the animation is playing wait
-        yield return new WaitUntil(() => !AudioManager.instance.dodgeMusic.isPlaying);
+        yield return new WaitUntil(() => !AudioManager.instance.startDodge);
 
         _attackAnim.Stop();
 
@@ -263,7 +263,10 @@ public class Enemy : MonoBehaviour
 
     public void UpdateHealth(float dmg)
     {
-        health.value = (dmg / _maxHealth);
+
+        var h = _maxHealth - dmg;
+
+        health.value = (h / _maxHealth);
     }
 
     public float GetBaseAttack()

@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     [Header("Game State")]
     //Keeps track of the current game state
     [SerializeField]
-    private GameState _currState = GameState.Overworld;
+    private GameState _currState;
 
     //Keeps track of the current enemy that is being fought
     public GameObject currEnemy;
@@ -37,6 +37,9 @@ public class GameManager : MonoBehaviour
     [Header("Handles Difficulty")]
     //Number of times the player has retried a battle
     public int numberRetries = 0;
+
+    [Header("Handles Returning to Overworld")]
+
 
     [Header("UI Items")]
     //reference to the canvas
@@ -84,13 +87,13 @@ public class GameManager : MonoBehaviour
         CombatController.instance.itemList.Add(new Items(ItemType.Basic_Heath, 3, 10));
         CombatController.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2, 10));
 
-        UpdateGameState();
+       // UpdateGameState();
     }
 
     private void Update()
     {
         //FOR TESTING
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.I))
         {
             SetGameState(GameState.Overworld);
             tutorial.SkipTutorial();
@@ -184,11 +187,7 @@ public class GameManager : MonoBehaviour
         //reset the number of retries to 0
         numberRetries = 0;
 
-        //Turn off the battle music
-        AudioManager.instance.StopCombatMusic();
-
-        //Turn off the battle UI
-        battleAnimator.SetBool("IsOpen", false);
+        TurnOffBattleMenus();
 
         //If we were in the battle scene, make sure to clear it out
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Battle-FINAL"))
@@ -196,9 +195,6 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
-
-
-        topOverlay.SetActive(true);
 
         //Load the Overworld Scene
         SceneManager.LoadScene("Overworld_Level1-FINAL");
@@ -252,6 +248,19 @@ public class GameManager : MonoBehaviour
 
         //Set Game State
         SetGameState(GameState.Overworld);
+    }
+
+    void TurnOffBattleMenus()
+    {
+        //Turn off the battle music
+        AudioManager.instance.StopCombatMusic();
+
+        //Turn off the battle UI
+        battleAnimator.SetBool("IsOpen", false);
+
+        topOverlay.SetActive(true);
+
+        healthParent.SetActive(false);
     }
 
     //Set the current game state

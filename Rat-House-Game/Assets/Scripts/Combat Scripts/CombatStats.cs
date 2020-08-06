@@ -30,6 +30,10 @@ public class CombatStats : MonoBehaviour
     //base damage that attacks can do
     private List<float> _attackDamage;
 
+    public int action = 0;
+    public AudioClip[] actionSounds;
+    public AudioSource source;
+
     public void SetStats()
     {
         enemyHealth = new List<float>();
@@ -49,10 +53,15 @@ public class CombatStats : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        source = AudioManager.instance.attackMusic;
+    }
+
     private void Update()
     {
         //if the attact music is playing, then check if the player has hit or miss
-        if (AudioManager.instance.attackMusic.isPlaying && index < hitList.Count)
+        if (AudioManager.instance.startAction && index < hitList.Count)
         {
             //inceasese the index if the player misses OR hits a note since the cannot do both
             if (Input.GetButtonDown("SelectAction"))
@@ -86,7 +95,7 @@ public class CombatStats : MonoBehaviour
                 hitNote = false;
             }
         }
-        else if (AudioManager.instance.dodgeMusic.isPlaying && index < hitList.Count)
+        else if (AudioManager.instance.startDodge && index < hitList.Count)
         {
             //inceasese the index if the player misses OR hits a note since the cannot do both
             if (Input.GetButtonDown("SelectAction"))
@@ -124,8 +133,6 @@ public class CombatStats : MonoBehaviour
 
     private void DetectAttackHit(Vector3 pos)
     {
-        Debug.Log("hit detected");
-
         //if the player hits late
         if (pos.x > hitList[index] + delta && pos.x <= hitList[index] + offset) //between the pos and offset
         {
@@ -151,8 +158,16 @@ public class CombatStats : MonoBehaviour
             amountHit += .5f;
         }
 
+        PlayRandomAttackClip();
         index++;
         hitNote = true;
+    }
+
+    void PlayRandomAttackClip()
+    {
+        var random = Random.Range(0, 2);
+        source.clip = actionSounds[random];
+        source.Play();
     }
 
     private void DetectDodgeHit(Vector3 pos)
@@ -219,50 +234,70 @@ public class CombatStats : MonoBehaviour
         }
     }
 
-    public void DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false, int itemDmg = 0)
+    public IEnumerator DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false, float itemDmg = 0)
     {
+        //TODO: Determine if it's a good splash screen or bad
+        //TODO: Add in some animation to make this look cooler
+        CombatController.instance.splashScreens[action].gameObject.SetActive(true);
+
         // if isItem is true set damage to item damage otherwise do the damage calculation
         var damage = (isItem == true ? itemDmg : PlayerDamageModifier(_attackDamage[(int)CombatController.instance.selectedAction]));
 
-        Debug.Log("Damange Dealt: " + damage);
+        Debug.Log("Damage: " + damage);
 
         enemyHealth[enemyAttacked] -= damage;
         CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>().UpdateHealth(damage);
 
-        Debug.Log("Enemy Health: " + enemyHealth[enemyAttacked]);
+        Debug.Log("enemy Attacked: " + CombatController.instance.enemyList[enemyAttacked].ToString());
+        Debug.Log("enemy health after attack: " + enemyHealth[enemyAttacked]);
 
-        totalHits = 0;
-        amountHit = 0;
+        yield return new WaitForEndOfFrame();
 
         if (enemyHealth[enemyAttacked] <= 0)
         {
-            //play enemy death animiation
-            Debug.Log("Enemy Dead");
+            EnemyDeath(enemyAttacked);
 
-            //decrease the number o f enemies left
-            _enemiesLeft -= 1;
+            yield return new WaitForSecondsRealtime(1f);
 
-            //Destroy Enemy
-            Destroy(CombatController.instance._inBattle[enemyAttacked].gameObject);
-
-            Debug.Log("Enemy Dead: " + CombatController.instance._inBattle[enemyAttacked].name);
-
-            //remove enemy from list(s) && turn off health
-            CombatController.instance._inBattle[enemyAttacked] = null;
-            CombatController.instance.enemyHealthBars[index].gameObject.SetActive(false);
-
-            Debug.Log(CombatController.instance._inBattle[enemyAttacked]);
+            CombatController.instance.splashScreens[action].gameObject.SetActive(false);
 
             //If there are no more enemies, return to overworld
             if (_enemiesLeft <= 0)
             {
                 StartCoroutine(GameManager.instance.BattleWon());
-                return;
+                yield break;
             }
         }
 
+        yield return new WaitForEndOfFrame();
+
+        //Reset the # of total hits and amount it
+        totalHits = 0;
+        amountHit = 0;
+
         //After the damage has been delt we want to switch to the enemies turn
         StartCoroutine(CombatController.instance.EnemyPhase());
+    }
+
+    //Handles what happens when an enemy dies
+    void EnemyDeath(int enemyAttacked)
+    {
+        CombatController.instance.enemyDeath.Play();
+
+        //play enemy death animiation
+        Debug.Log("Enemy Dead");
+
+        //decrease the number o f enemies left
+        _enemiesLeft -= 1;
+
+        //Destroy Enemy
+        Destroy(CombatController.instance._inBattle[enemyAttacked].gameObject);
+
+        Debug.Log("Enemy Dead: " + CombatController.instance._inBattle[enemyAttacked].name);
+
+        //remove enemy from list(s) && turn off health
+        CombatController.instance._inBattle[enemyAttacked] = null;
+        CombatController.instance.enemyHealthBars[enemyAttacked].gameObject.SetActive(false);
     }
 
     float EnemyDamageModifier(float dmg)

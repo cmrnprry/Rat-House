@@ -24,8 +24,6 @@ public class Note : MonoBehaviour
     //Point to reset the slider
     public Vector3 restartPoint;
 
-
-
     //Current action selected
     private ActionType _curAction;
 
@@ -48,7 +46,6 @@ public class Note : MonoBehaviour
         _length = Vector3.Distance(startPoint, restartPoint);
 
         //half the width
-        Debug.Log(rend.bounds.size.x * .5f);
         offsetSlider = -rend.bounds.size.x * .5f;
         // transform.position += new Vector3(offsetSlider, 0f, 0f);
     }
@@ -57,21 +54,19 @@ public class Note : MonoBehaviour
     void Update()
     {
         //if the attact music is playing, then the player is playing the rhythm mini-game
-        if (AudioManager.instance.attackMusic.isPlaying)
+        if (AudioManager.instance.startAction)
         {
             //Moves the block based on where we are in the the music in BEATS
             gameObject.transform.position = Vector3.Lerp(startPoint, restartPoint, AudioManager.instance.mapProgression);
 
             if (gameObject.transform.position.x >= restartPoint.x)
             {
+                Debug.Log("action over");
+
                 ClearBeats();
 
-                //reset the amount of beats hit
-                CombatStats.amountHit = 0;
+                AudioManager.instance.startAction = false;
 
-                AudioManager.instance.attackMusic.Stop();
-
-                //gameObject.transform.position = startPoint;
                 Flip();
 
                 //IF WE ARE NOT IN THE TUTORIAL DEAL DAMAGE
@@ -83,7 +78,7 @@ public class Note : MonoBehaviour
             }
 
         }
-        else if (AudioManager.instance.dodgeMusic.isPlaying)
+        else if (AudioManager.instance.startDodge)
         {
             //Moves the block based on where we are in the the music in BEATS
             gameObject.transform.position = Vector3.Lerp(restartPoint, endPoint, AudioManager.instance.mapProgression);
@@ -92,7 +87,7 @@ public class Note : MonoBehaviour
             {
                 ClearBeats();
 
-                AudioManager.instance.dodgeMusic.Stop();
+                AudioManager.instance.startDodge = false;
 
                 gameObject.transform.position = restartPoint;
             }
@@ -115,12 +110,13 @@ public class Note : MonoBehaviour
         if (CombatController.instance.enemyTurnOver)
         {
             ShowAttackBeats();
-            Flip();
+            Flip(1);
             gameObject.transform.position = startPoint;
         }
 
         if (showDodge)
         {
+            Flip();
             ShowDodgeBeats();
             showDodge = false;
         }
@@ -154,25 +150,6 @@ public class Note : MonoBehaviour
         }
     }
 
-    private void ClearBeats()
-    {
-        CombatController.instance.hitDetectionText.gameObject.SetActive(false); 
-
-        Debug.Log("clear");
-        foreach (Transform child in noteParent.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
-        beats = new List<float>();
-
-        //Reset the Combat Stats to empty/0
-        CombatStats.hitList = new List<float>();
-        CombatStats.index = 0;
-        CombatStats.hitNote = false;
-    }
-
-    //Display the BeatMap in game
     private void ShowAttackBeats()
     {
         if (_curAction != ActionType.Item)
@@ -206,11 +183,30 @@ public class Note : MonoBehaviour
         }
     }
 
-    //flip the fangs when dodging
-    private void Flip()
+    private void ClearBeats()
     {
-        Vector3 theScale = transform.GetChild(0).localScale;
-        theScale.x *= -1;
+        CombatController.instance.hitDetectionText.gameObject.SetActive(false);
+
+        Debug.Log("clear");
+        foreach (Transform child in noteParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        beats = new List<float>();
+
+        //Reset the Combat Stats to empty/0
+        CombatStats.hitList = new List<float>();
+        CombatStats.index = 0;
+        CombatStats.hitNote = false;
+    }
+
+    //flip the fangs when dodging
+    // num is either positive or negative depending on which way it sould be facing
+    public void Flip(int num = -1)
+    {
+        Vector3 theScale = gameObject.transform.GetChild(0).localScale;
+        theScale.x = num;
         transform.GetChild(0).localScale = theScale;
     }
 }

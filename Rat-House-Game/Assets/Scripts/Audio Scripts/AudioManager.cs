@@ -26,6 +26,8 @@ public class AudioManager : MonoBehaviour
     public AudioSource dodgeMusic;
 
     [Header("BeatMap Beats")]
+    public bool startAction;
+    public bool startDodge;
     public List<float> chosenEnemyAttack = new List<float>();
     //List of possible music to play
     public AudioClip[] attackClips;
@@ -136,8 +138,7 @@ public class AudioManager : MonoBehaviour
         mapBeatsPerSec = mapBpm / 60f;
 
         //Sets the total beats for the first clip
-        float length = (float)(Math.Truncate((double)attackMusic.clip.length * 100.0) / 100.0);
-        totalBeats = mapBeatsPerSec * length;
+        totalBeats = 9;
     }
 
     //Start BG music when a fight starts
@@ -187,19 +188,6 @@ public class AudioManager : MonoBehaviour
             completedLoops++;
         }
 
-        //Updates what music the player has selected assuimung it's not an item
-        if (CombatController.instance.selectedAction != ActionType.Item)
-        {
-            //attackMusic.clip = attackClips[(int)CombatController.instance.selectedAction];
-
-            float length = (float)(Math.Truncate((double)attackMusic.clip.length * 100.0) / 100.0);
-            totalBeats = mapBeatsPerSec * length;
-            //Debug.Log("Total Beats: " + totalBeats);
-            //Debug.Log("Total Length: " + attackMusic.clip.length);
-        }
-
-
-
         yield return new WaitForEndOfFrame();
         StartCoroutine(UpdateBeats());
     }
@@ -207,13 +195,6 @@ public class AudioManager : MonoBehaviour
     //Waits a second before starting the attack music
     public IEnumerator SetAttackMap(int action)
     {
-        //Placeholder until more are added
-        if (action != 0)
-            action = 0;
-
-        //set the correct music
-        attackMusic.clip = attackClips[action];
-
         float currPos = songPositionInBeats;
 
         // Wait until the next second
@@ -223,7 +204,7 @@ public class AudioManager : MonoBehaviour
 
         yield return new WaitForFixedUpdate();
 
-        attackMusic.Play();
+        startAction = true;
         StartCoroutine(StartMapUpdates());
     }
 
@@ -232,21 +213,16 @@ public class AudioManager : MonoBehaviour
     {
         //TODO: Change this to have 
 
-        //set the correct dodge music
-        //dodgeMusic.clip = dodgeClips[action];
-
         float currPos = songPositionInBeats;
 
-        Debug.Log(currPos);
-
         // Wait until the next second
-        yield return new WaitUntil(() => (Math.Truncate(currPos) + beatsPerSec <= songPositionInBeats));
+        yield return new WaitUntil(() => (Math.Truncate(currPos) + (beatsPerSec * 2) <= songPositionInBeats));
 
         dspMapTime = (float)AudioSettings.dspTime;
 
         yield return new WaitForFixedUpdate();
 
-        dodgeMusic.Play();
+        startDodge = true;
         Debug.Log("Play dodge");
         StartCoroutine(StartMapUpdates());
     }
@@ -261,8 +237,7 @@ public class AudioManager : MonoBehaviour
         mapPositionInBeats = mapPosition / mapSecPerBeat;
         mapProgression = mapPositionInBeats / totalBeats;
 
-        //if neither attack or dodge music is playing
-        if (!attackMusic.isPlaying && !dodgeMusic.isPlaying)
+        if (!startAction && !startDodge)
         {
             Debug.Log("reset beats");
 
