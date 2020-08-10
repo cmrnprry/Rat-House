@@ -222,6 +222,8 @@ public class GameManager : MonoBehaviour
 
         //play some sort of screen wipe
         anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSeconds(2);
+
 
         topOverlay.SetActive(false);
         SceneManager.LoadScene("Battle-FINAL", LoadSceneMode.Additive);
@@ -294,6 +296,7 @@ public class GameManager : MonoBehaviour
 
         //play some sort of screen wipe
         anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSeconds(2);
 
         //Turn off the battle music
         AudioManager.instance.StopCombatMusic();
