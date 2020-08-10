@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour
     public GameObject healthParent;
     public GameObject topOverlay;
 
+    public Animator anim;
+
 
     [Header("Tutorial Script")]
     //tutorial
@@ -158,6 +160,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     /** Start Combat by:
     * Switching to the correct scene
     * Starting the background audio in the Audio Manager
@@ -165,9 +168,14 @@ public class GameManager : MonoBehaviour
     **/
     public IEnumerator StartBattle()
     {
+        //play some sort of screen wipe
+        anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSeconds(2);
+
         topOverlay.SetActive(false);
 
         SceneManager.LoadScene("Battle-FINAL");
+        anim.CrossFade("Fade_In", 1);
 
         yield return new WaitForFixedUpdate();
 
@@ -183,6 +191,10 @@ public class GameManager : MonoBehaviour
     {
         //reset the number of retries to 0
         numberRetries = 0;
+
+        //play some sort of screen wipe
+        anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSeconds(2);
 
         //Turn off the battle music
         AudioManager.instance.StopCombatMusic();
@@ -202,6 +214,7 @@ public class GameManager : MonoBehaviour
 
         //Load the Overworld Scene
         SceneManager.LoadScene("Overworld_Level1-FINAL");
+        anim.CrossFade("Fade_In", 1);
 
         //Change enemy to Beaten
         if (currEnemy != null)

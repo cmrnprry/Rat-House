@@ -60,16 +60,19 @@ public class TutorialScript : MonoBehaviour
                 yield return new WaitForSecondsRealtime(.2f);
 
                 //play some sort of screen wipe
-
+                GameManager.instance.anim.CrossFade("Fade_Out", 1);
+                yield return new WaitForSeconds(2);
+                
                 //load correct scene
                 SceneManager.LoadScene("Tutorial_Battle-FINAL");
+                GameManager.instance.anim.CrossFade("Fade_In", 1);
 
                 //Turn off the top overlay and turn on the player health bar
                 GameManager.instance.topOverlay.SetActive(false);
                 GameManager.instance.healthParent.SetActive(true);
 
                 yield return new WaitForFixedUpdate();
-
+                                
                 //Set up the battle scene
                 SetUpTutorialBattle();
 
