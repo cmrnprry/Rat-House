@@ -32,6 +32,7 @@ public class CombatStats : MonoBehaviour
 
     public int action = 0;
     public AudioClip[] actionSounds;
+    public AudioClip missSound;
     public AudioSource source;
 
     public void SetStats()
@@ -81,7 +82,9 @@ public class CombatStats : MonoBehaviour
             {
                 if (transform.position.x > hitList[index] + offset && !hitNote) //greater than the pos + offset
                 {
-                    //play MISS animation
+                    source.clip = missSound;
+                    source.Play();
+
                     CombatController.instance.hitDetectionText.text = "Miss!";
                     StartCoroutine(ShowText());
                     index++;
@@ -114,7 +117,9 @@ public class CombatStats : MonoBehaviour
             {
                 if (transform.position.x < hitList[index] - offset && !hitNote) //greater than the pos + offset
                 {
-                    //play MISS animation
+                    source.clip = missSound;
+                    source.Play();
+
                     CombatController.instance.hitDetectionText.text = "Miss!";
                     CombatController.instance.hitDetectionText.gameObject.SetActive(true);
                     Debug.Log("Miss!");
