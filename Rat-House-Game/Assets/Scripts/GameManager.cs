@@ -223,11 +223,9 @@ public class GameManager : MonoBehaviour
         //play some sort of screen wipe
         anim.CrossFade("Fade_Out", 1);
 
-
         topOverlay.SetActive(false);
         SceneManager.LoadScene("Battle-FINAL", LoadSceneMode.Additive);
         TurnOffScene();
-
 
         yield return new WaitForSeconds(2);
 
@@ -294,10 +292,8 @@ public class GameManager : MonoBehaviour
         //reset the number of retries to 0
         numberRetries = 0;
 
-
         //play some sort of screen wipe
         anim.CrossFade("Fade_Out", 1);
-        yield return new WaitForSeconds(2);
 
         //Turn off the battle music
         AudioManager.instance.StopCombatMusic();
@@ -312,10 +308,10 @@ public class GameManager : MonoBehaviour
         if (_currState != GameState.Tutorial)
             CombatController.instance.ClearBattle();
 
-        yield return new WaitForEndOfFrame();
-
         //UnLoad the Battle Scene
         SceneManager.UnloadSceneAsync("Battle-FINAL");
+
+        yield return new WaitForSeconds(2);
 
         anim.CrossFade("Fade_In", 1);
 
