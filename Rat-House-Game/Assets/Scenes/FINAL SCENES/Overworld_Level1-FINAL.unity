@@ -4172,7 +4172,10 @@ MonoBehaviour:
   deathScreenParent: {fileID: 287173141}
   healthParent: {fileID: 514497556}
   topOverlay: {fileID: 2109468451}
+  anim: {fileID: 926109704}
+  dialogue: {fileID: 1929291418}
   tutorial: {fileID: 274487377}
+  overworldLevelOne: []
 --- !u!114 &274487377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27145,6 +27148,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
+      propertyPath: beatenBattleDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
       propertyPath: enemiesInBattle.Array.data[3]
       value: 2
       objectReference: {fileID: 0}
@@ -27162,6 +27180,26 @@ PrefabInstance:
         type: 3}
       propertyPath: enemiesInBattle.Array.data[0]
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: isBeaten
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.data[0]
+      value: Intern:I have been beaten
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.data[0]
+      value: Intern:You have defeated me.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[0]
+      value: Intern:I wont lose probably.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c9c3f00faed8045b4ef147a8f4af91, type: 3}

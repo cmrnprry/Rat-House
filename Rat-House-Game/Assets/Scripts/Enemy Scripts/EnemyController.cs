@@ -17,6 +17,15 @@ public class EnemyController : MonoBehaviour
     [Header("Enemies to Appear in an Encounter")]
     public List<EnemyType> enemiesInBattle;
 
+    [TextArea(3, 5)]
+    public string[] preBattleDialogue;
+
+    [TextArea(3, 5)]
+    public string[] postBattleDialogue;
+
+    [TextArea(3, 5)]
+    public string[] beatenBattleDialogue;
+
     public bool isBeaten = false;
 
 
