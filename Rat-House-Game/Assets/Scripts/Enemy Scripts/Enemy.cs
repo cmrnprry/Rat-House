@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeReference]
     private float _maxHealth;
+    private float _currentHealth;
 
     [SerializeReference]
     private float _baseAcuracy;
@@ -14,10 +16,18 @@ public class Enemy : MonoBehaviour
     [SerializeReference]
     private float _baseAttack;
 
+    [HideInInspector]
+    public Slider healthSlider;
+
     [Header("Attacks")]
     //Number of attacks and chances of said attacks hitting. They follow the order in the spread sheet
     public int numberOfAttacks;
     public int[] chancesOfHitting;
+
+    //SFX
+    public AudioSource sfx;
+    public AudioClip hit;
+    public AudioClip miss;
 
     private bool _turnOver = false;
 
@@ -31,6 +41,8 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         var beats = AudioManager.instance.enemyBeatMap;
+        _currentHealth = _maxHealth;
+        UpdateHealth(0);
 
         //Set the enemy types to have the correct beats
         waterBeats = beats.GetRange(0, 2);
@@ -88,11 +100,11 @@ public class Enemy : MonoBehaviour
         {
             //Set the beats to hit and the total hits
             AudioManager.instance.chosenEnemyAttack = coffeeBeats[0].beatsToHit;
-            CombatStats._totalHits = coffeeBeats[0].beatsToHit.Count;
+            CombatStats.totalHits = coffeeBeats[0].beatsToHit.Count;
 
             //Set the base attack
             _baseAttack = coffeeBeats[0].base_damage;
-            
+
             //set the music clip number
             music = 2;
         }
@@ -100,7 +112,7 @@ public class Enemy : MonoBehaviour
         {
             //Set the beats to hit and the total hits
             AudioManager.instance.chosenEnemyAttack = coffeeBeats[1].beatsToHit;
-            CombatStats._totalHits = coffeeBeats[1].beatsToHit.Count;
+            CombatStats.totalHits = coffeeBeats[1].beatsToHit.Count;
 
             //Set the base attack
             _baseAttack = coffeeBeats[1].base_damage;
@@ -119,10 +131,10 @@ public class Enemy : MonoBehaviour
         _attackAnim.Play();
         Debug.Log("Play attack animation");
 
-        yield return new WaitUntil(() => AudioManager.instance.dodgeMusic.isPlaying);
+        yield return new WaitUntil(() => AudioManager.instance.startDodge);
 
         //while the animation is playing wait
-        yield return new WaitUntil(() => !AudioManager.instance.dodgeMusic.isPlaying);
+        yield return new WaitUntil(() => !AudioManager.instance.startDodge);
 
         _attackAnim.Stop();
 
@@ -142,7 +154,7 @@ public class Enemy : MonoBehaviour
         {
             //Set the beats to hit and the total hits
             AudioManager.instance.chosenEnemyAttack = internBeats[0].beatsToHit;
-            CombatStats._totalHits = internBeats[0].beatsToHit.Count;
+            CombatStats.totalHits = internBeats[0].beatsToHit.Count;
 
             //Set the base attack
             _baseAttack = internBeats[0].base_damage;
@@ -166,10 +178,10 @@ public class Enemy : MonoBehaviour
         _attackAnim.Play();
         Debug.Log("Play attack animation");
 
-        yield return new WaitUntil(() => AudioManager.instance.dodgeMusic.isPlaying);
+        yield return new WaitUntil(() => AudioManager.instance.startDodge);
 
         //while the animation is playing wait
-        yield return new WaitUntil(() => !AudioManager.instance.dodgeMusic.isPlaying);
+        yield return new WaitUntil(() => !AudioManager.instance.startDodge);
 
         _attackAnim.Stop();
 
@@ -188,7 +200,7 @@ public class Enemy : MonoBehaviour
         {
             //Set the beats to hit and the total hits
             AudioManager.instance.chosenEnemyAttack = waterBeats[0].beatsToHit;
-            CombatStats._totalHits = waterBeats[0].beatsToHit.Count;
+            CombatStats.totalHits = waterBeats[0].beatsToHit.Count;
 
             //Set the base attack
             _baseAttack = waterBeats[0].base_damage;
@@ -200,7 +212,7 @@ public class Enemy : MonoBehaviour
         {
             //Set the beats to hit and the total hits
             AudioManager.instance.chosenEnemyAttack = waterBeats[1].beatsToHit;
-            CombatStats._totalHits = waterBeats[1].beatsToHit.Count;
+            CombatStats.totalHits = waterBeats[1].beatsToHit.Count;
 
             //Set the base attack
             _baseAttack = waterBeats[1].base_damage;
@@ -219,10 +231,10 @@ public class Enemy : MonoBehaviour
         _attackAnim.Play();
         Debug.Log("Play attack animation");
 
-        yield return new WaitUntil(() => AudioManager.instance.dodgeMusic.isPlaying);
+        yield return new WaitUntil(() => AudioManager.instance.startDodge);
 
         //while the animation is playing wait
-        yield return new WaitUntil(() => !AudioManager.instance.dodgeMusic.isPlaying);
+        yield return new WaitUntil(() => !AudioManager.instance.startDodge);
 
         _attackAnim.Stop();
 
@@ -230,7 +242,6 @@ public class Enemy : MonoBehaviour
 
         _turnOver = true;
     }
-
 
     //Handles attacks for Intern
     IEnumerator TutorialInternAttack()
@@ -250,6 +261,14 @@ public class Enemy : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         _turnOver = true;
+    }
+
+    public void UpdateHealth(float dmg)
+    {
+
+        _currentHealth -= dmg;
+
+        healthSlider.value = (_currentHealth / _maxHealth);
     }
 
     public float GetBaseAttack()

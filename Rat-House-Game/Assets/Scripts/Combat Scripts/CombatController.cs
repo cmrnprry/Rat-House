@@ -42,7 +42,7 @@ public class CombatController : MonoBehaviour
 
     [Header("Lists")]
     //List of enemy Types currently on the board
-    public List<EnemyType> enemyList; //MAX OF 5
+    public List<EnemyType> enemyList = new List<EnemyType>(); //MAX OF 5
 
     //List of all potential player actions
     [SerializeField]
@@ -52,13 +52,13 @@ public class CombatController : MonoBehaviour
     public List<Items> itemList = new List<Items>();
 
     //base damage that attacks can do
-    public List<float> attackDamage;
+    public List<float> attackDamage = new List<float>();
 
     //List of enemy placements
     public List<Vector3> enemyPlacement;
+    public List<Slider> enemyHealthBars;
 
     //list of enemies in battle
-    [HideInInspector]
     public List<GameObject> _inBattle = new List<GameObject>();
 
 
@@ -88,8 +88,18 @@ public class CombatController : MonoBehaviour
     public GameObject itemMenu;
     public GameObject menuSelect;
     private GameObject _enemyParent;
+    private GameObject _enemyHealthParent;
+
+    [Header("UI")]
     public Slider playerHealthSlider;
     public TextMeshProUGUI playerHealthText;
+    public TextMeshProUGUI hitDetectionText;
+    public Image[] splashScreens;
+
+    [Header("Sound Effects")]
+    public AudioSource folder;
+    public AudioSource enemyDeath;
+    public List<AudioClip> attackSFX;
 
     void Awake()
     {
@@ -164,6 +174,7 @@ public class CombatController : MonoBehaviour
     public void PlaceEnemies()
     {
         var index = 0;
+        Debug.Log("place enemies");
 
         foreach (var e in enemyList)
         {
@@ -172,6 +183,10 @@ public class CombatController : MonoBehaviour
 
             //Add it to the list of enemy game objects
             _inBattle.Add(enemy);
+
+            //Set enemy health
+            enemyHealthBars[index].gameObject.SetActive(true);
+            enemy.GetComponent<Enemy>().healthSlider = enemyHealthBars[index];
 
             //Parent enemy
             enemy.transform.parent = _enemyParent.transform;
@@ -184,11 +199,9 @@ public class CombatController : MonoBehaviour
     //Handles the player choosing which action to take
     public IEnumerator ChooseAction()
     {
-        Debug.Log(selectedAction);
         //Wait until a correct key is pressed
         yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("SelectAction") || Input.GetButtonDown("Right"));
 
-        Debug.Log(selectedAction);
         if (Input.GetButtonDown("Up"))
         {
             if (_selectedAction == 0)
@@ -223,17 +236,21 @@ public class CombatController : MonoBehaviour
             switch (_actionList[_selectedAction])
             {
                 case ActionType.Punch:
-                    Debug.Log("Punch");
+                    _stats.actionSounds = attackSFX.GetRange(0, 3).ToArray();
                     StartCoroutine(ChooseEnemy(false));
                     break;
                 case ActionType.Kick:
-                    Debug.Log("Kick");
+                    _stats.actionSounds = attackSFX.GetRange(0, 3).ToArray(); //TODO: put in kick attacks
                     StartCoroutine(ChooseEnemy(false));
                     break;
                 default:
                     Debug.LogError("Something has gone wrong in Combat Controller");
                     break;
             }
+
+            yield return new WaitForEndOfFrame();
+
+            _stats.action = _selectedAction;
 
             //reset the selected action to 0
             _selectedAction = 0;
@@ -243,6 +260,8 @@ public class CombatController : MonoBehaviour
         }
         else if (Input.GetButtonDown("Right"))
         {
+            folder.Play();
+
             selectedAction = ActionType.Item;
             Debug.Log("Open Item Menu");
 
@@ -250,7 +269,7 @@ public class CombatController : MonoBehaviour
             yield return new WaitForEndOfFrame();
 
             //Switch to the menu selection
-            ShowItems();
+            ShowItemsMenu();
             HighlightMenuItem();
 
             //reset the selected action to 0
@@ -263,36 +282,11 @@ public class CombatController : MonoBehaviour
 
         //Set the correct selected action
         selectedAction = _actionList[_selectedAction];
-        Debug.Log(selectedAction);
 
         //Wait a frame to  rerun the coroutine
         yield return new WaitForEndOfFrame();
         StartCoroutine(ChooseAction());
     }
-
-    //Show the Item Menu
-    void ShowItems()
-    {
-        //get the objects for the items
-        var text = attackMenu.transform.GetChild(0).gameObject;
-
-        //Turn off/on the correct parents
-        attackMenuParent.SetActive(false);
-        itemMenuParent.SetActive(true);
-
-        //Spawn each item
-        foreach (var i in itemList)
-        {
-            var item = i.item.ToString().Replace('_', ' ');
-            var obj = Instantiate(text, itemMenu.transform);
-
-            obj.GetComponent<TextMeshProUGUI>().text = item + " (" + i.count + ")";
-        }
-
-        //Start the item choice coroutine
-        StartCoroutine(ChooseItem());
-    }
-
     public IEnumerator ChooseItem()
     {
         //Wait until a correct key is pressed
@@ -326,6 +320,7 @@ public class CombatController : MonoBehaviour
             else if (Input.GetButtonDown("SelectAction"))
             {
                 TurnOffHighlight();
+                GameManager.instance.battleAnimator.SetBool("IsOpen", false);
 
                 switch (itemList[_selectedItem].item)
                 {
@@ -355,6 +350,8 @@ public class CombatController : MonoBehaviour
 
         if (Input.GetButton("Left"))
         {
+            folder.Play();
+
             selectedAction = ActionType.Punch;
             Debug.Log("Open Action Menu");
 
@@ -362,7 +359,7 @@ public class CombatController : MonoBehaviour
             yield return new WaitForEndOfFrame();
 
             //Switch to the action selection
-            ReturnToBattleMenu();
+            ShowActionMenu();
             HighlightMenuItem();
 
             //reset the selected item to 0
@@ -374,45 +371,14 @@ public class CombatController : MonoBehaviour
         StartCoroutine(ChooseItem());
     }
 
-    void UseDamageItem(Items item)
-    {
-        Debug.Log("use damage item");
-
-        //decrease the amount of the used item
-        itemList.Add(new Items(item.item, -1, item.delta));
-        GameManager.instance.CollapseItemList(itemList);
-
-        //Choose the item to use
-        StartCoroutine(ChooseEnemy(true));
-
-        ClearItemMenu();
-    }
-
-    //Will be called every time the player uses a health item
-    void UseHealthItem(Items item)
-    {
-        //decrease the amount of the used item
-        itemList.Add(new Items(item.item, -1, item.delta));
-        GameManager.instance.CollapseItemList(itemList);
-
-        //update the player's health
-        _stats.UpdatePlayerHealth(item.delta);
-
-        //Clear Item Menu
-        ClearItemMenu();
-
-        //Start Enemy Phase
-        StartCoroutine(EnemyPhase());
-    }
-
     //Allows the player to choose which enemy they will attack
-    IEnumerator ChooseEnemy(bool isItem)
+    IEnumerator ChooseEnemy(bool isItem, float itemDmg = 0)
     {
 
         //Wait until a correct key is pressed
-        yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("SelectAction") || Input.GetButtonDown("Left"));
+        yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("Left") || Input.GetButtonDown("Right") || Input.GetButtonDown("SelectAction"));
 
-        if (Input.GetButtonDown("Up"))
+        if (Input.GetButtonDown("Up") || Input.GetButtonDown("Left"))
         {
             if (_selectedEnemy == 0)
             {
@@ -428,7 +394,7 @@ public class CombatController : MonoBehaviour
                 _selectedEnemy--;
             }
         }
-        else if (Input.GetButtonDown("Down"))
+        else if (Input.GetButtonDown("Down") || Input.GetButtonDown("Right"))
         {
             if (_selectedEnemy == _inBattle.Count - 1)
             {
@@ -454,7 +420,7 @@ public class CombatController : MonoBehaviour
 
                 //TODO: Display splash screen of item usage
 
-                DealDamage(true, itemList[_selectedItem].delta);
+                DealDamage(true, itemDmg);
             }
             else
             {
@@ -471,6 +437,39 @@ public class CombatController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         StartCoroutine(ChooseEnemy(isItem));
     }
+    void UseDamageItem(Items item)
+    {
+        Debug.Log("use damage item");
+
+        //Choose the item to use
+        StartCoroutine(ChooseEnemy(true, item.delta));
+
+        //decrease the amount of the used item
+        itemList.Add(new Items(item.item, -1, item.delta));
+        GameManager.instance.CollapseItemList(itemList);
+
+        ClearItemMenu();
+    }
+
+    //Will be called every time the player uses a health item
+    void UseHealthItem(Items item)
+    {
+        //decrease the amount of the used item
+        itemList.Add(new Items(item.item, -1, item.delta));
+        GameManager.instance.CollapseItemList(itemList);
+
+        //update the player's health
+        _stats.UpdatePlayerHealth(item.delta);
+
+        //Clear Item Menu
+        ClearItemMenu();
+
+        //TODO: MAKE THIS NOT HARD CODED IN I DONT FORSEE THE NUMBERS CHSNGING BUT ITS BAD FIX IT
+        _stats.gameObject.transform.position = new Vector3(12.5f, 6.19f, 0f);
+
+        //Start Enemy Phase
+        StartCoroutine(EnemyPhase());
+    }
 
     public void HighlightEnemy()
     {
@@ -482,13 +481,17 @@ public class CombatController : MonoBehaviour
     }
 
     //Tells the Combat Stats to deal with damage
-    public void DealDamage(bool isItem = false, int itemDmg = 0)
+    public void DealDamage(bool isItem = false, float itemDmg = 0)
     {
         //Want to send over what enemy was targeted
         //what attack was done
         //is defaulted to 0 untile multiple enemes are implemented
         Debug.Log("Selected Enemy: " + _selectedEnemy);
-        _stats.DealDamageToEnemy(_selectedEnemy, isItem, itemDmg);
+
+        //TODO: MAKE THIS NOT HARD CODED IN I DONT FORSEE THE NUMBERS CHSNGING BUT ITS BAD FIX IT
+        _stats.gameObject.transform.position = new Vector3(12.5f, 6.19f, 0f);
+
+        StartCoroutine(_stats.DealDamageToEnemy(_selectedEnemy, isItem, itemDmg));
     }
 
     //Will play through the enemy turn
@@ -544,6 +547,7 @@ public class CombatController : MonoBehaviour
         }
 
         //Turn on the highlight
+        ShowActionMenu();
         HighlightMenuItem();
 
         //Turn on the attack 
@@ -553,7 +557,6 @@ public class CombatController : MonoBehaviour
 
         enemyTurnOver = false;
         Debug.Log("Enemy Phase Over");
-        StartCoroutine(ChooseAction());
         yield break;
     }
 
@@ -584,7 +587,7 @@ public class CombatController : MonoBehaviour
     }
 
     //Returns to the Battle Menu
-    public void ReturnToBattleMenu()
+    public void ShowActionMenu()
     {
         //Clear Item Menu
         ClearItemMenu();
@@ -597,12 +600,43 @@ public class CombatController : MonoBehaviour
         StartCoroutine(ChooseAction());
     }
 
+    //Show the Item Menu
+    void ShowItemsMenu()
+    {
+        //get the objects for the items
+        var text = attackMenu.transform.GetChild(0).gameObject;
+
+        //Turn off/on the correct parents
+        attackMenuParent.SetActive(false);
+        itemMenuParent.SetActive(true);
+
+        //Spawn each item
+        foreach (var i in itemList)
+        {
+            var item = i.item.ToString().Replace('_', ' ');
+            var obj = Instantiate(text, itemMenu.transform);
+
+            obj.GetComponent<TextMeshProUGUI>().text = item + " (" + i.count + ")";
+        }
+
+        //Start the item choice coroutine
+        StartCoroutine(ChooseItem());
+    }
+
     //Clears all Items in the menu
     void ClearItemMenu()
     {
         foreach (Transform child in itemMenu.transform)
         {
             Destroy(child.gameObject);
+        }
+    }
+
+    public void SetBasePlayerDamage(List<BeatMapStruct> player)
+    {
+        foreach (var a in player)
+        {
+            attackDamage.Add(a.base_damage);
         }
     }
 

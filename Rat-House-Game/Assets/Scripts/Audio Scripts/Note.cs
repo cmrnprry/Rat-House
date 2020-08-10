@@ -43,7 +43,6 @@ public class Note : MonoBehaviour
         _length = Vector3.Distance(startPoint, restartPoint);
 
         //half the width
-        Debug.Log(rend.bounds.size.x * .5f);
         offsetSlider = -rend.bounds.size.x * .5f;
         // transform.position += new Vector3(offsetSlider, 0f, 0f);
     }
@@ -52,21 +51,19 @@ public class Note : MonoBehaviour
     void Update()
     {
         //if the attact music is playing, then the player is playing the rhythm mini-game
-        if (AudioManager.instance.attackMusic.isPlaying)
+        if (AudioManager.instance.startAction)
         {
             //Moves the block based on where we are in the the music in BEATS
             gameObject.transform.position = Vector3.Lerp(startPoint, restartPoint, AudioManager.instance.mapProgression);
 
             if (gameObject.transform.position.x >= restartPoint.x)
             {
+                Debug.Log("action over");
+
                 ClearBeats();
 
-                //reset the amount of beats hit
-                CombatStats.amountHit = 0;
+                AudioManager.instance.startAction = false;
 
-                AudioManager.instance.attackMusic.Stop();
-
-                //gameObject.transform.position = startPoint;
                 Flip();
 
                 //IF WE ARE NOT IN THE TUTORIAL DEAL DAMAGE
@@ -78,7 +75,7 @@ public class Note : MonoBehaviour
             }
 
         }
-        else if (AudioManager.instance.dodgeMusic.isPlaying)
+        else if (AudioManager.instance.startDodge)
         {
             //Moves the block based on where we are in the the music in BEATS
             gameObject.transform.position = Vector3.Lerp(restartPoint, startPoint, AudioManager.instance.mapProgression);
@@ -87,10 +84,7 @@ public class Note : MonoBehaviour
             {
                 ClearBeats();
 
-                //reset the amount of beats hit
-                CombatStats.amountHit = 0;
-
-                AudioManager.instance.dodgeMusic.Stop();
+                AudioManager.instance.startDodge = false;
 
                 gameObject.transform.position = restartPoint;
             }
@@ -113,12 +107,13 @@ public class Note : MonoBehaviour
         if (CombatController.instance.enemyTurnOver)
         {
             ShowAttackBeats();
-            Flip();
+            Flip(1);
             gameObject.transform.position = startPoint;
         }
 
         if (showDodge)
         {
+            Flip();
             ShowDodgeBeats();
             showDodge = false;
         }
@@ -127,6 +122,7 @@ public class Note : MonoBehaviour
     public void ShowDodgeBeats()
     {
         var spawnPoint = gameObject.transform.position;
+        CombatStats.totalHits = AudioManager.instance.chosenEnemyAttack.Count;
 
         foreach (var beat in AudioManager.instance.chosenEnemyAttack)
         {
@@ -151,27 +147,12 @@ public class Note : MonoBehaviour
         }
     }
 
-    private void ClearBeats()
-    {
-        Debug.Log("clear");
-        foreach (Transform child in noteParent.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
-        beats = new List<float>();
-        CombatStats.hitList = new List<float>();
-        CombatStats.index = 0;
-        CombatStats._totalHits = 0;
-    }
-
-    //Display the BeatMap in game
     private void ShowAttackBeats()
     {
         if (_curAction != ActionType.Item)
         {
             beats = AudioManager.instance.playerBeatMap[(int)_curAction].beatsToHit;
-            CombatStats._totalHits = beats.Count;
+            CombatStats.totalHits = beats.Count;
         }
 
         var spawnPoint = this.gameObject.transform.position;
@@ -199,11 +180,34 @@ public class Note : MonoBehaviour
         }
     }
 
-    //flip the fangs when dodging
-    private void Flip()
+    private void ClearBeats()
     {
-        Vector3 theScale = transform.GetChild(0).localScale;
-        theScale.x *= -1;
+        CombatController.instance.hitDetectionText.gameObject.SetActive(false);
+
+        Debug.Log("clear");
+        foreach (Transform child in noteParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        beats = new List<float>();
+
+        //Reset the Combat Stats to empty/0
+        CombatStats.hitList = new List<float>();
+        CombatStats.index = 0;
+        CombatStats.hitNote = false;
+    }
+
+    //flip the fangs when dodging
+    // num is either positive or negative depending on which way it sould be facing
+    public void Flip(int num = -1)
+    {
+        Vector3 theScale = gameObject.transform.GetChild(0).localScale;
+        Vector3 thePos = gameObject.transform.GetChild(0).localPosition;
+        theScale.x = num;
+
+        thePos.x = (num < 0 ? -0.35f : 0.35f);
         transform.GetChild(0).localScale = theScale;
+        transform.GetChild(0).localPosition = thePos;
     }
 }

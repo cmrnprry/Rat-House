@@ -6,15 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/FINAL SCENES/Tutorial-FINAL.unity
-    guid: cffd9fd05a0203040ba65a63604dee7a
-  - enabled: 1
-    path: Assets/Scenes/FINAL SCENES/Tutorial_Battle-FINAL.unity
-    guid: 60615a6d36c2e3d4ab4bad6c6aba3d16
-  - enabled: 1
     path: Assets/Scenes/FINAL SCENES/Overworld_Level1-FINAL.unity
     guid: 494fd2dac04c64c4598cf2f73e1a43da
   - enabled: 1
     path: Assets/Scenes/FINAL SCENES/Battle-FINAL.unity
     guid: bfcdd27e9a0f39140aa7a9bc31f9e324
+  - enabled: 1
+    path: Assets/Scenes/FINAL SCENES/Tutorial-FINAL.unity
+    guid: cffd9fd05a0203040ba65a63604dee7a
+  - enabled: 1
+    path: Assets/Scenes/FINAL SCENES/Tutorial_Battle-FINAL.unity
+    guid: 60615a6d36c2e3d4ab4bad6c6aba3d16
   m_configObjects: {}
