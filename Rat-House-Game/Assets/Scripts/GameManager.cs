@@ -219,18 +219,20 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => dialogueOver);
 
         dialogueOver = false;
-        topOverlay.SetActive(false);
-
-        SceneManager.LoadScene("Battle-FINAL", LoadSceneMode.Additive);
-        TurnOffScene();
 
         //play some sort of screen wipe
         anim.CrossFade("Fade_Out", 1);
+
+
+        topOverlay.SetActive(false);
+        SceneManager.LoadScene("Battle-FINAL", LoadSceneMode.Additive);
+        TurnOffScene();
+
+
         yield return new WaitForSeconds(2);
 
         topOverlay.SetActive(false);
 
-        SceneManager.LoadScene("Battle-FINAL");
         anim.CrossFade("Fade_In", 1);
 
         yield return new WaitForFixedUpdate();
@@ -314,8 +316,7 @@ public class GameManager : MonoBehaviour
 
         //UnLoad the Battle Scene
         SceneManager.UnloadSceneAsync("Battle-FINAL");
-        //Load the Overworld Scene
-        SceneManager.LoadScene("Overworld_Level1-FINAL");
+
         anim.CrossFade("Fade_In", 1);
 
         //Change enemy to Beaten

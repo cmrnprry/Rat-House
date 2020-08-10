@@ -507,8 +507,13 @@ public class CombatController : MonoBehaviour
 
                 Debug.Log("Turn Over");
 
+                splashScreens[splashScreens.Length - 1].gameObject.SetActive(true);
+
+                yield return new WaitForSecondsRealtime(1f);
+
                 //Reset the IsTurnOver to be false
                 e.SetIsTurnOver(false);
+                splashScreens[splashScreens.Length - 1].gameObject.SetActive(false);
 
                 //Deal Damage to Player
                 _stats.UpdatePlayerHealth(-1 * e.GetBaseAttack());
