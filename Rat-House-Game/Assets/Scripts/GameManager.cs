@@ -59,10 +59,11 @@ public class GameManager : MonoBehaviour
     public GameObject topOverlay;
 
     [Header("Dialogue")]
-    public Animator anim;
+    public Animator diaAnim;
     public Dialogue dialogue;
     private bool dialogueOver = false;
     private int _index = 0;
+
 
     [Header("Tutorial Script")]
     //tutorial
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Scene Objects")]
     public GameObject[] overworldLevelOne;
+    public Animator anim;
 
     void Awake()
     {
@@ -184,6 +186,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     /** Start Combat by:
     * Switching to the correct scene
     * Starting the background audio in the Audio Manager
@@ -195,7 +198,7 @@ public class GameManager : MonoBehaviour
         if (!CanFightEnemy())
         {
             Debug.Log("is beaten");
-            anim.SetBool("isOpen", true);
+            diaAnim.SetBool("isOpen", true);
             dialogue.sentences = currEnemy.GetComponent<EnemyController>().beatenBattleDialogue;
             dialogue.StartDialogue();
             StartCoroutine(ShowEnemyDialogue());
@@ -209,7 +212,7 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log("pre");
-        anim.SetBool("isOpen", true);
+        diaAnim.SetBool("isOpen", true);
         dialogue.sentences = currEnemy.GetComponent<EnemyController>().preBattleDialogue;
         dialogue.StartDialogue();
         StartCoroutine(ShowEnemyDialogue());
@@ -220,6 +223,15 @@ public class GameManager : MonoBehaviour
 
         SceneManager.LoadScene("Battle-FINAL", LoadSceneMode.Additive);
         TurnOffScene();
+
+        //play some sort of screen wipe
+        anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSeconds(2);
+
+        topOverlay.SetActive(false);
+
+        SceneManager.LoadScene("Battle-FINAL");
+        anim.CrossFade("Fade_In", 1);
 
         yield return new WaitForFixedUpdate();
 
@@ -245,7 +257,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("goodbye");
             //Lower the text box
-            anim.SetBool("isOpen", false);
+            diaAnim.SetBool("isOpen", false);
 
             //reset the index to 0
             _index = 0;
@@ -280,7 +292,17 @@ public class GameManager : MonoBehaviour
         //reset the number of retries to 0
         numberRetries = 0;
 
-        //turn off the battle stuffs
+
+        //play some sort of screen wipe
+        anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSeconds(2);
+
+        //Turn off the battle music
+        AudioManager.instance.StopCombatMusic();
+
+        //Turn off the battle UI
+        battleAnimator.SetBool("IsOpen", false);
+
         TurnOffBattleMenus();
         TurnOnScene();
 
@@ -292,6 +314,9 @@ public class GameManager : MonoBehaviour
 
         //UnLoad the Battle Scene
         SceneManager.UnloadSceneAsync("Battle-FINAL");
+        //Load the Overworld Scene
+        SceneManager.LoadScene("Overworld_Level1-FINAL");
+        anim.CrossFade("Fade_In", 1);
 
         //Change enemy to Beaten
         if (currEnemy != null)
@@ -300,7 +325,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         //Show any Dialogue
-        anim.SetBool("isOpen", true);
+        diaAnim.SetBool("isOpen", true);
         dialogue.sentences = currEnemy.GetComponent<EnemyController>().postBattleDialogue;
         dialogue.StartDialogue();
         StartCoroutine(ShowEnemyDialogue());
