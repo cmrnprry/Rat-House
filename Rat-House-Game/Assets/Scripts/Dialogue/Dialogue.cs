@@ -6,57 +6,84 @@ using TMPro;
 
 public class Dialogue : MonoBehaviour
 {
+    //Animator for the text box
+    public Animator anim;
+
+    //Text Boxes
     public TextMeshProUGUI dia;
     public TextMeshProUGUI speakerName;
 
+    //Image of the person speaking
     public Image speakerHead;
 
-    public string[] speakers;
-    public string[] sentences;
-
-    [HideInInspector]
-    public int index;
-
+    //Array of speaker head sprites
     public Sprite[] heads;
 
+    //Array of the dialogue
+    [TextArea(3, 5)]
+    public string[] sentences;
 
+    //Where we are in the sentences array
+    public int index;
+
+    //How fast the text appears on screen (lower the number, the faster it is)
     public float typingSpeed;
+
+    //bool to see if the text has finsihed displaying
     public bool isTyping = false;
 
-    public Animator anim;
 
     //At the start of a conversation...
     public void StartDialogue()
     {
         //Set the first speaker's name, set the text to empty, start at the first sentence, and start typing
-        speakerName.text = speakers[0];
-        speakerHead.sprite = heads[0];
         dia.text = "";
         index = 0;
+        SetDialogue();
         StartCoroutine(Type());
+    }
+
+    //Set the speaker tag, image and text
+    public void SetDialogue()
+    {
+        string[] set = sentences[index].Split(':');
+
+        speakerName.text = set[0];
+        sentences[index] = set[1];
+
+        int head = GetSpeakerHead(set[0]);
+        speakerHead.sprite = heads[head];
+    }
+
+    int GetSpeakerHead(string name)
+    {
+        int head = -1;
+
+        switch (name)
+        {
+            case "Joe":
+                head = 0;
+                break;
+            case "Intern":
+                head = 1;
+                break;
+        }
+
+
+        return head;
     }
 
     //For each new sentence...
     public void NextSentence()
     {
         //if there are more sentences...
-        if(index < sentences.Length - 1)
+        if (index < sentences.Length - 1)
         {
-            //change who's speaking...
-            if (speakerName.text == speakers[0])
-            {
-                speakerName.text = speakers[1];
-                speakerHead.sprite = heads[1];
-            }
-            else if (speakerName.text == speakers[1])
-            {
-                speakerName.text = speakers[0];
-                speakerHead.sprite = heads[0];
-            }
-
             //load the next sentence, erase the previous one, and start typing
             index++;
             dia.text = "";
+
+            SetDialogue();
             StopAllCoroutines();
             StartCoroutine(Type());
         }
@@ -71,7 +98,6 @@ public class Dialogue : MonoBehaviour
     public IEnumerator Type()
     {
         isTyping = true;
-        Debug.Log(isTyping);
 
         //Type each letter in the sentence one at a time at a speed of one letter per unit of typingSpeed
         foreach (char letter in sentences[index].ToCharArray())
@@ -82,7 +108,6 @@ public class Dialogue : MonoBehaviour
         }
 
         isTyping = false;
-        Debug.Log(isTyping);
     }
-    
+
 }

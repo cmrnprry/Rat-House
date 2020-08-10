@@ -11,6 +11,10 @@ using System;
 //https://www.gamasutra.com/blogs/GrahamTattersall/20190515/342454/Coding_to_the_Beat__Under_the_Hood_of_a_Rhythm_Game_in_Unity.php
 public class AudioManager : MonoBehaviour
 {
+    //Beat Maps
+    public List<BeatMapStruct> playerBeatMap = new List<BeatMapStruct>();
+    public List<BeatMapStruct> enemyBeatMap = new List<BeatMapStruct>();
+
     [Header("Audio Sources")]
     //Background Combat Music
     public AudioSource bgMusic;
@@ -18,9 +22,16 @@ public class AudioManager : MonoBehaviour
     //Attack Audio Source
     public AudioSource attackMusic;
 
+    //Doging Audio Source
+    public AudioSource dodgeMusic;
+
     [Header("BeatMap Beats")]
+    public List<float> chosenEnemyAttack = new List<float>();
     //List of possible music to play
     public AudioClip[] attackClips;
+
+    //List of possible dodge music to play
+    public AudioClip[] dodgeClips;
 
     //map bmp
     public float mapBpm;
@@ -50,8 +61,6 @@ public class AudioManager : MonoBehaviour
     //start moving slider
     public bool hasStarted;
 
-    //Beat Maps
-    public List<BeatMapStruct> beatMap = new List<BeatMapStruct>();
 
     [Header("BG Beats")]
     //Song beats per minute
@@ -137,7 +146,6 @@ public class AudioManager : MonoBehaviour
         //Record the time when the music starts
         dspSongTime = (float)AudioSettings.dspTime;
 
-        Debug.Log("Start BG Music");
         //Start the background music
         bgMusic.Play();
 
@@ -182,12 +190,7 @@ public class AudioManager : MonoBehaviour
         //Updates what music the player has selected assuimung it's not an item
         if (CombatController.instance.selectedAction != ActionType.Item)
         {
-            if (CombatController.instance.selectedAction == ActionType.Kick)
-            {
-                CombatController.instance.selectedAction = ActionType.Punch;
-            }
-
-            attackMusic.clip = attackClips[(int)CombatController.instance.selectedAction];
+            //attackMusic.clip = attackClips[(int)CombatController.instance.selectedAction];
 
             float length = (float)(Math.Truncate((double)attackMusic.clip.length * 100.0) / 100.0);
             totalBeats = mapBeatsPerSec * length;
@@ -202,52 +205,81 @@ public class AudioManager : MonoBehaviour
     }
 
     //Waits a second before starting the attack music
-    public IEnumerator SetMap(int action)
+    public IEnumerator SetAttackMap(int action)
     {
         //Placeholder until more are added
-        if (action == 1)
+        if (action != 0)
             action = 0;
 
-        Debug.Log("Attack Type: " + action);
-       // Debug.Log("Set Map");
+        //set the correct music
+        attackMusic.clip = attackClips[action];
+
         float currPos = songPositionInBeats;
 
         // Wait until the next second
-        hasStarted = true;
-        while (!(Math.Truncate(currPos) + beatsPerSec <= songPositionInBeats))
-        {
-            yield return null;
-        }
-
+        yield return new WaitUntil(() => (Math.Truncate(currPos) + beatsPerSec <= songPositionInBeats));
 
         dspMapTime = (float)AudioSettings.dspTime;
+
+        yield return new WaitForFixedUpdate();
+
         attackMusic.Play();
-        StartCoroutine(StartBasicAttack());
+        StartCoroutine(StartMapUpdates());
+    }
+
+    //Waits a second before starting the dodge music
+    public IEnumerator SetDodgeMap(int action)
+    {
+        //TODO: Change this to have 
+
+        //set the correct dodge music
+        //dodgeMusic.clip = dodgeClips[action];
+
+        float currPos = songPositionInBeats;
+
+        Debug.Log(currPos);
+
+        // Wait until the next second
+        yield return new WaitUntil(() => (Math.Truncate(currPos) + beatsPerSec <= songPositionInBeats));
+
+        dspMapTime = (float)AudioSettings.dspTime;
+
+        yield return new WaitForFixedUpdate();
+
+        dodgeMusic.Play();
+        Debug.Log("Play dodge");
+        StartCoroutine(StartMapUpdates());
     }
 
     //Keeps track of the position of the attack music
     //Will also possibly deal with handling Hit/Misses of the player but probably not
     //After each attack there should be a check if all the enemies have been defeated
-    public IEnumerator StartBasicAttack()
+    public IEnumerator StartMapUpdates()
     {
-        mapPosition = (float)(AudioSettings.dspTime - dspMapTime);
+
+        mapPosition = (float)(AudioSettings.dspTime - dspMapTime) < 0 ? 0 : (float)(AudioSettings.dspTime - dspMapTime);
         mapPositionInBeats = mapPosition / mapSecPerBeat;
         mapProgression = mapPositionInBeats / totalBeats;
 
-       // Debug.Log(mapProgression);
-
-        if (!attackMusic.isPlaying)
+        //if neither attack or dodge music is playing
+        if (!attackMusic.isPlaying && !dodgeMusic.isPlaying)
         {
-            hasStarted = false;
+            Debug.Log("reset beats");
+
+            mapPosition = 0;
+            mapPositionInBeats = 0;
+            mapProgression = 0;
+
             yield break;
         }
 
-        yield return new WaitForEndOfFrame();
-        StartCoroutine(StartBasicAttack());
+        yield return new WaitForFixedUpdate();
+        StartCoroutine(StartMapUpdates());
     }
 
-    public void SetBeatMaps(List<BeatMapStruct> bm)
+    public void SetBeatMaps(List<BeatMapStruct> player, List<BeatMapStruct> enemy)
     {
-        beatMap = bm;
+        playerBeatMap = player;
+        enemyBeatMap = enemy;
     }
 }

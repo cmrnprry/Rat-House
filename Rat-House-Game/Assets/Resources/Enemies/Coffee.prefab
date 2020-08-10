@@ -127,7 +127,9 @@ MonoBehaviour:
   _maxHealth: 35
   _baseAcuracy: 50
   _baseAttack: 5
-  effectName: water_effect
+  numberOfAttacks: 2
+  chancesOfHitting: 460000001e000000
+  effectName: coffee_effect
 --- !u!1 &946027272030525306
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,11 +23,39 @@ public class GameManager : MonoBehaviour
     //Items the Player currently has
     //public List<Items> itemList = new List<Items>();
 
+    [Header("Game State")]
     //Keeps track of the current game state
-    private GameState _currState = GameState.Tutorial;
+    [SerializeField]
+    private GameState _currState = GameState.Overworld;
 
-    [HideInInspector]
-    public GameObject _deathScreen;
+    //Keeps track of the current enemy that is being fought
+    public GameObject currEnemy;
+
+    //what level we're currently on
+    public int level;
+
+    [Header("Handles Difficulty")]
+    //Number of times the player has retried a battle
+    public int numberRetries = 0;
+
+    [Header("UI Items")]
+    //reference to the canvas
+    public GameObject canvas;
+
+    //Battle Menu Parent
+    public GameObject battleParent;
+    public Animator battleAnimator;
+
+    //Dialogue Menu Parent
+    public GameObject dialogueParent;
+
+    //Death Screen Parent
+    public GameObject deathScreenParent;
+
+    //Health Bar Parent
+    public GameObject healthParent;
+    public GameObject topOverlay;
+
 
     [Header("Tutorial Script")]
     //tutorial
@@ -44,8 +72,9 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
 
-        // Do not destroy this object, when we load a new scene.
+        // Do not destroy these objects, when we load a new scene.
         DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(canvas.gameObject);
     }
 
 
@@ -56,6 +85,22 @@ public class GameManager : MonoBehaviour
         CombatController.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2, 10));
 
         UpdateGameState();
+    }
+
+    private void Update()
+    {
+        //FOR TESTING
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            SetGameState(GameState.Overworld);
+            tutorial.SkipTutorial();
+            tutorial.anim.SetBool("isOpen", false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     /** Method that is called when the game state needs to be updated
@@ -120,7 +165,8 @@ public class GameManager : MonoBehaviour
     **/
     public IEnumerator StartBattle()
     {
-        Debug.Log("Load Battle Scene");
+        topOverlay.SetActive(false);
+
         SceneManager.LoadScene("Battle-FINAL");
 
         yield return new WaitForFixedUpdate();
@@ -128,23 +174,38 @@ public class GameManager : MonoBehaviour
         //Spawn the correct enemies 
         CombatController.instance.SetUpBattleScene();
 
-        Debug.Log("Start Battle");
-
         AudioManager.instance.StartCombatMusic();
         StartCoroutine(CombatController.instance.ChooseAction());
     }
 
+    //Returns to the overworld from a differnt scene
     private IEnumerator ReturnToOverworld()
     {
+        //reset the number of retries to 0
+        numberRetries = 0;
+
+        //Turn off the battle music
         AudioManager.instance.StopCombatMusic();
 
+        //Turn off the battle UI
+        battleAnimator.SetBool("IsOpen", false);
+
+        //If we were in the battle scene, make sure to clear it out
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Battle-FINAL"))
             CombatController.instance.ClearBattle();
 
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
 
+
+        topOverlay.SetActive(true);
+
+        //Load the Overworld Scene
         SceneManager.LoadScene("Overworld_Level1-FINAL");
+
+        //Change enemy to Beaten
+        if (currEnemy != null)
+            currEnemy.GetComponent<EnemyController>().isBeaten = true;
 
         yield return new WaitForEndOfFrame();
 
@@ -155,39 +216,26 @@ public class GameManager : MonoBehaviour
     //TODO: Set the beaten enemy to Beaten
     public IEnumerator BattleLost()
     {
-
         //Play some sort of death animation or something
 
         //while animaiotn is playing, return null
 
         yield return null;
 
-        //  SceneManager.LoadScene("Joe Is Dead-FINAL");
-        _deathScreen.SetActive(true);
-
-
-        //Set Buttons
-        var buttons = GameObject.FindGameObjectsWithTag("Button");
-        var retry = buttons[0].GetComponent<Button>();
-        var quit = buttons[1].GetComponent<Button>();
-
-        //Set buttons on Click
-        retry.onClick.AddListener(RetryBattle);
-        quit.onClick.AddListener(QuitBattle);
+        deathScreenParent.SetActive(true);
     }
 
     //Retry the current battle
     public void RetryBattle()
     {
+        numberRetries++;
         CombatController.instance.ResetBattle();
-        //StartCoroutine(StartBattle());
     }
 
     //Retrun to the overworld
     public void QuitBattle()
     {
-        _currState = GameState.Overworld;
-        UpdateGameState();
+        SetGameState(GameState.Overworld);
     }
 
     //The Battle was won
@@ -203,7 +251,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         //Set Game State
-        GameManager.instance.SetGameState(GameState.Overworld);
+        SetGameState(GameState.Overworld);
     }
 
     //Set the current game state
@@ -225,9 +273,12 @@ public class GameManager : MonoBehaviour
     //Handles the tutorial stuff
     void StartTutorial()
     {
-        Debug.Log("start tutorial");
         //open the text box and start dialogue
         tutorial.anim.SetBool("isOpen", true);
+
+        //set thesentences in the dialogue manager
+        tutorial.dialogue.sentences = tutorial.beforeBattleDialogue;
+
         tutorial.dialogue.StartDialogue();
 
         //start the dialogue in the tutorial script

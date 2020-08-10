@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3489745968461303871
+--- !u!1 &1536818765659724104
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5801434703711859594}
-  - component: {fileID: 7961030330748930608}
-  - component: {fileID: 5193615787017668257}
-  - component: {fileID: 2401820386830963706}
-  - component: {fileID: 5253903775405515671}
-  - component: {fileID: 2800836433385330374}
+  - component: {fileID: 3047903250478455409}
+  - component: {fileID: 1178622000929034797}
+  - component: {fileID: 5895080277876053341}
+  - component: {fileID: 4022915657927994391}
+  - component: {fileID: 2323484028587051997}
   m_Layer: 0
-  m_Name: Water_Cooler
-  m_TagString: Water_Cooler
+  m_Name: Whole
+  m_TagString: Note
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5801434703711859594
+--- !u!4 &3047903250478455409
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3489745968461303871}
+  m_GameObject: {fileID: 1536818765659724104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.083041, y: -0.1, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4970443323122960758}
+  - {fileID: 9092694195895719904}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7961030330748930608
+--- !u!33 &1178622000929034797
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3489745968461303871}
+  m_GameObject: {fileID: 1536818765659724104}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &5193615787017668257
+--- !u!23 &5895080277876053341
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3489745968461303871}
+  m_GameObject: {fileID: 1536818765659724104}
   m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -62,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 58370b8f5c213004c9529d2a29c48b62, type: 2}
+  - {fileID: 2100000, guid: 4d149da261439f640ad1355f006facc0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,26 +82,26 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2401820386830963706
+--- !u!65 &4022915657927994391
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3489745968461303871}
+  m_GameObject: {fileID: 1536818765659724104}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &5253903775405515671
+  m_Size: {x: 0.61541736, y: 0.6214452, z: 1}
+  m_Center: {x: -0.036389947, y: -0.021031141, z: 0}
+--- !u!54 &2323484028587051997
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3489745968461303871}
+  m_GameObject: {fileID: 1536818765659724104}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -112,25 +111,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &2800836433385330374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3489745968461303871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3fbdf2dc74f7fd409f9e62071e5644f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 45
-  _baseAcuracy: 50
-  _baseAttack: 10
-  numberOfAttacks: 2
-  chancesOfHitting: 3c00000028000000
-  effectName: coffee_effect
---- !u!1 &7195869509373582166
+--- !u!1 &5694670893401711936
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,36 +119,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4970443323122960758}
-  - component: {fileID: 3406036661109935769}
+  - component: {fileID: 9092694195895719904}
+  - component: {fileID: 6819044480072019810}
   m_Layer: 0
-  m_Name: water
+  m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4970443323122960758
+--- !u!4 &9092694195895719904
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7195869509373582166}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_GameObject: {fileID: 5694670893401711936}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.1, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children: []
-  m_Father: {fileID: 5801434703711859594}
+  m_Father: {fileID: 3047903250478455409}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3406036661109935769
+--- !u!212 &6819044480072019810
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7195869509373582166}
+  m_GameObject: {fileID: 5694670893401711936}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -199,13 +180,13 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 80daacf1af091c745b3ec31afb7bd091, type: 3}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: ec65066b404c2954d987cb4a3ac6daa3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.89, y: 6.63}
+  m_Size: {x: 0.69, y: 0.7}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

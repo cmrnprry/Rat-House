@@ -9,10 +9,14 @@ using UnityEngine;
 public class Note : MonoBehaviour
 {
     //Notes to be hit
-    public GameObject note;
+    public GameObject whole;
+    public GameObject half;
 
     //Parent holder for the notes
     public GameObject noteParent;
+
+    //Starting X position of the slider
+    public Vector3 startPoint;
 
     //Point to reset the slider
     public Vector3 restartPoint;
@@ -23,31 +27,25 @@ public class Note : MonoBehaviour
     //List of the beats to be hit
     private List<float> beats = new List<float>();
 
-    //Starting X position of the slider
-    public Vector3 startPoint;
     Renderer rend;
     private float offsetSlider;
 
-
     private float _length;
+
+    public static bool showDodge = false;
 
 
     private void Start()
     {
         rend = GetComponent<Renderer>();
         //startPoint = this.gameObject.transform.position;
-        ShowBeats();
+        ShowAttackBeats();
         _length = Vector3.Distance(startPoint, restartPoint);
 
         //half the width
+        Debug.Log(rend.bounds.size.x * .5f);
         offsetSlider = -rend.bounds.size.x * .5f;
-        transform.position += new Vector3(offsetSlider, 0f, 0f);
-
-        //Debug.Log("Collider pos : " + transform.position);
-        //Debug.Log("Collider Center : " + rend.bounds.center);
-        //Debug.Log("Collider Size : " + rend.bounds.size);
-        //Debug.Log("Collider bound Minimum : " + rend.bounds.min);
-        //Debug.Log("Collider bound Maximum : " + rend.bounds.max);
+        // transform.position += new Vector3(offsetSlider, 0f, 0f);
     }
 
     // Update is called once per frame
@@ -56,23 +54,20 @@ public class Note : MonoBehaviour
         //if the attact music is playing, then the player is playing the rhythm mini-game
         if (AudioManager.instance.attackMusic.isPlaying)
         {
-            //transform.position = Vector3.Lerp(
-            //    gameObject.transform.position,
-            //    destroyPoint,
-            //    (AudioManager.instance.mapBeatsPerSec)
-            //);
-
-            //transform.position += new Vector3(AudioManager.instance.mapBeatsPerSec * Time.deltaTime, 0f, 0f);
-
             //Moves the block based on where we are in the the music in BEATS
-            transform.localPosition = Vector3.Lerp(startPoint, restartPoint, AudioManager.instance.mapProgression);
+            gameObject.transform.position = Vector3.Lerp(startPoint, restartPoint, AudioManager.instance.mapProgression);
 
-            if (gameObject.transform.localPosition.x <= restartPoint.x)
+            if (gameObject.transform.position.x >= restartPoint.x)
             {
-                //Debug.Log("Stop Attack Music");
+                ClearBeats();
+
+                //reset the amount of beats hit
+                CombatStats.amountHit = 0;
+
                 AudioManager.instance.attackMusic.Stop();
-                gameObject.transform.localPosition = startPoint;
-                transform.position += new Vector3(offsetSlider, 0f, 0f);
+
+                //gameObject.transform.position = startPoint;
+                Flip();
 
                 //IF WE ARE NOT IN THE TUTORIAL DEAL DAMAGE
                 if (GameManager.instance.GetGameState() != GameState.Tutorial)
@@ -80,10 +75,25 @@ public class Note : MonoBehaviour
                     //Calculate Damage
                     CombatController.instance.DealDamage();
                 }
-
-
             }
 
+        }
+        else if (AudioManager.instance.dodgeMusic.isPlaying)
+        {
+            //Moves the block based on where we are in the the music in BEATS
+            gameObject.transform.position = Vector3.Lerp(restartPoint, startPoint, AudioManager.instance.mapProgression);
+
+            if (gameObject.transform.position.x <= startPoint.x)
+            {
+                ClearBeats();
+
+                //reset the amount of beats hit
+                CombatStats.amountHit = 0;
+
+                AudioManager.instance.dodgeMusic.Stop();
+
+                gameObject.transform.position = restartPoint;
+            }
         }
         else if (CombatController.instance.selectedAction != _curAction)
         {
@@ -91,13 +101,53 @@ public class Note : MonoBehaviour
 
             _curAction = CombatController.instance.selectedAction;
 
-            ShowBeats();
 
             if (_curAction != ActionType.Item)
             {
                 CombatStats.hitList.Sort();
+                ShowAttackBeats();
             }
 
+        }
+
+        if (CombatController.instance.enemyTurnOver)
+        {
+            ShowAttackBeats();
+            Flip();
+            gameObject.transform.position = startPoint;
+        }
+
+        if (showDodge)
+        {
+            ShowDodgeBeats();
+            showDodge = false;
+        }
+    }
+
+    public void ShowDodgeBeats()
+    {
+        var spawnPoint = gameObject.transform.position;
+
+        foreach (var beat in AudioManager.instance.chosenEnemyAttack)
+        {
+            //Want each beat in terms of the map progression
+            var beatFraction = (beat + 1) / AudioManager.instance.totalBeats;
+
+            //Spawn the Beat based on the start point, length and position of the beat
+            spawnPoint = Vector3.Lerp(restartPoint, startPoint, beatFraction);
+
+            //add the "perfect" hit point to the list
+            CombatStats.hitList.Add(spawnPoint.x);
+
+            var type = (beat % 1 == 0) ? whole : half;
+
+            //Create a note object and position it correctly
+            var note = Instantiate(type, noteParent.transform, true);
+
+            //make sure the rotation is 0 and put the parent in the right place
+            note.transform.rotation = Quaternion.Euler(0, 0, 0);
+            note.transform.position = spawnPoint;// new Vector3(spawnPoint.x, note.transform.localPosition.y, 0f);
+            note.transform.parent = noteParent.transform;
         }
     }
 
@@ -111,19 +161,16 @@ public class Note : MonoBehaviour
 
         beats = new List<float>();
         CombatStats.hitList = new List<float>();
+        CombatStats.index = 0;
+        CombatStats._totalHits = 0;
     }
 
     //Display the BeatMap in game
-    private void ShowBeats()
+    private void ShowAttackBeats()
     {
         if (_curAction != ActionType.Item)
         {
-            //TODO: Implement other attacks
-            if (_curAction == ActionType.Kick)
-            {
-                _curAction = ActionType.Punch;
-            }
-            beats = AudioManager.instance.beatMap[(int)_curAction].beatsToHit;
+            beats = AudioManager.instance.playerBeatMap[(int)_curAction].beatsToHit;
             CombatStats._totalHits = beats.Count;
         }
 
@@ -134,21 +181,29 @@ public class Note : MonoBehaviour
             //Want each beat in terms of the map progression
             var beatFraction = (beat + 1) / AudioManager.instance.totalBeats;
 
-            //Debug.Log("Beat: " + beat);
-            //Debug.Log("Fraction: " + beatFraction);
-            //Debug.Log("Length: " + _length);
-
             //Spawn the Beat based on the start point, length and position of the beat
-            //this is also just the unity.lerp equation lol
             spawnPoint = Vector3.Lerp(startPoint, restartPoint, beatFraction);
 
             //add the "perfect" hit point to the list
             CombatStats.hitList.Add(spawnPoint.x);
 
+            var type = (beat % 1 == 0) ? whole : half;
+
             //Create a note object and position it correctly
-            var note = Instantiate(this.note, noteParent.transform, true);
-            note.transform.localPosition = spawnPoint;
+            var note = Instantiate(type, noteParent.transform, true);
+
+            //make sure the rotation is 0 and put the parent in the right place
+            note.transform.rotation = Quaternion.Euler(0, 0, 0);
+            note.transform.position = spawnPoint;
             note.transform.parent = noteParent.transform;
         }
+    }
+
+    //flip the fangs when dodging
+    private void Flip()
+    {
+        Vector3 theScale = transform.GetChild(0).localScale;
+        theScale.x *= -1;
+        transform.GetChild(0).localScale = theScale;
     }
 }
