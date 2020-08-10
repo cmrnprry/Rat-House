@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     [Header("Stats")]
     [SerializeReference]
     private float _maxHealth;
+    private float _currentHealth;
 
     [SerializeReference]
     private float _baseAcuracy;
@@ -16,7 +17,7 @@ public class Enemy : MonoBehaviour
     private float _baseAttack;
 
     [HideInInspector]
-    public Slider health;
+    public Slider healthSlider;
 
     [Header("Attacks")]
     //Number of attacks and chances of said attacks hitting. They follow the order in the spread sheet
@@ -40,6 +41,8 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         var beats = AudioManager.instance.enemyBeatMap;
+        _currentHealth = _maxHealth;
+        UpdateHealth(0);
 
         //Set the enemy types to have the correct beats
         waterBeats = beats.GetRange(0, 2);
@@ -260,13 +263,12 @@ public class Enemy : MonoBehaviour
         _turnOver = true;
     }
 
-
     public void UpdateHealth(float dmg)
     {
 
-        var h = _maxHealth - dmg;
+        _currentHealth -= dmg;
 
-        health.value = (h / _maxHealth);
+        healthSlider.value = (_currentHealth / _maxHealth);
     }
 
     public float GetBaseAttack()

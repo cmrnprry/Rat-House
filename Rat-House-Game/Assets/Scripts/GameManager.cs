@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Handles Returning to Overworld")]
 
-
     [Header("UI Items")]
     //reference to the canvas
     public GameObject canvas;
@@ -73,21 +72,17 @@ public class GameManager : MonoBehaviour
         else
         {
             instance = this;
+            // Do not destroy these objects, when we load a new scene.
+            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(canvas.gameObject);
         }
-
-        // Do not destroy these objects, when we load a new scene.
-        DontDestroyOnLoad(this.gameObject);
-        DontDestroyOnLoad(canvas.gameObject);
     }
-
 
     private void Start()
     {
         //Items the player starts off with
         CombatController.instance.itemList.Add(new Items(ItemType.Basic_Heath, 3, 10));
         CombatController.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2, 10));
-
-       // UpdateGameState();
     }
 
     private void Update()
@@ -193,7 +188,6 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Battle-FINAL"))
             CombatController.instance.ClearBattle();
 
-        yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
 
         //Load the Overworld Scene

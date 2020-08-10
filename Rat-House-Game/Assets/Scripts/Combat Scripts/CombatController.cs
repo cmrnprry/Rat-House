@@ -174,6 +174,7 @@ public class CombatController : MonoBehaviour
     public void PlaceEnemies()
     {
         var index = 0;
+        Debug.Log("place enemies");
 
         foreach (var e in enemyList)
         {
@@ -182,8 +183,10 @@ public class CombatController : MonoBehaviour
 
             //Add it to the list of enemy game objects
             _inBattle.Add(enemy);
+
+            //Set enemy health
             enemyHealthBars[index].gameObject.SetActive(true);
-            enemy.GetComponent<Enemy>().health = enemyHealthBars[index];
+            enemy.GetComponent<Enemy>().healthSlider = enemyHealthBars[index];
 
             //Parent enemy
             enemy.transform.parent = _enemyParent.transform;
@@ -284,7 +287,6 @@ public class CombatController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         StartCoroutine(ChooseAction());
     }
-
     public IEnumerator ChooseItem()
     {
         //Wait until a correct key is pressed
@@ -369,40 +371,6 @@ public class CombatController : MonoBehaviour
         StartCoroutine(ChooseItem());
     }
 
-    void UseDamageItem(Items item)
-    {
-        Debug.Log("use damage item");
-
-        //Choose the item to use
-        StartCoroutine(ChooseEnemy(true, item.delta));
-
-        //decrease the amount of the used item
-        itemList.Add(new Items(item.item, -1, item.delta));
-        GameManager.instance.CollapseItemList(itemList);
-
-        ClearItemMenu();
-    }
-
-    //Will be called every time the player uses a health item
-    void UseHealthItem(Items item)
-    {
-        //decrease the amount of the used item
-        itemList.Add(new Items(item.item, -1, item.delta));
-        GameManager.instance.CollapseItemList(itemList);
-
-        //update the player's health
-        _stats.UpdatePlayerHealth(item.delta);
-
-        //Clear Item Menu
-        ClearItemMenu();
-
-        //TODO: MAKE THIS NOT HARD CODED IN I DONT FORSEE THE NUMBERS CHSNGING BUT ITS BAD FIX IT
-        _stats.gameObject.transform.position = new Vector3(12.5f, 6.19f, 0f);
-
-        //Start Enemy Phase
-        StartCoroutine(EnemyPhase());
-    }
-
     //Allows the player to choose which enemy they will attack
     IEnumerator ChooseEnemy(bool isItem, float itemDmg = 0)
     {
@@ -468,6 +436,39 @@ public class CombatController : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
         StartCoroutine(ChooseEnemy(isItem));
+    }
+    void UseDamageItem(Items item)
+    {
+        Debug.Log("use damage item");
+
+        //Choose the item to use
+        StartCoroutine(ChooseEnemy(true, item.delta));
+
+        //decrease the amount of the used item
+        itemList.Add(new Items(item.item, -1, item.delta));
+        GameManager.instance.CollapseItemList(itemList);
+
+        ClearItemMenu();
+    }
+
+    //Will be called every time the player uses a health item
+    void UseHealthItem(Items item)
+    {
+        //decrease the amount of the used item
+        itemList.Add(new Items(item.item, -1, item.delta));
+        GameManager.instance.CollapseItemList(itemList);
+
+        //update the player's health
+        _stats.UpdatePlayerHealth(item.delta);
+
+        //Clear Item Menu
+        ClearItemMenu();
+
+        //TODO: MAKE THIS NOT HARD CODED IN I DONT FORSEE THE NUMBERS CHSNGING BUT ITS BAD FIX IT
+        _stats.gameObject.transform.position = new Vector3(12.5f, 6.19f, 0f);
+
+        //Start Enemy Phase
+        StartCoroutine(EnemyPhase());
     }
 
     public void HighlightEnemy()

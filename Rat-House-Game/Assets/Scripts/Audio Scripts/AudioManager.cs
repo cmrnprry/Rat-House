@@ -112,10 +112,9 @@ public class AudioManager : MonoBehaviour
         else
         {
             instance = this;
+            // Do not destroy this object, when we load a new scene.
+            DontDestroyOnLoad(this.gameObject);
         }
-
-        // Do not destroy this object, when we load a new scene.
-        DontDestroyOnLoad(this.gameObject);
     }
 
     void Start()
@@ -198,7 +197,7 @@ public class AudioManager : MonoBehaviour
         float currPos = songPositionInBeats;
 
         // Wait until the next second
-        yield return new WaitUntil(() => (Math.Truncate(currPos) + beatsPerSec <= songPositionInBeats));
+        yield return new WaitUntil(() => (currPos + (beatsPerSec * 2) <= songPositionInBeats));
 
         dspMapTime = (float)AudioSettings.dspTime;
 
@@ -216,7 +215,7 @@ public class AudioManager : MonoBehaviour
         float currPos = songPositionInBeats;
 
         // Wait until the next second
-        yield return new WaitUntil(() => (Math.Truncate(currPos) + (beatsPerSec * 2) <= songPositionInBeats));
+        yield return new WaitUntil(() => (currPos + (beatsPerSec * 2) <= songPositionInBeats));
 
         dspMapTime = (float)AudioSettings.dspTime;
 

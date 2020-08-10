@@ -41,6 +41,7 @@ public class CombatStats : MonoBehaviour
 
         //Player Stats
         playerHealth = 100f;
+        CombatController.instance.playerHealthText.text = playerHealth + "%";
 
         //Update the player health slider
         CombatController.instance.playerHealthSlider.value = 1f;
@@ -70,7 +71,7 @@ public class CombatStats : MonoBehaviour
                 //Basically if it's at the start bounds of being early and the far bounds of being 
                 if (transform.position.x >= hitList[index] - offset && transform.position.x <= hitList[index] + offset && !hitNote)
                 {
-                    CombatController.instance.hitDetectionText.gameObject.SetActive(true);
+                    StartCoroutine(ShowText());
                     DetectAttackHit(transform.position);
                 }
             }
@@ -82,8 +83,7 @@ public class CombatStats : MonoBehaviour
                 {
                     //play MISS animation
                     CombatController.instance.hitDetectionText.text = "Miss!";
-                    CombatController.instance.hitDetectionText.gameObject.SetActive(true);
-                    Debug.Log("Miss!");
+                    StartCoroutine(ShowText());
                     index++;
                 }
 
@@ -131,6 +131,13 @@ public class CombatStats : MonoBehaviour
         }
     }
 
+    IEnumerator ShowText()
+    {
+        CombatController.instance.hitDetectionText.gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(AudioManager.instance.beatsPerSec);
+        CombatController.instance.hitDetectionText.gameObject.SetActive(false);
+    }
+    
     private void DetectAttackHit(Vector3 pos)
     {
         //if the player hits late
@@ -158,6 +165,8 @@ public class CombatStats : MonoBehaviour
             amountHit += .5f;
         }
 
+        Debug.Log("Hit at: " + transform.position.x);
+        Debug.Log("Beat to hit at: " + hitList[index]);
         PlayRandomAttackClip();
         index++;
         hitNote = true;
@@ -199,6 +208,8 @@ public class CombatStats : MonoBehaviour
             amountHit += .5f;
         }
 
+        Debug.Log("Hit at: " + transform.position.x);
+        Debug.Log("Beat to hit at: " + hitList[index]);
         index++;
         hitNote = true;
     }
@@ -253,13 +264,13 @@ public class CombatStats : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
+        yield return new WaitForSecondsRealtime(1f);
+
+        CombatController.instance.splashScreens[action].gameObject.SetActive(false);
+
         if (enemyHealth[enemyAttacked] <= 0)
         {
             EnemyDeath(enemyAttacked);
-
-            yield return new WaitForSecondsRealtime(1f);
-
-            CombatController.instance.splashScreens[action].gameObject.SetActive(false);
 
             //If there are no more enemies, return to overworld
             if (_enemiesLeft <= 0)

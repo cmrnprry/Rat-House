@@ -18,9 +18,6 @@ public class Note : MonoBehaviour
     //Starting X position of the slider
     public Vector3 startPoint;
 
-    //end for player dodge
-    public Vector3 endPoint;
-
     //Point to reset the slider
     public Vector3 restartPoint;
 
@@ -81,9 +78,9 @@ public class Note : MonoBehaviour
         else if (AudioManager.instance.startDodge)
         {
             //Moves the block based on where we are in the the music in BEATS
-            gameObject.transform.position = Vector3.Lerp(restartPoint, endPoint, AudioManager.instance.mapProgression);
+            gameObject.transform.position = Vector3.Lerp(restartPoint, startPoint, AudioManager.instance.mapProgression);
 
-            if (gameObject.transform.position.x <= endPoint.x)
+            if (gameObject.transform.position.x <= startPoint.x)
             {
                 ClearBeats();
 
@@ -206,7 +203,11 @@ public class Note : MonoBehaviour
     public void Flip(int num = -1)
     {
         Vector3 theScale = gameObject.transform.GetChild(0).localScale;
+        Vector3 thePos = gameObject.transform.GetChild(0).localPosition;
         theScale.x = num;
+
+        thePos.x = (num < 0 ? -0.35f : 0.35f);
         transform.GetChild(0).localScale = theScale;
+        transform.GetChild(0).localPosition = thePos;
     }
 }
