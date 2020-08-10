@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -11,14 +12,26 @@ public enum GameState
     Battle = 1,
     Boss = 2,
     CutScene = 3,
+    Tutorial,
+    Dead = 4,
 }
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    //Items the Player currently has
+    //public List<Items> itemList = new List<Items>();
+
     //Keeps track of the current game state
-    private GameState _currState = GameState.Overworld;
+    private GameState _currState = GameState.Tutorial;
+
+    [HideInInspector]
+    public GameObject _deathScreen;
+
+    [Header("Tutorial Script")]
+    //tutorial
+    public TutorialScript tutorial;
 
     void Awake()
     {
@@ -35,6 +48,16 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+
+    private void Start()
+    {
+        //Items the player starts off with
+        CombatController.instance.itemList.Add(new Items(ItemType.Basic_Heath, 3, 10));
+        CombatController.instance.itemList.Add(new Items(ItemType.Basic_Damage, 2, 10));
+
+        UpdateGameState();
+    }
+
     /** Method that is called when the game state needs to be updated
      * For now it starts in the Overworld until cutscenes are implemented
      * 
@@ -44,6 +67,7 @@ public class GameManager : MonoBehaviour
         switch (_currState)
         {
             case GameState.Overworld:
+                StartCoroutine(ReturnToOverworld());
                 break;
             case GameState.Battle:
                 StartCoroutine(StartBattle());
@@ -52,12 +76,42 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.CutScene:
                 break;
+            case GameState.Tutorial:
+                StartTutorial();
+                break;
             default:
                 Debug.LogError("Something has gone wrong in GameState Update loop");
                 break;
         }
     }
 
+    //Makes ot so there is only one of each item type in the list
+    public void CollapseItemList(List<Items> itemList)
+    {
+        for (int i = 0; i < itemList.Count; i++)
+        {
+            for (int k = i + 1; k < itemList.Count; k++)
+            {
+                if (itemList[i].item == itemList[k].item)
+                {
+
+                    var total = itemList[i].count + itemList[k].count;
+                    var newItem = new Items(itemList[i].item, total);
+
+                    itemList.RemoveAt(k);
+                    itemList.RemoveAt(i);
+
+
+                    if (newItem.count > 0)
+                    {
+                        itemList.Insert(i, newItem);
+                    }
+
+
+                }
+            }
+        }
+    }
 
     /** Start Combat by:
     * Switching to the correct scene
@@ -67,7 +121,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator StartBattle()
     {
         Debug.Log("Load Battle Scene");
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Battle-FINAL");
 
         yield return new WaitForFixedUpdate();
 
@@ -80,6 +134,64 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CombatController.instance.ChooseAction());
     }
 
+    private IEnumerator ReturnToOverworld()
+    {
+        AudioManager.instance.StopCombatMusic();
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Battle-FINAL"))
+            CombatController.instance.ClearBattle();
+
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
+        SceneManager.LoadScene("Overworld_Level1-FINAL");
+
+        yield return new WaitForEndOfFrame();
+
+        //Show any Dialogue
+    }
+
+    //The Battle was won
+    //TODO: Set the beaten enemy to Beaten
+    public IEnumerator BattleLost()
+    {
+
+        //Play some sort of death animation or something
+
+        //while animaiotn is playing, return null
+
+        yield return null;
+
+        //  SceneManager.LoadScene("Joe Is Dead-FINAL");
+        _deathScreen.SetActive(true);
+
+
+        //Set Buttons
+        var buttons = GameObject.FindGameObjectsWithTag("Button");
+        var retry = buttons[0].GetComponent<Button>();
+        var quit = buttons[1].GetComponent<Button>();
+
+        //Set buttons on Click
+        retry.onClick.AddListener(RetryBattle);
+        quit.onClick.AddListener(QuitBattle);
+    }
+
+    //Retry the current battle
+    public void RetryBattle()
+    {
+        CombatController.instance.ResetBattle();
+        //StartCoroutine(StartBattle());
+    }
+
+    //Retrun to the overworld
+    public void QuitBattle()
+    {
+        _currState = GameState.Overworld;
+        UpdateGameState();
+    }
+
+    //The Battle was won
+    //TODO: Set the beaten enemy to Beaten
     public IEnumerator BattleWon()
     {
         //Play win music if any
@@ -88,17 +200,10 @@ public class GameManager : MonoBehaviour
 
         //Show new attack gained if any
 
+        yield return new WaitForEndOfFrame();
+
         //Set Game State
         GameManager.instance.SetGameState(GameState.Overworld);
-        AudioManager.instance.StopCombatMusic();
-
-        yield return new WaitForEndOfFrame();
-
-        SceneManager.LoadScene(0);
-
-        yield return new WaitForEndOfFrame();
-        
-        //Show any Dialogue
     }
 
     //Set the current game state
@@ -115,5 +220,17 @@ public class GameManager : MonoBehaviour
     public GameState GetGameState()
     {
         return _currState;
+    }
+
+    //Handles the tutorial stuff
+    void StartTutorial()
+    {
+        Debug.Log("start tutorial");
+        //open the text box and start dialogue
+        tutorial.anim.SetBool("isOpen", true);
+        tutorial.dialogue.StartDialogue();
+
+        //start the dialogue in the tutorial script
+        StartCoroutine(tutorial.ShowOpeningDialogue());
     }
 }

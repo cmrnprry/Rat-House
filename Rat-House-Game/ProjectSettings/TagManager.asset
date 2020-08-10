@@ -8,6 +8,19 @@ TagManager:
   - BattleMenu
   - CombatStats
   - Note
+  - Coffee
+  - Intern
+  - Water_Cooler
+  - Enemy Parent
+  - ItemMenu
+  - MenuSelect
+  - intern_effect
+  - coffee_effect
+  - water_effect
+  - Button
+  - DeadScreen
+  - Interactable
+  - Dialogue
   layers:
   - Default
   - TransparentFX

@@ -37,8 +37,18 @@ public class AudioManager : MonoBehaviour
     //Current map position, in beats
     public float mapPositionInBeats;
 
+    //Totals beats in map
+    public float totalBeats;
+
     //How many seconds have passed since the song started
     public float dspMapTime;
+
+    //Tracks where you are in the beat map
+    // Stays between 0 and 1
+    public float mapProgression = 0;
+
+    //start moving slider
+    public bool hasStarted;
 
     //Beat Maps
     public List<BeatMapStruct> beatMap = new List<BeatMapStruct>();
@@ -58,6 +68,9 @@ public class AudioManager : MonoBehaviour
 
     //Current song position, in beats
     public float songPositionInBeats;
+
+    //Thd difference between the last frame songPosition and the current frame songPosition
+    public float soundDeltaTime;
 
     //How many seconds have passed since the song started
     public float dspSongTime;
@@ -94,7 +107,6 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-
     void Start()
     {
         //BACKGROUND
@@ -113,8 +125,13 @@ public class AudioManager : MonoBehaviour
 
         //Calculate the number of beats in each second
         mapBeatsPerSec = mapBpm / 60f;
+
+        //Sets the total beats for the first clip
+        float length = (float)(Math.Truncate((double)attackMusic.clip.length * 100.0) / 100.0);
+        totalBeats = mapBeatsPerSec * length;
     }
 
+    //Start BG music when a fight starts
     public void StartCombatMusic()
     {
         //Record the time when the music starts
@@ -128,6 +145,7 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(UpdateBeats());
     }
 
+    //Stops BG music when a fight ends
     public void StopCombatMusic()
     {
         //Start the background music
@@ -137,15 +155,21 @@ public class AudioManager : MonoBehaviour
         StopAllCoroutines();
     }
 
-    //Updates the BG song position
+    //Updates the BG song position and some other variables
     IEnumerator UpdateBeats()
     {
+        var lastFrame = songPosition;
+
         //determine how many seconds since the song started
         songPosition = (float)(AudioSettings.dspTime - dspSongTime);
 
         //determine how many beats since the song started
         songPositionInBeats = songPosition / secPerBeat;
 
+        soundDeltaTime = songPosition - lastFrame;
+
+
+        //Handles the looping
         loopPositionInBeats = songPositionInBeats - completedLoops * beatsPerLoop;
         loopPositionInAnalog = loopPositionInBeats / beatsPerLoop;
 
@@ -155,6 +179,24 @@ public class AudioManager : MonoBehaviour
             completedLoops++;
         }
 
+        //Updates what music the player has selected assuimung it's not an item
+        if (CombatController.instance.selectedAction != ActionType.Item)
+        {
+            if (CombatController.instance.selectedAction == ActionType.Kick)
+            {
+                CombatController.instance.selectedAction = ActionType.Punch;
+            }
+
+            attackMusic.clip = attackClips[(int)CombatController.instance.selectedAction];
+
+            float length = (float)(Math.Truncate((double)attackMusic.clip.length * 100.0) / 100.0);
+            totalBeats = mapBeatsPerSec * length;
+            //Debug.Log("Total Beats: " + totalBeats);
+            //Debug.Log("Total Length: " + attackMusic.clip.length);
+        }
+
+
+
         yield return new WaitForEndOfFrame();
         StartCoroutine(UpdateBeats());
     }
@@ -162,14 +204,16 @@ public class AudioManager : MonoBehaviour
     //Waits a second before starting the attack music
     public IEnumerator SetMap(int action)
     {
-        Debug.Log("Set Map");
+        //Placeholder until more are added
+        if (action == 1)
+            action = 0;
+
+        Debug.Log("Attack Type: " + action);
+       // Debug.Log("Set Map");
         float currPos = songPositionInBeats;
 
-        //TODO: Implement more attack clips when we have them
-        // attackMusic.clip = attackClips[action];
-
         // Wait until the next second
-
+        hasStarted = true;
         while (!(Math.Truncate(currPos) + beatsPerSec <= songPositionInBeats))
         {
             yield return null;
@@ -188,12 +232,15 @@ public class AudioManager : MonoBehaviour
     {
         mapPosition = (float)(AudioSettings.dspTime - dspMapTime);
         mapPositionInBeats = mapPosition / mapSecPerBeat;
+        mapProgression = mapPositionInBeats / totalBeats;
+
+       // Debug.Log(mapProgression);
 
         if (!attackMusic.isPlaying)
         {
+            hasStarted = false;
             yield break;
         }
-
 
         yield return new WaitForEndOfFrame();
         StartCoroutine(StartBasicAttack());

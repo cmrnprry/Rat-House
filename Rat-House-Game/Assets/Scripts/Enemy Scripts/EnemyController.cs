@@ -5,6 +5,8 @@ using UnityEngine;
  // Different Types of Potential Enemies
 public enum EnemyType
 {
+    NULL = -2,
+    Tutorial_Intern = -1,
     Coffee = 0,
     Intern = 1,
     Water_Cooler = 2,
@@ -12,6 +14,7 @@ public enum EnemyType
 
 public class EnemyController : MonoBehaviour
 {
+    [Header("Enemies to Appear in an Encounter")]
     public List<EnemyType> enemiesInBattle;
 
 
@@ -27,15 +30,4 @@ public class EnemyController : MonoBehaviour
          
          */
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
