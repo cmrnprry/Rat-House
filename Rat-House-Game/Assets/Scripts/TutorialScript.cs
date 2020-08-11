@@ -268,7 +268,7 @@ public class TutorialScript : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
 
         //wait until the attack music has stopped playing
-        yield return new WaitUntil(() => !AudioManager.instance.attackMusic.isPlaying);
+      //  yield return new WaitUntil(() => !AudioManager.instance.attackMusic.isPlaying);
 
         //Wait half a second
         yield return new WaitForSecondsRealtime(0.5f);

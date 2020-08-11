@@ -44,10 +44,11 @@ public class CombatStats : MonoBehaviour
     //base damage that attacks can do
     private List<float> _attackDamage;
 
-    public int action = 0;
+    //list of attack sounds
+    [HideInInspector]
     public AudioClip[] actionSounds;
-    public AudioClip missSound;
-    public AudioSource source;
+
+    public int action = 0;
 
     public void SetStats()
     {
@@ -67,11 +68,6 @@ public class CombatStats : MonoBehaviour
             enemyHealth.Add(e.GetComponent<Enemy>().GetStartingHealth());
             _enemiesLeft++;
         }
-    }
-
-    private void Start()
-    {
-        source = AudioManager.instance.attackMusic;
     }
 
     private void Update()
@@ -111,8 +107,8 @@ public class CombatStats : MonoBehaviour
             {
                 if (transform.position.x > hitList[index].pos + offset && !hitNote) //greater than the pos + offset
                 {
-                    source.clip = missSound;
-                    source.Play();
+                    //source.clip = missSound;
+                 //   source.Play();
 
                     CombatController.instance.hitDetectionText.text = "Miss!";
                     StartCoroutine(ShowText());
@@ -161,8 +157,8 @@ public class CombatStats : MonoBehaviour
             {
                 if (transform.position.x < hitList[index].pos - offset && !hitNote) //greater than the pos + offset
                 {
-                    source.clip = missSound;
-                    source.Play();
+                    //source.clip = missSound;
+                   // source.Play();
 
                     CombatController.instance.hitDetectionText.text = "Miss!";
                     CombatController.instance.hitDetectionText.gameObject.SetActive(true);
@@ -224,8 +220,8 @@ public class CombatStats : MonoBehaviour
     void PlayRandomAttackClip()
     {
         var random = Random.Range(0, 2);
-        source.clip = actionSounds[random];
-        source.Play();
+        AudioManager.instance.SFX.clip = actionSounds[random];
+        AudioManager.instance.SFX.Play();
     }
 
     private void DetectDodgeHit(Vector3 pos)
@@ -276,6 +272,11 @@ public class CombatStats : MonoBehaviour
 
         Debug.Log("Damage Taken: " + delta);
 
+        //If player health goes up or done
+        var sfx = delta < 0 ? AudioManager.instance.UISFX[1] : AudioManager.instance.UISFX[0];
+        AudioManager.instance.SFX.clip = sfx;
+        AudioManager.instance.SFX.Play();
+
         //Make the health a number between 0 and 1
         float health = playerHealth / 100;
 
@@ -323,6 +324,7 @@ public class CombatStats : MonoBehaviour
         if (CombatController.instance.selectedAction == ActionType.Heal)
         {
             UpdatePlayerHealth(damage);
+            yield return new WaitForSecondsRealtime(0.75f);
         }
         else
         {
@@ -349,13 +351,17 @@ public class CombatStats : MonoBehaviour
         amountHit = 0;
 
         //After the damage has been delt we want to switch to the enemies turn
+        AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[2];
+        AudioManager.instance.SFX.Play();
         StartCoroutine(CombatController.instance.EnemyPhase());
     }
 
     //Handles what happens when an enemy dies
     void EnemyDeath(int enemyAttacked)
     {
-        CombatController.instance.enemyDeath.Play();
+        //Folder flip
+        AudioManager.instance.SFX.clip = AudioManager.instance.enemySFX[AudioManager.instance.enemySFX.Count - 1];
+        AudioManager.instance.SFX.Play();
 
         //play enemy death animiation
         Debug.Log("Enemy Dead");

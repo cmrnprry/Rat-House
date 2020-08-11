@@ -16,29 +16,21 @@ public class AudioManager : MonoBehaviour
     public List<BeatMapStruct> enemyBeatMap = new List<BeatMapStruct>();
 
     [Header("Sound Effects")]
-    public AudioSource folder;
-    public AudioSource enemyDeath;
+    public AudioSource SFX;
     public List<AudioClip> attackSFX;
+    public List<AudioClip> dodgeSFX;
+    public List<AudioClip> enemySFX;
+    public List<AudioClip> UISFX;
 
-    [Header("Audio Sources")]
+    [Header("Background Music")]
     //Background Combat Music
     public AudioSource bgMusic;
 
-    //Attack Audio Source
-    public AudioSource attackMusic;
-
-    //Doging Audio Source
-    public AudioSource dodgeMusic;
 
     [Header("BeatMap Beats")]
     public bool startAction;
     public bool startDodge;
     public List<float> chosenEnemyAttack = new List<float>();
-    //List of possible music to play
-    public AudioClip[] attackClips;
-
-    //List of possible dodge music to play
-    public AudioClip[] dodgeClips;
 
     //map bmp
     public float mapBpm;

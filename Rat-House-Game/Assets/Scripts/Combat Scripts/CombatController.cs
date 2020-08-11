@@ -99,11 +99,6 @@ public class CombatController : MonoBehaviour
     public Image[] splashScreensGood;
     public Image[] splashScreensBad;
 
-    [Header("Sound Effects")]
-    public AudioSource folder;
-    public AudioSource enemyDeath;
-    public List<AudioClip> attackSFX;
-
     void Awake()
     {
         if (instance != null && instance != this)
@@ -244,19 +239,19 @@ public class CombatController : MonoBehaviour
             switch (_actionList[_selectedAction])
             {
                 case ActionType.Punch:
-                    _stats.actionSounds = attackSFX.GetRange(0, 3).ToArray();
+                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray();
                     StartCoroutine(ChooseEnemy());
                     break;
                 case ActionType.Kick:
-                    _stats.actionSounds = attackSFX.GetRange(0, 3).ToArray(); //TODO: put in kick attacks
+                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray(); //TODO: put in kick attacks
                     StartCoroutine(ChooseEnemy());
                     break;
                 case ActionType.Throw:
-                    _stats.actionSounds = attackSFX.GetRange(0, 3).ToArray(); //TODO: put in throw attacks
+                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray(); //TODO: put in throw attacks
                     StartCoroutine(ChooseEnemy());
                     break;
                 case ActionType.Heal:
-                    _stats.actionSounds = attackSFX.GetRange(0, 3).ToArray(); //TODO: put in heal attacks
+                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray(); //TODO: put in heal attacks
                     StartCoroutine(ChoosePlayer());
                     break;
                 default:
@@ -274,7 +269,9 @@ public class CombatController : MonoBehaviour
         }
         else if (Input.GetButtonDown("Right"))
         {
-            folder.Play();
+            //Folder flip
+            AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[4];
+            AudioManager.instance.SFX.Play();
 
             selectedAction = ActionType.Item;
             Debug.Log("Open Item Menu");
@@ -363,7 +360,9 @@ public class CombatController : MonoBehaviour
 
         if (Input.GetButton("Left"))
         {
-            folder.Play();
+            //Folder flip
+            AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[4];
+            AudioManager.instance.SFX.Play();
 
             Debug.Log("Open Action Menu");
 
@@ -469,7 +468,7 @@ public class CombatController : MonoBehaviour
 
             if (isItem)
             {
-                UseHealthItem(itemList[_selectedItem]);
+                StartCoroutine(UseHealthItem(itemList[_selectedItem]));
             }
             else
             {
@@ -508,7 +507,7 @@ public class CombatController : MonoBehaviour
     }
 
     //Will be called every time the player uses a health item
-    void UseHealthItem(Items item)
+    IEnumerator UseHealthItem(Items item)
     {
         //decrease the amount of the used item
         itemList.Add(new Items(item.item, -1, item.delta));
@@ -517,10 +516,14 @@ public class CombatController : MonoBehaviour
         //update the player's health
         _stats.UpdatePlayerHealth(item.delta);
 
+        yield return new WaitForSecondsRealtime(0.75f);
+
         //TODO: MAKE THIS NOT HARD CODED IN I DONT FORSEE THE NUMBERS CHSNGING BUT ITS BAD FIX IT
         _stats.gameObject.transform.position = new Vector3(12.5f, 6.19f, 0f);
 
-        //Start Enemy Phase
+        //Start Enemy Phase & play sfx
+        AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[2];
+        AudioManager.instance.SFX.Play();
         StartCoroutine(EnemyPhase());
     }
 
@@ -530,8 +533,8 @@ public class CombatController : MonoBehaviour
 
         spotlight.gameObject.SetActive(true);
         spotlight.transform.localPosition = new Vector3(-4.14f, 0f, -0.14f);
-    }    
-    
+    }
+
     public void HighlightEnemy()
     {
         var spotlight = _enemyParent.transform.GetChild(0);
@@ -590,6 +593,8 @@ public class CombatController : MonoBehaviour
                 //Deal Damage to Player
                 _stats.UpdatePlayerHealth(-1 * e.GetBaseAttack());
 
+                yield return new WaitForSecondsRealtime(0.75f);
+
                 if (_stats.playerHealth <= 0)
                 {
                     yield break;
@@ -615,6 +620,10 @@ public class CombatController : MonoBehaviour
                 break;
             }
         }
+
+        //Play player turn SFX
+        AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[3];
+        AudioManager.instance.SFX.Play();
 
         //Turn on the highlight
         ShowActionMenu();
