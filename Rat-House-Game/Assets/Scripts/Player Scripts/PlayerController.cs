@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //An Enumerator that controls the player movement
-    IEnumerator PlayerMovement()
+    public IEnumerator PlayerMovement()
     {
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
@@ -64,12 +64,12 @@ public class PlayerController : MonoBehaviour
         {
             if (_canFight)
             {
+                Debug.Log("fight");
                 GameManager.instance.SetGameState(GameState.Battle);
                 _canFight = false;
 
                 yield break;
             }
-
         }
 
         yield return new WaitForEndOfFrame();
@@ -92,7 +92,6 @@ public class PlayerController : MonoBehaviour
         if (collider.gameObject.tag == "Enemy")
         {
             _canFight = false;
-            Debug.Log("No Combat");
         }
     }
 

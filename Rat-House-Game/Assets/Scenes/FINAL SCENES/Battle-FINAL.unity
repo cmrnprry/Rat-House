@@ -104602,6 +104602,7 @@ MonoBehaviour:
   delta: 0.1
   action: 0
   actionSounds: []
+  missSound: {fileID: 8300000, guid: 4d2714a5086bd7d4fbe77886b45ea76f, type: 3}
   source: {fileID: 0}
 --- !u!54 &1618190311
 Rigidbody:
