@@ -1557,6 +1557,8 @@ GameObject:
   m_Component:
   - component: {fileID: 79815227}
   - component: {fileID: 79815226}
+  - component: {fileID: 79815229}
+  - component: {fileID: 79815228}
   m_Layer: 0
   m_Name: Pickup
   m_TagString: Untagged
@@ -1603,7 +1605,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c75a216e1233aba4d9c1f66671f6ae0e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 495c4ca4945537d4d95b3cb31af5c6d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1628,6 +1630,32 @@ Transform:
   m_Father: {fileID: 1433702241}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &79815228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79815225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 0
+--- !u!65 &79815229
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79815225}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.56, y: 2.56, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &80294549
 GameObject:
   m_ObjectHideFlags: 0
@@ -2701,6 +2729,8 @@ GameObject:
   m_Component:
   - component: {fileID: 163217303}
   - component: {fileID: 163217302}
+  - component: {fileID: 163217305}
+  - component: {fileID: 163217304}
   m_Layer: 0
   m_Name: Pickup (3)
   m_TagString: Untagged
@@ -2747,7 +2777,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c75a216e1233aba4d9c1f66671f6ae0e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 495c4ca4945537d4d95b3cb31af5c6d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2772,6 +2802,32 @@ Transform:
   m_Father: {fileID: 1433702241}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &163217304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163217301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 0
+--- !u!65 &163217305
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163217301}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.56, y: 2.56, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &171653939
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4063,6 +4119,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1547397061}
     m_Modifications:
+    - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 80daacf1af091c745b3ec31afb7bd091,
+        type: 3}
+    - target: {fileID: 5888310440297508659, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: m_Name
+      value: Water
+      objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725827, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4122,6 +4189,89 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: enemiesInBattle.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[0]
+      value: Bill:Stop right there, Joe!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[2]
+      value: Bill:...We're paid the same amount.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[4]
+      value: Bill:Can't do that, Joe.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[6]
+      value: Bill:New orders from corporate. Leave now, or I guess we have to fight
+        or something.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[1]
+      value: Joe:That isn't mine name! I am Lord Joethius P. Bradford III, Esquire,
+        and thee wilt address me as such, peasant!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[3]
+      value: Joe:How dare thee insult me with such slander! Now, remove yourself
+        from mine path!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[5]
+      value: Joe:And wherefore not,  pray tell?
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[7]
+      value: Joe:Thee can't banish me that easily!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.data[0]
+      value: Joe:Ha! Thee art no match for Lord Joethius P. Bradford!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.data[0]
+      value: Water Man:I'm gonna take my lunch break now.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.data[1]
+      value: 'Water Man: Well...I tried.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.data[1]
+      value: Joe:Ok.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c9c3f00faed8045b4ef147a8f4af91, type: 3}
@@ -9902,6 +10052,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1547397061}
     m_Modifications:
+    - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 23f01d159ac4b3c4d89a9ed247fdb936,
+        type: 3}
+    - target: {fileID: 5888310440297508659, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: m_Name
+      value: Computer
+      objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725827, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9961,6 +10122,73 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[0]
+      value: ???:Behooold! It is I! The great and powerful, Computer Man!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[1]
+      value: Joe:...Who are you?
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[2]
+      value: ???:Wh-What? I-it's...I'm Computer Man. Your arch nemesis!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[3]
+      value: Joe:I've literally never seen you before in my life, lmao.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[4]
+      value: ???:B-but...but...but what about that one time? After work? I follwed
+        you home, remember? And we dueled?
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[5]
+      value: 'Joe: I have no clue what you''re talking about, dude.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[6]
+      value: ???:I-I'll show you! You won't forget Computer Man this time!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.data[0]
+      value: ???:Curse you, Lord Joethius P. Bradford III, Esquire! I'll make sure
+        you regret this! You'll rue the day you crossed Computer Man!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.data[1]
+      value: Joe:I still don't know who you are.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.data[0]
+      value: ???:I'll have my revenge, some day!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c9c3f00faed8045b4ef147a8f4af91, type: 3}
@@ -10266,6 +10494,8 @@ GameObject:
   m_Component:
   - component: {fileID: 765556392}
   - component: {fileID: 765556391}
+  - component: {fileID: 765556394}
+  - component: {fileID: 765556393}
   m_Layer: 0
   m_Name: Pickup (4)
   m_TagString: Untagged
@@ -10312,7 +10542,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c75a216e1233aba4d9c1f66671f6ae0e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52ef26991459ca541b12b1d677d46eb4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10337,6 +10567,32 @@ Transform:
   m_Father: {fileID: 1433702241}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &765556393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765556390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 1
+--- !u!65 &765556394
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765556390}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &771491770
 GameObject:
   m_ObjectHideFlags: 0
@@ -12505,6 +12761,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1000595127}
   - component: {fileID: 1000595126}
+  - component: {fileID: 1000595129}
+  - component: {fileID: 1000595128}
   m_Layer: 0
   m_Name: Pickup (2)
   m_TagString: Untagged
@@ -12551,7 +12809,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c75a216e1233aba4d9c1f66671f6ae0e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52ef26991459ca541b12b1d677d46eb4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -12576,6 +12834,32 @@ Transform:
   m_Father: {fileID: 1433702241}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1000595128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000595125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 1
+--- !u!65 &1000595129
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000595125}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1015713707
 GameObject:
   m_ObjectHideFlags: 0
@@ -13352,6 +13636,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1074291247}
   - component: {fileID: 1074291246}
+  - component: {fileID: 1074291249}
+  - component: {fileID: 1074291248}
   m_Layer: 0
   m_Name: Pickup (5)
   m_TagString: Untagged
@@ -13398,7 +13684,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c75a216e1233aba4d9c1f66671f6ae0e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 495c4ca4945537d4d95b3cb31af5c6d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -13423,6 +13709,32 @@ Transform:
   m_Father: {fileID: 1433702241}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1074291248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074291245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 0
+--- !u!65 &1074291249
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074291245}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.56, y: 2.56, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1078000863
 GameObject:
   m_ObjectHideFlags: 0
@@ -21002,7 +21314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1724694280}
   m_Layer: 0
-  m_Name: Objects
+  m_Name: 3D Objects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22298,6 +22610,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1547397061}
     m_Modifications:
+    - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a942d139973fe374dbfb4a16d29e6509,
+        type: 3}
+    - target: {fileID: 5888310440297508659, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: m_Name
+      value: Coffee
+      objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725827, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22357,6 +22680,57 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[0]
+      value: Robert:Ah! J-Joe! What are you doing here?
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: enemiesInBattle.Array.data[2]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[1]
+      value: Joe:I has't cometh to retrieve mine most beloved mug!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[2]
+      value: Robert:But...but...you're not allowed in here anymore! If you don't
+        go away, I think I'm supposed to kill you!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[3]
+      value: Joe:Then you'd best prepare thineself for battle, mortal fool!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.data[0]
+      value: Robert:Okay, okay, you win, stop hitting me already!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.data[0]
+      value: Robert:I need more coffee...
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c9c3f00faed8045b4ef147a8f4af91, type: 3}
@@ -23277,6 +23651,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1547397061}
     m_Modifications:
+    - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a942d139973fe374dbfb4a16d29e6509,
+        type: 3}
+    - target: {fileID: 5888310440297508659, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: m_Name
+      value: Coffee
+      objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725827, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23336,6 +23721,57 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[0]
+      value: Robert:Ha, I knew you'd show up! Billy from IT owes me $10.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[1]
+      value: Robert:Anyway, listen, man. I don't actually want to fight you.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[2]
+      value: Robert:I'll give you $5 if you just, like...leave.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[3]
+      value: Joe:Thee bethink thee can bribe me with mere earthly coin, Coffee Man?
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[4]
+      value: Robert:...Did you just call me 'Coffee Man'? Why would you call me that?
+        Just because I happen to be holding a cup of coffee?
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[5]
+      value: Joe:I wilt defeat thee, Coffee Man!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[6]
+      value: Robert:...My name's Robert...
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: enemiesInBattle.Array.data[2]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: enemiesInBattle.Array.data[1]
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c9c3f00faed8045b4ef147a8f4af91, type: 3}
@@ -23980,6 +24416,9 @@ MonoBehaviour:
   heads:
   - {fileID: 21300000, guid: ef3f8f72c9c45e14181b33e0a9e4606e, type: 3}
   - {fileID: 21300000, guid: 393353222db96424eaeba189b3471c02, type: 3}
+  - {fileID: 21300000, guid: 80daacf1af091c745b3ec31afb7bd091, type: 3}
+  - {fileID: 21300000, guid: a942d139973fe374dbfb4a16d29e6509, type: 3}
+  - {fileID: 21300000, guid: 23f01d159ac4b3c4d89a9ed247fdb936, type: 3}
   sentences: []
   index: 0
   typingSpeed: 0.025
@@ -24893,6 +25332,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2010105357}
   - component: {fileID: 2010105356}
+  - component: {fileID: 2010105359}
+  - component: {fileID: 2010105358}
   m_Layer: 0
   m_Name: Pickup (1)
   m_TagString: Untagged
@@ -24939,7 +25380,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c75a216e1233aba4d9c1f66671f6ae0e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52ef26991459ca541b12b1d677d46eb4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -24964,6 +25405,32 @@ Transform:
   m_Father: {fileID: 1433702241}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2010105358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010105355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 1
+--- !u!65 &2010105359
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010105355}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2014436640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24971,6 +25438,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1547397061}
     m_Modifications:
+    - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 80daacf1af091c745b3ec31afb7bd091,
+        type: 3}
+    - target: {fileID: 5888310440297508659, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: m_Name
+      value: Water
+      objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725827, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -25030,6 +25508,64 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: enemiesInBattle.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[0]
+      value: Bill:Aw, man...I was hoping you just wouldn't show up.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[1]
+      value: Joe:If 't be true thee bethought I wouldn't returneth for mine mug,
+        then thee truly art a pathetic fool.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[2]
+      value: Bill:Yeah, but, like...you're not allowed in the building anymore, so
+        now I have to defeat you in battle or something...
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[3]
+      value: Joe:Ha! thee bethink thee can defeat me? Then prepare thineself, Water
+        Man!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[4]
+      value: Bill:I don't get paid enough for this...
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.data[0]
+      value: Bill:You know what? I don't get paid enough for this. I quit!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.data[0]
+      value: Bill:Gotta fix up my resume...
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c9c3f00faed8045b4ef147a8f4af91, type: 3}
@@ -27405,6 +27941,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1547397061}
     m_Modifications:
+    - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 393353222db96424eaeba189b3471c02,
+        type: 3}
+    - target: {fileID: 5888310440297508659, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: m_Name
+      value: Intern
+      objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725827, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27483,7 +28030,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -27513,17 +28060,28 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: beatenBattleDialogue.Array.data[0]
-      value: Intern:I have been beaten
+      value: Intern:Leave me alone!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: postBattleDialogue.Array.data[0]
-      value: Intern:You have defeated me.
+      value: Intern:What is wrong with you?
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[0]
-      value: Intern:I wont lose probably.
+      value: Intern:Oh, hey, could you point me towards Mr. Henderson's office? I'm
+        a new intern, don't really know my way around yet, haha.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[1]
+      value: Joe:Thee dareth approach me? Prepare thineself for combat, mortal!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[2]
+      value: Intern:Wait, what?
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c9c3f00faed8045b4ef147a8f4af91, type: 3}

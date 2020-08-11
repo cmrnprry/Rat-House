@@ -67,6 +67,15 @@ public class Dialogue : MonoBehaviour
             case "Intern":
                 head = 1;
                 break;
+            case "Bill":
+                head = 2;
+                break;
+            case "Robert":
+                head = 3;
+                break;
+            case "???":
+                head = 4;
+                break;
         }
 
 
