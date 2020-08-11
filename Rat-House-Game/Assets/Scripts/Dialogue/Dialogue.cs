@@ -22,6 +22,7 @@ public class Dialogue : MonoBehaviour
     //Array of the dialogue
     [TextArea(3, 5)]
     public string[] sentences;
+    private string text = "";
 
     //Where we are in the sentences array
     public int index;
@@ -36,11 +37,10 @@ public class Dialogue : MonoBehaviour
     //At the start of a conversation...
     public void StartDialogue()
     {
-        //Set the first speaker's name, set the text to empty, start at the first sentence, and start typing
         dia.text = "";
+        text = "";
         index = 0;
         SetDialogue();
-        StartCoroutine(Type());
     }
 
     //Set the speaker tag, image and text
@@ -49,10 +49,12 @@ public class Dialogue : MonoBehaviour
         string[] set = sentences[index].Split(':');
 
         speakerName.text = set[0];
-        sentences[index] = set[1];
+        text = set[1];
 
         int head = GetSpeakerHead(set[0]);
         speakerHead.sprite = heads[head];
+
+        StartCoroutine(Type());
     }
 
     int GetSpeakerHead(string name)
@@ -82,16 +84,16 @@ public class Dialogue : MonoBehaviour
             //load the next sentence, erase the previous one, and start typing
             index++;
             dia.text = "";
+            text = "";
 
             SetDialogue();
-            StopAllCoroutines();
-            StartCoroutine(Type());
         }
         //If there are no more sentences, close the dialogue box
         else
         {
             anim.SetBool("isOpen", false);
             dia.text = "";
+            text = "";
         }
     }
 
@@ -100,7 +102,7 @@ public class Dialogue : MonoBehaviour
         isTyping = true;
 
         //Type each letter in the sentence one at a time at a speed of one letter per unit of typingSpeed
-        foreach (char letter in sentences[index].ToCharArray())
+        foreach (char letter in text.ToCharArray())
         {
             dia.text += letter;
 

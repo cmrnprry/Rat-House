@@ -10,6 +10,8 @@ public enum ActionType
     Item = -1,
     Punch = 0,
     Kick = 1,
+    Throw = 2,
+    Heal = 3,
 }
 
 public enum ItemType
@@ -94,7 +96,8 @@ public class CombatController : MonoBehaviour
     public Slider playerHealthSlider;
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI hitDetectionText;
-    public Image[] splashScreens;
+    public Image[] splashScreensGood;
+    public Image[] splashScreensBad;
 
     [Header("Sound Effects")]
     public AudioSource folder;
@@ -242,16 +245,26 @@ public class CombatController : MonoBehaviour
             {
                 case ActionType.Punch:
                     _stats.actionSounds = attackSFX.GetRange(0, 3).ToArray();
+                    StartCoroutine(ChooseEnemy());
                     break;
                 case ActionType.Kick:
                     _stats.actionSounds = attackSFX.GetRange(0, 3).ToArray(); //TODO: put in kick attacks
+                    StartCoroutine(ChooseEnemy());
+                    break;
+                case ActionType.Throw:
+                    _stats.actionSounds = attackSFX.GetRange(0, 3).ToArray(); //TODO: put in throw attacks
+                    StartCoroutine(ChooseEnemy());
+                    break;
+                case ActionType.Heal:
+                    _stats.actionSounds = attackSFX.GetRange(0, 3).ToArray(); //TODO: put in heal attacks
+                    StartCoroutine(AudioManager.instance.SetAttackMap(_selectedAction));
                     break;
                 default:
                     Debug.LogError("Something has gone wrong in Combat Controller");
                     break;
             }
 
-            StartCoroutine(ChooseEnemy());
+            
             yield return new WaitForEndOfFrame();
 
             _stats.action = _selectedAction;
@@ -507,13 +520,13 @@ public class CombatController : MonoBehaviour
 
                 Debug.Log("Turn Over");
 
-                splashScreens[splashScreens.Length - 1].gameObject.SetActive(true);
+                splashScreensGood[splashScreensGood.Length - 1].gameObject.SetActive(true);
 
                 yield return new WaitForSecondsRealtime(1f);
 
                 //Reset the IsTurnOver to be false
                 e.SetIsTurnOver(false);
-                splashScreens[splashScreens.Length - 1].gameObject.SetActive(false);
+                splashScreensGood[splashScreensGood.Length - 1].gameObject.SetActive(false);
 
                 //Deal Damage to Player
                 _stats.UpdatePlayerHealth(-1 * e.GetBaseAttack());

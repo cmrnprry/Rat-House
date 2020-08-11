@@ -61,9 +61,8 @@ public class GameManager : MonoBehaviour
     [Header("Dialogue")]
     public Animator diaAnim;
     public Dialogue dialogue;
-    private bool dialogueOver = false;
+    public bool dialogueOver = false;
     private int _index = 0;
-
 
     [Header("Tutorial Script")]
     //tutorial
@@ -136,6 +135,8 @@ public class GameManager : MonoBehaviour
      **/
     private void UpdateGameState()
     {
+        Debug.Log("update");
+
         switch (_currState)
         {
             case GameState.Overworld:
@@ -194,28 +195,8 @@ public class GameManager : MonoBehaviour
     **/
     public IEnumerator StartBattle()
     {
-        Debug.Log("start");
-        if (!CanFightEnemy())
-        {
-            Debug.Log("is beaten");
-            diaAnim.SetBool("isOpen", true);
-            dialogue.sentences = currEnemy.GetComponent<EnemyController>().beatenBattleDialogue;
-            dialogue.StartDialogue();
-            StartCoroutine(ShowEnemyDialogue());
-            yield return new WaitUntil(() => dialogueOver);
-
-            var player = overworldLevelOne[7].GetComponent<PlayerController>();
-            StartCoroutine(player.PlayerMovement());
-
-            dialogueOver = false;
-            yield break;
-        }
-
         Debug.Log("pre");
-        diaAnim.SetBool("isOpen", true);
-        dialogue.sentences = currEnemy.GetComponent<EnemyController>().preBattleDialogue;
-        dialogue.StartDialogue();
-        StartCoroutine(ShowEnemyDialogue());
+        SetEnemyDialogue(currEnemy.GetComponent<EnemyController>().preBattleDialogue);
         yield return new WaitUntil(() => dialogueOver);
 
         dialogueOver = false;
@@ -242,6 +223,23 @@ public class GameManager : MonoBehaviour
 
         AudioManager.instance.StartCombatMusic();
         StartCoroutine(CombatController.instance.ChooseAction());
+    }
+
+    public IEnumerator ShowBeatenDialogue()
+    {
+        SetEnemyDialogue(currEnemy.GetComponent<EnemyController>().beatenBattleDialogue);
+        yield return new WaitUntil(() => GameManager.instance.dialogueOver);
+
+        var player = overworldLevelOne[7].GetComponent<PlayerController>();
+        StartCoroutine(player.PlayerMovement());
+    }
+
+    void SetEnemyDialogue(string[] dia)
+    {
+        diaAnim.SetBool("isOpen", true);
+        dialogue.sentences = dia;
+        dialogue.StartDialogue();
+        StartCoroutine(ShowEnemyDialogue());
     }
 
     IEnumerator ShowEnemyDialogue()
@@ -325,10 +323,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         //Show any Dialogue
-        diaAnim.SetBool("isOpen", true);
-        dialogue.sentences = currEnemy.GetComponent<EnemyController>().postBattleDialogue;
-        dialogue.StartDialogue();
-        StartCoroutine(ShowEnemyDialogue());
+        SetEnemyDialogue(currEnemy.GetComponent<EnemyController>().postBattleDialogue);
         yield return new WaitUntil(() => dialogueOver);
 
         //Give player movement 
@@ -393,8 +388,12 @@ public class GameManager : MonoBehaviour
     //Set the current game state
     public void SetGameState(GameState state)
     {
+        Debug.Log("setting state");
+
         if (_currState != state)
         {
+            Debug.Log("changing state");
+
             _currState = state;
             UpdateGameState();
         }

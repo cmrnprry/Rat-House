@@ -10,6 +10,7 @@ public enum EnemyType
     Coffee = 0,
     Intern = 1,
     Water_Cooler = 2,
+    Computer_Man = 3,
 }
 
 public class EnemyController : MonoBehaviour

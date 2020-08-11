@@ -142,7 +142,7 @@ public class CombatStats : MonoBehaviour
         yield return new WaitForSecondsRealtime(AudioManager.instance.beatsPerSec);
         CombatController.instance.hitDetectionText.gameObject.SetActive(false);
     }
-    
+
     private void DetectAttackHit(Vector3 pos)
     {
         //if the player hits late
@@ -252,26 +252,39 @@ public class CombatStats : MonoBehaviour
 
     public IEnumerator DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false, float itemDmg = 0)
     {
-        //TODO: Determine if it's a good splash screen or bad
-        //TODO: Add in some animation to make this look cooler
-        CombatController.instance.splashScreens[action].gameObject.SetActive(true);
+        //check if it we're using "good" or "bad" splash screens
+        var splashScreen = amountHit < (totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
+
+        float damage = 0;
+        if (isItem)
+        {
+            damage = itemDmg;
+        }
+        else
+        {
+            damage = PlayerDamageModifier(_attackDamage[(int)CombatController.instance.selectedAction]);
+            splashScreen[action].gameObject.SetActive(true);
+
+            yield return new WaitForSecondsRealtime(1f);
+
+            splashScreen[action].gameObject.SetActive(false);
+        }
+
 
         // if isItem is true set damage to item damage otherwise do the damage calculation
-        var damage = (isItem == true ? itemDmg : PlayerDamageModifier(_attackDamage[(int)CombatController.instance.selectedAction]));
+       
 
         Debug.Log("Damage: " + damage);
 
-        enemyHealth[enemyAttacked] -= damage;
-        CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>().UpdateHealth(damage);
-
-        Debug.Log("enemy Attacked: " + CombatController.instance.enemyList[enemyAttacked].ToString());
-        Debug.Log("enemy health after attack: " + enemyHealth[enemyAttacked]);
-
-        yield return new WaitForEndOfFrame();
-
-        yield return new WaitForSecondsRealtime(1f);
-
-        CombatController.instance.splashScreens[action].gameObject.SetActive(false);
+        if (CombatController.instance.selectedAction == ActionType.Heal)
+        {
+            UpdatePlayerHealth(damage);
+        }
+        else
+        {
+            enemyHealth[enemyAttacked] -= damage;
+            CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>().UpdateHealth(damage);
+        }
 
         if (enemyHealth[enemyAttacked] <= 0)
         {
