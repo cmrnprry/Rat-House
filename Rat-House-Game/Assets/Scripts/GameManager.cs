@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
             tutorial.anim.SetBool("isOpen", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.Q))
         {
             Application.Quit();
         }

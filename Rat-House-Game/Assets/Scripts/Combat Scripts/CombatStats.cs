@@ -4,6 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public struct Beat
+{
+    //f = pos
+    //b = true if it's a square
+    public Beat(float f, bool b)
+    {
+        pos = f;
+        isSquare = b;
+    }
+
+    public float pos { get; set; }
+    public bool isSquare { get; set; }
+}
+
 public class CombatStats : MonoBehaviour
 {
     //Player Stats
@@ -20,7 +34,7 @@ public class CombatStats : MonoBehaviour
     public static int totalHits = 0;
 
     //List of the "perfect" hits of a given rhythm
-    public static List<float> hitList = new List<float>();
+    public static List<Beat> hitList = new List<Beat>();
     public static int index = 0;
 
     //If the player hit the note too late or early
@@ -66,11 +80,26 @@ public class CombatStats : MonoBehaviour
         if (AudioManager.instance.startAction && index < hitList.Count)
         {
             //inceasese the index if the player misses OR hits a note since the cannot do both
-            if (Input.GetButtonDown("SelectAction"))
+            if (Input.GetButtonDown("Enter") && !hitList[index].isSquare) //circle
             {
+                Debug.Log("hit circle");
                 //if the slider is within the offset range
                 //Basically if it's at the start bounds of being early and the far bounds of being 
-                if (transform.position.x >= hitList[index] - offset && transform.position.x <= hitList[index] + offset && !hitNote)
+                if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
+                {
+                    StartCoroutine(ShowText());
+                    DetectAttackHit(transform.position);
+                }
+            }
+
+            //inceasese the index if the player misses OR hits a note since the cannot do both
+            if (Input.GetButtonDown("Space") && hitList[index].isSquare) // square
+            {
+                Debug.Log("hit square");
+
+                //if the slider is within the offset range
+                //Basically if it's at the start bounds of being early and the far bounds of being 
+                if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
                 {
                     StartCoroutine(ShowText());
                     DetectAttackHit(transform.position);
@@ -78,9 +107,9 @@ public class CombatStats : MonoBehaviour
             }
 
             //if the note wasn't hit, then show that it was missed
-            if (!hitNote && transform.position.x > hitList[index] + offset)
+            if (!hitNote && transform.position.x > hitList[index].pos + offset)
             {
-                if (transform.position.x > hitList[index] + offset && !hitNote) //greater than the pos + offset
+                if (transform.position.x > hitList[index].pos + offset && !hitNote) //greater than the pos + offset
                 {
                     source.clip = missSound;
                     source.Play();
@@ -93,7 +122,7 @@ public class CombatStats : MonoBehaviour
                 hitNote = false;
             }
             // if the note has been hit and is past the late offset
-            else if (hitNote && transform.position.x > hitList[index - 1] + offset)
+            else if (hitNote && transform.position.x > hitList[index - 1].pos + offset)
             {
                 hitNote = false;
             }
@@ -101,21 +130,36 @@ public class CombatStats : MonoBehaviour
         else if (AudioManager.instance.startDodge && index < hitList.Count)
         {
             //inceasese the index if the player misses OR hits a note since the cannot do both
-            if (Input.GetButtonDown("SelectAction"))
+            if (Input.GetButtonDown("Enter") && !hitList[index].isSquare) //circle
             {
+                Debug.Log("hit circle");
                 //if the slider is within the offset range
                 //Basically if it's at the start bounds of being early and the far bounds of being 
-                if (transform.position.x >= hitList[index] - offset && transform.position.x <= hitList[index] + offset && !hitNote)
+                if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
                 {
-                    CombatController.instance.hitDetectionText.gameObject.SetActive(true);
-                    DetectDodgeHit(transform.position);
+                    StartCoroutine(ShowText());
+                    DetectAttackHit(transform.position);
+                }
+            }
+
+            //inceasese the index if the player misses OR hits a note since the cannot do both
+            if (Input.GetButtonDown("Space") && hitList[index].isSquare) // square
+            {
+                Debug.Log("hit square");
+
+                //if the slider is within the offset range
+                //Basically if it's at the start bounds of being early and the far bounds of being 
+                if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
+                {
+                    StartCoroutine(ShowText());
+                    DetectAttackHit(transform.position);
                 }
             }
 
             //if the note wasn't hit, then show that it was missed
-            if (!hitNote && transform.position.x < hitList[index] - offset)
+            if (!hitNote && transform.position.x < hitList[index].pos - offset)
             {
-                if (transform.position.x < hitList[index] - offset && !hitNote) //greater than the pos + offset
+                if (transform.position.x < hitList[index].pos - offset && !hitNote) //greater than the pos + offset
                 {
                     source.clip = missSound;
                     source.Play();
@@ -129,7 +173,7 @@ public class CombatStats : MonoBehaviour
                 hitNote = false;
             }
             // if the note has been hit and is past the late offset
-            else if (hitNote && transform.position.x < hitList[index - 1] - offset)
+            else if (hitNote && transform.position.x < hitList[index - 1].pos - offset)
             {
                 hitNote = false;
             }
@@ -146,7 +190,7 @@ public class CombatStats : MonoBehaviour
     private void DetectAttackHit(Vector3 pos)
     {
         //if the player hits late
-        if (pos.x > hitList[index] + delta && pos.x <= hitList[index] + offset) //between the pos and offset
+        if (pos.x > hitList[index].pos + delta && pos.x <= hitList[index].pos + offset) //between the pos and offset
         {
             //play Late animation
             CombatController.instance.hitDetectionText.text = "Late!";
@@ -154,7 +198,7 @@ public class CombatStats : MonoBehaviour
             amountHit += .5f;
         }
         //if the player is "perfect"
-        else if (pos.x <= hitList[index] + delta && pos.x >= hitList[index] - delta) //between the pos +/- delta
+        else if (pos.x <= hitList[index].pos + delta && pos.x >= hitList[index].pos - delta) //between the pos +/- delta
         {
             //play Perfect animation
             CombatController.instance.hitDetectionText.text = "Perfect!";
@@ -162,7 +206,7 @@ public class CombatStats : MonoBehaviour
             amountHit += 1;
         }
         //the player is early
-        else if (pos.x < hitList[index] - delta && pos.x >= hitList[index] - offset) //between the pos and -offset
+        else if (pos.x < hitList[index].pos - delta && pos.x >= hitList[index].pos - offset) //between the pos and -offset
         {
             //play Early animation
             CombatController.instance.hitDetectionText.text = "Early!";
@@ -189,7 +233,7 @@ public class CombatStats : MonoBehaviour
         Debug.Log("hit detected");
 
         //if the player hits Early
-        if (pos.x > hitList[index] + delta && pos.x <= hitList[index] + offset) //between the pos and offset
+        if (pos.x > hitList[index].pos + delta && pos.x <= hitList[index].pos + offset) //between the pos and offset
         {
             //play Late animation
             CombatController.instance.hitDetectionText.text = "Early!";
@@ -197,7 +241,7 @@ public class CombatStats : MonoBehaviour
             amountHit += .5f;
         }
         //if the player is "perfect"
-        else if (pos.x <= hitList[index] + delta && pos.x >= hitList[index] - delta) //between the pos +/- delta
+        else if (pos.x <= hitList[index].pos + delta && pos.x >= hitList[index].pos - delta) //between the pos +/- delta
         {
             //play Perfect animation
             CombatController.instance.hitDetectionText.text = "Perfect!";
@@ -205,7 +249,7 @@ public class CombatStats : MonoBehaviour
             amountHit += 1;
         }
         //the player is late
-        else if (pos.x < hitList[index] - delta && pos.x >= hitList[index] - offset) //between the pos and -offset
+        else if (pos.x < hitList[index].pos - delta && pos.x >= hitList[index].pos - offset) //between the pos and -offset
         {
             //play Early animation
             CombatController.instance.hitDetectionText.text = "Late!";
@@ -272,7 +316,7 @@ public class CombatStats : MonoBehaviour
 
 
         // if isItem is true set damage to item damage otherwise do the damage calculation
-       
+
 
         Debug.Log("Damage: " + damage);
 
