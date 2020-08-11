@@ -80,7 +80,7 @@ public class CombatStats : MonoBehaviour
         if (AudioManager.instance.startAction && index < hitList.Count)
         {
             //inceasese the index if the player misses OR hits a note since the cannot do both
-            if (Input.GetButtonDown("Enter") && !hitList[index].isSquare) //circle
+            if (Input.GetButtonDown("Circle") && !hitList[index].isSquare) //circle
             {
                 Debug.Log("hit circle");
                 //if the slider is within the offset range
@@ -93,7 +93,7 @@ public class CombatStats : MonoBehaviour
             }
 
             //inceasese the index if the player misses OR hits a note since the cannot do both
-            if (Input.GetButtonDown("Space") && hitList[index].isSquare) // square
+            if (Input.GetButtonDown("Square") && hitList[index].isSquare) // square
             {
                 Debug.Log("hit square");
 
@@ -130,7 +130,7 @@ public class CombatStats : MonoBehaviour
         else if (AudioManager.instance.startDodge && index < hitList.Count)
         {
             //inceasese the index if the player misses OR hits a note since the cannot do both
-            if (Input.GetButtonDown("Enter") && !hitList[index].isSquare) //circle
+            if (Input.GetButtonDown("Circle") && !hitList[index].isSquare) //circle
             {
                 Debug.Log("hit circle");
                 //if the slider is within the offset range
@@ -143,7 +143,7 @@ public class CombatStats : MonoBehaviour
             }
 
             //inceasese the index if the player misses OR hits a note since the cannot do both
-            if (Input.GetButtonDown("Space") && hitList[index].isSquare) // square
+            if (Input.GetButtonDown("Square") && hitList[index].isSquare) // square
             {
                 Debug.Log("hit square");
 
