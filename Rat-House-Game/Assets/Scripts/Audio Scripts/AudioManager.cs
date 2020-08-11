@@ -15,6 +15,11 @@ public class AudioManager : MonoBehaviour
     public List<BeatMapStruct> playerBeatMap = new List<BeatMapStruct>();
     public List<BeatMapStruct> enemyBeatMap = new List<BeatMapStruct>();
 
+    [Header("Sound Effects")]
+    public AudioSource folder;
+    public AudioSource enemyDeath;
+    public List<AudioClip> attackSFX;
+
     [Header("Audio Sources")]
     //Background Combat Music
     public AudioSource bgMusic;
