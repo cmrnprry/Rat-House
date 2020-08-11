@@ -518,15 +518,18 @@ public class CombatController : MonoBehaviour
                 //Waits untik this returns true
                 yield return new WaitUntil(() => e.IsTurnOver());
 
+                //check if it we're using "good" or "bad" splash screens
+                var splashScreen = CombatStats.amountHit >= (CombatStats.totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
+
                 Debug.Log("Turn Over");
 
-                splashScreensGood[splashScreensGood.Length - 1].gameObject.SetActive(true);
+                splashScreen[splashScreen.Length - 1].gameObject.SetActive(true);
 
                 yield return new WaitForSecondsRealtime(1f);
 
                 //Reset the IsTurnOver to be false
                 e.SetIsTurnOver(false);
-                splashScreensGood[splashScreensGood.Length - 1].gameObject.SetActive(false);
+                splashScreen[splashScreen.Length - 1].gameObject.SetActive(false);
 
                 //Deal Damage to Player
                 _stats.UpdatePlayerHealth(-1 * e.GetBaseAttack());

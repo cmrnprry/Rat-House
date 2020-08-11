@@ -253,7 +253,7 @@ public class CombatStats : MonoBehaviour
     public IEnumerator DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false, float itemDmg = 0)
     {
         //check if it we're using "good" or "bad" splash screens
-        var splashScreen = amountHit < (totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
+        var splashScreen = amountHit >= (totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
 
         float damage = 0;
         if (isItem)
