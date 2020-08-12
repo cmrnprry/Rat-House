@@ -4,6 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public struct Beat
+{
+    //f = pos
+    //b = true if it's a square
+    public Beat(float f, bool b)
+    {
+        pos = f;
+        isSquare = b;
+    }
+
+    public float pos { get; set; }
+    public bool isSquare { get; set; }
+}
+
 public class CombatStats : MonoBehaviour
 {
     //Player Stats
@@ -20,7 +34,7 @@ public class CombatStats : MonoBehaviour
     public static int totalHits = 0;
 
     //List of the "perfect" hits of a given rhythm
-    public static List<float> hitList = new List<float>();
+    public static List<Beat> hitList = new List<Beat>();
     public static int index = 0;
 
     //If the player hit the note too late or early
@@ -30,10 +44,11 @@ public class CombatStats : MonoBehaviour
     //base damage that attacks can do
     private List<float> _attackDamage;
 
-    public int action = 0;
+    //list of attack sounds
+    [HideInInspector]
     public AudioClip[] actionSounds;
-    public AudioClip missSound;
-    public AudioSource source;
+
+    public int action = 0;
 
     public void SetStats()
     {
@@ -55,22 +70,32 @@ public class CombatStats : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        source = AudioManager.instance.attackMusic;
-    }
-
     private void Update()
     {
         //if the attact music is playing, then check if the player has hit or miss
         if (AudioManager.instance.startAction && index < hitList.Count)
         {
             //inceasese the index if the player misses OR hits a note since the cannot do both
-            if (Input.GetButtonDown("SelectAction"))
+            if (Input.GetButtonDown("Circle") && !hitList[index].isSquare) //circle
             {
+                Debug.Log("hit circle");
                 //if the slider is within the offset range
                 //Basically if it's at the start bounds of being early and the far bounds of being 
-                if (transform.position.x >= hitList[index] - offset && transform.position.x <= hitList[index] + offset && !hitNote)
+                if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
+                {
+                    StartCoroutine(ShowText());
+                    DetectAttackHit(transform.position);
+                }
+            }
+
+            //inceasese the index if the player misses OR hits a note since the cannot do both
+            if (Input.GetButtonDown("Square") && hitList[index].isSquare) // square
+            {
+                Debug.Log("hit square");
+
+                //if the slider is within the offset range
+                //Basically if it's at the start bounds of being early and the far bounds of being 
+                if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
                 {
                     StartCoroutine(ShowText());
                     DetectAttackHit(transform.position);
@@ -78,12 +103,12 @@ public class CombatStats : MonoBehaviour
             }
 
             //if the note wasn't hit, then show that it was missed
-            if (!hitNote && transform.position.x > hitList[index] + offset)
+            if (!hitNote && transform.position.x > hitList[index].pos + offset)
             {
-                if (transform.position.x > hitList[index] + offset && !hitNote) //greater than the pos + offset
+                if (transform.position.x > hitList[index].pos + offset && !hitNote) //greater than the pos + offset
                 {
-                    source.clip = missSound;
-                    source.Play();
+                    //source.clip = missSound;
+                 //   source.Play();
 
                     CombatController.instance.hitDetectionText.text = "Miss!";
                     StartCoroutine(ShowText());
@@ -93,7 +118,7 @@ public class CombatStats : MonoBehaviour
                 hitNote = false;
             }
             // if the note has been hit and is past the late offset
-            else if (hitNote && transform.position.x > hitList[index - 1] + offset)
+            else if (hitNote && transform.position.x > hitList[index - 1].pos + offset)
             {
                 hitNote = false;
             }
@@ -101,24 +126,39 @@ public class CombatStats : MonoBehaviour
         else if (AudioManager.instance.startDodge && index < hitList.Count)
         {
             //inceasese the index if the player misses OR hits a note since the cannot do both
-            if (Input.GetButtonDown("SelectAction"))
+            if (Input.GetButtonDown("Circle") && !hitList[index].isSquare) //circle
             {
+                Debug.Log("hit circle");
                 //if the slider is within the offset range
                 //Basically if it's at the start bounds of being early and the far bounds of being 
-                if (transform.position.x >= hitList[index] - offset && transform.position.x <= hitList[index] + offset && !hitNote)
+                if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
                 {
-                    CombatController.instance.hitDetectionText.gameObject.SetActive(true);
-                    DetectDodgeHit(transform.position);
+                    StartCoroutine(ShowText());
+                    DetectAttackHit(transform.position);
+                }
+            }
+
+            //inceasese the index if the player misses OR hits a note since the cannot do both
+            if (Input.GetButtonDown("Square") && hitList[index].isSquare) // square
+            {
+                Debug.Log("hit square");
+
+                //if the slider is within the offset range
+                //Basically if it's at the start bounds of being early and the far bounds of being 
+                if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
+                {
+                    StartCoroutine(ShowText());
+                    DetectAttackHit(transform.position);
                 }
             }
 
             //if the note wasn't hit, then show that it was missed
-            if (!hitNote && transform.position.x < hitList[index] - offset)
+            if (!hitNote && transform.position.x < hitList[index].pos - offset)
             {
-                if (transform.position.x < hitList[index] - offset && !hitNote) //greater than the pos + offset
+                if (transform.position.x < hitList[index].pos - offset && !hitNote) //greater than the pos + offset
                 {
-                    source.clip = missSound;
-                    source.Play();
+                    //source.clip = missSound;
+                   // source.Play();
 
                     CombatController.instance.hitDetectionText.text = "Miss!";
                     CombatController.instance.hitDetectionText.gameObject.SetActive(true);
@@ -129,7 +169,7 @@ public class CombatStats : MonoBehaviour
                 hitNote = false;
             }
             // if the note has been hit and is past the late offset
-            else if (hitNote && transform.position.x < hitList[index - 1] - offset)
+            else if (hitNote && transform.position.x < hitList[index - 1].pos - offset)
             {
                 hitNote = false;
             }
@@ -142,11 +182,11 @@ public class CombatStats : MonoBehaviour
         yield return new WaitForSecondsRealtime(AudioManager.instance.beatsPerSec);
         CombatController.instance.hitDetectionText.gameObject.SetActive(false);
     }
-    
+
     private void DetectAttackHit(Vector3 pos)
     {
         //if the player hits late
-        if (pos.x > hitList[index] + delta && pos.x <= hitList[index] + offset) //between the pos and offset
+        if (pos.x > hitList[index].pos + delta && pos.x <= hitList[index].pos + offset) //between the pos and offset
         {
             //play Late animation
             CombatController.instance.hitDetectionText.text = "Late!";
@@ -154,7 +194,7 @@ public class CombatStats : MonoBehaviour
             amountHit += .5f;
         }
         //if the player is "perfect"
-        else if (pos.x <= hitList[index] + delta && pos.x >= hitList[index] - delta) //between the pos +/- delta
+        else if (pos.x <= hitList[index].pos + delta && pos.x >= hitList[index].pos - delta) //between the pos +/- delta
         {
             //play Perfect animation
             CombatController.instance.hitDetectionText.text = "Perfect!";
@@ -162,7 +202,7 @@ public class CombatStats : MonoBehaviour
             amountHit += 1;
         }
         //the player is early
-        else if (pos.x < hitList[index] - delta && pos.x >= hitList[index] - offset) //between the pos and -offset
+        else if (pos.x < hitList[index].pos - delta && pos.x >= hitList[index].pos - offset) //between the pos and -offset
         {
             //play Early animation
             CombatController.instance.hitDetectionText.text = "Early!";
@@ -180,8 +220,8 @@ public class CombatStats : MonoBehaviour
     void PlayRandomAttackClip()
     {
         var random = Random.Range(0, 2);
-        source.clip = actionSounds[random];
-        source.Play();
+        AudioManager.instance.SFX.clip = actionSounds[random];
+        AudioManager.instance.SFX.Play();
     }
 
     private void DetectDodgeHit(Vector3 pos)
@@ -189,7 +229,7 @@ public class CombatStats : MonoBehaviour
         Debug.Log("hit detected");
 
         //if the player hits Early
-        if (pos.x > hitList[index] + delta && pos.x <= hitList[index] + offset) //between the pos and offset
+        if (pos.x > hitList[index].pos + delta && pos.x <= hitList[index].pos + offset) //between the pos and offset
         {
             //play Late animation
             CombatController.instance.hitDetectionText.text = "Early!";
@@ -197,7 +237,7 @@ public class CombatStats : MonoBehaviour
             amountHit += .5f;
         }
         //if the player is "perfect"
-        else if (pos.x <= hitList[index] + delta && pos.x >= hitList[index] - delta) //between the pos +/- delta
+        else if (pos.x <= hitList[index].pos + delta && pos.x >= hitList[index].pos - delta) //between the pos +/- delta
         {
             //play Perfect animation
             CombatController.instance.hitDetectionText.text = "Perfect!";
@@ -205,7 +245,7 @@ public class CombatStats : MonoBehaviour
             amountHit += 1;
         }
         //the player is late
-        else if (pos.x < hitList[index] - delta && pos.x >= hitList[index] - offset) //between the pos and -offset
+        else if (pos.x < hitList[index].pos - delta && pos.x >= hitList[index].pos - offset) //between the pos and -offset
         {
             //play Early animation
             CombatController.instance.hitDetectionText.text = "Late!";
@@ -232,6 +272,11 @@ public class CombatStats : MonoBehaviour
 
         Debug.Log("Damage Taken: " + delta);
 
+        //If player health goes up or done
+        var sfx = delta < 0 ? AudioManager.instance.UISFX[1] : AudioManager.instance.UISFX[0];
+        AudioManager.instance.SFX.clip = sfx;
+        AudioManager.instance.SFX.Play();
+
         //Make the health a number between 0 and 1
         float health = playerHealth / 100;
 
@@ -252,26 +297,40 @@ public class CombatStats : MonoBehaviour
 
     public IEnumerator DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false, float itemDmg = 0)
     {
-        //TODO: Determine if it's a good splash screen or bad
-        //TODO: Add in some animation to make this look cooler
-        CombatController.instance.splashScreens[action].gameObject.SetActive(true);
+        //check if it we're using "good" or "bad" splash screens
+        var splashScreen = amountHit >= (totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
+
+        float damage = 0;
+        if (isItem)
+        {
+            damage = itemDmg;
+        }
+        else
+        {
+            damage = PlayerDamageModifier(_attackDamage[(int)CombatController.instance.selectedAction]);
+            splashScreen[action].gameObject.SetActive(true);
+
+            yield return new WaitForSecondsRealtime(1f);
+
+            splashScreen[action].gameObject.SetActive(false);
+        }
+
 
         // if isItem is true set damage to item damage otherwise do the damage calculation
-        var damage = (isItem == true ? itemDmg : PlayerDamageModifier(_attackDamage[(int)CombatController.instance.selectedAction]));
+
 
         Debug.Log("Damage: " + damage);
 
-        enemyHealth[enemyAttacked] -= damage;
-        CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>().UpdateHealth(damage);
-
-        Debug.Log("enemy Attacked: " + CombatController.instance.enemyList[enemyAttacked].ToString());
-        Debug.Log("enemy health after attack: " + enemyHealth[enemyAttacked]);
-
-        yield return new WaitForEndOfFrame();
-
-        yield return new WaitForSecondsRealtime(1f);
-
-        CombatController.instance.splashScreens[action].gameObject.SetActive(false);
+        if (CombatController.instance.selectedAction == ActionType.Heal)
+        {
+            UpdatePlayerHealth(damage);
+            yield return new WaitForSecondsRealtime(0.75f);
+        }
+        else
+        {
+            enemyHealth[enemyAttacked] -= damage;
+            CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>().UpdateHealth(damage);
+        }
 
         if (enemyHealth[enemyAttacked] <= 0)
         {
@@ -292,13 +351,17 @@ public class CombatStats : MonoBehaviour
         amountHit = 0;
 
         //After the damage has been delt we want to switch to the enemies turn
+        AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[2];
+        AudioManager.instance.SFX.Play();
         StartCoroutine(CombatController.instance.EnemyPhase());
     }
 
     //Handles what happens when an enemy dies
     void EnemyDeath(int enemyAttacked)
     {
-        CombatController.instance.enemyDeath.Play();
+        //Folder flip
+        AudioManager.instance.SFX.clip = AudioManager.instance.enemySFX[AudioManager.instance.enemySFX.Count - 1];
+        AudioManager.instance.SFX.Play();
 
         //play enemy death animiation
         Debug.Log("Enemy Dead");

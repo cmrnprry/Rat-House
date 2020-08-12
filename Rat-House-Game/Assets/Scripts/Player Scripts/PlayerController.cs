@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody _rb;
     private bool _canFight = false;
+    private bool _defeatedEnemy = false;
+    private bool _wait = false;
     private bool _isFacingRight;
 
     // Start is called before the first frame update
@@ -27,6 +29,8 @@ public class PlayerController : MonoBehaviour
     //An Enumerator that controls the player movement
     public IEnumerator PlayerMovement()
     {
+        Debug.Log("smooving");
+        Debug.Log("can Fight?: " + _canFight);
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
@@ -64,11 +68,19 @@ public class PlayerController : MonoBehaviour
         {
             if (_canFight)
             {
-                Debug.Log("fight");
-                GameManager.instance.SetGameState(GameState.Battle);
-                _canFight = false;
 
-                yield break;
+                _canFight = false;
+                if (_defeatedEnemy)
+                {
+                    StartCoroutine(GameManager.instance.ShowBeatenDialogue());
+                    yield break;
+                }
+                else
+                {
+                    GameManager.instance.SetGameState(GameState.Battle);
+                    Debug.Log("stop moving");
+                    yield break;
+                }
             }
         }
 
@@ -83,6 +95,7 @@ public class PlayerController : MonoBehaviour
             //tells the Combat Manager which enemies the player could possibly fight
             CombatController.instance.SetEnemies(collider.gameObject.GetComponent<EnemyController>().enemiesInBattle);
             GameManager.instance.currEnemy = collider.gameObject;
+            _defeatedEnemy = collider.gameObject.GetComponent<EnemyController>().isBeaten;
             _canFight = true;
         }
     }
@@ -92,6 +105,7 @@ public class PlayerController : MonoBehaviour
         if (collider.gameObject.tag == "Enemy")
         {
             _canFight = false;
+            
         }
     }
 

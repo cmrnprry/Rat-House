@@ -121,7 +121,8 @@ public class Note : MonoBehaviour
 
     public void ShowDodgeBeats()
     {
-        var spawnPoint = gameObject.transform.position;
+        Vector3 spawnPoint = gameObject.transform.position;
+
         CombatStats.totalHits = AudioManager.instance.chosenEnemyAttack.Count;
 
         foreach (var beat in AudioManager.instance.chosenEnemyAttack)
@@ -132,10 +133,11 @@ public class Note : MonoBehaviour
             //Spawn the Beat based on the start point, length and position of the beat
             spawnPoint = Vector3.Lerp(restartPoint, startPoint, beatFraction);
 
-            //add the "perfect" hit point to the list
-            CombatStats.hitList.Add(spawnPoint.x);
-
+            bool isSquare = (beat % 1 == 0) ? true : false;
             var type = (beat % 1 == 0) ? whole : half;
+            //add the "perfect" hit point to the list
+            var b = new Beat(spawnPoint.x, isSquare);
+            CombatStats.hitList.Add(b);
 
             //Create a note object and position it correctly
             var note = Instantiate(type, noteParent.transform, true);
@@ -165,10 +167,11 @@ public class Note : MonoBehaviour
             //Spawn the Beat based on the start point, length and position of the beat
             spawnPoint = Vector3.Lerp(startPoint, restartPoint, beatFraction);
 
-            //add the "perfect" hit point to the list
-            CombatStats.hitList.Add(spawnPoint.x);
-
+            bool isSquare = (beat % 1 == 0) ? true : false;
             var type = (beat % 1 == 0) ? whole : half;
+            //add the "perfect" hit point to the list
+            var b = new Beat(spawnPoint.x, isSquare);
+            CombatStats.hitList.Add(b);
 
             //Create a note object and position it correctly
             var note = Instantiate(type, noteParent.transform, true);
@@ -193,7 +196,7 @@ public class Note : MonoBehaviour
         beats = new List<float>();
 
         //Reset the Combat Stats to empty/0
-        CombatStats.hitList = new List<float>();
+        CombatStats.hitList = new List<Beat>();
         CombatStats.index = 0;
         CombatStats.hitNote = false;
     }

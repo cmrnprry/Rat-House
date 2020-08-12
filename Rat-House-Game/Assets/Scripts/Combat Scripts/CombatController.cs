@@ -10,6 +10,8 @@ public enum ActionType
     Item = -1,
     Punch = 0,
     Kick = 1,
+    Throw = 2,
+    Heal = 3,
 }
 
 public enum ItemType
@@ -94,12 +96,8 @@ public class CombatController : MonoBehaviour
     public Slider playerHealthSlider;
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI hitDetectionText;
-    public Image[] splashScreens;
-
-    [Header("Sound Effects")]
-    public AudioSource folder;
-    public AudioSource enemyDeath;
-    public List<AudioClip> attackSFX;
+    public Image[] splashScreensGood;
+    public Image[] splashScreensBad;
 
     void Awake()
     {
@@ -241,17 +239,27 @@ public class CombatController : MonoBehaviour
             switch (_actionList[_selectedAction])
             {
                 case ActionType.Punch:
-                    _stats.actionSounds = attackSFX.GetRange(0, 3).ToArray();
+                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray();
+                    StartCoroutine(ChooseEnemy());
                     break;
                 case ActionType.Kick:
-                    _stats.actionSounds = attackSFX.GetRange(0, 3).ToArray(); //TODO: put in kick attacks
+                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray(); //TODO: put in kick attacks
+                    StartCoroutine(ChooseEnemy());
+                    break;
+                case ActionType.Throw:
+                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray(); //TODO: put in throw attacks
+                    StartCoroutine(ChooseEnemy());
+                    break;
+                case ActionType.Heal:
+                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray(); //TODO: put in heal attacks
+                    StartCoroutine(ChoosePlayer());
                     break;
                 default:
                     Debug.LogError("Something has gone wrong in Combat Controller");
                     break;
             }
 
-            StartCoroutine(ChooseEnemy());
+
             yield return new WaitForEndOfFrame();
 
             _stats.action = _selectedAction;
@@ -261,7 +269,9 @@ public class CombatController : MonoBehaviour
         }
         else if (Input.GetButtonDown("Right"))
         {
-            folder.Play();
+            //Folder flip
+            AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[4];
+            AudioManager.instance.SFX.Play();
 
             selectedAction = ActionType.Item;
             Debug.Log("Open Item Menu");
@@ -327,7 +337,7 @@ public class CombatController : MonoBehaviour
                 {
                     case ItemType.Basic_Heath:
                         Debug.Log("Basic Heath Item");
-                        UseHealthItem(itemList[_selectedItem]);
+                        StartCoroutine(ChoosePlayer(true));
                         break;
                     case ItemType.Basic_Damage:
                         Debug.Log("Basic Damage Item");
@@ -350,7 +360,9 @@ public class CombatController : MonoBehaviour
 
         if (Input.GetButton("Left"))
         {
-            folder.Play();
+            //Folder flip
+            AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[4];
+            AudioManager.instance.SFX.Play();
 
             Debug.Log("Open Action Menu");
 
@@ -370,9 +382,9 @@ public class CombatController : MonoBehaviour
     //Allows the player to choose which enemy they will attack
     IEnumerator ChooseEnemy(bool isItem = false, float itemDmg = 0)
     {
-        Debug.Log("item: " + isItem + " " + itemDmg);
         //Wait until a correct key is pressed
-        yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("Left") || Input.GetButtonDown("Right") || Input.GetButtonDown("SelectAction"));
+        yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("Left") || Input.GetButtonDown("Right") ||
+        Input.GetButtonDown("SelectAction") || Input.GetButtonDown("Back"));
 
         if (Input.GetButtonDown("Up") || Input.GetButtonDown("Left"))
         {
@@ -426,14 +438,63 @@ public class CombatController : MonoBehaviour
 
             yield break;
         }
+        else if (Input.GetButtonDown("Back"))
+        {
+            TurnOffHighlight();
 
+            GameManager.instance.battleAnimator.SetBool("IsOpen", true);
+
+            ShowActionMenu();
+            HighlightMenuItem();
+            yield break;
+        }
         //TODO:Add some sort of visual display to show the selected enemy
         HighlightEnemy();
 
         yield return new WaitForEndOfFrame();
         StartCoroutine(ChooseEnemy(isItem, itemDmg));
     }
-    
+
+    IEnumerator ChoosePlayer(bool isItem = false)
+    {
+
+        //Wait until a correct key is pressed
+        yield return new WaitUntil(() => Input.GetButtonDown("SelectAction") || Input.GetButtonDown("Back"));
+
+
+        if (Input.GetButtonDown("SelectAction"))
+        {
+            TurnOffHighlight();
+
+            if (isItem)
+            {
+                StartCoroutine(UseHealthItem(itemList[_selectedItem]));
+            }
+            else
+            {
+                Debug.Log("Set Map");
+                StartCoroutine(AudioManager.instance.SetAttackMap(_selectedAction));
+            }
+
+            yield break;
+        }
+        else if (Input.GetButtonDown("Back"))
+        {
+            TurnOffHighlight();
+
+            GameManager.instance.battleAnimator.SetBool("IsOpen", true);
+
+            ShowActionMenu();
+            HighlightMenuItem();
+            yield break;
+        }
+
+        HighlightPlayer();
+
+        yield return new WaitForEndOfFrame();
+        StartCoroutine(ChoosePlayer(isItem));
+    }
+
     void UseDamageItem(Items item)
     {
         Debug.Log("item: " + item.item.ToString() + " " + item.delta);
@@ -446,7 +507,7 @@ public class CombatController : MonoBehaviour
     }
 
     //Will be called every time the player uses a health item
-    void UseHealthItem(Items item)
+    IEnumerator UseHealthItem(Items item)
     {
         //decrease the amount of the used item
         itemList.Add(new Items(item.item, -1, item.delta));
@@ -455,20 +516,31 @@ public class CombatController : MonoBehaviour
         //update the player's health
         _stats.UpdatePlayerHealth(item.delta);
 
+        yield return new WaitForSecondsRealtime(0.75f);
+
         //TODO: MAKE THIS NOT HARD CODED IN I DONT FORSEE THE NUMBERS CHSNGING BUT ITS BAD FIX IT
         _stats.gameObject.transform.position = new Vector3(12.5f, 6.19f, 0f);
 
-        //Start Enemy Phase
+        //Start Enemy Phase & play sfx
+        AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[2];
+        AudioManager.instance.SFX.Play();
         StartCoroutine(EnemyPhase());
+    }
+
+    public void HighlightPlayer()
+    {
+        var spotlight = _enemyParent.transform.GetChild(0);
+
+        spotlight.gameObject.SetActive(true);
+        spotlight.transform.localPosition = new Vector3(-4.14f, 0f, -0.14f);
     }
 
     public void HighlightEnemy()
     {
-        var particles = _enemyParent.transform.GetChild(0);
+        var spotlight = _enemyParent.transform.GetChild(0);
 
-        particles.transform.position = enemyPlacement[_selectedEnemy];
-
-        particles.GetComponent<ParticleSystem>().Play();
+        spotlight.gameObject.SetActive(true);
+        spotlight.transform.position = enemyPlacement[_selectedEnemy];
     }
 
     //Tells the Combat Stats to deal with damage
@@ -505,18 +577,23 @@ public class CombatController : MonoBehaviour
                 //Waits untik this returns true
                 yield return new WaitUntil(() => e.IsTurnOver());
 
+                //check if it we're using "good" or "bad" splash screens
+                var splashScreen = CombatStats.amountHit >= (CombatStats.totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
+
                 Debug.Log("Turn Over");
 
-                splashScreens[splashScreens.Length - 1].gameObject.SetActive(true);
+                splashScreen[splashScreen.Length - 1].gameObject.SetActive(true);
 
                 yield return new WaitForSecondsRealtime(1f);
 
                 //Reset the IsTurnOver to be false
                 e.SetIsTurnOver(false);
-                splashScreens[splashScreens.Length - 1].gameObject.SetActive(false);
+                splashScreen[splashScreen.Length - 1].gameObject.SetActive(false);
 
                 //Deal Damage to Player
                 _stats.UpdatePlayerHealth(-1 * e.GetBaseAttack());
+
+                yield return new WaitForSecondsRealtime(0.75f);
 
                 if (_stats.playerHealth <= 0)
                 {
@@ -544,6 +621,10 @@ public class CombatController : MonoBehaviour
             }
         }
 
+        //Play player turn SFX
+        AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[3];
+        AudioManager.instance.SFX.Play();
+
         //Turn on the highlight
         ShowActionMenu();
         HighlightMenuItem();
@@ -563,8 +644,8 @@ public class CombatController : MonoBehaviour
     {
         menuSelect.SetActive(false);
 
-        //turn off particles
-        _enemyParent.transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
+        //turn off spotlight
+        _enemyParent.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     //Adds highlight to the battle menu
