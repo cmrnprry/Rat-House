@@ -223,6 +223,7 @@ public class CombatController : MonoBehaviour
 
         //Add it to the list of enemy game objects
         _inBattle.Add(newE);
+        enemyList.Add(enemy);
 
         //Set enemy health
         enemyHealthBars[index].gameObject.SetActive(true);
@@ -232,9 +233,16 @@ public class CombatController : MonoBehaviour
         newE.transform.parent = _enemyParent.transform;
     }
 
+    public void ResetSlider()
+    {
+        //TODO: MAKE THIS NOT HARD CODED IN I DONT FORSEE THE NUMBERS CHSNGING BUT ITS BAD FIX IT
+        _stats.gameObject.transform.position = new Vector3(3f, 6.19f, 0f);
+    }
+
     //Handles the player choosing which action to take
     public IEnumerator ChooseAction()
     {
+        Debug.Log("choose Action");
         //Wait until a correct key is pressed
         yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("SelectAction") || Input.GetButtonDown("Right"));
 
@@ -613,7 +621,6 @@ public class CombatController : MonoBehaviour
                     //Waits untik this returns true
                     yield return new WaitUntil(() => GameManager.instance.susan.IsTurnOver());
 
-
                     //Reset the IsTurnOver to be false
                     GameManager.instance.susan.SetIsTurnOver(false);
 
@@ -641,11 +648,11 @@ public class CombatController : MonoBehaviour
                 Debug.Log("Turn Over");
 
                 splashScreen[splashScreen.Length - 1].gameObject.SetActive(true);
-               
+
 
                 yield return new WaitForSecondsRealtime(1f);
 
-                
+
                 splashScreen[splashScreen.Length - 1].gameObject.SetActive(false);
 
                 yield return new WaitForSecondsRealtime(0.75f);
