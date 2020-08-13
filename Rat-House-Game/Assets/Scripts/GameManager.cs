@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     public Susan susan;
     public Animator anim;
     public GameObject[] overworldLevelOne;
-
+    public PlayerController player;
 
     void Awake()
     {
@@ -229,7 +229,6 @@ public class GameManager : MonoBehaviour
         SetEnemyDialogue(currEnemy.GetComponent<EnemyController>().beatenBattleDialogue);
         yield return new WaitUntil(() => GameManager.instance.dialogueOver);
 
-        var player = overworldLevelOne[7].GetComponent<PlayerController>();
         StartCoroutine(player.PlayerMovement());
     }
 
@@ -326,7 +325,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => dialogueOver);
 
         //Give player movement 
-        var player = overworldLevelOne[7].GetComponent<PlayerController>();
         StartCoroutine(player.PlayerMovement());
         dialogueOver = false;
     }
