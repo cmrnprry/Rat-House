@@ -194,6 +194,8 @@ public class AudioManager : MonoBehaviour
         //want currPos to round up to the next 1/2 second/next beat
         double currPos = Math.Round(songPosition, MidpointRounding.AwayFromZero);
 
+        Debug.Log("currPos: " + currPos);
+
         // Wait until the next second
         //Wait until the 2nd next whole second
         //((so if at .5 -> 2))
