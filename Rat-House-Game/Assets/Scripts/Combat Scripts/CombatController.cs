@@ -641,6 +641,7 @@ public class CombatController : MonoBehaviour
                 Debug.Log("Turn Over");
 
                 splashScreen[splashScreen.Length - 1].gameObject.SetActive(true);
+               
 
                 yield return new WaitForSecondsRealtime(1f);
 
