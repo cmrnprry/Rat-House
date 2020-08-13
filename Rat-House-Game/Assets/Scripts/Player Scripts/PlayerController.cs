@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody _rb;
     private bool _canFight = false;
+    private bool _isSusan = false;
     private bool _defeatedEnemy = false;
-    private bool _wait = false;
     private bool _isFacingRight;
 
     // Start is called before the first frame update
@@ -68,7 +68,6 @@ public class PlayerController : MonoBehaviour
         {
             if (_canFight)
             {
-
                 _canFight = false;
                 if (_defeatedEnemy)
                 {
@@ -81,6 +80,10 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("stop moving");
                     yield break;
                 }
+            }
+            else if (_isSusan)
+            {
+                GameManager.instance.SetGameState(GameState.Susan);
             }
         }
 
@@ -98,6 +101,10 @@ public class PlayerController : MonoBehaviour
             _defeatedEnemy = collider.gameObject.GetComponent<EnemyController>().isBeaten;
             _canFight = true;
         }
+        else if (collider.gameObject.tag == "Susan")
+        {
+            _isSusan = true;
+        }
     }
 
     void OnCollisionExit(Collision collider)
@@ -106,6 +113,10 @@ public class PlayerController : MonoBehaviour
         {
             _canFight = false;
             
+        }
+        else if(collider.gameObject.tag == "Susan")
+        {
+            _isSusan = false;
         }
     }
 

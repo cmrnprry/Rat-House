@@ -10,7 +10,7 @@ public enum GameState
 {
     Overworld = 0,
     Battle = 1,
-    Boss = 2,
+    Susan = 2,
     CutScene = 3,
     Tutorial,
     Dead = 4,
@@ -19,9 +19,6 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-
-    //Items the Player currently has
-    //public List<Items> itemList = new List<Items>();
 
     [Header("Game State")]
     //Keeps track of the current game state
@@ -37,8 +34,6 @@ public class GameManager : MonoBehaviour
     [Header("Handles Difficulty")]
     //Number of times the player has retried a battle
     public int numberRetries = 0;
-
-    [Header("Handles Returning to Overworld")]
 
     [Header("UI Items")]
     //reference to the canvas
@@ -69,8 +64,10 @@ public class GameManager : MonoBehaviour
     public TutorialScript tutorial;
 
     [Header("Scene Objects")]
-    public GameObject[] overworldLevelOne;
+    public Susan susan;
     public Animator anim;
+    public GameObject[] overworldLevelOne;
+
 
     void Awake()
     {
@@ -146,7 +143,9 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Battle");
                 StartCoroutine(StartBattle());
                 break;
-            case GameState.Boss:
+            case GameState.Susan:
+                Debug.Log("Susan");
+                susan.SetDialogue();
                 break;
             case GameState.CutScene:
                 break;

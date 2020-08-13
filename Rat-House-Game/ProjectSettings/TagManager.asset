@@ -12,15 +12,12 @@ TagManager:
   - Intern
   - Water_Cooler
   - Enemy Parent
-  - ItemMenu
-  - MenuSelect
   - intern_effect
   - coffee_effect
   - water_effect
-  - Button
-  - DeadScreen
   - Dialogue
   - Enemy Health Parent
+  - Susan
   layers:
   - Default
   - TransparentFX

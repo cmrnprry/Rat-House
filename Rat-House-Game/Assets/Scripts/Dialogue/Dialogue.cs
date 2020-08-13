@@ -78,6 +78,12 @@ public class Dialogue : MonoBehaviour
             case "???":
                 head = 4;
                 break;
+            case "Susan":
+                head = 5;
+                break;
+            default:
+                head = 0;
+                break;
         }
 
 
