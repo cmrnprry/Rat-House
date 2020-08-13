@@ -20,8 +20,11 @@ public class ItemPickup : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        CombatController.instance.itemList.Add(new Items(itemType, 1, 10));
-        GameManager.instance.CollapseItemList(CombatController.instance.itemList);
-        Destroy(gameObject);
+        if(collision.gameObject.tag == "Player")
+        {
+            CombatController.instance.itemList.Add(new Items(itemType, 1, 10));
+            GameManager.instance.CollapseItemList(CombatController.instance.itemList);
+            Destroy(gameObject);
+        }        
     }
 }

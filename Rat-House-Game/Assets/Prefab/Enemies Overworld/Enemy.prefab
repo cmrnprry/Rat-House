@@ -78,7 +78,7 @@ SpriteRenderer:
   m_Size: {x: 3.28, y: 6.42}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &7673918425033725833
@@ -92,9 +92,12 @@ GameObject:
   - component: {fileID: 7673918425033725827}
   - component: {fileID: 7673918425033725826}
   - component: {fileID: 7673918425033725837}
-  - component: {fileID: 7673918425033725836}
   - component: {fileID: 7673918425033725839}
+  - component: {fileID: 7673918425033725836}
+  - component: {fileID: 42456529856132471}
   - component: {fileID: 7673918425033725838}
+  - component: {fileID: 6611816924529999032}
+  - component: {fileID: 4418494013484784436}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -164,19 +167,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7673918425033725836
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7673918425033725833}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.41531, y: 1, z: 1.5982971}
-  m_Center: {x: 0.13186169, y: 0, z: -0.29914856}
 --- !u!54 &7673918425033725839
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -193,6 +183,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!65 &7673918425033725836
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7673918425033725833}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.41531, y: 1, z: 1.5982971}
+  m_Center: {x: 0.13186169, y: 0, z: -0.29914856}
+--- !u!135 &42456529856132471
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7673918425033725833}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.829294
+  m_Center: {x: 0, y: 1.0243702, z: -0.12895799}
 --- !u!114 &7673918425033725838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,3 +226,35 @@ MonoBehaviour:
   postBattleDialogue: []
   beatenBattleDialogue: []
   isBeaten: 0
+--- !u!114 &6611816924529999032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7673918425033725833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb55d0d7946226643acea9d46c259ab0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wayPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  speed: 3
+  isCircular: 0
+  inReverse: 1
+  canMove: 1
+--- !u!114 &4418494013484784436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7673918425033725833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74890c135db80144c8f6a85cffda98f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInSight: 0

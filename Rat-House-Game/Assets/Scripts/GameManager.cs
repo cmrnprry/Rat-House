@@ -232,7 +232,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(player.PlayerMovement());
     }
 
-    void SetEnemyDialogue(string[] dia)
+    public void SetEnemyDialogue(string[] dia)
     {
         diaAnim.SetBool("isOpen", true);
         dialogue.sentences = dia;

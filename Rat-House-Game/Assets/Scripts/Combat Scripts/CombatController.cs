@@ -96,6 +96,7 @@ public class CombatController : MonoBehaviour
     public Slider playerHealthSlider;
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI hitDetectionText;
+    //public Animator SplashAnim;
     public Image[] splashScreensGood;
     public Image[] splashScreensBad;
 
@@ -641,8 +642,9 @@ public class CombatController : MonoBehaviour
                 Debug.Log("Turn Over");
 
                 splashScreen[splashScreen.Length - 1].gameObject.SetActive(true);
+                //SplashAnim.SetBool(splashScreen[splashScreen.Length - 1].gameObject.name, true);
 
-                yield return new WaitForSecondsRealtime(1f);
+                yield return new WaitForSecondsRealtime(2f);
 
                 
                 splashScreen[splashScreen.Length - 1].gameObject.SetActive(false);
