@@ -195,7 +195,7 @@ public class CombatStats : MonoBehaviour
             amountHit += .5f;
         }
         //if the player is "perfect"
-        else if (pos.x <= hitList[index].pos + delta && pos.x >= hitList[index].pos - delta) //between the pos +/- delta
+        else if (pos.x <= hitList[index].pos + delta)// && pos.x >= hitList[index].pos - delta) //between the pos +/- delta
         {
             //play Perfect animation
             CombatController.instance.hitDetectionText.text = "Perfect!";
@@ -213,6 +213,8 @@ public class CombatStats : MonoBehaviour
 
         Debug.Log("Hit at: " + transform.position.x);
         Debug.Log("Beat to hit at: " + hitList[index]);
+        Debug.Log("Beat in song: " + AudioManager.instance.songPositionInBeats);
+        Debug.Log("Beat in song (sec): " + AudioManager.instance.songPosition);
         PlayRandomAttackClip();
         index++;
         hitNote = true;

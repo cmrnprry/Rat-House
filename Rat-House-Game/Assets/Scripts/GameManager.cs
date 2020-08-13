@@ -234,6 +234,12 @@ public class GameManager : MonoBehaviour
 
     void SetEnemyDialogue(string[] dia)
     {
+        if (dia.Length <= 0)
+        {
+            dialogueOver = true;
+            return;
+        }
+
         diaAnim.SetBool("isOpen", true);
         dialogue.sentences = dia;
         dialogue.StartDialogue();
