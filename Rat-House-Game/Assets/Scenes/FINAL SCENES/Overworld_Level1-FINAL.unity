@@ -1593,6 +1593,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90227758}
   m_Mesh: {fileID: 3390558720134950976, guid: 799eda35160445745a57c6d9e0dd0e55, type: 3}
+--- !u!4 &91738651 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7673918425033725827, guid: 6604189af4a615944a439bbf7f4c44f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1356884588}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &93922437
 GameObject:
   m_ObjectHideFlags: 0
@@ -3787,8 +3793,9 @@ MonoBehaviour:
   dialogue: {fileID: 1929291418}
   dialogueOver: 0
   tutorial: {fileID: 274487377}
-  overworldLevelOne: []
+  susan: {fileID: 1071706028}
   anim: {fileID: 388530925}
+  overworldLevelOne: []
   player: {fileID: 1291760752}
 --- !u!114 &274487377
 MonoBehaviour:
@@ -6397,8 +6404,7 @@ Transform:
   m_LocalPosition: {x: 3.083041, y: -0.10000001, z: -0.9466548}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1979118237}
-  - {fileID: 987464012}
+  - {fileID: 1071706027}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12050,133 +12056,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 983677438}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &987464010
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 987464012}
-  - component: {fileID: 987464011}
-  m_Layer: 0
-  m_Name: Enemy Death
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!82 &987464011
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 987464010}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1dbe417a2f1da4e44a09a3f888deb21d, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!4 &987464012
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 987464010}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 468363450}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &991569133
 GameObject:
   m_ObjectHideFlags: 0
@@ -13047,6 +12926,99 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065784532}
   m_CullTransparentMesh: 0
+--- !u!1 &1071706026
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1071706027}
+  - component: {fileID: 1071706028}
+  m_Layer: 0
+  m_Name: Susan
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1071706027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071706026}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 468363450}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1071706028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071706026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 129f548426a1cca4eb2859500604d736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startBattle: 040000000100000001000000
+  phaseOneBattle: 0000000002000000
+  phaseTwoBattle: 0300000003000000
+  preBattleDialogue:
+  - Joe:Ah, at last, I've made it to the top floor!
+  - "Joe:Come to think of it, this is kind of a weird place for the break room, huh?\r"
+  - Joe:Regardless, at last I can reclaim my beloved mug and be on my way.
+  - Susan:*slurping from Joe's mug*
+  - Joe:Egads! That's...that's my mug!
+  - Susan:Joe! How'd you get in here?
+  - Joe:You're drinking from my favorite mug!
+  - Susan:So you've discovered my darkest secret...I fire my employees, then take
+    their leftover mugs for myself!
+  - Joe:You evil bastard! You won't get away with this! I'll fight for my mug!
+  phaseOneDialogue:
+  - Susan:Give it up, Joe Vampire! You can never defeat me - my position gives me
+    too much authority over you! Your precious mug is mine!
+  - "Joe:Hahaha...Susan...you\u2019re forgetting one very important thing..."
+  - "Susan:Oh yeah? And what\u2019s that?"
+  - Joe:I have HR on speed dial!
+  - Susan:What?! No!
+  - "Joe:Hello? Yes, I\u2019d like to make a complaint against Susan for theft of
+    employee property."
+  - "HR Rep:Oh no! We take these reports very seriously here at Big Corporation Inc.
+    We\u2019ll look into the issue immediately!"
+  - ' :SUSAN IS NOW UNDER INVESTICATION AND HAS BEEN DEMOTED'
+  - Susan:No! You fool! I could lose my job over this!
+  - "Susan:Hi Gerald, I know it\u2019s your day off, but we need you to come in.
+    We\u2019re a little understaffed - Joe Vampire keeps beating up employees"
+  phaseTwoDialogue:
+  - HR Rep:Hello? Is this, um...Mr. Vampire?
+  - Joe:No! I am Joethius P...ugh. Yes. Joe Vampire speaking.
+  - "HR Rep:Excellent. Well, we\u2019ve looked into your claims, Mr. Vampire, and
+    it seems you\u2019re not the first to report Susan for taking employees\u2019
+    property! Of course, we here at Big Corporation Inc. do not endorse theft! She
+    will be let go effective immediately!"
+  - ' :SUSAN IS NOW UNEMPLOYED!'
+  - "Susan:No! How could you! You\u2019ll pay for this, Joe Vampire! "
+  - Susan:Harry! Jason! If you want good references from me at your next jobs, then
+    get in here and help me kill Joe Vampire!
+  postBattleDialogue:
+  - Joe:At last! I've completed my quest and taken back what was rightfully mine!
+  - Joe:My precious mug...I'll never let you out of my sight again
+  - "Joe:\rCome along, my beloved...I need to find a new job so I can pay my rent.\r\n"
+  _maxHealth: 150
+  _baseAttack: 0
+  healthSlider: {fileID: 0}
+  numberOfAttacks: 4
+  chancesOfHitting: 
+  effectName: susan_effect
 --- !u!1 &1078000863
 GameObject:
   m_ObjectHideFlags: 0
@@ -16395,6 +16367,75 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342532128}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1356884588
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1547397061}
+    m_Modifications:
+    - target: {fileID: 7673918425033725827, guid: 6604189af4a615944a439bbf7f4c44f5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725827, guid: 6604189af4a615944a439bbf7f4c44f5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.89000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725827, guid: 6604189af4a615944a439bbf7f4c44f5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -40.449997
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725827, guid: 6604189af4a615944a439bbf7f4c44f5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725827, guid: 6604189af4a615944a439bbf7f4c44f5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725827, guid: 6604189af4a615944a439bbf7f4c44f5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725827, guid: 6604189af4a615944a439bbf7f4c44f5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725827, guid: 6604189af4a615944a439bbf7f4c44f5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725827, guid: 6604189af4a615944a439bbf7f4c44f5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725827, guid: 6604189af4a615944a439bbf7f4c44f5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725827, guid: 6604189af4a615944a439bbf7f4c44f5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725833, guid: 6604189af4a615944a439bbf7f4c44f5,
+        type: 3}
+      propertyPath: m_Name
+      value: Susan
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6604189af4a615944a439bbf7f4c44f5, type: 3}
 --- !u!1 &1365640846
 GameObject:
   m_ObjectHideFlags: 0
@@ -17741,6 +17782,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+
 --- !u!1 &1444168907
 GameObject:
   m_ObjectHideFlags: 0
@@ -17835,6 +17877,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1444168907}
   m_CullTransparentMesh: 0
+
 --- !u!1 &1444700837
 GameObject:
   m_ObjectHideFlags: 0
@@ -18704,6 +18747,7 @@ Transform:
   - {fileID: 195372572}
   - {fileID: 1697521937}
   - {fileID: 1615608785}
+  - {fileID: 91738651}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22887,7 +22931,6 @@ RectTransform:
   - {fileID: 1574809778}
   - {fileID: 723883598}
   - {fileID: 388530924}
-  - {fileID: 1444168908}
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25061,6 +25104,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 80daacf1af091c745b3ec31afb7bd091, type: 3}
   - {fileID: 21300000, guid: a942d139973fe374dbfb4a16d29e6509, type: 3}
   - {fileID: 21300000, guid: 23f01d159ac4b3c4d89a9ed247fdb936, type: 3}
+  - {fileID: 21300000, guid: 7f668c6c55603eb44acd6ff96ce58304, type: 3}
   sentences: []
   index: 0
   typingSpeed: 0.025
@@ -25452,133 +25496,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.314049, y: 12.360215, z: 4.225726}
   m_Center: {x: 0, y: 0, z: 0.48026907}
---- !u!1 &1979118235
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1979118237}
-  - component: {fileID: 1979118236}
-  m_Layer: 0
-  m_Name: Folder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!82 &1979118236
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979118235}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8db62f8e323503646825408615a4d7aa, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!4 &1979118237
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979118235}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 468363450}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1989862454
 GameObject:
   m_ObjectHideFlags: 0

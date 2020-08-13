@@ -65,7 +65,8 @@ public class CombatStats : MonoBehaviour
         //for each enemy on the board add their health to the list
         foreach (GameObject e in CombatController.instance._inBattle)
         {
-            enemyHealth.Add(e.GetComponent<Enemy>().GetStartingHealth());
+            var h = (e.name == "Susan(Clone)") ? GameManager.instance.susan.GetStartingHealth() : e.GetComponent<Enemy>().GetStartingHealth();
+            enemyHealth.Add(h);
             _enemiesLeft++;
         }
     }
@@ -108,7 +109,7 @@ public class CombatStats : MonoBehaviour
                 if (transform.position.x > hitList[index].pos + offset && !hitNote) //greater than the pos + offset
                 {
                     //source.clip = missSound;
-                 //   source.Play();
+                    //   source.Play();
 
                     CombatController.instance.hitDetectionText.text = "Miss!";
                     StartCoroutine(ShowText());
@@ -134,7 +135,7 @@ public class CombatStats : MonoBehaviour
                 if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
                 {
                     StartCoroutine(ShowText());
-                    DetectAttackHit(transform.position);
+                    DetectDodgeHit(transform.position);
                 }
             }
 
@@ -148,7 +149,7 @@ public class CombatStats : MonoBehaviour
                 if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
                 {
                     StartCoroutine(ShowText());
-                    DetectAttackHit(transform.position);
+                    DetectDodgeHit(transform.position);
                 }
             }
 
@@ -158,7 +159,7 @@ public class CombatStats : MonoBehaviour
                 if (transform.position.x < hitList[index].pos - offset && !hitNote) //greater than the pos + offset
                 {
                     //source.clip = missSound;
-                   // source.Play();
+                    // source.Play();
 
                     CombatController.instance.hitDetectionText.text = "Miss!";
                     CombatController.instance.hitDetectionText.gameObject.SetActive(true);
@@ -315,16 +316,20 @@ public class CombatStats : MonoBehaviour
             splashScreen[action].gameObject.SetActive(false);
         }
 
-
-        // if isItem is true set damage to item damage otherwise do the damage calculation
-
-
         Debug.Log("Damage: " + damage);
 
         if (CombatController.instance.selectedAction == ActionType.Heal)
         {
             UpdatePlayerHealth(damage);
             yield return new WaitForSecondsRealtime(0.75f);
+        }
+        else if (CombatController.instance.enemyList[enemyAttacked] == EnemyType.Susan)
+        {
+            GameManager.instance.susan.UpdateHealth(damage);
+            enemyHealth[enemyAttacked] -= damage;
+
+            SwitchTurn();
+            yield break;
         }
         else
         {
@@ -346,6 +351,13 @@ public class CombatStats : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
+        SwitchTurn();
+
+        StartCoroutine(CombatController.instance.EnemyPhase());
+    }
+
+    void SwitchTurn()
+    {
         //Reset the # of total hits and amount it
         totalHits = 0;
         amountHit = 0;
@@ -353,7 +365,6 @@ public class CombatStats : MonoBehaviour
         //After the damage has been delt we want to switch to the enemies turn
         AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[2];
         AudioManager.instance.SFX.Play();
-        StartCoroutine(CombatController.instance.EnemyPhase());
     }
 
     //Handles what happens when an enemy dies

@@ -11,9 +11,6 @@ public class Enemy : MonoBehaviour
     private float _currentHealth;
 
     [SerializeReference]
-    private float _baseAcuracy;
-
-    [SerializeReference]
     private float _baseAttack;
 
     [HideInInspector]
@@ -23,11 +20,6 @@ public class Enemy : MonoBehaviour
     //Number of attacks and chances of said attacks hitting. They follow the order in the spread sheet
     public int numberOfAttacks;
     public int[] chancesOfHitting;
-
-    //SFX
-    public AudioSource sfx;
-    public AudioClip hit;
-    public AudioClip miss;
 
     private bool _turnOver = false;
 

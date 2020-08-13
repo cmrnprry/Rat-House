@@ -11,6 +11,7 @@ public enum EnemyType
     Intern = 1,
     Water_Cooler = 2,
     Computer_Man = 3,
+    Susan = 4,
 }
 
 public class EnemyController : MonoBehaviour

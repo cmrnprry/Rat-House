@@ -70,7 +70,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c013fee717a6df24db3e1cfd1ffc84fd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7f668c6c55603eb44acd6ff96ce58304, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,10 +94,9 @@ GameObject:
   - component: {fileID: 7673918425033725837}
   - component: {fileID: 7673918425033725836}
   - component: {fileID: 7673918425033725839}
-  - component: {fileID: 7673918425033725838}
   m_Layer: 0
-  m_Name: Enemy
-  m_TagString: Enemy
+  m_Name: Susan
+  m_TagString: Susan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -193,20 +192,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &7673918425033725838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7673918425033725833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a93dfec451f7f5418dc21c1a79bb99d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemiesInBattle: 000000000100000002000000
-  preBattleDialogue: []
-  postBattleDialogue: []
-  beatenBattleDialogue: []
-  isBeaten: 0
