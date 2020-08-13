@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 7673918425033725837}
   - component: {fileID: 7673918425033725836}
   - component: {fileID: 7673918425033725839}
-  - component: {fileID: 1757827273}
   m_Layer: 0
   m_Name: Susan
   m_TagString: Susan
@@ -193,63 +192,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &1757827273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7673918425033725833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 129f548426a1cca4eb2859500604d736, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemies: 
-  preBattleDialogue:
-  - Joe:Ah, at last, I've made it to the top floor!
-  - "Joe:Come to think of it, this is kind of a weird place for the break room, huh?\r"
-  - Joe:Regardless, at last I can reclaim my beloved mug and be on my way.
-  - Susan:*slurping from Joe's mug*
-  - Joe:Egads! That's...that's my mug!
-  - Susan:Joe! How'd you get in here?
-  - Joe:You're drinking from my favorite mug!
-  - Susan:So you've discovered my darkest secret...I fire my employees, then take
-    their leftover mugs for myself!
-  - Joe:You evil bastard! You won't get away with this! I'll fight for my mug!
-  phaseOneDialogue:
-  - Susan:Give it up, Joe Vampire! You can never defeat me - my position gives me
-    too much authority over you! Your precious mug is mine!
-  - "Joe:Hahaha...Susan...you\u2019re forgetting one very important thing..."
-  - "Susan:Oh yeah? And what\u2019s that?"
-  - Joe:I have HR on speed dial!
-  - Susan:What?! No!
-  - "Joe:Hello? Yes, I\u2019d like to make a complaint against Susan for theft of
-    employee property."
-  - "HR Rep:Oh no! We take these reports very seriously here at Big Corporation Inc.
-    We\u2019ll look into the issue immediately!"
-  - ' :SUSAN IS NOW UNDER INVESTICATION AND HAS BEEN DEMOTED'
-  - Susan:No! You fool! I could lose my job over this!
-  - "Susan:Hi Gerald, I know it\u2019s your day off, but we need you to come in.
-    We\u2019re a little understaffed - Joe Vampire keeps beating up employees"
-  phaseTwoDialogue:
-  - HR Rep:Hello? Is this, um...Mr. Vampire?
-  - Joe:No! I am Joethius P...ugh. Yes. Joe Vampire speaking.
-  - "HR Rep:Excellent. Well, we\u2019ve looked into your claims, Mr. Vampire, and
-    it seems you\u2019re not the first to report Susan for taking employees\u2019
-    property! Of course, we here at Big Corporation Inc. do not endorse theft! She
-    will be let go effective immediately!"
-  - ' :SUSAN IS NOW UNEMPLOYED!'
-  - "Susan:No! How could you! You\u2019ll pay for this, Joe Vampire! "
-  - Susan:Harry! Jason! If you want good references from me at your next jobs, then
-    get in here and help me kill Joe Vampire!
-  postBattleDialogue:
-  - Joe:At last! I've completed my quest and taken back what was rightfully mine!
-  - Joe:My precious mug...I'll never let you out of my sight again
-  - "Joe:\rCome along, my beloved...I need to find a new job so I can pay my rent.\r\n"
-  _maxHealth: 150
-  _baseAttack: 0
-  healthSlider: {fileID: 0}
-  numberOfAttacks: 4
-  chancesOfHitting: 
-  effectName: susan_effect

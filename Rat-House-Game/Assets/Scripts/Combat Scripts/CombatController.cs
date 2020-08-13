@@ -187,9 +187,11 @@ public class CombatController : MonoBehaviour
             //Add it to the list of enemy game objects
             _inBattle.Add(enemy);
 
-            //Set enemy health
             enemyHealthBars[index].gameObject.SetActive(true);
-            enemy.GetComponent<Enemy>().healthSlider = enemyHealthBars[index];
+
+            //Set enemy health
+
+            _ = (e == EnemyType.Susan) ? GameManager.instance.susan.healthSlider = enemyHealthBars[index] : enemy.GetComponent<Enemy>().healthSlider = enemyHealthBars[index];
 
             //Parent enemy
             enemy.transform.parent = _enemyParent.transform;
@@ -197,6 +199,37 @@ public class CombatController : MonoBehaviour
             //increase the index
             index++;
         }
+    }
+
+    public void AddEnemy(EnemyType enemy)
+    {
+        var index = _inBattle.Count;
+        Debug.Log("add enemy of type: " + enemy.ToString());
+
+        //if the board is full
+        if (index >= 5)
+        {
+            //Would want to find the weakest enemy
+            //delete him
+            //set index to be his pos
+
+            //for now do nothing
+            return;
+        }
+
+
+        //Instasiate the enmy of Type
+        GameObject newE = Instantiate(Resources.Load("Enemies/" + enemy.ToString(), typeof(GameObject)) as GameObject, enemyPlacement[index], Quaternion.identity);
+
+        //Add it to the list of enemy game objects
+        _inBattle.Add(newE);
+
+        //Set enemy health
+        enemyHealthBars[index].gameObject.SetActive(true);
+        newE.GetComponent<Enemy>().healthSlider = enemyHealthBars[index];
+
+        //Parent enemy
+        newE.transform.parent = _enemyParent.transform;
     }
 
     //Handles the player choosing which action to take
@@ -571,11 +604,36 @@ public class CombatController : MonoBehaviour
         {
             if (_inBattle[enemy] != null)
             {
-                var e = _inBattle[enemy].GetComponent<Enemy>();
-                e.AttackPlayer(enemyList[enemy]);
+                var e = _inBattle[enemy];
 
-                //Waits untik this returns true
-                yield return new WaitUntil(() => e.IsTurnOver());
+                if (e.name == "Susan(Clone)")
+                {
+                    StartCoroutine(GameManager.instance.susan.SusanAttack());
+
+                    //Waits untik this returns true
+                    yield return new WaitUntil(() => GameManager.instance.susan.IsTurnOver());
+
+
+                    //Reset the IsTurnOver to be false
+                    GameManager.instance.susan.SetIsTurnOver(false);
+
+                    //Deal Damage to Player
+                    _stats.UpdatePlayerHealth(-1 * GameManager.instance.susan.GetBaseAttack());
+                }
+                else
+                {
+                    var en = e.GetComponent<Enemy>();
+                    en.AttackPlayer(enemyList[enemy]);
+
+                    //Waits untik this returns true
+                    yield return new WaitUntil(() => en.IsTurnOver());
+
+                    //Reset the IsTurnOver to be false
+                    en.SetIsTurnOver(false);
+
+                    //Deal Damage to Player
+                    _stats.UpdatePlayerHealth(-1 * en.GetBaseAttack());
+                }
 
                 //check if it we're using "good" or "bad" splash screens
                 var splashScreen = CombatStats.amountHit >= (CombatStats.totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
@@ -586,12 +644,8 @@ public class CombatController : MonoBehaviour
 
                 yield return new WaitForSecondsRealtime(1f);
 
-                //Reset the IsTurnOver to be false
-                e.SetIsTurnOver(false);
+                
                 splashScreen[splashScreen.Length - 1].gameObject.SetActive(false);
-
-                //Deal Damage to Player
-                _stats.UpdatePlayerHealth(-1 * e.GetBaseAttack());
 
                 yield return new WaitForSecondsRealtime(0.75f);
 
@@ -736,5 +790,25 @@ public class CombatController : MonoBehaviour
         _enemyParent = GameObject.FindGameObjectWithTag("Enemy Parent");
 
         PlaceEnemies();
+    }
+
+    public void SetUpSusanBattle()
+    {
+        Debug.Log("set up susan");
+        //Find the stats 
+        _stats = GameObject.FindGameObjectWithTag("CombatStats").GetComponent<CombatStats>();
+
+        //find the enemy parent
+        _enemyParent = GameObject.FindGameObjectWithTag("Enemy Parent");
+
+        //Place the enemies
+        PlaceEnemies();
+
+        //Display player health
+        GameManager.instance.healthParent.SetActive(true);
+        GameManager.instance.battleAnimator.SetBool("IsOpen", true);
+
+        //Set the Stats
+        _stats.SetStats();
     }
 }

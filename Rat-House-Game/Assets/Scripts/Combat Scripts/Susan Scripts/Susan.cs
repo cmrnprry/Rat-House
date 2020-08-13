@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 public class Susan : MonoBehaviour
 {
     //holds all the enemies that appear in addition to susan for each phase
-    private Dictionary<int, List<EnemyType>> enemiesInBattle = new Dictionary<int, List<EnemyType>>();
-
     //List of the enemies that will appear
-    public List<EnemyType> enemies;
+    public List<EnemyType> startBattle;
+    public List<EnemyType> phaseOneBattle;
+    public List<EnemyType> phaseTwoBattle;
 
     [Header("Dialogue")]
     [TextArea(3, 5)]
@@ -29,7 +29,9 @@ public class Susan : MonoBehaviour
     [Header("Stats")]
     [SerializeReference]
     private float _maxHealth;
+    [SerializeReference]
     private float _currentHealth;
+    private int phase = 0;
 
     [SerializeReference]
     private float _baseAttack;
@@ -52,10 +54,32 @@ public class Susan : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        beats = AudioManager.instance.enemyBeatMap.GetRange(6, 4);
+        // beats = AudioManager.instance.enemyBeatMap.GetRange(6, 4);
+        _currentHealth = _maxHealth;
+    }
 
-        _attackAnim = GameObject.FindGameObjectWithTag(effectName).GetComponent<ParticleSystem>();
-        _attackAnim.gameObject.transform.position = transform.position;
+    public void UpdateHealth(float dmg)
+    {
+        _currentHealth -= dmg;
+        healthSlider.value = (_currentHealth / _maxHealth);
+
+
+        if (_currentHealth <= 50 && phase == 2)
+        {
+
+        }
+        else if (_currentHealth <= 100 && phase == 1)
+        {
+            //turn off all battle stuffs
+            GameManager.instance.battleAnimator.SetBool("IsOpen", false);
+            CombatController.instance.TurnOffHighlight();
+
+            SetDialogue(phaseOneDialogue);
+        }
+        else
+        {
+            StartCoroutine(CombatController.instance.EnemyPhase());
+        }
     }
 
     int CalculateChance()
@@ -63,7 +87,7 @@ public class Susan : MonoBehaviour
         return Random.Range(0, 100);
     }
 
-    IEnumerator SusanAttack()
+    public IEnumerator SusanAttack()
     {
         //pick which attack is made via the chance
         int chance = CalculateChance();
@@ -113,7 +137,6 @@ public class Susan : MonoBehaviour
         StartCoroutine(AudioManager.instance.SetDodgeMap(music));
 
         //Play some animation
-        _attackAnim.Play();
         Debug.Log("Play attack animation");
 
         yield return new WaitUntil(() => AudioManager.instance.startDodge);
@@ -121,22 +144,20 @@ public class Susan : MonoBehaviour
         //while the animation is playing wait
         yield return new WaitUntil(() => !AudioManager.instance.startDodge);
 
-        _attackAnim.Stop();
-
         yield return new WaitForSecondsRealtime(0.5f);
 
         _turnOver = true;
     }
 
-    public void SetDialogue()
+    public void SetDialogue(string[] dia)
     {
         GameManager.instance.diaAnim.SetBool("isOpen", true);
-        GameManager.instance.dialogue.sentences = preBattleDialogue;
+        GameManager.instance.dialogue.sentences = dia;
         GameManager.instance.dialogue.StartDialogue();
-        StartCoroutine(OpeningSusanDialogue());
+        StartCoroutine(SusanDialogue());
     }
 
-    public IEnumerator OpeningSusanDialogue()
+    public IEnumerator SusanDialogue()
     {
         Debug.Log("here");
         //Waits for the text to stop typing
@@ -147,7 +168,7 @@ public class Susan : MonoBehaviour
 
         //when you press space...
         //When we're at the end of the intro dialogue
-        if (_index == GameManager.instance.dialogue.sentences.Length)
+        if (_index == 0)//GameManager.instance.dialogue.sentences.Length)
         {
             //Lower the text box
             GameManager.instance.diaAnim.SetBool("isOpen", false);
@@ -155,8 +176,22 @@ public class Susan : MonoBehaviour
             //reset the index to 0
             _index = 0;
 
-            StartCoroutine(GoToBattle());
+            if (phase == 0)
+            {
+                StartCoroutine(GoToBattle());
+            }
+            else if (phase == 1)
+            {
+                StartCoroutine(PhaseOne());
+            }
+            else if (phase == 2)
+            {
+                // StartCoroutine(PhaseTwo());
+            }
 
+
+
+            phase += 1;
             yield break;
         }
 
@@ -167,7 +202,7 @@ public class Susan : MonoBehaviour
         GameManager.instance.dialogue.NextSentence();
 
         //Restart the coroutine
-        StartCoroutine(OpeningSusanDialogue());
+        StartCoroutine(SusanDialogue());
         yield break;
 
     }
@@ -183,18 +218,56 @@ public class Susan : MonoBehaviour
         SceneManager.LoadScene("Susan_Battle-FINAL", LoadSceneMode.Additive);
         GameManager.instance.TurnOffScene();
 
-        yield return new WaitForSeconds(2);
-
-        GameManager.instance.topOverlay.SetActive(false);
-
         GameManager.instance.anim.CrossFade("Fade_In", 1);
+
+        yield return new WaitForFixedUpdate();
+
+        //Spawn the correct enemies 
+        beats = AudioManager.instance.enemyBeatMap.GetRange(6, 4);
+        CombatController.instance.SetEnemies(startBattle);
+        CombatController.instance.SetUpSusanBattle();
+
+        AudioManager.instance.StartCombatMusic();
+        StartCoroutine(CombatController.instance.ChooseAction());
 
         yield return new WaitForFixedUpdate();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
+    IEnumerator PhaseOne()
+    {
+        foreach (var e in phaseOneBattle)
+        {
+            CombatController.instance.AddEnemy(e);
+        }
+
+        //turn on all battle stuffs
+        GameManager.instance.battleAnimator.SetBool("IsOpen", true);
+        CombatController.instance.ShowActionMenu();
+        CombatController.instance.HighlightMenuItem();
+
+        StartCoroutine(CombatController.instance.ChooseAction());
+
+        yield return null;
+    }
+
+    public float GetStartingHealth()
+    {
+        return _maxHealth;
+    }
+    
+    public bool IsTurnOver()
+    {
+        return _turnOver;
+    }
+
+    public void SetIsTurnOver(bool over)
+    {
+        _turnOver = over;
+    }
+
+    public float GetBaseAttack()
+    {
+        return _baseAttack;
     }
 }

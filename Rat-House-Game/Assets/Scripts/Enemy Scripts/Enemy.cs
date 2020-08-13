@@ -11,9 +11,6 @@ public class Enemy : MonoBehaviour
     private float _currentHealth;
 
     [SerializeReference]
-    private float _baseAcuracy;
-
-    [SerializeReference]
     private float _baseAttack;
 
     [HideInInspector]

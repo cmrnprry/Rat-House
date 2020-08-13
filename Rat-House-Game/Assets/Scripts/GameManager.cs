@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Susan:
                 Debug.Log("Susan");
-                susan.SetDialogue();
+                susan.SetDialogue(susan.preBattleDialogue);
                 break;
             case GameState.CutScene:
                 break;
@@ -309,8 +309,6 @@ public class GameManager : MonoBehaviour
 
         //UnLoad the Battle Scene
         SceneManager.UnloadSceneAsync("Battle-FINAL");
-
-        yield return new WaitForSeconds(2);
 
         anim.CrossFade("Fade_In", 1);
 
