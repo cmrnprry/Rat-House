@@ -178,7 +178,7 @@ public class Susan : MonoBehaviour
 
         //when you press space...
         //When we're at the end of the intro dialogue
-        if (_index == GameManager.instance.dialogue.sentences.Length)
+        if (_index == 0)//GameManager.instance.dialogue.sentences.Length)
         {
             //Lower the text box
             GameManager.instance.diaAnim.SetBool("isOpen", false);
@@ -225,7 +225,6 @@ public class Susan : MonoBehaviour
 
     IEnumerator GoToBattle()
     {
-
         //play some sort of screen wipe
         GameManager.instance.anim.CrossFade("Fade_Out", 1);
         yield return new WaitForSeconds(2);
@@ -244,6 +243,7 @@ public class Susan : MonoBehaviour
         beats = AudioManager.instance.enemyBeatMap.GetRange(6, 4);
         CombatController.instance.SetEnemies(startBattle);
         CombatController.instance.SetUpSusanBattle();
+        healthSlider.value = 1;
 
         AudioManager.instance.StartCombatMusic();
         StartCoroutine(CombatController.instance.ChooseAction());
@@ -272,7 +272,7 @@ public class Susan : MonoBehaviour
     
     IEnumerator PhaseTwo()
     {
-        foreach (var e in phaseOneBattle)
+        foreach (var e in phaseTwoBattle)
         {
             CombatController.instance.AddEnemy(e);
         }
