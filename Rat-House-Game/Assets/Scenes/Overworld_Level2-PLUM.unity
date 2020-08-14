@@ -933,6 +933,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7031430069050437935, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031430069050437935, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031430069050437935, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2eed68ba9bc44e47801d00ee83fc748, type: 3}
 --- !u!1001 &131964652
@@ -3648,6 +3663,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c985a35cc5f318e44acb37fd088648dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currState: 0
+  currEnemy: {fileID: 0}
+  level: 0
+  numberRetries: 0
+  canvas: {fileID: 0}
+  battleParent: {fileID: 0}
+  battleAnimator: {fileID: 0}
+  dialogueParent: {fileID: 0}
+  deathScreenParent: {fileID: 0}
+  healthParent: {fileID: 0}
+  topOverlay: {fileID: 0}
+  diaAnim: {fileID: 0}
+  dialogue: {fileID: 0}
+  dialogueOver: 0
+  tutorial: {fileID: 0}
+  susan: {fileID: 0}
+  anim: {fileID: 0}
+  overworldLevelOne: []
+  player: {fileID: 0}
 --- !u!4 &560739541
 Transform:
   m_ObjectHideFlags: 0
@@ -7668,10 +7702,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80d5d300fe857942a18f9eac668c606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SFX: {fileID: 0}
+  attackSFX: []
+  dodgeSFX: []
+  enemySFX: []
+  UISFX: []
   bgMusic: {fileID: 276630083}
-  attackMusic: {fileID: 442398852}
-  attackClips:
-  - {fileID: 8300000, guid: 3b2d456e45a81c44eb53bac8df28b48c, type: 3}
+  startAction: 0
+  startDodge: 0
+  chosenEnemyAttack: []
   mapBpm: 120
   mapSecPerBeat: 0
   mapBeatsPerSec: 0
@@ -10727,11 +10766,20 @@ MonoBehaviour:
   - {x: 2.65, y: 0, z: -1.93}
   - {x: 4.37, y: 0, z: 0.73}
   - {x: 4.59, y: 0, z: -2.89}
+  enemyHealthBars: []
   _inBattle: []
   selectedAction: 0
-  battleMenu: {fileID: 0}
+  enemyTurnOver: 0
+  attackMenuParent: {fileID: 0}
+  attackMenu: {fileID: 0}
+  itemMenuParent: {fileID: 0}
   itemMenu: {fileID: 0}
   menuSelect: {fileID: 0}
+  playerHealthSlider: {fileID: 0}
+  playerHealthText: {fileID: 0}
+  hitDetectionText: {fileID: 0}
+  splashScreensGood: []
+  splashScreensBad: []
 --- !u!4 &1552993798
 Transform:
   m_ObjectHideFlags: 0
