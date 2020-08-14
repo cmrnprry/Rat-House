@@ -134,7 +134,7 @@ public class AudioManager : MonoBehaviour
         mapBeatsPerSec = mapBpm / 60f;
 
         //Sets the total beats for the first clip
-        totalBeats = 9;
+        totalBeats = 8.5f;
     }
 
     //Start BG music when a fight starts
@@ -191,10 +191,16 @@ public class AudioManager : MonoBehaviour
     //Waits a second before starting the attack music
     public IEnumerator SetAttackMap(int action)
     {
-        float currPos = songPositionInBeats;
+        //want currPos to round up to the next 1/2 second/next beat
+        double currPos = Math.Round(songPosition, MidpointRounding.AwayFromZero);
+
+        Debug.Log("currPos: " + currPos);
 
         // Wait until the next second
-        yield return new WaitUntil(() => (currPos + (beatsPerSec * 2) <= songPositionInBeats));
+        //Wait until the 2nd next whole second
+        //((so if at .5 -> 2))
+        // ((or if at 1 -> 3))
+        yield return new WaitUntil(() => (currPos + (beatsPerSec * 2) <= songPosition));
 
         dspMapTime = (float)AudioSettings.dspTime;
 

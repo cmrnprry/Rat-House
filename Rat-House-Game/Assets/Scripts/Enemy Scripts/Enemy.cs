@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     [Header("Stats")]
     [SerializeReference]
     private float _maxHealth;
+    [SerializeReference]
     private float _currentHealth;
 
     [SerializeReference]
