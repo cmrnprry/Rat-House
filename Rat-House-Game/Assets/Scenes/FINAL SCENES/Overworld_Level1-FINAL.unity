@@ -2999,8 +2999,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3b2d456e45a81c44eb53bac8df28b48c, type: 3}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: 71aab257f6e7b534ba23b5bfa7d44013, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 0.321
   m_Pitch: 1
   Loop: 1
@@ -29488,6 +29488,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f80a921829678384daf888f8ee81dde2, type: 3}
   - {fileID: 8300000, guid: 8db62f8e323503646825408615a4d7aa, type: 3}
   bgMusic: {fileID: 239262108}
+  bgClips:
+  - {fileID: 8300000, guid: f22d82607e58ed24980390c195fb528b, type: 3}
+  - {fileID: 8300000, guid: 71aab257f6e7b534ba23b5bfa7d44013, type: 3}
   startAction: 0
   startDodge: 0
   chosenEnemyAttack: []

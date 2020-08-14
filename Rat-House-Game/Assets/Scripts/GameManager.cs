@@ -200,13 +200,18 @@ public class GameManager : MonoBehaviour
         //play some sort of screen wipe
         anim.CrossFade("Fade_Out", 1);
         yield return new WaitForSeconds(2);
+        TurnOffScene();
 
+        yield return new WaitForFixedUpdate();
 
         topOverlay.SetActive(false);
         SceneManager.LoadScene("Battle-FINAL", LoadSceneMode.Additive);
-        TurnOffScene();
+        yield return new WaitForFixedUpdate();
+
+       
 
         yield return new WaitForSeconds(2);
+        AudioManager.instance.StartCombatMusic();
 
         topOverlay.SetActive(false);
 
@@ -216,8 +221,6 @@ public class GameManager : MonoBehaviour
 
         //Spawn the correct enemies 
         CombatController.instance.SetUpBattleScene();
-
-        AudioManager.instance.StartCombatMusic();
         StartCoroutine(CombatController.instance.ChooseAction());
     }
 
