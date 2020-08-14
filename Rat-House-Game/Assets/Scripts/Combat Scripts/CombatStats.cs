@@ -311,9 +311,8 @@ public class CombatStats : MonoBehaviour
             damage = PlayerDamageModifier(_attackDamage[(int)CombatController.instance.selectedAction]);
             splashScreen[action].gameObject.SetActive(true);
 
-            //string name = splashScreen[splashScreen.Length - 1].gameObject.name;
-            //CombatController.instance.SplashAnim.Play("Base Layer.BadPunch", 0, 0f);
-            //CombatController.instance.SplashAnim.SetBool(splashScreen[action].gameObject.name, true);
+            string animation = "Base Layer." + splashScreen[action].gameObject.name;
+            CombatController.instance.SplashAnim.Play(animation, 0, 0f);
 
             yield return new WaitForSecondsRealtime(2f);
 

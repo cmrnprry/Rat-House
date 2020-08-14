@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
     public Animator diaAnim;
     public Dialogue dialogue;
     public bool dialogueOver = false;
+    public bool postBattle = false;
     private int _index = 0;
 
     [Header("Tutorial Script")]
@@ -194,10 +195,6 @@ public class GameManager : MonoBehaviour
     **/
     public IEnumerator StartBattle()
     {
-        Debug.Log("pre");
-        SetEnemyDialogue(currEnemy.GetComponent<EnemyController>().preBattleDialogue);
-        yield return new WaitUntil(() => dialogueOver);
-
         dialogueOver = false;
 
         //play some sort of screen wipe
@@ -222,14 +219,6 @@ public class GameManager : MonoBehaviour
 
         AudioManager.instance.StartCombatMusic();
         StartCoroutine(CombatController.instance.ChooseAction());
-    }
-
-    public IEnumerator ShowBeatenDialogue()
-    {
-        SetEnemyDialogue(currEnemy.GetComponent<EnemyController>().beatenBattleDialogue);
-        yield return new WaitUntil(() => GameManager.instance.dialogueOver);
-
-        StartCoroutine(player.PlayerMovement());
     }
 
     public void SetEnemyDialogue(string[] dia)
@@ -279,11 +268,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    bool CanFightEnemy()
-    {
-        return !currEnemy.GetComponent<EnemyController>().isBeaten;
-    }
-
     //Returns to the overworld from a differnt scene
     private IEnumerator ReturnToOverworld()
     {
@@ -325,6 +309,7 @@ public class GameManager : MonoBehaviour
         //Give player movement 
         StartCoroutine(player.PlayerMovement());
         dialogueOver = false;
+        postBattle = false;
     }
 
     //The Battle was won

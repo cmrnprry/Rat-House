@@ -10,9 +10,7 @@ public class PlayerController : MonoBehaviour
     public Animator anim;
 
     private Rigidbody _rb;
-    private bool _canFight = false;
     private bool _isSusan = false;
-    private bool _defeatedEnemy = false;
     private bool _isFacingRight;
 
     // Start is called before the first frame update
@@ -29,6 +27,7 @@ public class PlayerController : MonoBehaviour
     //An Enumerator that controls the player movement
     public IEnumerator PlayerMovement()
     {
+        Debug.Log("here");
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
@@ -62,45 +61,26 @@ public class PlayerController : MonoBehaviour
 
         _rb.velocity = movement;
 
-        if (Input.GetButton("SelectAction"))
+        if (_isSusan)
         {
-            if (_canFight)
-            {
-                _canFight = false;
-                if (_defeatedEnemy)
-                {
-                    StartCoroutine(GameManager.instance.ShowBeatenDialogue());
-                    yield break;
-                }
-                else
-                {
-                    GameManager.instance.SetGameState(GameState.Battle);
-                    Debug.Log("stop moving");
-                    yield break;
-                }
-            }
-            else if (_isSusan)
-            {
-                GameManager.instance.SetGameState(GameState.Susan);
-                yield break;
-            }
+            GameManager.instance.SetGameState(GameState.Susan);
+            yield break;
         }
+
 
         yield return new WaitForEndOfFrame();
         StartCoroutine(PlayerMovement());
     }
 
+    public void StopPlayerMovement()
+    {
+        StopAllCoroutines();
+        _rb.velocity = Vector3.zero;
+    }
+
     void OnCollisionEnter(Collision collider)
     {
-        if (collider.gameObject.tag == "Enemy")
-        {
-            //tells the Combat Manager which enemies the player could possibly fight
-            CombatController.instance.SetEnemies(collider.gameObject.GetComponent<EnemyController>().enemiesInBattle);
-            GameManager.instance.currEnemy = collider.gameObject;
-            _defeatedEnemy = collider.gameObject.GetComponent<EnemyController>().isBeaten;
-            _canFight = true;
-        }
-        else if (collider.gameObject.tag == "Susan")
+        if (collider.gameObject.tag == "Susan")
         {
             _isSusan = true;
         }
@@ -108,12 +88,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionExit(Collision collider)
     {
-        if (collider.gameObject.tag == "Enemy")
-        {
-            _canFight = false;
-
-        }
-        else if (collider.gameObject.tag == "Susan")
+        if (collider.gameObject.tag == "Susan")
         {
             _isSusan = false;
         }

@@ -93,22 +93,20 @@ public class Dialogue : MonoBehaviour
     //For each new sentence...
     public void NextSentence()
     {
+        dia.text = "";
+        text = "";
+
         //if there are more sentences...
         if (index < sentences.Length - 1)
         {
             //load the next sentence, erase the previous one, and start typing
             index++;
-            dia.text = "";
-            text = "";
-
             SetDialogue();
         }
         //If there are no more sentences, close the dialogue box
         else
         {
             anim.SetBool("isOpen", false);
-            dia.text = "";
-            text = "";
         }
     }
 

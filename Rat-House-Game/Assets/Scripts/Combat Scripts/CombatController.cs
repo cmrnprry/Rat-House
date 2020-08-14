@@ -96,7 +96,7 @@ public class CombatController : MonoBehaviour
     public Slider playerHealthSlider;
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI hitDetectionText;
-    //public Animator SplashAnim;
+    public Animator SplashAnim;
     public Image[] splashScreensGood;
     public Image[] splashScreensBad;
 
@@ -204,7 +204,32 @@ public class CombatController : MonoBehaviour
 
     public void AddEnemy(EnemyType enemy)
     {
-        var index = _inBattle.Count;
+        int index = _inBattle.Count;
+
+        //Check if the enemy was killed
+        for (int i = 1; i < _inBattle.Count; i++)
+        {
+            if (_inBattle[i] == null)
+            {
+                index = i;
+                break;
+            }
+        }
+
+        //Instasiate the enmy of Type
+        GameObject newE = Instantiate(Resources.Load("Enemies/" + enemy.ToString(), typeof(GameObject)) as GameObject, enemyPlacement[index], Quaternion.identity);
+
+        if (index < _inBattle.Count)
+        {
+            _inBattle[index] = newE;
+            enemyList[index] = enemy;
+        }
+        else
+        {
+            _inBattle.Add(newE);
+            enemyList.Add(enemy);
+        }
+
         Debug.Log("add enemy of type: " + enemy.ToString());
 
         //if the board is full
@@ -218,12 +243,6 @@ public class CombatController : MonoBehaviour
             return;
         }
 
-
-        //Instasiate the enmy of Type
-        GameObject newE = Instantiate(Resources.Load("Enemies/" + enemy.ToString(), typeof(GameObject)) as GameObject, enemyPlacement[index], Quaternion.identity);
-
-        //Add it to the list of enemy game objects
-        _inBattle.Add(newE);
 
         //Set enemy health
         enemyHealthBars[index].gameObject.SetActive(true);
@@ -642,11 +661,13 @@ public class CombatController : MonoBehaviour
                 Debug.Log("Turn Over");
 
                 splashScreen[splashScreen.Length - 1].gameObject.SetActive(true);
-                //SplashAnim.SetBool(splashScreen[splashScreen.Length - 1].gameObject.name, true);
+
+                string animation = "Base Layer." + splashScreen[splashScreen.Length - 1].gameObject.name;
+                CombatController.instance.SplashAnim.Play(animation, 0, 0f);
 
                 yield return new WaitForSecondsRealtime(2f);
 
-                
+
                 splashScreen[splashScreen.Length - 1].gameObject.SetActive(false);
 
                 yield return new WaitForSecondsRealtime(0.75f);
