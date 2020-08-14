@@ -58818,7 +58818,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 129f548426a1cca4eb2859500604d736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies: 
+  startBattle: 
+  phaseOneBattle: 
+  phaseTwoBattle: 
   preBattleDialogue:
   - Joe:Ah, at last, I've made it to the top floor!
   - "Joe:Come to think of it, this is kind of a weird place for the break room, huh?\r"
@@ -58861,6 +58863,7 @@ MonoBehaviour:
   - Joe:My precious mug...I'll never let you out of my sight again
   - "Joe:\rCome along, my beloved...I need to find a new job so I can pay my rent.\r\n"
   _maxHealth: 150
+  _currentHealth: 0
   _baseAttack: 0
   healthSlider: {fileID: 0}
   numberOfAttacks: 4

@@ -61,11 +61,16 @@ public class PlayerController : MonoBehaviour
 
         _rb.velocity = movement;
 
-        if (_isSusan)
+        if (Input.GetButton("SelectAction"))
         {
-            GameManager.instance.SetGameState(GameState.Susan);
-            yield break;
+            if (_isSusan)
+            {
+                StopPlayerMovement();
+                GameManager.instance.SetGameState(GameState.Susan);
+                yield break;
+            }
         }
+
 
 
         yield return new WaitForEndOfFrame();
@@ -76,6 +81,7 @@ public class PlayerController : MonoBehaviour
     {
         StopAllCoroutines();
         _rb.velocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
     }
 
     void OnCollisionEnter(Collision collider)

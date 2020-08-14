@@ -170,6 +170,7 @@ public class CombatController : MonoBehaviour
         //Display player health
         GameManager.instance.healthParent.SetActive(true);
         GameManager.instance.battleAnimator.SetBool("IsOpen", true);
+        HighlightMenuItem();
 
         //Set the Stats
         _stats.SetStats();
