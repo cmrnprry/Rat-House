@@ -30,7 +30,8 @@ public class InteractableText : MonoBehaviour
             else
             {
                 anim.SetBool("isOpen", true);
-                dialogueText.text = itemComments[Random.Range(0, itemComments.Length - 1)];
+                nameText.text = "Joe";
+                dialogueText.text = itemComments[Random.Range(0, itemComments.Length)];
             }
         }
     }
