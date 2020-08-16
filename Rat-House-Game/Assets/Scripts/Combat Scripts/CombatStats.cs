@@ -24,7 +24,8 @@ public class CombatStats : MonoBehaviour
     public float playerHealth;
 
     //Enemy Stats
-    private List<float> enemyHealth;
+    [HideInInspector]
+    public List<float> enemyHealth;
     private List<float> enemyBaseAccuracy;
     private int _enemiesLeft = 0;
 

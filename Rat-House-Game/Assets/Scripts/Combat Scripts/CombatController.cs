@@ -16,8 +16,8 @@ public enum ActionType
 
 public enum ItemType
 {
-    Basic_Heath = 0,
-    Basic_Damage = 1,
+    Blood_Bag = 0,
+    Spork = 1,
 }
 
 public struct Items
@@ -73,6 +73,8 @@ public class CombatController : MonoBehaviour
 
     //Current enemy selected
     private int _selectedEnemy = 0;
+    private int _battleEnd;
+    private int _battleStart = 0;
 
     //Current enemy selected
     private int _selectedItem = 0;
@@ -166,6 +168,8 @@ public class CombatController : MonoBehaviour
 
         //Place the enemies
         PlaceEnemies();
+        _battleEnd = _inBattle.Count - 1;
+        _battleStart = 0;
 
         //Display player health
         GameManager.instance.healthParent.SetActive(true);
@@ -190,6 +194,7 @@ public class CombatController : MonoBehaviour
             _inBattle.Add(enemy);
 
             enemyHealthBars[index].gameObject.SetActive(true);
+            enemyHealthBars[index].value = 1;
 
             //Set enemy health
 
@@ -203,11 +208,13 @@ public class CombatController : MonoBehaviour
         }
     }
 
+    //For adding an enemy to a battle
     public void AddEnemy(EnemyType enemy)
     {
+        //set index to be the length
         int index = _inBattle.Count;
 
-        //Check if the enemy was killed
+        //Check if any enemies were killed, if so rest the index
         for (int i = 1; i < _inBattle.Count; i++)
         {
             if (_inBattle[i] == null)
@@ -217,11 +224,22 @@ public class CombatController : MonoBehaviour
             }
         }
 
+        if (index >= 5)
+        {
+            index = ReplaceWeakerEnemies();
+        }
+
+        Debug.Log("Index: " + index);
+        Debug.Log("add enemy of type: " + enemy.ToString());
+
         //Instasiate the enmy of Type
         GameObject newE = Instantiate(Resources.Load("Enemies/" + enemy.ToString(), typeof(GameObject)) as GameObject, enemyPlacement[index], Quaternion.identity);
 
         if (index < _inBattle.Count)
         {
+            if (_inBattle[index] != null)
+                Destroy(_inBattle[index].gameObject);
+
             _inBattle[index] = newE;
             enemyList[index] = enemy;
         }
@@ -229,27 +247,44 @@ public class CombatController : MonoBehaviour
         {
             _inBattle.Add(newE);
             enemyList.Add(enemy);
+            _stats.enemyHealth.Add(0);
         }
 
-        Debug.Log("add enemy of type: " + enemy.ToString());
-
-        //if the board is full
-        if (index >= 5)
-        {
-            //Would want to find the weakest enemy
-            //delete him
-            //set index to be his pos
-
-            //for now do nothing
-            return;
-        }
+        
 
         //Set enemy health
+        _stats.enemyHealth[index] = newE.GetComponent<Enemy>().GetStartingHealth();
         enemyHealthBars[index].gameObject.SetActive(true);
+        enemyHealthBars[index].value = 1;
         newE.GetComponent<Enemy>().healthSlider = enemyHealthBars[index];
 
         //Parent enemy
         newE.transform.parent = _enemyParent.transform;
+        _battleEnd = _inBattle.Count - 1;
+        _battleStart = 0;
+    }
+
+    int ReplaceWeakerEnemies()
+    {
+        var index = 0;
+
+        //look to see if the lst still contains them, if yes, replace them
+        if (enemyList.Contains(EnemyType.Intern))
+        {
+            index = enemyList.IndexOf(EnemyType.Intern);
+        }
+        else if (enemyList.Contains(EnemyType.Coffee))
+        {
+            index = enemyList.IndexOf(EnemyType.Coffee);
+
+        }
+        else if (enemyList.Contains(EnemyType.Water_Cooler))
+        {
+            index = enemyList.IndexOf(EnemyType.Water_Cooler);
+
+        }
+
+        return index;
     }
 
     public void ResetSlider()
@@ -395,11 +430,11 @@ public class CombatController : MonoBehaviour
 
                 switch (itemList[_selectedItem].item)
                 {
-                    case ItemType.Basic_Heath:
+                    case ItemType.Blood_Bag:
                         Debug.Log("Basic Heath Item");
                         StartCoroutine(ChoosePlayer(true));
                         break;
-                    case ItemType.Basic_Damage:
+                    case ItemType.Spork:
                         Debug.Log("Basic Damage Item");
                         UseDamageItem(itemList[_selectedItem]);
                         break;
@@ -448,33 +483,32 @@ public class CombatController : MonoBehaviour
 
         if (Input.GetButtonDown("Up") || Input.GetButtonDown("Left"))
         {
-            if (_selectedEnemy == 0)
+            if (_selectedEnemy == _battleStart)
             {
-                _selectedEnemy = _inBattle.Count - 1;
+                _selectedEnemy = _battleEnd;
             }
             else
             {
+                if (_inBattle[_selectedEnemy - 1] == null)
+                {
+                    _selectedEnemy--;
+                }
                 _selectedEnemy--;
             }
 
-            if (_inBattle[_selectedEnemy] == null)
-            {
-                _selectedEnemy--;
-            }
         }
         else if (Input.GetButtonDown("Down") || Input.GetButtonDown("Right"))
         {
-            if (_selectedEnemy == _inBattle.Count - 1)
+            if (_selectedEnemy == _battleEnd)
             {
-                _selectedEnemy = 0;
+                _selectedEnemy = _battleStart;
             }
             else
             {
-                _selectedEnemy++;
-            }
-
-            if (_inBattle[_selectedEnemy] == null)
-            {
+                if (_inBattle[_selectedEnemy + 1] == null)
+                {
+                    _selectedEnemy++;
+                }
                 _selectedEnemy++;
             }
         }
@@ -508,7 +542,7 @@ public class CombatController : MonoBehaviour
             HighlightMenuItem();
             yield break;
         }
-        //TODO:Add some sort of visual display to show the selected enemy
+
         HighlightEnemy();
 
         yield return new WaitForEndOfFrame();
@@ -699,9 +733,12 @@ public class CombatController : MonoBehaviour
             if (_inBattle[i] != null)
             {
                 _selectedEnemy = i;
+                _battleStart = i;
                 break;
             }
         }
+
+        FindEnd(_inBattle.Count - 1);
 
         //Play player turn SFX
         AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[3];
@@ -719,6 +756,19 @@ public class CombatController : MonoBehaviour
         enemyTurnOver = false;
         Debug.Log("Enemy Phase Over");
         yield break;
+    }
+
+    void FindEnd(int index)
+    {
+        if (_inBattle[index] != null)
+        {
+            _battleEnd = index;
+        }
+        else
+        {
+            FindEnd(index - 1);
+        }
+
     }
 
     //Turns off all the highlights and menus
@@ -831,6 +881,8 @@ public class CombatController : MonoBehaviour
 
         //Place the enemies
         PlaceEnemies();
+        _battleEnd = _inBattle.Count - 1;
+        _battleStart = 0;
 
         //Display player health
         GameManager.instance.healthParent.SetActive(true);

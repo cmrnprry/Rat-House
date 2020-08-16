@@ -35,7 +35,6 @@ public class Enemy : MonoBehaviour
     {
         var beats = AudioManager.instance.enemyBeatMap;
         _currentHealth = _maxHealth;
-        UpdateHealth(0);
 
         //Set the enemy types to have the correct beats
         waterBeats = beats.GetRange(0, 2);
@@ -45,8 +44,6 @@ public class Enemy : MonoBehaviour
 
         _attackAnim = GameObject.FindGameObjectWithTag(effectName).GetComponent<ParticleSystem>();
         _attackAnim.gameObject.transform.position = transform.position;
-        //Instasiate the enmy of Type
-        // GameObject enemy = Instantiate(Resources.Load("Enemies/" + e.ToString(), typeof(GameObject)) as GameObject, enemyPlacement[index], Quaternion.identity);
     }
 
     //Handles a single enemy's turn
