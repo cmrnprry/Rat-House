@@ -2553,7 +2553,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725827, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725827, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -3676,6 +3676,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
+      propertyPath: enemiesInBattle.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
       propertyPath: enemiesInBattle.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
@@ -4291,7 +4296,7 @@ Transform:
   - {fileID: 1369300449}
   - {fileID: 940494049}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &300734912
 GameObject:
@@ -10284,7 +10289,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: enemiesInBattle.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -11142,6 +11147,8 @@ GameObject:
   m_Component:
   - component: {fileID: 836004232}
   - component: {fileID: 836004233}
+  - component: {fileID: 836004235}
+  - component: {fileID: 836004234}
   m_Layer: 0
   m_Name: Objective (1)
   m_TagString: Untagged
@@ -11213,6 +11220,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!135 &836004234
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836004231}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10.024977
+  m_Center: {x: -4.0249677, y: 0, z: 0}
+--- !u!114 &836004235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 836004231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 926109704}
+  nameText: {fileID: 1078000864}
+  dialogueText: {fileID: 569022208}
+  itemComments:
+  - Hi, I'm placeholder text
+  - Sorry, the real text will be put in when we change the sprites
+  - Oops! looks like the final text hasn't been put in yet!
+  playerInRange: 0
 --- !u!1 &837875807
 GameObject:
   m_ObjectHideFlags: 0
@@ -12950,7 +12990,7 @@ Transform:
   - {fileID: 1272445692}
   - {fileID: 572709922}
   m_Father: {fileID: 1547397061}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &953521371 stripped
 GameObject:
@@ -13419,7 +13459,7 @@ Transform:
   - {fileID: 471954738}
   - {fileID: 689376056}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &996925647
 GameObject:
@@ -15365,6 +15405,21 @@ PrefabInstance:
         type: 3}
       propertyPath: beatenBattleDialogue.Array.data[0]
       value: ???:I'll have my revenge, some day!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: enemiesInBattle.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: enemiesInBattle.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: enemiesInBattle.Array.data[2]
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c9c3f00faed8045b4ef147a8f4af91, type: 3}
@@ -18126,7 +18181,7 @@ Transform:
   - {fileID: 1693538629}
   - {fileID: 1116197050}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1297031630
 GameObject:
@@ -20474,7 +20529,7 @@ Transform:
   - {fileID: 1727485961}
   - {fileID: 1628585464}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1437674719
 GameObject:
@@ -20486,6 +20541,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1437674720}
   - component: {fileID: 1437674721}
+  - component: {fileID: 1437674723}
+  - component: {fileID: 1437674722}
   m_Layer: 0
   m_Name: Objective (4)
   m_TagString: Untagged
@@ -20557,6 +20614,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!135 &1437674722
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437674719}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 9.622804
+  m_Center: {x: 2.306759, y: 0, z: -1.3160353}
+--- !u!114 &1437674723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437674719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 926109704}
+  nameText: {fileID: 1078000864}
+  dialogueText: {fileID: 569022208}
+  itemComments:
+  - Hi, I'm placeholder text
+  - Sorry, the real text will be put in when we change the sprites
+  - Oops! looks like the final text hasn't been put in yet!
+  playerInRange: 0
 --- !u!4 &1443087119 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3690432459463357695, guid: 85e864bd6cd25fe4186ab68bfc74f13e,
@@ -22467,7 +22557,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: enemiesInBattle.Array.data[1]
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c9c3f00faed8045b4ef147a8f4af91, type: 3}
@@ -22806,8 +22896,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
+      propertyPath: enemiesInBattle.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
       propertyPath: enemiesInBattle.Array.data[0]
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -22887,11 +22982,11 @@ Transform:
   - {fileID: 714668193}
   - {fileID: 1114174933}
   - {fileID: 280186120}
-  - {fileID: 949605440}
   - {fileID: 199939165}
+  - {fileID: 949605440}
   - {fileID: 1666490598}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1553802012
 GameObject:
@@ -27929,7 +28024,7 @@ Transform:
   - {fileID: 2108897790}
   - {fileID: 1437674720}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1863771785
 PrefabInstance:
@@ -29492,6 +29587,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2032790980}
   - component: {fileID: 2032790981}
+  - component: {fileID: 2032790983}
+  - component: {fileID: 2032790982}
   m_Layer: 0
   m_Name: Objective
   m_TagString: Untagged
@@ -29563,6 +29660,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!135 &2032790982
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032790979}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10.148372
+  m_Center: {x: 0.88721895, y: 0, z: 0}
+--- !u!114 &2032790983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032790979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 926109704}
+  nameText: {fileID: 1078000864}
+  dialogueText: {fileID: 569022208}
+  itemComments:
+  - Hi, I'm placeholder text
+  - Sorry, the real text will be put in when we change the sprites
+  - Oops! looks like the final text hasn't been put in yet!
+  playerInRange: 0
 --- !u!1 &2047170076
 GameObject:
   m_ObjectHideFlags: 0
@@ -30135,6 +30265,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2108897790}
   - component: {fileID: 2108897791}
+  - component: {fileID: 2108897793}
+  - component: {fileID: 2108897792}
   m_Layer: 0
   m_Name: Objective (3)
   m_TagString: Untagged
@@ -30206,6 +30338,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!135 &2108897792
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108897789}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 11.596545
+  m_Center: {x: -2.3900468, y: 0, z: -3.206498}
+--- !u!114 &2108897793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108897789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 926109704}
+  nameText: {fileID: 1078000864}
+  dialogueText: {fileID: 569022208}
+  itemComments:
+  - Hi, I'm placeholder text
+  - Sorry, the real text will be put in when we change the sprites
+  - Oops! looks like the final text hasn't been put in yet!
+  playerInRange: 0
 --- !u!1 &2109468451
 GameObject:
   m_ObjectHideFlags: 0
@@ -30290,6 +30455,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2110983988}
   - component: {fileID: 2110983989}
+  - component: {fileID: 2110983991}
+  - component: {fileID: 2110983990}
   m_Layer: 0
   m_Name: Objective (2)
   m_TagString: Untagged
@@ -30361,6 +30528,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!135 &2110983990
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110983987}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12.556246
+  m_Center: {x: 2.0739384, y: 0, z: 0}
+--- !u!114 &2110983991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110983987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 926109704}
+  nameText: {fileID: 1078000864}
+  dialogueText: {fileID: 569022208}
+  itemComments:
+  - Hi, I'm placeholder text
+  - Sorry, the real text will be put in when we change the sprites
+  - Oops! looks like the final text hasn't been put in yet!
+  playerInRange: 0
 --- !u!1 &2112951558
 GameObject:
   m_ObjectHideFlags: 0
