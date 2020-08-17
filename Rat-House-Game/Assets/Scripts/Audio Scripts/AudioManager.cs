@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour
     [Header("Background Music")]
     //Background Combat Music
     public AudioSource bgMusic;
-
+    public List<AudioClip> bgClips;
 
     [Header("BeatMap Beats")]
     public bool startAction;
@@ -144,6 +144,7 @@ public class AudioManager : MonoBehaviour
         dspSongTime = (float)AudioSettings.dspTime;
 
         //Start the background music
+        bgMusic.clip = bgClips[0];
         bgMusic.Play();
 
         //Start the update loop
@@ -154,7 +155,8 @@ public class AudioManager : MonoBehaviour
     public void StopCombatMusic()
     {
         //Start the background music
-        bgMusic.Stop();
+        bgMusic.clip = bgClips[1];
+        bgMusic.Play();
 
         //Start the update loop
         StopAllCoroutines();
@@ -211,7 +213,7 @@ public class AudioManager : MonoBehaviour
     }
 
     //Waits a second before starting the dodge music
-    public IEnumerator SetDodgeMap(int action)
+    public IEnumerator SetDodgeMap(int action = 0)
     {
         //TODO: Change this to have 
 

@@ -83,7 +83,8 @@ public class CombatController : MonoBehaviour
     public bool enemyTurnOver = false;
 
     //Keeps trackof player/enemy stats in battle
-    private CombatStats _stats;
+    [HideInInspector]
+    public CombatStats _stats;
 
     [Header("Menus")]
     public GameObject attackMenuParent;
@@ -92,7 +93,7 @@ public class CombatController : MonoBehaviour
     public GameObject itemMenu;
     public GameObject menuSelect;
     private GameObject _enemyParent;
-    private GameObject _enemyHealthParent;
+    private GameObject _enemyEffects;
 
     [Header("UI")]
     public Slider playerHealthSlider;
@@ -127,10 +128,13 @@ public class CombatController : MonoBehaviour
 
         //Reset Stats
         _stats.SetStats();
+        ResetSlider();
 
+        AudioManager.instance.StartCombatMusic();
         GameManager.instance.deathScreenParent.SetActive(false);
-        attackMenuParent.SetActive(true);
-        StartCoroutine(ChooseAction());
+        ShowActionMenu();
+        HighlightMenuItem();
+        GameManager.instance.battleAnimator.SetBool("IsOpen", true);
     }
 
     public void ClearBattle()
@@ -145,9 +149,13 @@ public class CombatController : MonoBehaviour
         _selectedEnemy = 0;
         selectedAction = ActionType.Punch;
 
+        int index = 0;
+
         foreach (Transform child in _enemyParent.transform)
         {
+            enemyHealthBars[index].gameObject.SetActive(false);
             Destroy(child.gameObject);
+            index++;
         }
 
         ClearItemMenu();
@@ -165,6 +173,8 @@ public class CombatController : MonoBehaviour
 
         //find the enemy parent
         _enemyParent = GameObject.FindGameObjectWithTag("Enemy Parent");
+        _enemyEffects = GameObject.FindGameObjectWithTag("Enemy Effects");
+        
 
         //Place the enemies
         PlaceEnemies();
@@ -174,6 +184,7 @@ public class CombatController : MonoBehaviour
         //Display player health
         GameManager.instance.healthParent.SetActive(true);
         GameManager.instance.battleAnimator.SetBool("IsOpen", true);
+        ShowActionMenu();
         HighlightMenuItem();
 
         //Set the Stats
@@ -250,7 +261,7 @@ public class CombatController : MonoBehaviour
             _stats.enemyHealth.Add(0);
         }
 
-        
+
 
         //Set enemy health
         _stats.enemyHealth[index] = newE.GetComponent<Enemy>().GetStartingHealth();
@@ -291,9 +302,9 @@ public class CombatController : MonoBehaviour
     {
         //TODO: MAKE THIS NOT HARD CODED IN I DONT FORSEE THE NUMBERS CHSNGING BUT ITS BAD FIX IT
         _stats.gameObject.transform.position = new Vector3(3f, 6.19f, 0f);
+        _stats.gameObject.GetComponent<Note>().Flip(1);
     }
 
-    //Handles the player choosing which action to take
     public IEnumerator ChooseAction()
     {
         Debug.Log("choose Action");
@@ -393,6 +404,7 @@ public class CombatController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         StartCoroutine(ChooseAction());
     }
+   
     public IEnumerator ChooseItem()
     {
         //Wait until a correct key is pressed
@@ -474,7 +486,6 @@ public class CombatController : MonoBehaviour
         StartCoroutine(ChooseItem());
     }
 
-    //Allows the player to choose which enemy they will attack
     IEnumerator ChooseEnemy(bool isItem = false, float itemDmg = 0)
     {
         //Wait until a correct key is pressed
@@ -623,7 +634,7 @@ public class CombatController : MonoBehaviour
 
     public void HighlightPlayer()
     {
-        var spotlight = _enemyParent.transform.GetChild(0);
+        var spotlight = _enemyEffects.transform.GetChild(0);
 
         spotlight.gameObject.SetActive(true);
         spotlight.transform.localPosition = new Vector3(-4.14f, 0f, -0.14f);
@@ -631,7 +642,7 @@ public class CombatController : MonoBehaviour
 
     public void HighlightEnemy()
     {
-        var spotlight = _enemyParent.transform.GetChild(0);
+        var spotlight = _enemyEffects.transform.GetChild(0);
 
         spotlight.gameObject.SetActive(true);
         spotlight.transform.position = enemyPlacement[_selectedEnemy];
@@ -694,6 +705,10 @@ public class CombatController : MonoBehaviour
                     //Deal Damage to Player
                     _stats.UpdatePlayerHealth(-1 * en.GetBaseAttack());
                 }
+
+                //if the player is dead, break
+                if (_stats.playerHealth <= 0)
+                { yield break; }
 
                 //check if it we're using "good" or "bad" splash screens
                 var splashScreen = CombatStats.amountHit >= (CombatStats.totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
@@ -777,7 +792,7 @@ public class CombatController : MonoBehaviour
         menuSelect.SetActive(false);
 
         //turn off spotlight
-        _enemyParent.transform.GetChild(0).gameObject.SetActive(false);
+        _enemyEffects.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     //Adds highlight to the battle menu
@@ -866,6 +881,7 @@ public class CombatController : MonoBehaviour
     {
         _stats = GameObject.FindGameObjectWithTag("CombatStats").GetComponent<CombatStats>();
         _enemyParent = GameObject.FindGameObjectWithTag("Enemy Parent");
+        _enemyEffects = GameObject.FindGameObjectWithTag("Enemy Effects");
 
         PlaceEnemies();
     }
@@ -878,6 +894,7 @@ public class CombatController : MonoBehaviour
 
         //find the enemy parent
         _enemyParent = GameObject.FindGameObjectWithTag("Enemy Parent");
+        _enemyEffects = GameObject.FindGameObjectWithTag("Enemy Effects");
 
         //Place the enemies
         PlaceEnemies();

@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour
     //An Enumerator that controls the player movement
     public IEnumerator PlayerMovement()
     {
-        Debug.Log("here");
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 

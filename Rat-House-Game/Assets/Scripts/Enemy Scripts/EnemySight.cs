@@ -7,8 +7,6 @@ public class EnemySight : MonoBehaviour
     private EnemyController enemyController;
     private EnemyMovement enemyMovement;
 
-    public bool playerInSight = false;
-
     public GameObject player;
 
     void Awake()
@@ -19,41 +17,47 @@ public class EnemySight : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == player)
+        if (GameManager.instance.tempWait)
         {
-            playerInSight = true;
+            enemyMovement.canMove = true;
+        }
+        else if (other.gameObject == player && !GameManager.instance.dialogueInProgress)
+        {
             enemyMovement.canMove = false;
-            Debug.Log("I see the player");
+
             player.GetComponent<PlayerController>().StopPlayerMovement();
 
-            if (!enemyController.isBeaten && !GameManager.instance.postBattle)
+            if (!GameManager.instance.postBattle)
             {
-                //Set battle enemies
-                CombatController.instance.SetEnemies(enemyController.enemiesInBattle);
-                GameManager.instance.currEnemy = this.gameObject;
+                if (!enemyController.isBeaten)
+                {
+                    //Set battle enemies
+                    CombatController.instance.SetEnemies(enemyController.enemiesInBattle);
+                    GameManager.instance.currEnemy = this.gameObject;
 
-                //Set dialogue and enable the ability to start battle
-                GameManager.instance.SetEnemyDialogue(enemyController.preBattleDialogue);
-                StartCoroutine(StartBattle());
-                GameManager.instance.postBattle = true;
-            }
-            else if (enemyController.isBeaten && !GameManager.instance.postBattle)
-            {
-                GameManager.instance.SetEnemyDialogue(enemyController.beatenBattleDialogue);
-                StartCoroutine(GivePlayerBack());
+                    //Set dialogue and enable the ability to start battle
+                    GameManager.instance.SetEnemyDialogue(enemyController.preBattleDialogue);
+                    StartCoroutine(StartBattle());
+                    GameManager.instance.postBattle = true;
+                }
+                else if (enemyController.isBeaten)
+                {
+                    GameManager.instance.SetEnemyDialogue(enemyController.beatenBattleDialogue);
+                    StartCoroutine(GivePlayerBack());
+                }
             }
         }
     }
 
     IEnumerator StartBattle()
     {
-        yield return new WaitUntil(() => GameManager.instance.dialogueOver);
+        yield return new WaitUntil(() => GameManager.instance.dialogueOver && !GameManager.instance.dialogueInProgress);
         GameManager.instance.SetGameState(GameState.Battle);
     }
 
     IEnumerator GivePlayerBack()
     {
-        yield return new WaitUntil(() => GameManager.instance.dialogueOver);
+        yield return new WaitUntil(() => GameManager.instance.dialogueOver && !GameManager.instance.dialogueInProgress);
         StartCoroutine(player.GetComponent<PlayerController>().PlayerMovement());
     }
 
@@ -61,8 +65,7 @@ public class EnemySight : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            playerInSight = false;
-
+            GameManager.instance.tempWait = false;
             GameManager.instance.diaAnim.SetBool("isOpen", false);
         }
     }

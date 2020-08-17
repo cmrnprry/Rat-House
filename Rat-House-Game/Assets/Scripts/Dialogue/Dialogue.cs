@@ -107,6 +107,8 @@ public class Dialogue : MonoBehaviour
         else
         {
             anim.SetBool("isOpen", false);
+            speakerHead.sprite = heads[0];
+            speakerName.text = "Joe";
         }
     }
 
