@@ -125,8 +125,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 35
-  _baseAcuracy: 50
+  _currentHealth: 0
+  hasEffect: 0
   _baseAttack: 5
+  healthSlider: {fileID: 0}
   numberOfAttacks: 2
   chancesOfHitting: 460000001e000000
   effectName: coffee_effect

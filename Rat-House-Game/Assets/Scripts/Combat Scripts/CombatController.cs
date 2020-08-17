@@ -16,9 +16,25 @@ public enum ActionType
 
 public enum ItemType
 {
-    Blood_Bag = 0,
-    Spork = 1,
+    Calmy_Tea = 0, // heals small heath, fixes burn
+    Plastic_Utensils = 1,// does damage, cause bleed
+    Hot_Coffee = 2, //does damage, causes buring
+    Pams_Fruitcake = 3,//hit's a lil, causes poisioning
+    Jims_Lunch = 4,// heals a lil, fixes poision
 }
+
+//Number tells how much damage per turn effect does
+public enum StatusEffect
+{ 
+    None,
+    Cures_Burn = 0,
+    Cures_Poison = 1,
+    Cures_Bleed = 2,
+    Burn = 5,
+    Poison = 7,
+    Bleed = 3
+}
+
 
 public struct Items
 {
@@ -26,17 +42,43 @@ public struct Items
     //c = number of item in inventory
     //d = amount of health/damage item does, if any
     //e = status effect inflicted, if any
-    public Items(ItemType i, int c, int d = 0)
+    public Items(ItemType i, int c, int d, StatusEffect e)
     {
         item = i;
         count = c;
         delta = d;
+        effect = e;
     }
 
     public ItemType item { get; set; }
     public int count { get; set; }
     public int delta { get; set; }
+    public StatusEffect effect { get; set; }
+
+
+    public string GetColor()
+    {
+        string color = "";
+        if (this.effect == StatusEffect.Bleed)
+        {
+            color = "#C0466C";
+        }
+        else if (this.effect == StatusEffect.Burn)
+        {
+            color = "#EE7042";
+
+        }
+        else if (this.effect == StatusEffect.Poison)
+        {
+            color = "#319638";
+
+        }
+
+        Debug.Log("Get Color: " + color);
+        return color;
+    }
 }
+
 
 public class CombatController : MonoBehaviour
 {
@@ -70,6 +112,9 @@ public class CombatController : MonoBehaviour
 
     //Current indext of _actionList
     private int _selectedAction = 0;
+
+    //if the player is using an item, this is it
+    private Items itemUsed;
 
     //Current enemy selected
     private int _selectedEnemy = 0;
@@ -174,7 +219,7 @@ public class CombatController : MonoBehaviour
         //find the enemy parent
         _enemyParent = GameObject.FindGameObjectWithTag("Enemy Parent");
         _enemyEffects = GameObject.FindGameObjectWithTag("Enemy Effects");
-        
+
 
         //Place the enemies
         PlaceEnemies();
@@ -404,7 +449,7 @@ public class CombatController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         StartCoroutine(ChooseAction());
     }
-   
+
     public IEnumerator ChooseItem()
     {
         //Wait until a correct key is pressed
@@ -442,11 +487,11 @@ public class CombatController : MonoBehaviour
 
                 switch (itemList[_selectedItem].item)
                 {
-                    case ItemType.Blood_Bag:
+                    case ItemType.Calmy_Tea:
                         Debug.Log("Basic Heath Item");
                         StartCoroutine(ChoosePlayer(true));
                         break;
-                    case ItemType.Spork:
+                    case ItemType.Plastic_Utensils:
                         Debug.Log("Basic Damage Item");
                         UseDamageItem(itemList[_selectedItem]);
                         break;
@@ -486,7 +531,7 @@ public class CombatController : MonoBehaviour
         StartCoroutine(ChooseItem());
     }
 
-    IEnumerator ChooseEnemy(bool isItem = false, float itemDmg = 0)
+    IEnumerator ChooseEnemy(bool isItem = false)
     {
         //Wait until a correct key is pressed
         yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("Left") || Input.GetButtonDown("Right") ||
@@ -532,8 +577,8 @@ public class CombatController : MonoBehaviour
                 Debug.Log("deal item damage");
 
                 //TODO: Display animation of item usage
-                Debug.Log("item: " + isItem + " " + itemDmg);
-                DealDamage(true, itemDmg);
+                Debug.Log("item: " + isItem + " " + itemUsed.effect.ToString() + " " + itemUsed.delta);
+                DealDamage(true);
             }
             else
             {
@@ -557,7 +602,7 @@ public class CombatController : MonoBehaviour
         HighlightEnemy();
 
         yield return new WaitForEndOfFrame();
-        StartCoroutine(ChooseEnemy(isItem, itemDmg));
+        StartCoroutine(ChooseEnemy(isItem));
     }
 
     IEnumerator ChoosePlayer(bool isItem = false)
@@ -604,10 +649,11 @@ public class CombatController : MonoBehaviour
     {
         Debug.Log("item: " + item.item.ToString() + " " + item.delta);
         //Choose the item to use
-        StartCoroutine(ChooseEnemy(true, item.delta));
+        itemUsed = item;
+        StartCoroutine(ChooseEnemy(true));
 
         //decrease the amount of the used item
-        itemList.Add(new Items(item.item, -1, item.delta));
+        itemList.Add(new Items(item.item, -1, item.delta, item.effect));
         GameManager.instance.CollapseItemList(itemList);
     }
 
@@ -615,7 +661,7 @@ public class CombatController : MonoBehaviour
     IEnumerator UseHealthItem(Items item)
     {
         //decrease the amount of the used item
-        itemList.Add(new Items(item.item, -1, item.delta));
+        itemList.Add(new Items(item.item, -1, item.delta, item.effect));
         GameManager.instance.CollapseItemList(itemList);
 
         //update the player's health
@@ -649,9 +695,8 @@ public class CombatController : MonoBehaviour
     }
 
     //Tells the Combat Stats to deal with damage
-    public void DealDamage(bool isItem = false, float itemDmg = 0)
+    public void DealDamage(bool isItem = false)
     {
-        Debug.Log("item dmg: " + itemDmg);
         //Want to send over what enemy was targeted
         //what attack was done
         //is defaulted to 0 untile multiple enemes are implemented
@@ -660,7 +705,8 @@ public class CombatController : MonoBehaviour
         //TODO: MAKE THIS NOT HARD CODED IN I DONT FORSEE THE NUMBERS CHSNGING BUT ITS BAD FIX IT
         _stats.gameObject.transform.position = new Vector3(12.5f, 6.19f, 0f);
 
-        StartCoroutine(_stats.DealDamageToEnemy(_selectedEnemy, isItem, itemDmg));
+        _stats.itemUsed = itemUsed;
+        StartCoroutine(_stats.DealDamageToEnemy(_selectedEnemy, isItem));
     }
 
     //Will play through the enemy turn
@@ -677,6 +723,7 @@ public class CombatController : MonoBehaviour
             if (_inBattle[enemy] != null)
             {
                 var e = _inBattle[enemy];
+                var en = e.GetComponent<Enemy>();
 
                 if (e.name == "Susan(Clone)")
                 {
@@ -693,7 +740,6 @@ public class CombatController : MonoBehaviour
                 }
                 else
                 {
-                    var en = e.GetComponent<Enemy>();
                     en.AttackPlayer(enemyList[enemy]);
 
                     //Waits untik this returns true
@@ -723,6 +769,14 @@ public class CombatController : MonoBehaviour
                 yield return new WaitForSecondsRealtime(2f);
 
                 splashScreen[splashScreen.Length - 1].gameObject.SetActive(false);
+
+                //Update the enemy effect if any
+                en.UpdateEffect();
+                _stats.enemyHealth[enemy] = en._currentHealth;
+                if (en._currentHealth <= 0)
+                {
+                    _stats.EnemyDeath(enemy);
+                }
 
                 yield return new WaitForSecondsRealtime(0.75f);
 

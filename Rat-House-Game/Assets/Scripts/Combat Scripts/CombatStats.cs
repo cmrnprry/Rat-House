@@ -33,6 +33,7 @@ public class CombatStats : MonoBehaviour
     public static bool hitNote = false;
     public static float amountHit = 0;
     public static int totalHits = 0;
+    public Items itemUsed;
 
     //List of the "perfect" hits of a given rhythm
     public static List<Beat> hitList = new List<Beat>();
@@ -300,15 +301,20 @@ public class CombatStats : MonoBehaviour
         }
     }
 
-    public IEnumerator DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false, float itemDmg = 0)
+    public IEnumerator DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false)
     {
         //check if it we're using "good" or "bad" splash screens
         var splashScreen = amountHit >= (totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
+        Enemy e = CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>();
 
         float damage = 0;
         if (isItem)
         {
-            damage = itemDmg;
+            damage = itemUsed.delta;
+
+            //only apply the effect if they don't already have one
+            if (!e.hasEffect)
+                e.SetStatusEffect(itemUsed);
         }
         else
         {
@@ -341,7 +347,7 @@ public class CombatStats : MonoBehaviour
         else
         {
             enemyHealth[enemyAttacked] -= damage;
-            CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>().UpdateHealth(damage);
+            e.UpdateHealth(damage);
         }
 
         if (enemyHealth[enemyAttacked] <= 0)
@@ -375,9 +381,9 @@ public class CombatStats : MonoBehaviour
     }
 
     //Handles what happens when an enemy dies
-    void EnemyDeath(int enemyAttacked)
+    public void EnemyDeath(int enemyAttacked)
     {
-        //Folder flip
+        //Death Sound
         AudioManager.instance.SFX.clip = AudioManager.instance.enemySFX[AudioManager.instance.enemySFX.Count - 1];
         AudioManager.instance.SFX.Play();
 

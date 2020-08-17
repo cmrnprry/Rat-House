@@ -90,8 +90,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //Items the player starts off with
-        CombatController.instance.itemList.Add(new Items(ItemType.Blood_Bag, 3, 10));
-        CombatController.instance.itemList.Add(new Items(ItemType.Spork, 2, 10));
+        CombatController.instance.itemList.Add(new Items(ItemType.Calmy_Tea, 3, 10, StatusEffect.Cures_Burn));
+        CombatController.instance.itemList.Add(new Items(ItemType.Plastic_Utensils, 2, 10, StatusEffect.Bleed));
 
         //all objects in the scenes
         overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
                 {
 
                     var total = itemList[i].count + itemList[k].count;
-                    var newItem = new Items(itemList[i].item, total, itemList[i].delta);
+                    var newItem = new Items(itemList[i].item, total, itemList[i].delta, itemList[i].effect);
 
                     itemList.RemoveAt(k);
                     itemList.RemoveAt(i);
