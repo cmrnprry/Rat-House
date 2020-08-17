@@ -15,6 +15,10 @@ public class AudioManager : MonoBehaviour
     public List<BeatMapStruct> playerBeatMap = new List<BeatMapStruct>();
     public List<BeatMapStruct> enemyBeatMap = new List<BeatMapStruct>();
 
+    [Header("Countdown Timer")]
+    public TextMeshProUGUI countdownText;
+
+
     [Header("Sound Effects")]
     public AudioSource SFX;
     public List<AudioClip> attackSFX;
@@ -194,33 +198,42 @@ public class AudioManager : MonoBehaviour
     public IEnumerator SetAttackMap(int action)
     {
         //want currPos to round up to the next 1/2 second/next beat
-        double currPos = Math.Round(songPosition, MidpointRounding.AwayFromZero);
-
+        double currPos = Math.Round(songPositionInBeats, MidpointRounding.AwayFromZero);
+        while (currPos % 4 != 0)
+        {
+            currPos += 0.5;
+        }
         Debug.Log("currPos: " + currPos);
+        StartCoroutine(CountDown(currPos));
 
-        // Wait until the next second
-        //Wait until the 2nd next whole second
-        //((so if at .5 -> 2))
-        // ((or if at 1 -> 3))
-        yield return new WaitUntil(() => (currPos + (beatsPerSec * 2) <= songPosition));
+        yield return new WaitUntil(() => countdownText.gameObject.activeSelf);
+        yield return new WaitUntil(() => !countdownText.gameObject.activeSelf);
 
+        //Start it
         dspMapTime = (float)AudioSettings.dspTime;
 
         yield return new WaitForFixedUpdate();
 
         startAction = true;
         StartCoroutine(StartMapUpdates());
+        yield break;
+
     }
 
     //Waits a second before starting the dodge music
     public IEnumerator SetDodgeMap(int action = 0)
     {
-        //TODO: Change this to have 
+        //want currPos to round up to the next 1/2 second/next beat
+        double currPos = Math.Round(songPositionInBeats, MidpointRounding.AwayFromZero);
+        while (currPos % 4 != 0)
+        {
+            currPos += 0.5;
+        }
+        Debug.Log("currPos: " + currPos);
+        StartCoroutine(CountDown(currPos));
 
-        float currPos = songPositionInBeats;
-
-        // Wait until the next second
-        yield return new WaitUntil(() => (currPos + (beatsPerSec * 2) <= songPositionInBeats));
+        yield return new WaitUntil(() => countdownText.gameObject.activeSelf);
+        yield return new WaitUntil(() => !countdownText.gameObject.activeSelf);
 
         dspMapTime = (float)AudioSettings.dspTime;
 
@@ -229,6 +242,34 @@ public class AudioManager : MonoBehaviour
         startDodge = true;
         Debug.Log("Play dodge");
         StartCoroutine(StartMapUpdates());
+    }
+
+    public IEnumerator CountDown(double startBeat)
+    {
+        countdownText.gameObject.SetActive(true);
+
+        //Show get ready text
+        countdownText.text = "Get Ready!";
+
+        //Wait until we're at the beginnign or a bar or phrase or WHATEVER
+        // that is wait until (currBeats % 4 == 0 + 1) 
+        yield return new WaitUntil(() => (startBeat <= songPositionInBeats));
+
+        //Start count down from 3? Like 4 seconds? 3, 2, 1 Go!
+        countdownText.text = "3";
+        yield return new WaitForSecondsRealtime(1f);
+
+        countdownText.text = "2";
+        yield return new WaitForSecondsRealtime(1f);
+
+        countdownText.text = "1";
+        yield return new WaitForSecondsRealtime(1f);
+
+        //Say GO!
+        countdownText.text = "Go!";
+        yield return new WaitForSecondsRealtime(1f);
+
+        countdownText.gameObject.SetActive(false);
     }
 
     //Keeps track of the position of the attack music
