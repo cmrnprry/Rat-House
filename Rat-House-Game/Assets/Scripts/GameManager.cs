@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
             tutorial.anim.SetBool("isOpen", false);
         }
 
-        if ((Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.T))
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.T))
         {
             SetGameState(GameState.Tutorial);
         }
