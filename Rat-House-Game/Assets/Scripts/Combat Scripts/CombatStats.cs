@@ -57,7 +57,7 @@ public class CombatStats : MonoBehaviour
         _attackDamage = CombatController.instance.attackDamage;
 
         //Player Stats
-        playerHealth = 2f;
+        playerHealth = 100f;
         CombatController.instance.playerHealthText.text = playerHealth + "%";
 
         //Update the player health slider
