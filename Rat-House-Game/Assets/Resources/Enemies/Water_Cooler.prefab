@@ -125,8 +125,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 45
-  _baseAcuracy: 50
+  _currentHealth: 0
   _baseAttack: 10
+  healthSlider: {fileID: 0}
   numberOfAttacks: 2
   chancesOfHitting: 3c00000028000000
   effectName: coffee_effect
@@ -140,6 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4970443323122960758}
   - component: {fileID: 3406036661109935769}
+  - component: {fileID: 3644636772250002785}
   m_Layer: 0
   m_Name: water
   m_TagString: Untagged
@@ -211,3 +213,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3644636772250002785
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7195869509373582166}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a2fe573fd4e8afd48881458cf5711ebc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

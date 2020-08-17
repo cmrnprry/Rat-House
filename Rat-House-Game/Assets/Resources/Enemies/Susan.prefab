@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 951688889708083882}
   - component: {fileID: 7926202670088244093}
   - component: {fileID: 5578912527076105551}
+  - component: {fileID: 8517769230660021125}
   m_Layer: 0
   m_Name: Susan
   m_TagString: Coffee
@@ -111,6 +112,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!95 &8517769230660021125
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885643733926557914}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0eeafd8de05a14d41bf566db1f54ac5c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &946027272030525306
 GameObject:
   m_ObjectHideFlags: 0

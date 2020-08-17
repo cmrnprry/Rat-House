@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/FINAL SCENES/Tutorial_Battle-FINAL.unity
     guid: 60615a6d36c2e3d4ab4bad6c6aba3d16
   - enabled: 1
+    path: Assets/Scenes/FINAL SCENES/Overworld_Level2-FINAL.unity
+    guid: 80edbf9223f5477418ad4d50a0e69635
+  - enabled: 1
     path: Assets/Scenes/Temp-LastScene.unity
     guid: f894b5c48cef1df47ad88fc9fbd24620
   m_configObjects: {}
