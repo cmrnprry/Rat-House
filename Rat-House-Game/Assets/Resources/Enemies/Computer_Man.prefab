@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5578912527076105551}
   - component: {fileID: 8751216279485706765}
   m_Layer: 0
-  m_Name: Coffee 1
+  m_Name: Computer_Man
   m_TagString: Coffee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,6 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5065939354266768393}
   - component: {fileID: 1883127459658231691}
+  - component: {fileID: 613301602276499685}
   m_Layer: 0
   m_Name: coffee
   m_TagString: Untagged
@@ -212,3 +213,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &613301602276499685
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946027272030525306}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 76d97955dd076af499dbb9d61d732571, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
