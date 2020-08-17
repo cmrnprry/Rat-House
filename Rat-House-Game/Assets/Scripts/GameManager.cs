@@ -420,4 +420,16 @@ public class GameManager : MonoBehaviour
         //start the dialogue in the tutorial script
         StartCoroutine(tutorial.ShowOpeningDialogue());
     }
+
+    public IEnumerator LoadLevelTwo()
+    {
+        anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("Overworld_Level2-FINAL");
+        anim.CrossFade("Fade_In", 1);
+        yield return new WaitForSeconds(1);
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        StartCoroutine(player.PlayerMovement());
+        overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
+    }
 }

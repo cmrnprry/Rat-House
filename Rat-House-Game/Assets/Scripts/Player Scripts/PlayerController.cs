@@ -37,6 +37,14 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Down", false);
             anim.SetBool("Up", false);
 
+            if(h < 0)
+            {
+                sr.flipX = true;
+            }
+            else
+            {
+                sr.flipX = false;
+            }
         }
         else if (h == 0 && v < 0)
         {
@@ -97,15 +105,5 @@ public class PlayerController : MonoBehaviour
         {
             _isSusan = false;
         }
-    }
-
-
-    protected void Flip()
-    {
-        _isFacingRight = !_isFacingRight;
-
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
     }
 }
