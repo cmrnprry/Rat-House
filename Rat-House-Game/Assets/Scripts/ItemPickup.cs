@@ -1,27 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ItemPickup : MonoBehaviour
-{
+{   
+    public Animator itemGetAnim;
+
+    public TextMeshProUGUI itemText;
+
     public ItemType itemType;
 
-    // Start is called before the first frame update
-    void Start()
+    void OnCollisionEnter(Collision collision)
     {
-        
-    }
+        if(collision.gameObject.tag == "Player")
+        {            
+            {
+                CombatController.instance.itemList.Add(new Items(itemType, 1, 10));
+                GameManager.instance.CollapseItemList(CombatController.instance.itemList);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+                itemText.text = this.gameObject.name + " has been added to your record";
+                itemGetAnim.SetTrigger("textPopup");
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        CombatController.instance.itemList.Add(new Items(itemType, 1, 10));
-        GameManager.instance.CollapseItemList(CombatController.instance.itemList);
-        Destroy(gameObject);
+                Destroy(this.gameObject);
+            }
+        }        
     }
 }

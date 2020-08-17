@@ -64,12 +64,21 @@ public class Susan : MonoBehaviour
         healthSlider.value = (_currentHealth / _maxHealth);
 
 
-        if (_currentHealth <= 50 && phase == 2)
+        if(_currentHealth <= 0)
         {
+            SusanDeath();
+        }
+        else if (_currentHealth <= 50 && phase == 2)
+        {
+            //turn off all battle stuffs
+            GameManager.instance.battleAnimator.SetBool("IsOpen", false);
+            CombatController.instance.TurnOffHighlight();
 
+            SetDialogue(phaseTwoDialogue);
         }
         else if (_currentHealth <= 100 && phase == 1)
         {
+            Debug.Log("turn off and set");
             //turn off all battle stuffs
             GameManager.instance.battleAnimator.SetBool("IsOpen", false);
             CombatController.instance.TurnOffHighlight();
@@ -151,6 +160,7 @@ public class Susan : MonoBehaviour
 
     public void SetDialogue(string[] dia)
     {
+        Debug.Log("set dialogue");
         GameManager.instance.diaAnim.SetBool("isOpen", true);
         GameManager.instance.dialogue.sentences = dia;
         GameManager.instance.dialogue.StartDialogue();
@@ -176,20 +186,27 @@ public class Susan : MonoBehaviour
             //reset the index to 0
             _index = 0;
 
+
             if (phase == 0)
             {
+                Debug.Log("Got to battle");
                 StartCoroutine(GoToBattle());
             }
             else if (phase == 1)
             {
+                Debug.Log("Phase one");
                 StartCoroutine(PhaseOne());
             }
             else if (phase == 2)
             {
-                // StartCoroutine(PhaseTwo());
+                Debug.Log("PhaseTwo");
+                StartCoroutine(PhaseTwo());
             }
-
-
+            else if (phase >= 3)
+            {
+                Debug.Log("end");
+                SceneManager.LoadScene("Temp-LastScene");
+            }
 
             phase += 1;
             yield break;
@@ -213,6 +230,7 @@ public class Susan : MonoBehaviour
         GameManager.instance.anim.CrossFade("Fade_Out", 1);
         yield return new WaitForSeconds(2);
 
+        Debug.Log("load");
 
         GameManager.instance.topOverlay.SetActive(false);
         SceneManager.LoadScene("Susan_Battle-FINAL", LoadSceneMode.Additive);
@@ -226,6 +244,7 @@ public class Susan : MonoBehaviour
         beats = AudioManager.instance.enemyBeatMap.GetRange(6, 4);
         CombatController.instance.SetEnemies(startBattle);
         CombatController.instance.SetUpSusanBattle();
+        healthSlider.value = 1;
 
         AudioManager.instance.StartCombatMusic();
         StartCoroutine(CombatController.instance.ChooseAction());
@@ -233,22 +252,47 @@ public class Susan : MonoBehaviour
         yield return new WaitForFixedUpdate();
     }
 
-
     IEnumerator PhaseOne()
     {
+        Debug.Log("phase one start");
         foreach (var e in phaseOneBattle)
+        {
+            CombatController.instance.AddEnemy(e);
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        //turn on all battle stuffs
+        GameManager.instance.battleAnimator.SetBool("IsOpen", true);
+        CombatController.instance.ResetSlider();
+        CombatController.instance.ShowActionMenu();
+        CombatController.instance.HighlightMenuItem();
+
+        yield return null;
+    }
+    
+    IEnumerator PhaseTwo()
+    {
+        foreach (var e in phaseTwoBattle)
         {
             CombatController.instance.AddEnemy(e);
         }
 
         //turn on all battle stuffs
         GameManager.instance.battleAnimator.SetBool("IsOpen", true);
+        CombatController.instance.ResetSlider();
         CombatController.instance.ShowActionMenu();
         CombatController.instance.HighlightMenuItem();
 
-        StartCoroutine(CombatController.instance.ChooseAction());
-
         yield return null;
+    }
+
+    public void SusanDeath()
+    {
+        //turn off all battle stuffs
+        GameManager.instance.battleAnimator.SetBool("IsOpen", false);
+        CombatController.instance.TurnOffHighlight();
+        SetDialogue(postBattleDialogue);
     }
 
     public float GetStartingHealth()

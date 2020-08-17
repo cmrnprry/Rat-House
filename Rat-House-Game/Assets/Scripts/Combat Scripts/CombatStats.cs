@@ -24,7 +24,8 @@ public class CombatStats : MonoBehaviour
     public float playerHealth;
 
     //Enemy Stats
-    private List<float> enemyHealth;
+    [HideInInspector]
+    public List<float> enemyHealth;
     private List<float> enemyBaseAccuracy;
     private int _enemiesLeft = 0;
 
@@ -56,7 +57,7 @@ public class CombatStats : MonoBehaviour
         _attackDamage = CombatController.instance.attackDamage;
 
         //Player Stats
-        playerHealth = 100f;
+        playerHealth = 2f;
         CombatController.instance.playerHealthText.text = playerHealth + "%";
 
         //Update the player health slider
@@ -67,8 +68,9 @@ public class CombatStats : MonoBehaviour
         {
             var h = (e.name == "Susan(Clone)") ? GameManager.instance.susan.GetStartingHealth() : e.GetComponent<Enemy>().GetStartingHealth();
             enemyHealth.Add(h);
-            _enemiesLeft++;
         }
+
+        _enemiesLeft = CombatController.instance._inBattle.Count;
     }
 
     private void Update()
@@ -313,7 +315,10 @@ public class CombatStats : MonoBehaviour
             damage = PlayerDamageModifier(_attackDamage[(int)CombatController.instance.selectedAction]);
             splashScreen[action].gameObject.SetActive(true);
 
-            yield return new WaitForSecondsRealtime(1f);
+            string animation = "Base Layer." + splashScreen[action].gameObject.name;
+            CombatController.instance.SplashAnim.Play(animation, 0, 0f);
+
+            yield return new WaitForSecondsRealtime(2f);
 
             splashScreen[action].gameObject.SetActive(false);
         }

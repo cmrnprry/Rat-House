@@ -18,7 +18,7 @@ public class TutorialScript : MonoBehaviour
 
     //Variables for any attack
     private int _selected = 0;
-    private int _maxBattleOptions = 3;
+    private int _maxBattleOptions = 4;
 
     public Animator anim;
 
@@ -34,6 +34,8 @@ public class TutorialScript : MonoBehaviour
 
     [TextArea(3, 5)]
     public string[] beforeBattleDialogue;
+
+    public GameObject[] overworldLevelOne;
 
 
     //Shows the Opening Dialogue for the tutorial
@@ -51,6 +53,8 @@ public class TutorialScript : MonoBehaviour
             //When we're at the end of the intro dialogue
             if (_index == dialogue.sentences.Length)
             {
+                overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
+
                 //Lower the text box
                 anim.SetBool("isOpen", false);
 
@@ -62,9 +66,10 @@ public class TutorialScript : MonoBehaviour
                 //play some sort of screen wipe
                 GameManager.instance.anim.CrossFade("Fade_Out", 1);
                 yield return new WaitForSeconds(2);
-                
+
                 //load correct scene
-                SceneManager.LoadScene("Tutorial_Battle-FINAL");
+                TurnOffScene();
+                SceneManager.LoadScene("Tutorial_Battle-FINAL", LoadSceneMode.Additive);
                 GameManager.instance.anim.CrossFade("Fade_In", 1);
 
                 //Turn off the top overlay and turn on the player health bar
@@ -166,8 +171,14 @@ public class TutorialScript : MonoBehaviour
                 GameManager.instance.topOverlay.SetActive(true);
                 GameManager.instance.healthParent.SetActive(false);
 
-                //Load the Scene
-                SceneManager.LoadScene("Tutorial-FINAL");
+                //play some sort of screen wipe
+                GameManager.instance.anim.CrossFade("Fade_Out", 1);
+                yield return new WaitForSeconds(2);
+
+                //load correct scene
+                TurnOnScene();
+                SceneManager.UnloadSceneAsync("Tutorial_Battle-FINAL");
+                GameManager.instance.anim.CrossFade("Fade_In", 1);
 
                 yield return new WaitForSecondsRealtime(0.5f);
 
@@ -264,16 +275,41 @@ public class TutorialScript : MonoBehaviour
 
         //Set up the attack
         StartCoroutine(AudioManager.instance.SetAttackMap(selected));
+        CombatController.instance._stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray();
 
         yield return new WaitForSecondsRealtime(1f);
 
         //wait until the attack music has stopped playing
-      //  yield return new WaitUntil(() => !AudioManager.instance.attackMusic.isPlaying);
+        yield return new WaitUntil(() => AudioManager.instance.startAction);
+        yield return new WaitUntil(() => !AudioManager.instance.startAction);
 
         //Wait half a second
         yield return new WaitForSecondsRealtime(0.5f);
 
+        if (selected == 0 || selected == 1)
+        {
+            var e = CombatController.instance._inBattle[0].GetComponent<Enemy>();
+            e.healthSlider.value -= .25f;
+        }
+
+        if (CombatController.instance.selectedAction == ActionType.Heal)
+        {
+            ShowBattleMenu();
+            _selected = 0;
+
+            CombatController.instance.playerHealthSlider.value = 1;
+            CombatController.instance.playerHealthText.text = 100 + "%";
+
+            CombatController.instance.HighlightMenuItem();
+            CombatController.instance.selectedAction = ActionType.Punch;
+
+            CombatController.instance.ResetSlider();
+            StartCoroutine(AnyAttack());
+            yield break;
+        }
+
         _isFinished = true;
+        CombatController.instance.ResetSlider();
     }
 
     IEnumerator Kick()
@@ -307,13 +343,14 @@ public class TutorialScript : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         //Start the attack music
-        StartCoroutine(StartAttackMusic(0));
+        StartCoroutine(StartAttackMusic(1));
 
         //set selected enemy to fase
         _enemySelected = false;
 
-        //Change selected action to default
-        CombatController.instance.selectedAction = ActionType.Punch;
+        //wait until the attack music has stopped playing
+        yield return new WaitUntil(() => AudioManager.instance.startAction);
+        yield return new WaitUntil(() => !AudioManager.instance.startAction);
     }
 
     IEnumerator UseAttackItem()
@@ -353,20 +390,19 @@ public class TutorialScript : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        //Play Splash screen
+        var e = CombatController.instance._inBattle[0].GetComponent<Enemy>();
+        e.healthSlider.value -= .25f;
 
         //wait for above to be done
         yield return new WaitForSecondsRealtime(0.5f);
 
         _isFinished = true;
-
-        //Change selected action
-        CombatController.instance.selectedAction = ActionType.Punch;
     }
 
     IEnumerator EnemyAttacks()
     {
-
+        CombatController.instance._stats.gameObject.transform.position = new Vector3(12.5f, 6.19f, 0f);
+        CombatController.instance._stats.gameObject.GetComponent<Note>().Flip();
         //turn off the battle anim
         GameManager.instance.battleAnimator.SetBool("IsOpen", false);
 
@@ -374,8 +410,6 @@ public class TutorialScript : MonoBehaviour
 
         //Turn off the battle menu
         CombatController.instance.TurnOffHighlight();
-
-        //WHEN WE HAVE THE DODGING IN PLACE THAT HERE
 
         //For now this is the placeholder attacks
         var e = CombatController.instance._inBattle[0].GetComponent<Enemy>();
@@ -386,7 +420,11 @@ public class TutorialScript : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.5f);
 
+        CombatController.instance.playerHealthSlider.value -= .25f;
+        CombatController.instance.playerHealthText.text = 75 + "%";
+
         _isFinished = true;
+        CombatController.instance.ResetSlider();
         ShowBattleMenu();
         CombatController.instance.HighlightMenuItem();
     }
@@ -414,9 +452,16 @@ public class TutorialScript : MonoBehaviour
         //turn off battle anim
         GameManager.instance.battleAnimator.SetBool("IsOpen", false);
 
-        //Play some animation
+        //when you hit space...
+        StartCoroutine(SelectPlayer());
+
+        //wait for the player to slesct enemy
+        yield return new WaitUntil(() => _enemySelected);
 
         yield return new WaitForSecondsRealtime(0.5f);
+
+        CombatController.instance.playerHealthSlider.value += .1f;
+        CombatController.instance.playerHealthText.text = 85 + "%";
 
         _isFinished = true;
         ShowBattleMenu();
@@ -460,18 +505,23 @@ public class TutorialScript : MonoBehaviour
                 {
                     case 0:
                         Debug.Log("Punch");
+                        CombatController.instance.selectedAction = ActionType.Punch;
                         StartCoroutine(ChooseAttack());
                         break;
                     case 1:
                         Debug.Log("Kick");
+                        CombatController.instance.selectedAction = ActionType.Kick;
                         StartCoroutine(ChooseAttack());
                         break;
                     case 2:
-                        Debug.Log("Items");
-                        CombatController.instance.selectedAction = ActionType.Item;
-                        _selected = 0;
-                        ShowItemMenu(2, 1);
-                        StartCoroutine(ChooseItem());
+                        Debug.Log("Throw");
+                        CombatController.instance.selectedAction = ActionType.Throw;
+                        StartCoroutine(ChooseAttack());
+                        break;
+                    case 3:
+                        Debug.Log("Suck Blood");
+                        CombatController.instance.selectedAction = ActionType.Heal;
+                        StartCoroutine(ChooseAttack());
                         break;
                     default:
                         Debug.LogError("Something has gone wrong in Combat Controller");
@@ -493,6 +543,7 @@ public class TutorialScript : MonoBehaviour
 
                 //reset the selected action to 0
                 _selected = 0;
+                StartCoroutine(ChooseItem());
                 yield break;
             }
 
@@ -509,6 +560,15 @@ public class TutorialScript : MonoBehaviour
             {
                 CombatController.instance.selectedAction = ActionType.Kick;
             }
+            else if (_selected == 2)
+            {
+                CombatController.instance.selectedAction = ActionType.Throw;
+            }
+            else if (_selected == 3)
+            {
+                CombatController.instance.selectedAction = ActionType.Heal;
+            }
+
 
             yield return new WaitForEndOfFrame();
             StartCoroutine(AnyAttack());
@@ -583,7 +643,15 @@ public class TutorialScript : MonoBehaviour
                         break;
                     case 0:
                         Debug.Log("Heal");
-                        StartCoroutine(ChooseItem());
+                        CombatController.instance.playerHealthSlider.value += .1f;
+                        CombatController.instance.playerHealthText.text = 95 + "%";
+                        
+                        ShowBattleMenu();
+                        _selected = 0;
+                        CombatController.instance.HighlightMenuItem();
+                        CombatController.instance.selectedAction = ActionType.Punch;
+
+                        StartCoroutine(AnyAttack());
                         break;
                     default:
                         Debug.LogError("Something has gone wrong in Combat Controller");
@@ -638,6 +706,29 @@ public class TutorialScript : MonoBehaviour
         _enemySelected = true;
     }
 
+    IEnumerator SelectPlayer()
+    {
+        Debug.Log("Select Player");
+
+        //Make battle menu disappear and highlight the correct enemy
+        GameManager.instance.battleAnimator.SetBool("IsOpen", false);
+        CombatController.instance.HighlightPlayer();
+
+        //Set enemy selected to be false
+        _enemySelected = false;
+
+        //wait for the player to press enter/space
+        yield return new WaitUntil(() => Input.GetButtonDown("SelectAction"));
+
+        yield return new WaitForEndOfFrame();
+
+        //Turn off the enemy highlight
+        CombatController.instance.TurnOffHighlight();
+
+        //Set enemy selected to be true
+        _enemySelected = true;
+    }
+
     void ShowItemMenu(int health, int damage)
     {
         //sets the text pos
@@ -651,11 +742,11 @@ public class TutorialScript : MonoBehaviour
         {
             var item = i.item.ToString().Replace('_', ' ');
             var obj = Instantiate(text, CombatController.instance.itemMenu.transform);
-            if (i.item == ItemType.Basic_Damage)
+            if (i.item == ItemType.Spork)
             {
                 obj.GetComponent<TextMeshProUGUI>().text = item + " (" + damage + ")";
             }
-            else if (i.item == ItemType.Basic_Heath)
+            else if (i.item == ItemType.Blood_Bag)
             {
                 obj.GetComponent<TextMeshProUGUI>().text = item + " (" + health + ")";
             }
@@ -744,5 +835,21 @@ public class TutorialScript : MonoBehaviour
     {
         StopAllCoroutines();
         _skip = true;
+    }
+
+    public void TurnOffScene()
+    {
+        foreach (GameObject obj in overworldLevelOne)
+        {
+            obj.SetActive(false);
+        }
+    }
+
+    public void TurnOnScene()
+    {
+        foreach (GameObject obj in overworldLevelOne)
+        {
+            obj.SetActive(true);
+        }
     }
 }

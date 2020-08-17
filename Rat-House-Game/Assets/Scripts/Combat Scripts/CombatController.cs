@@ -16,8 +16,8 @@ public enum ActionType
 
 public enum ItemType
 {
-    Basic_Heath = 0,
-    Basic_Damage = 1,
+    Blood_Bag = 0,
+    Spork = 1,
 }
 
 public struct Items
@@ -73,6 +73,8 @@ public class CombatController : MonoBehaviour
 
     //Current enemy selected
     private int _selectedEnemy = 0;
+    private int _battleEnd;
+    private int _battleStart = 0;
 
     //Current enemy selected
     private int _selectedItem = 0;
@@ -81,7 +83,8 @@ public class CombatController : MonoBehaviour
     public bool enemyTurnOver = false;
 
     //Keeps trackof player/enemy stats in battle
-    private CombatStats _stats;
+    [HideInInspector]
+    public CombatStats _stats;
 
     [Header("Menus")]
     public GameObject attackMenuParent;
@@ -90,12 +93,13 @@ public class CombatController : MonoBehaviour
     public GameObject itemMenu;
     public GameObject menuSelect;
     private GameObject _enemyParent;
-    private GameObject _enemyHealthParent;
+    private GameObject _enemyEffects;
 
     [Header("UI")]
     public Slider playerHealthSlider;
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI hitDetectionText;
+    public Animator SplashAnim;
     public Image[] splashScreensGood;
     public Image[] splashScreensBad;
 
@@ -124,10 +128,13 @@ public class CombatController : MonoBehaviour
 
         //Reset Stats
         _stats.SetStats();
+        ResetSlider();
 
+        AudioManager.instance.StartCombatMusic();
         GameManager.instance.deathScreenParent.SetActive(false);
-        attackMenuParent.SetActive(true);
-        StartCoroutine(ChooseAction());
+        ShowActionMenu();
+        HighlightMenuItem();
+        GameManager.instance.battleAnimator.SetBool("IsOpen", true);
     }
 
     public void ClearBattle()
@@ -142,9 +149,13 @@ public class CombatController : MonoBehaviour
         _selectedEnemy = 0;
         selectedAction = ActionType.Punch;
 
+        int index = 0;
+
         foreach (Transform child in _enemyParent.transform)
         {
+            enemyHealthBars[index].gameObject.SetActive(false);
             Destroy(child.gameObject);
+            index++;
         }
 
         ClearItemMenu();
@@ -162,13 +173,19 @@ public class CombatController : MonoBehaviour
 
         //find the enemy parent
         _enemyParent = GameObject.FindGameObjectWithTag("Enemy Parent");
+        _enemyEffects = GameObject.FindGameObjectWithTag("Enemy Effects");
+        
 
         //Place the enemies
         PlaceEnemies();
+        _battleEnd = _inBattle.Count - 1;
+        _battleStart = 0;
 
         //Display player health
         GameManager.instance.healthParent.SetActive(true);
         GameManager.instance.battleAnimator.SetBool("IsOpen", true);
+        ShowActionMenu();
+        HighlightMenuItem();
 
         //Set the Stats
         _stats.SetStats();
@@ -188,6 +205,7 @@ public class CombatController : MonoBehaviour
             _inBattle.Add(enemy);
 
             enemyHealthBars[index].gameObject.SetActive(true);
+            enemyHealthBars[index].value = 1;
 
             //Set enemy health
 
@@ -201,40 +219,95 @@ public class CombatController : MonoBehaviour
         }
     }
 
+    //For adding an enemy to a battle
     public void AddEnemy(EnemyType enemy)
     {
-        var index = _inBattle.Count;
-        Debug.Log("add enemy of type: " + enemy.ToString());
+        //set index to be the length
+        int index = _inBattle.Count;
 
-        //if the board is full
-        if (index >= 5)
+        //Check if any enemies were killed, if so rest the index
+        for (int i = 1; i < _inBattle.Count; i++)
         {
-            //Would want to find the weakest enemy
-            //delete him
-            //set index to be his pos
-
-            //for now do nothing
-            return;
+            if (_inBattle[i] == null)
+            {
+                index = i;
+                break;
+            }
         }
 
+        if (index >= 5)
+        {
+            index = ReplaceWeakerEnemies();
+        }
+
+        Debug.Log("Index: " + index);
+        Debug.Log("add enemy of type: " + enemy.ToString());
 
         //Instasiate the enmy of Type
         GameObject newE = Instantiate(Resources.Load("Enemies/" + enemy.ToString(), typeof(GameObject)) as GameObject, enemyPlacement[index], Quaternion.identity);
 
-        //Add it to the list of enemy game objects
-        _inBattle.Add(newE);
+        if (index < _inBattle.Count)
+        {
+            if (_inBattle[index] != null)
+                Destroy(_inBattle[index].gameObject);
+
+            _inBattle[index] = newE;
+            enemyList[index] = enemy;
+        }
+        else
+        {
+            _inBattle.Add(newE);
+            enemyList.Add(enemy);
+            _stats.enemyHealth.Add(0);
+        }
+
+
 
         //Set enemy health
+        _stats.enemyHealth[index] = newE.GetComponent<Enemy>().GetStartingHealth();
         enemyHealthBars[index].gameObject.SetActive(true);
+        enemyHealthBars[index].value = 1;
         newE.GetComponent<Enemy>().healthSlider = enemyHealthBars[index];
 
         //Parent enemy
         newE.transform.parent = _enemyParent.transform;
+        _battleEnd = _inBattle.Count - 1;
+        _battleStart = 0;
     }
 
-    //Handles the player choosing which action to take
+    int ReplaceWeakerEnemies()
+    {
+        var index = 0;
+
+        //look to see if the lst still contains them, if yes, replace them
+        if (enemyList.Contains(EnemyType.Intern))
+        {
+            index = enemyList.IndexOf(EnemyType.Intern);
+        }
+        else if (enemyList.Contains(EnemyType.Coffee))
+        {
+            index = enemyList.IndexOf(EnemyType.Coffee);
+
+        }
+        else if (enemyList.Contains(EnemyType.Water_Cooler))
+        {
+            index = enemyList.IndexOf(EnemyType.Water_Cooler);
+
+        }
+
+        return index;
+    }
+
+    public void ResetSlider()
+    {
+        //TODO: MAKE THIS NOT HARD CODED IN I DONT FORSEE THE NUMBERS CHSNGING BUT ITS BAD FIX IT
+        _stats.gameObject.transform.position = new Vector3(3f, 6.19f, 0f);
+        _stats.gameObject.GetComponent<Note>().Flip(1);
+    }
+
     public IEnumerator ChooseAction()
     {
+        Debug.Log("choose Action");
         //Wait until a correct key is pressed
         yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("SelectAction") || Input.GetButtonDown("Right"));
 
@@ -331,6 +404,7 @@ public class CombatController : MonoBehaviour
         yield return new WaitForEndOfFrame();
         StartCoroutine(ChooseAction());
     }
+   
     public IEnumerator ChooseItem()
     {
         //Wait until a correct key is pressed
@@ -368,11 +442,11 @@ public class CombatController : MonoBehaviour
 
                 switch (itemList[_selectedItem].item)
                 {
-                    case ItemType.Basic_Heath:
+                    case ItemType.Blood_Bag:
                         Debug.Log("Basic Heath Item");
                         StartCoroutine(ChoosePlayer(true));
                         break;
-                    case ItemType.Basic_Damage:
+                    case ItemType.Spork:
                         Debug.Log("Basic Damage Item");
                         UseDamageItem(itemList[_selectedItem]);
                         break;
@@ -412,7 +486,6 @@ public class CombatController : MonoBehaviour
         StartCoroutine(ChooseItem());
     }
 
-    //Allows the player to choose which enemy they will attack
     IEnumerator ChooseEnemy(bool isItem = false, float itemDmg = 0)
     {
         //Wait until a correct key is pressed
@@ -421,33 +494,32 @@ public class CombatController : MonoBehaviour
 
         if (Input.GetButtonDown("Up") || Input.GetButtonDown("Left"))
         {
-            if (_selectedEnemy == 0)
+            if (_selectedEnemy == _battleStart)
             {
-                _selectedEnemy = _inBattle.Count - 1;
+                _selectedEnemy = _battleEnd;
             }
             else
             {
+                if (_inBattle[_selectedEnemy - 1] == null)
+                {
+                    _selectedEnemy--;
+                }
                 _selectedEnemy--;
             }
 
-            if (_inBattle[_selectedEnemy] == null)
-            {
-                _selectedEnemy--;
-            }
         }
         else if (Input.GetButtonDown("Down") || Input.GetButtonDown("Right"))
         {
-            if (_selectedEnemy == _inBattle.Count - 1)
+            if (_selectedEnemy == _battleEnd)
             {
-                _selectedEnemy = 0;
+                _selectedEnemy = _battleStart;
             }
             else
             {
-                _selectedEnemy++;
-            }
-
-            if (_inBattle[_selectedEnemy] == null)
-            {
+                if (_inBattle[_selectedEnemy + 1] == null)
+                {
+                    _selectedEnemy++;
+                }
                 _selectedEnemy++;
             }
         }
@@ -481,7 +553,7 @@ public class CombatController : MonoBehaviour
             HighlightMenuItem();
             yield break;
         }
-        //TODO:Add some sort of visual display to show the selected enemy
+
         HighlightEnemy();
 
         yield return new WaitForEndOfFrame();
@@ -562,7 +634,7 @@ public class CombatController : MonoBehaviour
 
     public void HighlightPlayer()
     {
-        var spotlight = _enemyParent.transform.GetChild(0);
+        var spotlight = _enemyEffects.transform.GetChild(0);
 
         spotlight.gameObject.SetActive(true);
         spotlight.transform.localPosition = new Vector3(-4.14f, 0f, -0.14f);
@@ -570,7 +642,7 @@ public class CombatController : MonoBehaviour
 
     public void HighlightEnemy()
     {
-        var spotlight = _enemyParent.transform.GetChild(0);
+        var spotlight = _enemyEffects.transform.GetChild(0);
 
         spotlight.gameObject.SetActive(true);
         spotlight.transform.position = enemyPlacement[_selectedEnemy];
@@ -613,7 +685,6 @@ public class CombatController : MonoBehaviour
                     //Waits untik this returns true
                     yield return new WaitUntil(() => GameManager.instance.susan.IsTurnOver());
 
-
                     //Reset the IsTurnOver to be false
                     GameManager.instance.susan.SetIsTurnOver(false);
 
@@ -635,17 +706,22 @@ public class CombatController : MonoBehaviour
                     _stats.UpdatePlayerHealth(-1 * en.GetBaseAttack());
                 }
 
+                //if the player is dead, break
+                if (_stats.playerHealth <= 0)
+                { yield break; }
+
                 //check if it we're using "good" or "bad" splash screens
                 var splashScreen = CombatStats.amountHit >= (CombatStats.totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
 
                 Debug.Log("Turn Over");
 
                 splashScreen[splashScreen.Length - 1].gameObject.SetActive(true);
-               
 
-                yield return new WaitForSecondsRealtime(1f);
+                string animation = "Base Layer." + splashScreen[splashScreen.Length - 1].gameObject.name;
+                CombatController.instance.SplashAnim.Play(animation, 0, 0f);
 
-                
+                yield return new WaitForSecondsRealtime(2f);
+
                 splashScreen[splashScreen.Length - 1].gameObject.SetActive(false);
 
                 yield return new WaitForSecondsRealtime(0.75f);
@@ -672,9 +748,12 @@ public class CombatController : MonoBehaviour
             if (_inBattle[i] != null)
             {
                 _selectedEnemy = i;
+                _battleStart = i;
                 break;
             }
         }
+
+        FindEnd(_inBattle.Count - 1);
 
         //Play player turn SFX
         AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[3];
@@ -694,13 +773,26 @@ public class CombatController : MonoBehaviour
         yield break;
     }
 
+    void FindEnd(int index)
+    {
+        if (_inBattle[index] != null)
+        {
+            _battleEnd = index;
+        }
+        else
+        {
+            FindEnd(index - 1);
+        }
+
+    }
+
     //Turns off all the highlights and menus
     public void TurnOffHighlight()
     {
         menuSelect.SetActive(false);
 
         //turn off spotlight
-        _enemyParent.transform.GetChild(0).gameObject.SetActive(false);
+        _enemyEffects.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     //Adds highlight to the battle menu
@@ -789,6 +881,7 @@ public class CombatController : MonoBehaviour
     {
         _stats = GameObject.FindGameObjectWithTag("CombatStats").GetComponent<CombatStats>();
         _enemyParent = GameObject.FindGameObjectWithTag("Enemy Parent");
+        _enemyEffects = GameObject.FindGameObjectWithTag("Enemy Effects");
 
         PlaceEnemies();
     }
@@ -801,9 +894,12 @@ public class CombatController : MonoBehaviour
 
         //find the enemy parent
         _enemyParent = GameObject.FindGameObjectWithTag("Enemy Parent");
+        _enemyEffects = GameObject.FindGameObjectWithTag("Enemy Effects");
 
         //Place the enemies
         PlaceEnemies();
+        _battleEnd = _inBattle.Count - 1;
+        _battleStart = 0;
 
         //Display player health
         GameManager.instance.healthParent.SetActive(true);

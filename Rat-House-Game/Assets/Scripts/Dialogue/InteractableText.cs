@@ -15,24 +15,33 @@ public class InteractableText : MonoBehaviour
 
     public bool playerInRange;
 
-    // Update is called once per frame
-    void Update()
+
+    IEnumerator ShowInteractabeText()
     {
         //If you press space when the player is close enough...
-        if (Input.GetButtonDown("SelectAction") && playerInRange)
+        if (Input.GetButton("SelectAction") && !GameManager.instance.dialogueInProgress && GameManager.instance.GetGameState() != GameState.Battle)
         {
-            //close the text box if it's open...
-            if (anim.GetBool("isOpen") == true)
-            {
-                anim.SetBool("isOpen", false);
-            }
-            //or open it if it's closed
-            else
-            {
-                anim.SetBool("isOpen", true);
-                dialogueText.text = itemComments[Random.Range(0, itemComments.Length - 1)];
-            }
+            GameManager.instance.dialogueInProgress = true;
+            GameManager.instance.dialogueOver = false;
+
+
+            anim.SetBool("isOpen", true);
+            nameText.text = "Joe";
+            dialogueText.text = itemComments[Random.Range(0, itemComments.Length)];
+
+            yield return new WaitUntil(() => Input.GetButtonDown("SelectAction"));
+
+            //end dialogue
+            anim.SetBool("isOpen", false);
+            GameManager.instance.dialogueInProgress = false;
+            GameManager.instance.dialogueOver = true;
+
+            playerInRange = false;
+            yield break;
         }
+
+        yield return new WaitForEndOfFrame();
+        StartCoroutine(ShowInteractabeText());
     }
 
     //Check if the player is close enough
@@ -41,6 +50,7 @@ public class InteractableText : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
+            StartCoroutine(ShowInteractabeText());
         }
     }
 
@@ -51,6 +61,7 @@ public class InteractableText : MonoBehaviour
         {
             //close the text box
             playerInRange = false;
+            StopAllCoroutines();
             anim.SetBool("isOpen", false);
         }
     }
