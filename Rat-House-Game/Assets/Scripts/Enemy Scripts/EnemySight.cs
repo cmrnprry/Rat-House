@@ -7,8 +7,6 @@ public class EnemySight : MonoBehaviour
     private EnemyController enemyController;
     private EnemyMovement enemyMovement;
 
-    public bool playerInSight = false;
-
     public GameObject player;
 
     void Awake()
@@ -19,28 +17,30 @@ public class EnemySight : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == player)
+        if (other.gameObject == player && !GameManager.instance.dialogueInProgress)
         {
-            playerInSight = true;
             enemyMovement.canMove = false;
-            Debug.Log("I see the player");
+
             player.GetComponent<PlayerController>().StopPlayerMovement();
 
-            if (!enemyController.isBeaten && !GameManager.instance.postBattle)
+            if (!GameManager.instance.postBattle)
             {
-                //Set battle enemies
-                CombatController.instance.SetEnemies(enemyController.enemiesInBattle);
-                GameManager.instance.currEnemy = this.gameObject;
+                if (!enemyController.isBeaten)
+                {
+                    //Set battle enemies
+                    CombatController.instance.SetEnemies(enemyController.enemiesInBattle);
+                    GameManager.instance.currEnemy = this.gameObject;
 
-                //Set dialogue and enable the ability to start battle
-                GameManager.instance.SetEnemyDialogue(enemyController.preBattleDialogue);
-                StartCoroutine(StartBattle());
-                GameManager.instance.postBattle = true;
-            }
-            else if (enemyController.isBeaten && !GameManager.instance.postBattle)
-            {
-                GameManager.instance.SetEnemyDialogue(enemyController.beatenBattleDialogue);
-                StartCoroutine(GivePlayerBack());
+                    //Set dialogue and enable the ability to start battle
+                    GameManager.instance.SetEnemyDialogue(enemyController.preBattleDialogue);
+                    StartCoroutine(StartBattle());
+                    GameManager.instance.postBattle = true;
+                }
+                else if (enemyController.isBeaten)
+                {
+                    GameManager.instance.SetEnemyDialogue(enemyController.beatenBattleDialogue);
+                    StartCoroutine(GivePlayerBack());
+                }
             }
         }
     }
@@ -61,8 +61,6 @@ public class EnemySight : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            playerInSight = false;
-
             GameManager.instance.diaAnim.SetBool("isOpen", false);
         }
     }

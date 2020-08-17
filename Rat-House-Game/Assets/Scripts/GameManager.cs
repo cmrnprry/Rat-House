@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
     public Animator diaAnim;
     public Dialogue dialogue;
     public bool dialogueOver = false;
+    public bool dialogueInProgress = false;
     public bool postBattle = false;
     private int _index = 0;
 
@@ -133,8 +134,6 @@ public class GameManager : MonoBehaviour
      **/
     private void UpdateGameState()
     {
-        Debug.Log("update");
-
         switch (_currState)
         {
             case GameState.Overworld:
@@ -226,12 +225,15 @@ public class GameManager : MonoBehaviour
 
     public void SetEnemyDialogue(string[] dia)
     {
+        //if there's no dialogue to be set
         if (dia.Length <= 0)
         {
             dialogueOver = true;
+            dialogueInProgress = false;
             return;
         }
 
+        dialogueInProgress = true;
         diaAnim.SetBool("isOpen", true);
         dialogue.sentences = dia;
         dialogue.StartDialogue();
@@ -240,7 +242,6 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ShowEnemyDialogue()
     {
-        Debug.Log("here");
         //Waits for the text to stop typing
         yield return new WaitUntil(() => dialogue.isTyping == false);
 
@@ -251,7 +252,6 @@ public class GameManager : MonoBehaviour
         //When we're at the end of the intro dialogue
         if (_index == dialogue.sentences.Length)
         {
-            Debug.Log("goodbye");
             //Lower the text box
             diaAnim.SetBool("isOpen", false);
 
@@ -261,10 +261,11 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(.2f);
 
             dialogueOver = true;
+            dialogueInProgress = false;
 
             yield break;
         }
-        Debug.Log("again");
+
         //increase the index
         _index++;
 
