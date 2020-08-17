@@ -99732,6 +99732,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: 50
+  player: {fileID: 853759188}
+  hasEffect: 0
   enemyHealth: []
   offset: 0.35
   delta: 0.1

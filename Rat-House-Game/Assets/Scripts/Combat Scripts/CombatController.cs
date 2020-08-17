@@ -25,8 +25,8 @@ public enum ItemType
 
 //Number tells how much damage per turn effect does
 public enum StatusEffect
-{ 
-    None,
+{
+    None = -1,
     Cures_Burn = 0,
     Cures_Poison = 1,
     Cures_Bleed = 2,
@@ -34,7 +34,6 @@ public enum StatusEffect
     Poison = 7,
     Bleed = 3
 }
-
 
 public struct Items
 {
@@ -54,31 +53,7 @@ public struct Items
     public int count { get; set; }
     public int delta { get; set; }
     public StatusEffect effect { get; set; }
-
-
-    public string GetColor()
-    {
-        string color = "";
-        if (this.effect == StatusEffect.Bleed)
-        {
-            color = "#C0466C";
-        }
-        else if (this.effect == StatusEffect.Burn)
-        {
-            color = "#EE7042";
-
-        }
-        else if (this.effect == StatusEffect.Poison)
-        {
-            color = "#319638";
-
-        }
-
-        Debug.Log("Get Color: " + color);
-        return color;
-    }
 }
-
 
 public class CombatController : MonoBehaviour
 {
@@ -665,6 +640,9 @@ public class CombatController : MonoBehaviour
         GameManager.instance.CollapseItemList(itemList);
 
         //update the player's health
+        itemUsed = item;
+        _stats.itemUsed = itemUsed;
+        Debug.Log(itemUsed.ToString());
         _stats.UpdatePlayerHealth(item.delta);
 
         yield return new WaitForSecondsRealtime(0.75f);
@@ -752,6 +730,9 @@ public class CombatController : MonoBehaviour
                     _stats.UpdatePlayerHealth(-1 * en.GetBaseAttack());
                 }
 
+                if (!_stats.hasEffect)
+                    PlayerStatusEffect(enemyList[enemy]);
+
                 //if the player is dead, break
                 if (_stats.playerHealth <= 0)
                 { yield break; }
@@ -825,6 +806,74 @@ public class CombatController : MonoBehaviour
         enemyTurnOver = false;
         Debug.Log("Enemy Phase Over");
         yield break;
+    }
+
+    void PlayerStatusEffect(EnemyType e)
+    {
+        Debug.Log("Effect?");
+        int effectChance = Random.Range(0, 101);
+        var effect = StatusEffect.None;
+
+        if (e == EnemyType.Water_Cooler)
+        {
+            effect = (effectChance <= 20) ? StatusEffect.Bleed : StatusEffect.None;
+
+        }
+        else if (e == EnemyType.Coffee)
+        {
+            effect = (effectChance <= 20) ? StatusEffect.Burn : StatusEffect.None;
+        }
+        else if (e == EnemyType.Computer_Man)
+        {
+            if (effectChance <= 15)
+            {
+                effect = StatusEffect.Bleed;
+            }
+            else if (effectChance <= 45)
+            {
+                effect = StatusEffect.Burn;
+            }
+        }
+        else if (e == EnemyType.Susan)
+        {
+            if (effectChance <= 10)
+            {
+                effect = StatusEffect.Bleed;
+            }
+            else if (effectChance <= 30)
+            {
+                effect = StatusEffect.Burn;
+            }
+            else if (effectChance <= 60)
+            {
+                effect = StatusEffect.Poison;
+            }
+        }
+
+        if (effect != StatusEffect.None)
+            _stats.SetStatusEffect(effect);
+    }
+
+    public string GetColor(StatusEffect effect)
+    {
+        string color = "";
+        if (effect == StatusEffect.Bleed)
+        {
+            color = "#C0466C";
+        }
+        else if (effect == StatusEffect.Burn)
+        {
+            color = "#EE7042";
+
+        }
+        else if (effect == StatusEffect.Poison)
+        {
+            color = "#319638";
+
+        }
+
+        Debug.Log("Get Color: " + color);
+        return color;
     }
 
     void FindEnd(int index)

@@ -79,22 +79,21 @@ public class Enemy : MonoBehaviour
                 Debug.LogError("Error in Enemy Attack");
                 break;
         }
-
     }
 
-    int CalculateChance()
+    int CalculateChance(int upperbound)
     {
-        return Random.Range(0, 100);
+        return Random.Range(0, upperbound);
     }
 
     //Handles attacks for the Coffee Man
     IEnumerator CoffeeAttack()
     {
         //pick which attack is made via the chance
-        int chance = CalculateChance();
+        int attackChance = CalculateChance(100);
         int music = 0;
 
-        if (chance >= 70)
+        if (attackChance >= 70)
         {
             //Set the beats to hit and the total hits
             AudioManager.instance.chosenEnemyAttack = coffeeBeats[0].beatsToHit;
@@ -145,7 +144,7 @@ public class Enemy : MonoBehaviour
     IEnumerator InternAttack()
     {
         //pick which attack is made via the chance
-        int chance = CalculateChance();
+        int chance = CalculateChance(100);
         int music = 0;
 
         if (chance >= 0)
@@ -191,7 +190,7 @@ public class Enemy : MonoBehaviour
     IEnumerator WaterAttack()
     {
         //pick which attack is made via the chance
-        int chance = CalculateChance();
+        int chance = CalculateChance(100);
         int music = 0;
 
         if (chance >= 60)
@@ -244,7 +243,7 @@ public class Enemy : MonoBehaviour
     IEnumerator ComputerAttack()
     {
         //pick which attack is made via the chance
-        int chance = CalculateChance();
+        int chance = CalculateChance(100);
         int music = 0;
 
         if (chance >= 50)
@@ -358,7 +357,7 @@ public class Enemy : MonoBehaviour
         hasEffect = true;
 
         Color color = new Color();
-        ColorUtility.TryParseHtmlString(item.GetColor(), out color);
+        ColorUtility.TryParseHtmlString(CombatController.instance.GetColor(effect), out color);
         Debug.Log("Color: " + color.ToString());
         gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = color;
 
@@ -381,10 +380,9 @@ public class Enemy : MonoBehaviour
     public void RemoveEffect()
     {
         hasEffect = false;
-
+        effect = StatusEffect.None;
         gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
     }
-
 
     public float GetBaseAttack()
     {
