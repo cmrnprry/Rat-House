@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
         computerBeats = beats.GetRange(5, 3);
 
         _attackAnim = GameObject.FindGameObjectWithTag(effectName).GetComponent<ParticleSystem>();
-        _attackAnim.gameObject.transform.position = transform.position;
+        _attackAnim.gameObject.transform.position = gameObject.transform.position;
     }
 
     //Handles a single enemy's turn
@@ -305,19 +305,37 @@ public class Enemy : MonoBehaviour
     //Handles attacks for Intern
     IEnumerator TutorialInternAttack()
     {
+        //pick which attack is made via the chance
+        int music = 0;
+
+        //Set the beats to hit and the total hits
+        AudioManager.instance.chosenEnemyAttack = internBeats[0].beatsToHit;
+        CombatStats.totalHits = internBeats[0].beatsToHit.Count;
+
+        //Set the base attack
+        _baseAttack = internBeats[0].base_damage;
+
+        //set the music clip number
+        music = 4;
+
+        Note.showDodge = true;
+
+        yield return new WaitForEndOfFrame();
+
+        StartCoroutine(AudioManager.instance.SetDodgeMap(music));
+
         //Play some animation
         _attackAnim.Play();
         Debug.Log("Play attack animation");
 
+        yield return new WaitUntil(() => AudioManager.instance.startDodge);
+
         //while the animation is playing wait
+        yield return new WaitUntil(() => !AudioManager.instance.startDodge);
 
-        while (!_attackAnim.isStopped)
-        {
-            Debug.Log("attack animation Over: " + _attackAnim.isStopped);
-            yield return null;
-        }
+        _attackAnim.Stop();
 
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSecondsRealtime(0.5f);
 
         _turnOver = true;
     }

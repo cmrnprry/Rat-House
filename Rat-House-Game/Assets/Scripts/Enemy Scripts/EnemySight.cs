@@ -17,7 +17,11 @@ public class EnemySight : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == player && !GameManager.instance.dialogueInProgress)
+        if (GameManager.instance.tempWait)
+        {
+            enemyMovement.canMove = true;
+        }
+        else if (other.gameObject == player && !GameManager.instance.dialogueInProgress)
         {
             enemyMovement.canMove = false;
 
@@ -47,13 +51,13 @@ public class EnemySight : MonoBehaviour
 
     IEnumerator StartBattle()
     {
-        yield return new WaitUntil(() => GameManager.instance.dialogueOver);
+        yield return new WaitUntil(() => GameManager.instance.dialogueOver && !GameManager.instance.dialogueInProgress);
         GameManager.instance.SetGameState(GameState.Battle);
     }
 
     IEnumerator GivePlayerBack()
     {
-        yield return new WaitUntil(() => GameManager.instance.dialogueOver);
+        yield return new WaitUntil(() => GameManager.instance.dialogueOver && !GameManager.instance.dialogueInProgress);
         StartCoroutine(player.GetComponent<PlayerController>().PlayerMovement());
     }
 
@@ -61,6 +65,7 @@ public class EnemySight : MonoBehaviour
     {
         if (other.gameObject == player)
         {
+            GameManager.instance.tempWait = false;
             GameManager.instance.diaAnim.SetBool("isOpen", false);
         }
     }

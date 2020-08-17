@@ -213,7 +213,7 @@ public class AudioManager : MonoBehaviour
     }
 
     //Waits a second before starting the dodge music
-    public IEnumerator SetDodgeMap(int action)
+    public IEnumerator SetDodgeMap(int action = 0)
     {
         //TODO: Change this to have 
 

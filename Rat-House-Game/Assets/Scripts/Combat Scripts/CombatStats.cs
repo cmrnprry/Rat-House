@@ -57,7 +57,7 @@ public class CombatStats : MonoBehaviour
         _attackDamage = CombatController.instance.attackDamage;
 
         //Player Stats
-        playerHealth = 100f;
+        playerHealth = 2f;
         CombatController.instance.playerHealthText.text = playerHealth + "%";
 
         //Update the player health slider
@@ -68,8 +68,9 @@ public class CombatStats : MonoBehaviour
         {
             var h = (e.name == "Susan(Clone)") ? GameManager.instance.susan.GetStartingHealth() : e.GetComponent<Enemy>().GetStartingHealth();
             enemyHealth.Add(h);
-            _enemiesLeft++;
         }
+
+        _enemiesLeft = CombatController.instance._inBattle.Count;
     }
 
     private void Update()

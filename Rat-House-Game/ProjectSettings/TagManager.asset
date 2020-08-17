@@ -15,9 +15,7 @@ TagManager:
   - intern_effect
   - coffee_effect
   - water_effect
-  - Dialogue
-  - Enemy Health Parent
-  - Susan
+  - Enemy Effects
   layers:
   - Default
   - TransparentFX

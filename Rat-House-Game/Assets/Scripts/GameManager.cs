@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     //what level we're currently on
     public int level;
+    public bool tempWait;
 
     [Header("Handles Difficulty")]
     //Number of times the player has retried a battle
@@ -122,6 +123,11 @@ public class GameManager : MonoBehaviour
             tutorial.anim.SetBool("isOpen", false);
         }
 
+        if ((Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.T))
+        {
+            SetGameState(GameState.Tutorial);
+        }
+
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.Q))
         {
             Application.Quit();
@@ -194,8 +200,6 @@ public class GameManager : MonoBehaviour
     **/
     public IEnumerator StartBattle()
     {
-        dialogueOver = false;
-
         //play some sort of screen wipe
         anim.CrossFade("Fade_Out", 1);
         yield return new WaitForSeconds(2);
@@ -207,7 +211,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Battle-FINAL", LoadSceneMode.Additive);
         yield return new WaitForFixedUpdate();
 
-       
+
 
         yield return new WaitForSeconds(2);
         AudioManager.instance.StartCombatMusic();
@@ -220,7 +224,6 @@ public class GameManager : MonoBehaviour
 
         //Spawn the correct enemies 
         CombatController.instance.SetUpBattleScene();
-        StartCoroutine(CombatController.instance.ChooseAction());
     }
 
     public void SetEnemyDialogue(string[] dia)
@@ -305,15 +308,14 @@ public class GameManager : MonoBehaviour
 
         anim.CrossFade("Fade_In", 1);
 
-        //Change enemy to Beaten
-        if (currEnemy != null)
-            currEnemy.GetComponent<EnemyController>().isBeaten = true;
-
         yield return new WaitForEndOfFrame();
 
         //Show any Dialogue
-        SetEnemyDialogue(currEnemy.GetComponent<EnemyController>().postBattleDialogue);
-        yield return new WaitUntil(() => dialogueOver);
+        if (currEnemy.GetComponent<EnemyController>().isBeaten)
+        {
+            SetEnemyDialogue(currEnemy.GetComponent<EnemyController>().postBattleDialogue);
+            yield return new WaitUntil(() => dialogueOver);
+        }
 
         //Give player movement 
         StartCoroutine(player.PlayerMovement());
@@ -331,6 +333,10 @@ public class GameManager : MonoBehaviour
 
         //Show new attack gained if any
 
+        //Change enemy to Beaten
+        if (currEnemy != null)
+            currEnemy.GetComponent<EnemyController>().isBeaten = true;
+
         yield return new WaitForEndOfFrame();
 
         //Set Game State
@@ -347,6 +353,7 @@ public class GameManager : MonoBehaviour
 
         yield return null;
 
+        TurnOffBattleMenus();
         deathScreenParent.SetActive(true);
     }
 
@@ -354,12 +361,16 @@ public class GameManager : MonoBehaviour
     public void RetryBattle()
     {
         numberRetries++;
+        topOverlay.SetActive(false);
+        healthParent.SetActive(true);
         CombatController.instance.ResetBattle();
     }
 
     //Retrun to the overworld
     public void QuitBattle()
     {
+        CombatController.instance.ClearBattle();
+        tempWait = true;
         SetGameState(GameState.Overworld);
     }
 
@@ -369,6 +380,7 @@ public class GameManager : MonoBehaviour
         AudioManager.instance.StopCombatMusic();
 
         //Turn off the battle UI
+        deathScreenParent.SetActive(false);
         battleAnimator.SetBool("IsOpen", false);
         healthParent.SetActive(false);
         topOverlay.SetActive(true);

@@ -186,6 +186,7 @@ public class Susan : MonoBehaviour
             //reset the index to 0
             _index = 0;
 
+
             if (phase == 0)
             {
                 Debug.Log("Got to battle");
