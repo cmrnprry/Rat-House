@@ -327,7 +327,6 @@ public class CombatController : MonoBehaviour
 
     public IEnumerator ChooseAction()
     {
-        Debug.Log("choose Action");
         //Wait until a correct key is pressed
         yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("SelectAction") || Input.GetButtonDown("Right"));
 
@@ -400,7 +399,6 @@ public class CombatController : MonoBehaviour
             AudioManager.instance.SFX.Play();
 
             selectedAction = ActionType.Item;
-            Debug.Log("Open Item Menu");
 
             //Wait a frame before showing anything
             yield return new WaitForEndOfFrame();
@@ -463,23 +461,18 @@ public class CombatController : MonoBehaviour
                 switch (itemList[_selectedItem].item)
                 {
                     case ItemType.Calmy_Tea:
-                        Debug.Log("Basic Heath Item");
                         StartCoroutine(ChoosePlayer(true));
                         break;
                     case ItemType.Jims_Lunch:
-                        Debug.Log("Basic Heath Item");
                         StartCoroutine(ChoosePlayer(true));
                         break;
                     case ItemType.Pams_Fruitcake:
-                        Debug.Log("Basic Damage Item");
                         UseDamageItem(itemList[_selectedItem]);
                         break;
                     case ItemType.Hot_Coffee:
-                        Debug.Log("Basic Damage Item");
                         UseDamageItem(itemList[_selectedItem]);
                         break;
                     case ItemType.Plastic_Utensils:
-                        Debug.Log("Basic Damage Item");
                         UseDamageItem(itemList[_selectedItem]);
                         break;
                     default:
@@ -716,7 +709,7 @@ public class CombatController : MonoBehaviour
                 Enemy en = e.GetComponent<Enemy>();
 
                 //check if it we're using "good" or "bad" splash screens
-                var splashScreen = CombatStats.amountHit >= (CombatStats.totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
+                var splashScreen = (CombatStats.amountHit >= (CombatStats.totalHits / 2) && CombatStats.amountHit != 0) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
 
                 if (e.name == "Susan(Clone)")
                 {
@@ -727,13 +720,18 @@ public class CombatController : MonoBehaviour
                     yield return new WaitUntil(() => susan.IsTurnOver());
 
                     //Reset the IsTurnOver to be false
-                   susan.SetIsTurnOver(false);
+                    susan.SetIsTurnOver(false);
 
                     //Deal Damage to Player
                     _stats.UpdatePlayerHealth(-1 * susan.GetBaseAttack());
 
                     //Update the enemy effect if any
                     susan.UpdateEffect();
+
+                    if (susan._currentHealth <= 0)
+                    {
+                        yield break;
+                    }
                 }
                 else
                 {
@@ -750,6 +748,12 @@ public class CombatController : MonoBehaviour
 
                     //Update the enemy effect if any
                     en.UpdateEffect();
+
+                    _stats.enemyHealth[enemy] = en._currentHealth;
+                    if (en._currentHealth <= 0)
+                    {
+                        StartCoroutine(_stats.EnemyDeath(enemy, en));
+                    }
                 }
 
                 if (!_stats.hasEffect)
@@ -759,7 +763,6 @@ public class CombatController : MonoBehaviour
                 if (_stats.playerHealth <= 0)
                 { yield break; }
 
-               
 
                 Debug.Log("Turn Over");
 
@@ -773,12 +776,7 @@ public class CombatController : MonoBehaviour
 
                 splashScreen[splashScreen.Length - 1].gameObject.SetActive(false);
 
-                
-                _stats.enemyHealth[enemy] = en._currentHealth;
-                if (en._currentHealth <= 0)
-                {
-                    StartCoroutine(_stats.EnemyDeath(enemy, en));
-                }
+                Debug.Log("Splash Screen off");
 
                 yield return new WaitForSecondsRealtime(0.75f);
 
@@ -893,7 +891,6 @@ public class CombatController : MonoBehaviour
 
         }
 
-        Debug.Log("Get Color: " + color);
         return color;
     }
 
@@ -939,6 +936,7 @@ public class CombatController : MonoBehaviour
     //Returns to the Battle Menu
     public void ShowActionMenu()
     {
+        Debug.Log("start Action");
         //Clear Item Menu
         ClearItemMenu();
 
@@ -1022,6 +1020,7 @@ public class CombatController : MonoBehaviour
 
         //Place the enemies
         PlaceEnemies();
+        GameManager.instance.susan.anim = _enemyParent.transform.GetChild(0).transform.GetChild(0).GetComponent<Animator>();
         _battleEnd = _inBattle.Count - 1;
         _battleStart = 0;
 

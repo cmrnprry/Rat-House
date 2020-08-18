@@ -100,7 +100,7 @@ AnimatorStateMachine:
     m_Position: {x: 280, y: -20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3622323002262409305}
-    m_Position: {x: 235, y: 65, z: 0}
+    m_Position: {x: 290, y: 80, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7216481879301961875}
     m_Position: {x: 180, y: 220, z: 0}
@@ -131,13 +131,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Hit
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -197,7 +197,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: bf34fa062f3dd7f4185a9c0aa70c3d3c, type: 2}
+  m_Motion: {fileID: 7400000, guid: ae9080f4b463567488a45fdcdc75c387, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

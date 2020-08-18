@@ -178,7 +178,6 @@ public class Enemy : MonoBehaviour
 
         //Play some animation
         _attackAnim.Play();
-        Debug.Log("Play attack animation");
 
         yield return new WaitUntil(() => AudioManager.instance.startDodge);
 

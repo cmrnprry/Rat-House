@@ -3820,6 +3820,7 @@ MonoBehaviour:
   currEnemy: {fileID: 0}
   level: 0
   tempWait: 0
+  isSusanBattle: 0
   numberRetries: 0
   canvas: {fileID: 1755549396}
   inventoryParent: {fileID: 1117742231}
@@ -15356,8 +15357,7 @@ MonoBehaviour:
   startBattle: 040000000100000001000000
   phaseOneBattle: 0000000002000000
   phaseTwoBattle: 0300000003000000
-  susanAnim: {fileID: 8517769230660021125, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
-    type: 3}
+  anim: {fileID: 0}
   preBattleDialogue:
   - Joe:Ah, at last, I've made it to the top floor!
   - "Joe:Come to think of it, this is kind of a weird place for the break room, huh?\r"
@@ -15401,6 +15401,7 @@ MonoBehaviour:
   - "Joe:\rCome along, my beloved...I need to find a new job so I can pay my rent.\r\n"
   _maxHealth: 150
   _currentHealth: 0
+  hasEffect: 0
   _baseAttack: 0
   healthSlider: {fileID: 0}
   numberOfAttacks: 4
@@ -16504,7 +16505,7 @@ Transform:
   - {fileID: 1493063224}
   - {fileID: 1258183790}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1118835691
 GameObject:

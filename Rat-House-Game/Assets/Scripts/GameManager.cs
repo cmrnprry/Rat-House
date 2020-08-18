@@ -433,12 +433,8 @@ public class GameManager : MonoBehaviour
     //Set the current game state
     public void SetGameState(GameState state)
     {
-        Debug.Log("setting state");
-
         if (_currState != state)
         {
-            Debug.Log("changing state");
-
             _currState = state;
             UpdateGameState();
         }
