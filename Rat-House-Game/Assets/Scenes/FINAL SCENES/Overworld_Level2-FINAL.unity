@@ -3339,6 +3339,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1354362925966036612, guid: 9979b97d23762944c9d9627bb1e44d2e,
+        type: 3}
+      propertyPath: aNiceConversation.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354362925966036612, guid: 9979b97d23762944c9d9627bb1e44d2e,
+        type: 3}
+      propertyPath: aNiceConversation.Array.data[0]
+      value: Wilbur:Oh, Mr.Vampire! If you're looking for the keycard for the elevator,
+        you won't find it over here. Try the other side of the office.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354362925966036612, guid: 9979b97d23762944c9d9627bb1e44d2e,
+        type: 3}
+      propertyPath: aNiceConversation.Array.data[1]
+      value: Joe:Wherefore is our office like this? This seemeth abnormal.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354362925966036612, guid: 9979b97d23762944c9d9627bb1e44d2e,
+        type: 3}
+      propertyPath: aNiceConversation.Array.data[2]
+      value: Wilbur:Haha! An excellent observation! Indeed it does!
+      objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036615, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_Name
@@ -10228,6 +10249,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1354362925966036612, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
+      propertyPath: aNiceConversation.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354362925966036612, guid: 9979b97d23762944c9d9627bb1e44d2e,
+        type: 3}
       propertyPath: aNiceConversation.Array.data[0]
       value: 'Jan: Oh, hey, Joe. You busy?'
       objectReference: {fileID: 0}
@@ -10246,7 +10272,13 @@ PrefabInstance:
     - target: {fileID: 1354362925966036612, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: aNiceConversation.Array.data[3]
-      value: Joe:Then I wilt findeth it.
+      value: Joe:Obviously I already knoweth that. I hath worked hither until the
+        present day.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1354362925966036612, guid: 9979b97d23762944c9d9627bb1e44d2e,
+        type: 3}
+      propertyPath: aNiceConversation.Array.data[4]
+      value: Jan:Yeah, that's fair, actually.
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036613, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
