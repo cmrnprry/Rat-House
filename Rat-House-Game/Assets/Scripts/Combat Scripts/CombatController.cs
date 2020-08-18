@@ -466,6 +466,18 @@ public class CombatController : MonoBehaviour
                         Debug.Log("Basic Heath Item");
                         StartCoroutine(ChoosePlayer(true));
                         break;
+                    case ItemType.Jims_Lunch:
+                        Debug.Log("Basic Heath Item");
+                        StartCoroutine(ChoosePlayer(true));
+                        break;
+                    case ItemType.Pams_Fruitcake:
+                        Debug.Log("Basic Damage Item");
+                        UseDamageItem(itemList[_selectedItem]);
+                        break;
+                    case ItemType.Hot_Coffee:
+                        Debug.Log("Basic Damage Item");
+                        UseDamageItem(itemList[_selectedItem]);
+                        break;
                     case ItemType.Plastic_Utensils:
                         Debug.Log("Basic Damage Item");
                         UseDamageItem(itemList[_selectedItem]);
@@ -756,7 +768,7 @@ public class CombatController : MonoBehaviour
                 _stats.enemyHealth[enemy] = en._currentHealth;
                 if (en._currentHealth <= 0)
                 {
-                    _stats.EnemyDeath(enemy);
+                    StartCoroutine(_stats.EnemyDeath(enemy, en));
                 }
 
                 yield return new WaitForSecondsRealtime(0.75f);
@@ -905,12 +917,12 @@ public class CombatController : MonoBehaviour
 
         if (attackMenuParent.activeSelf)
         {
-            var x = attackMenu.transform.GetChild(_selectedAction);
+            var x = attackMenu.transform.GetChild(_selectedAction).GetChild(0);
             menuSelect.transform.position = x.position;
         }
         else if (itemMenuParent.activeSelf && itemList.Count > 0)
         {
-            var x = itemMenu.transform.GetChild(_selectedItem);
+            var x = itemMenu.transform.GetChild(_selectedItem).GetChild(0);
             menuSelect.transform.position = x.position;
         }
     }

@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
         //Items the player starts off with
         CombatController.instance.itemList.Add(new Items(ItemType.Calmy_Tea, 3, 10, StatusEffect.Cures_Burn));
         CombatController.instance.itemList.Add(new Items(ItemType.Plastic_Utensils, 2, 10, StatusEffect.Bleed));
-        CombatController.instance.itemList.Add(new Items(ItemType.Hot_Coffee, 2, 10, StatusEffect.Bleed));
+        CombatController.instance.itemList.Add(new Items(ItemType.Hot_Coffee, 2, 10, StatusEffect.Burn));
         CombatController.instance.itemList.Add(new Items(ItemType.Jims_Lunch, 2, 10, StatusEffect.Cures_Poison));
         CombatController.instance.itemList.Add(new Items(ItemType.Pams_Fruitcake, 2, 10, StatusEffect.Poison));
 
