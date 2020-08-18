@@ -63,13 +63,13 @@ public class Susan : MonoBehaviour
     public void UpdateHealth(float dmg)
     {
         _currentHealth -= dmg;
-        susanAnim.CrossFade("SusanHit", 0.3f);
+        susanAnim.SetBool("WasHit", true);
         healthSlider.value = (_currentHealth / _maxHealth);
 
 
         if(_currentHealth <= 0)
         {
-            susanAnim.CrossFade("SusanDeath", 2);
+            susanAnim.SetBool("Died", true);
             new WaitForSeconds(2);
             SusanDeath();
         }
@@ -114,10 +114,7 @@ public class Susan : MonoBehaviour
             CombatStats.totalHits = beats[3].beatsToHit.Count;
 
             //Set the base attack
-            _baseAttack = beats[3].base_damage;
-
-            //Play the attack animation
-            susanAnim.CrossFade("SusanAttack", 2f);
+            _baseAttack = beats[3].base_damage;]
         }
         else if (chance >= 25) //mug throw
         {
@@ -126,10 +123,7 @@ public class Susan : MonoBehaviour
             CombatStats.totalHits = beats[0].beatsToHit.Count;
 
             //Set the base attack
-            _baseAttack = beats[0].base_damage;
-
-            //Play the attack animation
-            susanAnim.CrossFade("SusanAttack", 2f);
+            _baseAttack = beats[0].base_damage;]
         }
         else if (chance >= 20) //baby pics
         {
@@ -138,10 +132,7 @@ public class Susan : MonoBehaviour
             CombatStats.totalHits = beats[1].beatsToHit.Count;
 
             //Set the base attack
-            _baseAttack = beats[1].base_damage;
-
-            //Play the attack animation
-            susanAnim.CrossFade("SusanAttack", 2f);
+            _baseAttack = beats[1].base_damage;]
         }
         else //Lecture
         {
@@ -150,10 +141,7 @@ public class Susan : MonoBehaviour
             CombatStats.totalHits = beats[2].beatsToHit.Count;
 
             //Set the base attack
-            _baseAttack = beats[2].base_damage;
-
-            //Play the attack animation
-            susanAnim.CrossFade("SusanAttack", 2f);
+            _baseAttack = beats[2].base_damage;]
         }
 
         Note.showDodge = true;
@@ -163,6 +151,7 @@ public class Susan : MonoBehaviour
         StartCoroutine(AudioManager.instance.SetDodgeMap(music));
 
         //Play some animation
+        susanAnim.SetBool("EnemyTurn", true);
         Debug.Log("Play attack animation");
 
         yield return new WaitUntil(() => AudioManager.instance.startDodge);
@@ -173,6 +162,7 @@ public class Susan : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
 
         _turnOver = true;
+        susanAnim.SetBool("EnemyTurn", false);
     }
 
     public void SetDialogue(string[] dia)
