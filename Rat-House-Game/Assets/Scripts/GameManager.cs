@@ -40,6 +40,11 @@ public class GameManager : MonoBehaviour
     //reference to the canvas
     public GameObject canvas;
 
+    //Overworld Inventoy
+    public GameObject inventoryParent;
+    public GameObject inventoryItems;
+    public GameObject item;
+
     //Battle Menu Parent
     public GameObject battleParent;
     public Animator battleAnimator;
@@ -92,6 +97,9 @@ public class GameManager : MonoBehaviour
         //Items the player starts off with
         CombatController.instance.itemList.Add(new Items(ItemType.Calmy_Tea, 3, 10, StatusEffect.Cures_Burn));
         CombatController.instance.itemList.Add(new Items(ItemType.Plastic_Utensils, 2, 10, StatusEffect.Bleed));
+        CombatController.instance.itemList.Add(new Items(ItemType.Hot_Coffee, 2, 10, StatusEffect.Bleed));
+        CombatController.instance.itemList.Add(new Items(ItemType.Jims_Lunch, 2, 10, StatusEffect.Cures_Poison));
+        CombatController.instance.itemList.Add(new Items(ItemType.Pams_Fruitcake, 2, 10, StatusEffect.Poison));
 
         //all objects in the scenes
         overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
@@ -132,6 +140,40 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }
+    }
+
+    public void OpenInventory()
+    {
+        if (inventoryParent.activeSelf)
+        {
+            foreach (Transform child in inventoryItems.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
+            inventoryParent.SetActive(false);
+        }
+        else
+        {
+            inventoryParent.SetActive(true);
+            foreach (var it in CombatController.instance.itemList)
+            {
+                var i = it.item.ToString().Replace('_', ' ');
+                var obj = Instantiate(item, inventoryItems.transform);
+                obj.gameObject.SetActive(true);
+
+                string desctription = "Deals " + it.delta + " damage and causes the " + it.effect.ToString() + " status effect";
+                if ((int)it.item == 0 || (int)it.item == 4)
+                {
+                    desctription = "Heals " + it.delta + " damage and cures the " + it.effect.ToString().Substring(6) + " status effect";
+                }
+
+                obj.GetComponent<TextMeshProUGUI>().text = i + " (" + it.count + ") - " + desctription;
+                //TODO: set image
+            }
+        }
+
+
     }
 
     /** Method that is called when the game state needs to be updated
