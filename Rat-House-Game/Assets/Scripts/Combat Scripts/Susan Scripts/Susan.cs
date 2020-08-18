@@ -12,6 +12,8 @@ public class Susan : MonoBehaviour
     public List<EnemyType> phaseOneBattle;
     public List<EnemyType> phaseTwoBattle;
 
+    public Animator susanAnim;
+
     [Header("Dialogue")]
     [TextArea(3, 5)]
     public string[] preBattleDialogue;
@@ -61,11 +63,14 @@ public class Susan : MonoBehaviour
     public void UpdateHealth(float dmg)
     {
         _currentHealth -= dmg;
+        susanAnim.CrossFade("SusanHit", 0.3f);
         healthSlider.value = (_currentHealth / _maxHealth);
 
 
         if(_currentHealth <= 0)
         {
+            susanAnim.CrossFade("SusanDeath", 2);
+            new WaitForSeconds(2);
             SusanDeath();
         }
         else if (_currentHealth <= 50 && phase == 2)
@@ -110,6 +115,9 @@ public class Susan : MonoBehaviour
 
             //Set the base attack
             _baseAttack = beats[3].base_damage;
+
+            //Play the attack animation
+            susanAnim.CrossFade("SusanAttack", 2f);
         }
         else if (chance >= 25) //mug throw
         {
@@ -119,6 +127,9 @@ public class Susan : MonoBehaviour
 
             //Set the base attack
             _baseAttack = beats[0].base_damage;
+
+            //Play the attack animation
+            susanAnim.CrossFade("SusanAttack", 2f);
         }
         else if (chance >= 20) //baby pics
         {
@@ -128,6 +139,9 @@ public class Susan : MonoBehaviour
 
             //Set the base attack
             _baseAttack = beats[1].base_damage;
+
+            //Play the attack animation
+            susanAnim.CrossFade("SusanAttack", 2f);
         }
         else //Lecture
         {
@@ -137,6 +151,9 @@ public class Susan : MonoBehaviour
 
             //Set the base attack
             _baseAttack = beats[2].base_damage;
+
+            //Play the attack animation
+            susanAnim.CrossFade("SusanAttack", 2f);
         }
 
         Note.showDodge = true;
