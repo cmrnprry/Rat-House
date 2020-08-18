@@ -5928,7 +5928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &388530924
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7890,13 +7890,14 @@ GameObject:
   m_Component:
   - component: {fileID: 514497557}
   - component: {fileID: 514497558}
+  - component: {fileID: 514497559}
   m_Layer: 5
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &514497557
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7927,6 +7928,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 514497556}
   m_CullTransparentMesh: 0
+--- !u!95 &514497559
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514497556}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 19bc544affa59b749ba54e4197b2d97d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &525387707 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8473653131011827749, guid: c362e4a87fa558b4b981bce7068ea41f,
@@ -27480,7 +27500,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 9, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -29788,13 +29808,13 @@ MonoBehaviour:
   speakerHead: {fileID: 156043324}
   heads:
   - {fileID: 21300000, guid: ef3f8f72c9c45e14181b33e0a9e4606e, type: 3}
-  - {fileID: 21300000, guid: 393353222db96424eaeba189b3471c02, type: 3}
-  - {fileID: 21300000, guid: 80daacf1af091c745b3ec31afb7bd091, type: 3}
-  - {fileID: 21300000, guid: a942d139973fe374dbfb4a16d29e6509, type: 3}
-  - {fileID: 21300000, guid: 23f01d159ac4b3c4d89a9ed247fdb936, type: 3}
-  - {fileID: 21300000, guid: 7f668c6c55603eb44acd6ff96ce58304, type: 3}
-  - {fileID: 21300000, guid: a9df42205dec74c4dbdedff1528732da, type: 3}
-  - {fileID: 21300000, guid: e00ba1b03e10d57468405c4067383d86, type: 3}
+  - {fileID: 21300000, guid: 27a26287a4a96b047aa34abe65ebd4dd, type: 3}
+  - {fileID: 21300000, guid: ccdcd41b39f2ee04d82467d850cd437b, type: 3}
+  - {fileID: 21300000, guid: ccdcd41b39f2ee04d82467d850cd437b, type: 3}
+  - {fileID: 21300000, guid: 3c72a6b5cc983fc4394728e44a3c48b0, type: 3}
+  - {fileID: 21300000, guid: f6b04e47e076cc64ba72cb4fc5788bc5, type: 3}
+  - {fileID: 21300000, guid: 68c7554645390654086d4989c82a9109, type: 3}
+  - {fileID: 21300000, guid: 84ff1f61d0299ba4baf915e25a1811e2, type: 3}
   sentences: []
   index: 0
   typingSpeed: 0.025
@@ -30762,8 +30782,8 @@ RectTransform:
   m_Father: {fileID: 2049049985}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
