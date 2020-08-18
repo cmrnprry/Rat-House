@@ -32,41 +32,18 @@ public class PlayerController : MonoBehaviour
 
         Vector3 movement = new Vector3(h * speed, 0.0f, v * speed);
 
-        
 
-        if (h > 0 || h < 0)
+
+        if ((h > 0 || h < 0) && h!= 0)
         {
             anim.SetBool("Left", true);
-            anim.SetBool("Down", false);
-            anim.SetBool("Up", false);
 
-            if(h < 0)
-            {
-                sr.flipX = true;
-            }
-            else
-            {
-                sr.flipX = false;
-            }
-        }
-        else if (h == 0 && v < 0)
-        {
-            anim.SetBool("Left", false);
-            anim.SetBool("Down", true);
-            anim.SetBool("Up", false);
-
-        }
-        else if (h == 0 && v > 0)
-        {
-            anim.SetBool("Left", false);
-            anim.SetBool("Down", false);
-            anim.SetBool("Up", true);
+            sr.flipX = h < 0 ? true : false;
         }
         else
         {
             anim.SetBool("Left", false);
-            anim.SetBool("Down", false);
-            anim.SetBool("Up", false);
+
         }
 
         _rb.velocity = movement;
@@ -80,7 +57,11 @@ public class PlayerController : MonoBehaviour
                 yield break;
             }
         }
-
+        else if (Input.GetButton("OpenInventory"))
+        {
+            GameManager.instance.OpenInventory();
+            yield return new WaitForSecondsRealtime(0.2f);
+        }
 
 
         yield return new WaitForEndOfFrame();

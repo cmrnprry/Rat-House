@@ -7,13 +7,9 @@ public class PleasantTalk : MonoBehaviour
 {
     private bool playerInRange = false;
 
-    public bool dialogueOver = false;
-    public bool dialogueInProgress = false;
-
     private int _index = 0;
 
     public Animator anim;
-
     public Dialogue dialogue;
 
     public TextMeshProUGUI nameText;
@@ -24,27 +20,30 @@ public class PleasantTalk : MonoBehaviour
     [TextArea(3, 5)]
     public string[] aNiceConversation;
 
-    public void SetNPCDialogue(string[] dia)
+    public void SetNPCDialogue()
     {
         //if there's no dialogue to be set
-        if (dia.Length <= 0)
+        if (aNiceConversation.Length <= 0)
         {
-            dialogueOver = true;
-            dialogueInProgress = false;
+           GameManager.instance.dialogueOver = true;
+            GameManager.instance.dialogueInProgress = false;
             return;
         }
 
-        dialogueInProgress = true;
+        //stop playermovement and set bools
+        player.GetComponent<PlayerController>().StopPlayerMovement();
+        GameManager.instance.dialogueInProgress = true;
+        GameManager.instance.dialogueOver = false;
+
+        //turn on textbox and start dialogue
         anim.SetBool("isOpen", true);
-        dialogue.sentences = dia;
+        dialogue.sentences = aNiceConversation;
         dialogue.StartDialogue();
         StartCoroutine(HaveANiceConversation());
     }
 
     IEnumerator HaveANiceConversation()
     {
-        player.GetComponent<PlayerController>().StopPlayerMovement();
-
         //Waits for the text to stop typing
         yield return new WaitUntil(() => dialogue.isTyping == false);
 
@@ -63,8 +62,8 @@ public class PleasantTalk : MonoBehaviour
 
             yield return new WaitForSecondsRealtime(.2f);
 
-            dialogueOver = true;
-            dialogueInProgress = false;
+            GameManager.instance.dialogueOver = true;
+            GameManager.instance.dialogueInProgress = false;
 
             //yield return new WaitUntil(() => GameManager.instance.dialogueOver && !GameManager.instance.dialogueInProgress);
             StartCoroutine(player.GetComponent<PlayerController>().PlayerMovement());
@@ -88,7 +87,8 @@ public class PleasantTalk : MonoBehaviour
         if (other.CompareTag("Player"))
         {            
             playerInRange = true;
-            SetNPCDialogue(aNiceConversation);
+            SetNPCDialogue();
+
         }
     }
 
@@ -98,7 +98,6 @@ public class PleasantTalk : MonoBehaviour
         {
             playerInRange = false;
             StopAllCoroutines();
-            //anim.SetBool("isOpen", false);
         }
     }
 }
