@@ -742,11 +742,11 @@ public class TutorialScript : MonoBehaviour
         {
             var item = i.item.ToString().Replace('_', ' ');
             var obj = Instantiate(text, CombatController.instance.itemMenu.transform);
-            if (i.item == ItemType.Spork)
+            if (i.item == ItemType.Plastic_Utensils)
             {
                 obj.GetComponent<TextMeshProUGUI>().text = item + " (" + damage + ")";
             }
-            else if (i.item == ItemType.Blood_Bag)
+            else if (i.item == ItemType.Calmy_Tea)
             {
                 obj.GetComponent<TextMeshProUGUI>().text = item + " (" + health + ")";
             }

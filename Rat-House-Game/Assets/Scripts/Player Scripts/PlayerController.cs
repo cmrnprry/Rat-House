@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
         float v = Input.GetAxisRaw("Vertical");
 
         Vector3 movement = new Vector3(h * speed, 0.0f, v * speed);
+
+        
+
         if (h > 0 || h < 0)
         {
             anim.SetBool("Left", true);

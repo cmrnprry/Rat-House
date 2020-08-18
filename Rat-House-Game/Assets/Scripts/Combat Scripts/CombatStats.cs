@@ -22,6 +22,12 @@ public class CombatStats : MonoBehaviour
 {
     //Player Stats
     public float playerHealth;
+    public GameObject player;
+
+    //status effect tracking
+    private StatusEffect effect;
+    public bool hasEffect = false;
+    private int turnsUntilEffectOver;
 
     //Enemy Stats
     [HideInInspector]
@@ -33,6 +39,7 @@ public class CombatStats : MonoBehaviour
     public static bool hitNote = false;
     public static float amountHit = 0;
     public static int totalHits = 0;
+    public Items itemUsed;
 
     //List of the "perfect" hits of a given rhythm
     public static List<Beat> hitList = new List<Beat>();
@@ -272,8 +279,13 @@ public class CombatStats : MonoBehaviour
         {
             delta = (totalHits == 0 ? delta : EnemyDamageModifier(delta));
         }
+        else if (hasEffect && CanCureStatusEffect())
+        {
+            RemoveEffect();
+        }
 
         playerHealth += delta;
+
 
         Debug.Log("Damage Taken: " + delta);
 
@@ -300,15 +312,20 @@ public class CombatStats : MonoBehaviour
         }
     }
 
-    public IEnumerator DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false, float itemDmg = 0)
+    public IEnumerator DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false)
     {
         //check if it we're using "good" or "bad" splash screens
         var splashScreen = amountHit >= (totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
+        Enemy e = CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>();
 
         float damage = 0;
         if (isItem)
         {
-            damage = itemDmg;
+            damage = itemUsed.delta;
+
+            //only apply the effect if they don't already have one
+            if (!e.hasEffect)
+                e.SetStatusEffect(itemUsed);
         }
         else
         {
@@ -341,7 +358,7 @@ public class CombatStats : MonoBehaviour
         else
         {
             enemyHealth[enemyAttacked] -= damage;
-            CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>().UpdateHealth(damage);
+            e.UpdateHealth(damage);
         }
 
         if (enemyHealth[enemyAttacked] <= 0)
@@ -375,9 +392,9 @@ public class CombatStats : MonoBehaviour
     }
 
     //Handles what happens when an enemy dies
-    void EnemyDeath(int enemyAttacked)
+    public void EnemyDeath(int enemyAttacked)
     {
-        //Folder flip
+        //Death Sound
         AudioManager.instance.SFX.clip = AudioManager.instance.enemySFX[AudioManager.instance.enemySFX.Count - 1];
         AudioManager.instance.SFX.Play();
 
@@ -448,5 +465,54 @@ public class CombatStats : MonoBehaviour
 
 
         return dmg;
+    }
+
+    public void SetStatusEffect(StatusEffect se)
+    {
+        effect = se;
+        hasEffect = true;
+
+        Color color = new Color();
+        ColorUtility.TryParseHtmlString(CombatController.instance.GetColor(se), out color);
+        Debug.Log("Color: " + color.ToString());
+        player.transform.GetChild(0).GetComponent<SpriteRenderer>().color = color;
+
+        //For now, they will all last 3 turns
+        turnsUntilEffectOver = 3;
+    }
+
+    public void UpdateEffect()
+    {
+        if (hasEffect)
+        {
+            turnsUntilEffectOver -= 1;
+            UpdatePlayerHealth(-1 * (int)effect);
+
+            if (turnsUntilEffectOver <= 0)
+                RemoveEffect();
+        }
+    }
+
+    bool CanCureStatusEffect()
+    {
+        Debug.Log(itemUsed.effect.ToString());
+        if ((int)itemUsed.effect <= 2)
+        {
+            if (itemUsed.effect.ToString().Substring(6) == effect.ToString())
+            {
+                return true;
+            }
+        }
+
+
+        return false;
+    }
+
+    public void RemoveEffect()
+    {
+        hasEffect = false;
+        effect = StatusEffect.None;
+
+        player.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
     }
 }
