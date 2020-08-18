@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     //what level we're currently on
     public int level;
     public bool tempWait;
+    public bool isSusanBattle = false;
 
     [Header("Handles Difficulty")]
     //Number of times the player has retried a battle
@@ -193,6 +194,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Susan:
                 Debug.Log("Susan");
+                isSusanBattle = true;
                 susan.SetDialogue(susan.preBattleDialogue);
                 break;
             case GameState.CutScene:

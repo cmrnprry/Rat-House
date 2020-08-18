@@ -30,7 +30,6 @@ public class Enemy : MonoBehaviour
 
     [Header("Animations")]
     private Animator anim;
-    public bool animOver = true;
 
     public string effectName;
     private ParticleSystem _attackAnim;

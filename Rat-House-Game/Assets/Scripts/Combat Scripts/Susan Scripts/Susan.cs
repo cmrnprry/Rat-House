@@ -33,6 +33,11 @@ public class Susan : MonoBehaviour
     private float _currentHealth;
     private int phase = 0;
 
+    //status effect tracking
+    private StatusEffect effect;
+    public bool hasEffect = false;
+    private int turnsUntilEffectOver;
+
     [SerializeReference]
     private float _baseAttack;
 
@@ -293,6 +298,39 @@ public class Susan : MonoBehaviour
         GameManager.instance.battleAnimator.SetBool("IsOpen", false);
         CombatController.instance.TurnOffHighlight();
         SetDialogue(postBattleDialogue);
+    }
+
+    public void SetStatusEffect(Items item)
+    {
+        effect = item.effect;
+        hasEffect = true;
+
+        Color color = new Color();
+        ColorUtility.TryParseHtmlString(CombatController.instance.GetColor(effect), out color);
+        Debug.Log("Color: " + color.ToString());
+        gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = color;
+
+        //For now, they will all last 3 turns
+        turnsUntilEffectOver = 3;
+    }
+
+    public void UpdateEffect()
+    {
+        if (hasEffect)
+        {
+            turnsUntilEffectOver -= 1;
+            UpdateHealth((int)effect);
+
+            if (turnsUntilEffectOver <= 0)
+                RemoveEffect();
+        }
+    }
+
+    public void RemoveEffect()
+    {
+        hasEffect = false;
+        effect = StatusEffect.None;
+        gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public float GetStartingHealth()
