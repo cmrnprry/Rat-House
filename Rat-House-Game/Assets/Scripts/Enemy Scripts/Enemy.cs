@@ -28,6 +28,10 @@ public class Enemy : MonoBehaviour
 
     private bool _turnOver = false;
 
+    [Header("Animations")]
+    private Animator anim;
+    public bool animOver = true;
+
     public string effectName;
     private ParticleSystem _attackAnim;
     private List<BeatMapStruct> coffeeBeats = new List<BeatMapStruct>();
@@ -37,6 +41,8 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        anim = gameObject.transform.GetChild(0).GetComponent<Animator>();
+
         var beats = AudioManager.instance.enemyBeatMap;
         _currentHealth = _maxHealth;
 
@@ -382,6 +388,16 @@ public class Enemy : MonoBehaviour
         hasEffect = false;
         effect = StatusEffect.None;
         gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    public void EnemyHit()
+    {
+        anim.SetTrigger("Hit");
+    }
+
+    public void EnemyDeath()
+    {
+        anim.SetTrigger("Dead");
     }
 
     public float GetBaseAttack()

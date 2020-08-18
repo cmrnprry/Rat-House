@@ -342,6 +342,10 @@ public class CombatStats : MonoBehaviour
 
         Debug.Log("Damage: " + damage);
 
+        //Show hit Animation
+        e.EnemyHit();
+        yield return new WaitForSecondsRealtime(0.25f);
+
         if (CombatController.instance.selectedAction == ActionType.Heal)
         {
             UpdatePlayerHealth(damage);
@@ -349,6 +353,8 @@ public class CombatStats : MonoBehaviour
         }
         else if (CombatController.instance.enemyList[enemyAttacked] == EnemyType.Susan)
         {
+
+
             GameManager.instance.susan.UpdateHealth(damage);
             enemyHealth[enemyAttacked] -= damage;
 
@@ -363,7 +369,9 @@ public class CombatStats : MonoBehaviour
 
         if (enemyHealth[enemyAttacked] <= 0)
         {
-            EnemyDeath(enemyAttacked);
+            //play enemy death animiation
+            
+            StartCoroutine(EnemyDeath(enemyAttacked, e));
 
             //If there are no more enemies, return to overworld
             if (_enemiesLeft <= 0)
@@ -392,13 +400,18 @@ public class CombatStats : MonoBehaviour
     }
 
     //Handles what happens when an enemy dies
-    public void EnemyDeath(int enemyAttacked)
+    public IEnumerator EnemyDeath(int enemyAttacked, Enemy enemy)
     {
         //Death Sound
         AudioManager.instance.SFX.clip = AudioManager.instance.enemySFX[AudioManager.instance.enemySFX.Count - 1];
         AudioManager.instance.SFX.Play();
 
-        //play enemy death animiation
+        //turin off health bar
+        CombatController.instance.enemyHealthBars[enemyAttacked].gameObject.SetActive(false);
+
+        enemy.EnemyDeath();
+        yield return new WaitForSecondsRealtime(2f);
+
         Debug.Log("Enemy Dead");
 
         //decrease the number o f enemies left
@@ -409,9 +422,8 @@ public class CombatStats : MonoBehaviour
 
         Debug.Log("Enemy Dead: " + CombatController.instance._inBattle[enemyAttacked].name);
 
-        //remove enemy from list(s) && turn off health
+        //remove enemy from list(s)
         CombatController.instance._inBattle[enemyAttacked] = null;
-        CombatController.instance.enemyHealthBars[enemyAttacked].gameObject.SetActive(false);
     }
 
     float EnemyDamageModifier(float dmg)
