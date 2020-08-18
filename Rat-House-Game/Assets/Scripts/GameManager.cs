@@ -476,4 +476,16 @@ public class GameManager : MonoBehaviour
         StartCoroutine(player.PlayerMovement());
         overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
     }
+
+    public IEnumerator LoadBreakRoom()
+    {
+        anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene("Overworld_BreakRoom_FINAL");
+        anim.CrossFade("Fade_In", 1);
+        yield return new WaitForSeconds(1);
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        StartCoroutine(player.PlayerMovement());
+        overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
+    }
 }
