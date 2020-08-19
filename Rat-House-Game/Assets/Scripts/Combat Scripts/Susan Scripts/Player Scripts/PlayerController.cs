@@ -33,8 +33,7 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(h * speed, 0.0f, v * speed);
 
 
-
-        if ((h > 0 || h < 0) && h!= 0)
+        if ((h > 0 || h < 0 || v > 0 || v < 0) && h!= 0)
         {
             anim.SetBool("Left", true);
 
@@ -43,7 +42,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             anim.SetBool("Left", false);
-
         }
 
         _rb.velocity = movement;

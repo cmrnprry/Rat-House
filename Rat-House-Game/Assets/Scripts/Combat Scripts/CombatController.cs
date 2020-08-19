@@ -787,11 +787,6 @@ public class CombatController : MonoBehaviour
                 Debug.Log("Splash Screen off");
 
                 yield return new WaitForSecondsRealtime(0.75f);
-
-                if (_stats.playerHealth <= 0)
-                {
-                    yield break;
-                }
             }
 
             yield return new WaitForEndOfFrame();
@@ -801,6 +796,12 @@ public class CombatController : MonoBehaviour
         }
 
         enemyTurnOver = true;
+
+        if (_stats._enemiesLeft <= 0)
+        {
+            StartCoroutine(GameManager.instance.BattleWon());
+            yield break;
+        }
 
         yield return new WaitForEndOfFrame();
 
