@@ -195,10 +195,11 @@ public class CombatController : MonoBehaviour
         //find the enemy parent
         _enemyParent = GameObject.FindGameObjectWithTag("Enemy Parent");
         _enemyEffects = GameObject.FindGameObjectWithTag("Enemy Effects");
-
+        
 
         //Place the enemies
         PlaceEnemies();
+        
         _battleEnd = _inBattle.Count - 1;
         _battleStart = 0;
 
@@ -217,6 +218,7 @@ public class CombatController : MonoBehaviour
         var index = 0;
         Debug.Log("place enemies");
 
+        GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).GetComponent<Animator>().SetTrigger("Idle");
         foreach (var e in enemyList)
         {
             //Instasiate the enmy of Type

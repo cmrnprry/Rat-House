@@ -15,6 +15,8 @@ public class AudioManager : MonoBehaviour
     public List<BeatMapStruct> playerBeatMap = new List<BeatMapStruct>();
     public List<BeatMapStruct> enemyBeatMap = new List<BeatMapStruct>();
 
+    public bool nextBeat = false;
+
     [Header("Countdown Timer")]
     public TextMeshProUGUI countdownText;
 
@@ -193,6 +195,12 @@ public class AudioManager : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
         StartCoroutine(UpdateBeats());
+    }
+
+    public IEnumerator WaitUntilNextBeat(double curPos)
+    {
+        yield return new WaitUntil(() => curPos + 2 <= songPositionInBeats);
+        nextBeat = true;
     }
 
     //Waits a second before starting the attack music

@@ -16,11 +16,10 @@ AnimatorStateMachine:
     m_State: {fileID: -7075262948609596008}
     m_Position: {x: 280, y: 80, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 7406910628844482}
-    m_Position: {x: 260, y: 300, z: 0}
+    m_State: {fileID: 146396440360057669}
+    m_Position: {x: 203.45996, y: 227.79266, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
-  - {fileID: 5841249580266358164}
   - {fileID: 3046623459300303664}
   - {fileID: -4157116857986293933}
   m_EntryTransitions: []
@@ -30,7 +29,7 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 7406910628844482}
+  m_DefaultState: {fileID: 146396440360057669}
 --- !u!1102 &-7075262948609596008
 AnimatorState:
   serializedVersion: 5
@@ -101,14 +100,14 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!1102 &7406910628844482
+--- !u!1102 &146396440360057669
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Idle
+  m_Name: EnemyIdle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -121,7 +120,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 0}
+  m_Motion: {fileID: 7400000, guid: 70f0cf88eb7c8174f8172dd9e0430e49, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -163,28 +162,6 @@ AnimatorStateTransition:
   m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1044655705348453323}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.75
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
---- !u!1101 &5841249580266358164
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 7406910628844482}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0

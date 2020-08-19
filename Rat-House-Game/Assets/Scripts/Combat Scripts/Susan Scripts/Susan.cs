@@ -345,6 +345,12 @@ public class Susan : MonoBehaviour
         anim.SetTrigger("Hit");
     }
 
+    public void Idle()
+    {
+       
+        anim.SetTrigger("Idle");
+    }
+
     public float GetStartingHealth()
     {
         return _maxHealth;

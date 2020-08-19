@@ -374,7 +374,7 @@ public class Enemy : MonoBehaviour
         if (hasEffect)
         {
             turnsUntilEffectOver -= 1;
-            UpdateHealth((int) effect);
+            UpdateHealth((int)effect);
 
             if (turnsUntilEffectOver <= 0)
                 RemoveEffect();
@@ -391,6 +391,11 @@ public class Enemy : MonoBehaviour
     public void EnemyHit()
     {
         anim.SetTrigger("Hit");
+    }
+
+    public void Idle()
+    {
+        anim.SetTrigger("Idle");
     }
 
     public void EnemyDeath()

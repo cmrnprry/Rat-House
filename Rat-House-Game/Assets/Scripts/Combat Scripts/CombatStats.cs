@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public struct Beat
 {
@@ -367,7 +368,12 @@ public class CombatStats : MonoBehaviour
         {
             //Show hit Animation
             GameManager.instance.susan.EnemyHit();
-            yield return new WaitForSecondsRealtime(0.25f);
+
+            StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
+
+            yield return new WaitUntil(() => AudioManager.instance.nextBeat);
+            AudioManager.instance.nextBeat = false;
+            GameManager.instance.susan.Idle();
 
             GameManager.instance.susan.UpdateHealth(damage);
             enemyHealth[enemyAttacked] -= damage;
@@ -380,7 +386,12 @@ public class CombatStats : MonoBehaviour
             Debug.Log("Hit Enemy");
             //Show hit Animation
             e.EnemyHit();
-            yield return new WaitForSecondsRealtime(0.25f);
+
+            StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
+
+            yield return new WaitUntil(() => AudioManager.instance.nextBeat);
+            AudioManager.instance.nextBeat = false;
+            e.Idle();
 
             enemyHealth[enemyAttacked] -= damage;
             e.UpdateHealth(damage);
