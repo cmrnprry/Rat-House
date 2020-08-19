@@ -21,6 +21,11 @@ public struct Beat
 
 public class CombatStats : MonoBehaviour
 {
+    //Slider
+    private SpriteRenderer slider;
+    private string colorText;
+    private Color color;
+
     //Player Stats
     public float playerHealth;
     public GameObject player;
@@ -59,6 +64,11 @@ public class CombatStats : MonoBehaviour
 
     public int action = 0;
 
+    private void Start()
+    {
+        slider = transform.GetChild(0).GetComponent<SpriteRenderer>();
+    }
+
     public void SetStats()
     {
         enemyHealth = new List<float>();
@@ -94,7 +104,6 @@ public class CombatStats : MonoBehaviour
                 //Basically if it's at the start bounds of being early and the far bounds of being 
                 if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
                 {
-                    StartCoroutine(ShowText());
                     DetectAttackHit(transform.position);
                 }
             }
@@ -108,7 +117,6 @@ public class CombatStats : MonoBehaviour
                 //Basically if it's at the start bounds of being early and the far bounds of being 
                 if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
                 {
-                    StartCoroutine(ShowText());
                     DetectAttackHit(transform.position);
                 }
             }
@@ -122,7 +130,9 @@ public class CombatStats : MonoBehaviour
                     AudioManager.instance.SFX.Play();
 
                     CombatController.instance.hitDetectionText.text = "Miss!";
+                    colorText = "#7E7E7E";
                     StartCoroutine(ShowText());
+                    
                     index++;
                 }
 
@@ -142,8 +152,7 @@ public class CombatStats : MonoBehaviour
                 //if the slider is within the offset range
                 //Basically if it's at the start bounds of being early and the far bounds of being 
                 if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
-                {
-                    StartCoroutine(ShowText());
+                {   
                     DetectDodgeHit(transform.position);
                 }
             }
@@ -156,7 +165,6 @@ public class CombatStats : MonoBehaviour
                 //Basically if it's at the start bounds of being early and the far bounds of being 
                 if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
                 {
-                    StartCoroutine(ShowText());
                     DetectDodgeHit(transform.position);
                 }
             }
@@ -170,7 +178,9 @@ public class CombatStats : MonoBehaviour
                     AudioManager.instance.SFX.Play();
 
                     CombatController.instance.hitDetectionText.text = "Miss!";
-                    CombatController.instance.hitDetectionText.gameObject.SetActive(true);
+                    colorText = "#7E7E7E";
+                    StartCoroutine(ShowText());
+
                     index++;
                 }
 
@@ -186,9 +196,14 @@ public class CombatStats : MonoBehaviour
 
     IEnumerator ShowText()
     {
+        ColorUtility.TryParseHtmlString(colorText, out color);
         CombatController.instance.hitDetectionText.gameObject.SetActive(true);
-        yield return new WaitForSecondsRealtime(AudioManager.instance.beatsPerSec);
+        slider.color = color;
+
+        yield return new WaitForSecondsRealtime(0.25f);
+
         CombatController.instance.hitDetectionText.gameObject.SetActive(false);
+        slider.color = Color.white;
     }
 
     private void DetectAttackHit(Vector3 pos)
@@ -201,6 +216,7 @@ public class CombatStats : MonoBehaviour
             Debug.Log("Late!");
             AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[1];
             amountHit += .5f;
+            colorText = "#FFD900";
         }
         //if the player is "perfect"
         else if (pos.x <= hitList[index].pos + delta)// && pos.x >= hitList[index].pos - delta) //between the pos +/- delta
@@ -210,6 +226,7 @@ public class CombatStats : MonoBehaviour
             Debug.Log("Perfect!");
             AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[0];
             amountHit += 1;
+            colorText = "#FF0000";
         }
         //the player is early
         else if (pos.x < hitList[index].pos - delta && pos.x >= hitList[index].pos - offset) //between the pos and -offset
@@ -219,12 +236,14 @@ public class CombatStats : MonoBehaviour
             Debug.Log("Early!");
             AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[1];
             amountHit += .5f;
+            colorText = "#FFD900";
         }
 
         //Debug.Log("Hit at: " + transform.position.x);
         //Debug.Log("Beat to hit at: " + hitList[index]);
         //Debug.Log("Beat in song: " + AudioManager.instance.songPositionInBeats);
         //Debug.Log("Beat in song (sec): " + AudioManager.instance.songPosition);
+        StartCoroutine(ShowText());
         AudioManager.instance.SFX.Play();
         index++;
         hitNote = true;
@@ -240,6 +259,7 @@ public class CombatStats : MonoBehaviour
             Debug.Log("Early!");
             AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[1];
             amountHit += .5f;
+            colorText = "#FFD900";
         }
         //if the player is "perfect"
         else if (pos.x <= hitList[index].pos + delta && pos.x >= hitList[index].pos - delta) //between the pos +/- delta
@@ -249,6 +269,7 @@ public class CombatStats : MonoBehaviour
             Debug.Log("Perfect!");
             AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[0];
             amountHit += 1;
+            colorText = "#FF0000";
         }
         //the player is late
         else if (pos.x < hitList[index].pos - delta && pos.x >= hitList[index].pos - offset) //between the pos and -offset
@@ -258,10 +279,12 @@ public class CombatStats : MonoBehaviour
             Debug.Log("Late!");
             AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[1];
             amountHit += .5f;
+            colorText = "#FFD900";
         }
 
         index++;
         hitNote = true;
+        StartCoroutine(ShowText());
         AudioManager.instance.SFX.Play();
     }
 
