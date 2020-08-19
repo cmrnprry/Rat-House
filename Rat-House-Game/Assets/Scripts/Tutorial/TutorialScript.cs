@@ -664,6 +664,7 @@ public class TutorialScript : MonoBehaviour
         }
         else if (Input.GetButtonDown("SelectAction"))
         {
+            var e = CombatController.instance._inBattle[0].GetComponent<Enemy>();
             switch (_selected)
             {
                 case 1:
@@ -677,7 +678,7 @@ public class TutorialScript : MonoBehaviour
                     yield return new WaitForEndOfFrame();
 
                     //Play some animation
-                    var e = CombatController.instance._inBattle[0].GetComponent<Enemy>();
+                    
                     StartCoroutine(HitEnemy(e));
 
                     yield return new WaitForSecondsRealtime(0.5f);
@@ -696,7 +697,6 @@ public class TutorialScript : MonoBehaviour
                     yield return new WaitForEndOfFrame();
 
                     //Play some animation
-                    var e = CombatController.instance._inBattle[0].GetComponent<Enemy>();
                     StartCoroutine(HitEnemy(e));
 
                     yield return new WaitForSecondsRealtime(0.5f);
