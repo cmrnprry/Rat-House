@@ -3700,10 +3700,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971b5b31f07b6214698837fd9535d64b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  dialogue: {fileID: 1929291418}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   player: {fileID: 1291760750}
   aNiceConversation:
   - Jan:Man, I really wish they'd fix the vending machine already.
@@ -3842,6 +3838,9 @@ MonoBehaviour:
   anim: {fileID: 388530925}
   overworldLevelOne: []
   player: {fileID: 1291760752}
+  itemGetAnim: {fileID: 926445942}
+  itemText: {fileID: 926445943}
+  hasKey: 0
 --- !u!114 &274487377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8421,6 +8420,11 @@ PrefabInstance:
       propertyPath: itemText
       value: 
       objectReference: {fileID: 926445943}
+    - target: {fileID: 5211973721219016928, guid: 4a9eac664e867614abf3ddc872eedaaa,
+        type: 3}
+      propertyPath: itialDmg
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5211973721219016929, guid: 4a9eac664e867614abf3ddc872eedaaa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8877,7 +8881,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Example Text
+  m_text: Example Text Example Text Example Text Example Text Example Text Example
+    Text Example Text Example Text Example Text Example Text Example Text Example
+    Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c34937cc34877e44faa02d7f362d5d06, type: 2}
   m_sharedMaterial: {fileID: -405927259361655241, guid: c34937cc34877e44faa02d7f362d5d06,
@@ -8906,7 +8912,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 70
+  m_fontSize: 53.55
   m_fontSizeBase: 60.9
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8947,12 +8953,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 569022208}
-    characterCount: 12
+    characterCount: 155
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 23
+    wordCount: 24
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -8994,8 +9000,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -15.08, y: -25.984}
-  m_SizeDelta: {x: 1271.0767, y: 154.87411}
+  m_AnchoredPosition: {x: -18, y: 2.4}
+  m_SizeDelta: {x: 1284.3562, y: 192.8153}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &572329375
 GameObject:
@@ -9490,7 +9496,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 584043913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.41, y: 0.31, z: -5.35}
+  m_LocalPosition: {x: -0.52, y: 0.31, z: 57.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -9508,9 +9514,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ec19c7b661f086438f3daa14d33d4a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemGetAnim: {fileID: 926445942}
-  itemText: {fileID: 926445943}
-  elevatorScript: {fileID: 2044352358}
 --- !u!65 &584043917
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12074,13 +12077,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   itemComments:
   - Hi, I'm placeholder text
   - Sorry, the real text will be put in when we change the sprites
   - Oops! looks like the final text hasn't been put in yet!
+  itemComment: 
   playerInRange: 0
 --- !u!1 &837875807
 GameObject:
@@ -13589,8 +13590,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 64.4, y: -295}
-  m_SizeDelta: {x: 1427.3313, y: 366.84222}
+  m_AnchoredPosition: {x: 92.9, y: -295}
+  m_SizeDelta: {x: 1484.2434, y: 366.84222}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &926439597
 GameObject:
@@ -15645,10 +15646,10 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 30
-  m_fontSizeBase: 40
+  m_fontSize: 55
+  m_fontSizeBase: 55
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 25
   m_fontSizeMax: 30
   m_fontStyle: 0
@@ -15733,8 +15734,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -432.1, y: 123.2}
-  m_SizeDelta: {x: 388.5932, y: 52.391388}
+  m_AnchoredPosition: {x: -438.7, y: 118.6}
+  m_SizeDelta: {x: 401.87262, y: 69.464905}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1092574976
 PrefabInstance:
@@ -18613,10 +18614,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971b5b31f07b6214698837fd9535d64b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  dialogue: {fileID: 1929291418}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   player: {fileID: 1291760750}
   aNiceConversation:
   - Jan:Oh, hey, Joe. What are you doing here, I thought you were let go?
@@ -19170,8 +19167,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 3.0150256, z: 0.22192639}
+  m_Center: {x: 0, y: 0.6937578, z: -0.027090967}
 --- !u!23 &1291760754
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21581,13 +21578,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   itemComments:
   - Hi, I'm placeholder text
   - Sorry, the real text will be put in when we change the sprites
   - Oops! looks like the final text hasn't been put in yet!
+  itemComment: 
   playerInRange: 0
 --- !u!4 &1443087119 stripped
 Transform:
@@ -21996,6 +21991,21 @@ PrefabInstance:
       propertyPath: itemText
       value: 
       objectReference: {fileID: 926445943}
+    - target: {fileID: 5211973721219016928, guid: 4a9eac664e867614abf3ddc872eedaaa,
+        type: 3}
+      propertyPath: itemType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211973721219016928, guid: 4a9eac664e867614abf3ddc872eedaaa,
+        type: 3}
+      propertyPath: effectType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211973721219016928, guid: 4a9eac664e867614abf3ddc872eedaaa,
+        type: 3}
+      propertyPath: itialDmg
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5211973721219016929, guid: 4a9eac664e867614abf3ddc872eedaaa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22064,27 +22074,33 @@ PrefabInstance:
     - target: {fileID: 5211973721219016930, guid: 4a9eac664e867614abf3ddc872eedaaa,
         type: 3}
       propertyPath: m_Name
-      value: Plastic Utensils
+      value: Jim's Lunch
       objectReference: {fileID: 0}
+    - target: {fileID: 5211973721219016942, guid: 4a9eac664e867614abf3ddc872eedaaa,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2bd68aeb570864a4395c27384e9bb67a,
+        type: 3}
     - target: {fileID: 5211973721219016943, guid: 4a9eac664e867614abf3ddc872eedaaa,
         type: 3}
       propertyPath: m_Size.x
-      value: 5.9999995
+      value: 5.3541718
       objectReference: {fileID: 0}
     - target: {fileID: 5211973721219016943, guid: 4a9eac664e867614abf3ddc872eedaaa,
         type: 3}
       propertyPath: m_Size.y
-      value: 5.9999995
+      value: 3.9877245
       objectReference: {fileID: 0}
     - target: {fileID: 5211973721219016943, guid: 4a9eac664e867614abf3ddc872eedaaa,
         type: 3}
       propertyPath: m_Center.x
-      value: 0.0000009536743
+      value: 0.16168527
       objectReference: {fileID: 0}
     - target: {fileID: 5211973721219016943, guid: 4a9eac664e867614abf3ddc872eedaaa,
         type: 3}
       propertyPath: m_Center.y
-      value: -0.000000059604645
+      value: 0.04718406
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a9eac664e867614abf3ddc872eedaaa, type: 3}
@@ -22105,32 +22121,32 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: de239b22b7f20bb418f8c9ac30b78109,
+      objectReference: {fileID: 21300000, guid: 3e303834073bc1748bf26035099d2058,
         type: 3}
     - target: {fileID: 2166726889032688273, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_Size.x
-      value: 6
+      value: 4.2294545
       objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688273, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_Size.y
-      value: 4.3591843
+      value: 2.7674055
       objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688273, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_Center.x
-      value: 0.0000010217939
+      value: 0.5245501
       objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688273, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_Center.y
-      value: -0.04229835
+      value: -0.6063608
       objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688276, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_Name
-      value: Calmy Tea
+      value: Pam's Fruitcake
       objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688278, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
@@ -22142,6 +22158,21 @@ PrefabInstance:
       propertyPath: itemText
       value: 
       objectReference: {fileID: 926445943}
+    - target: {fileID: 2166726889032688278, guid: 7999644b788d2d24081951c94af4661b,
+        type: 3}
+      propertyPath: itemType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2166726889032688278, guid: 7999644b788d2d24081951c94af4661b,
+        type: 3}
+      propertyPath: effectType
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2166726889032688278, guid: 7999644b788d2d24081951c94af4661b,
+        type: 3}
+      propertyPath: itialDmg
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688279, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22612,10 +22643,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971b5b31f07b6214698837fd9535d64b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  dialogue: {fileID: 1929291418}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   player: {fileID: 1291760750}
   aNiceConversation:
   - Wilbur:Ah, Mr. Vampire, I didn't expect to see you here today...or any day, in
@@ -30256,27 +30283,32 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: de239b22b7f20bb418f8c9ac30b78109,
+      objectReference: {fileID: 21300000, guid: 2d5c30159ae4d2044922b233280c67d3,
         type: 3}
     - target: {fileID: 2166726889032688273, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_Size.x
-      value: 6
+      value: 5.0033627
       objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688273, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_Size.y
-      value: 4.448518
+      value: 4.0656734
       objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688273, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_Center.y
-      value: -0.1309274
+      value: -0.32234958
+      objectReference: {fileID: 0}
+    - target: {fileID: 2166726889032688273, guid: 7999644b788d2d24081951c94af4661b,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.08829117
       objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688276, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_Name
-      value: Calmy Tea
+      value: Hot Coffee
       objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688278, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
@@ -30288,6 +30320,21 @@ PrefabInstance:
       propertyPath: itemText
       value: 
       objectReference: {fileID: 926445943}
+    - target: {fileID: 2166726889032688278, guid: 7999644b788d2d24081951c94af4661b,
+        type: 3}
+      propertyPath: itemType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2166726889032688278, guid: 7999644b788d2d24081951c94af4661b,
+        type: 3}
+      propertyPath: effectType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2166726889032688278, guid: 7999644b788d2d24081951c94af4661b,
+        type: 3}
+      propertyPath: itialDmg
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688279, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -31108,26 +31155,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   itemComments:
   - Hi, I'm placeholder text
   - Sorry, the real text will be put in when we change the sprites
   - Oops! looks like the final text hasn't been put in yet!
+  itemComment: 
   playerInRange: 0
---- !u!114 &2044352358 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6107416186872977924, guid: 4d4e3aa5789453249a9d2687379dc609,
-    type: 3}
-  m_PrefabInstance: {fileID: 4058296197114521444}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaf90910c8023704692c4c23b59dd7fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2047170076
 GameObject:
   m_ObjectHideFlags: 0
@@ -31924,13 +31957,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   itemComments:
   - Hi, I'm placeholder text
   - Sorry, the real text will be put in when we change the sprites
   - Oops! looks like the final text hasn't been put in yet!
+  itemComment: 
   playerInRange: 0
 --- !u!1 &2109468451
 GameObject:
@@ -32019,7 +32050,7 @@ GameObject:
   - component: {fileID: 2110983991}
   - component: {fileID: 2110983990}
   m_Layer: 0
-  m_Name: Objective (2)
+  m_Name: Picture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32033,7 +32064,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110983987}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -40.69, y: 1.5500001, z: -3.2299995}
+  m_LocalPosition: {x: -41.484, y: 1.432, z: -4.102}
   m_LocalScale: {x: 0.32949, y: 0.32949, z: 0.32949}
   m_Children: []
   m_Father: {fileID: 1863131930}
@@ -32078,7 +32109,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 46fdb8a68ac907949a6f969597dcb119, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 512f6f404ca279745a5d858f5a20b90b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -32114,13 +32145,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   itemComments:
-  - Hi, I'm placeholder text
-  - Sorry, the real text will be put in when we change the sprites
-  - Oops! looks like the final text hasn't been put in yet!
+  - Janet and her children.
+  - Wherefore doest Janet insist on leaving pictures of her children everywhere?
+  - Ah, youth.
+  itemComment: 
   playerInRange: 0
 --- !u!1 &2112951558
 GameObject:
@@ -32909,6 +32938,11 @@ PrefabInstance:
       propertyPath: itemText
       value: 
       objectReference: {fileID: 926445943}
+    - target: {fileID: 2166726889032688278, guid: 7999644b788d2d24081951c94af4661b,
+        type: 3}
+      propertyPath: itialDmg
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688279, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -32983,20 +33017,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4058296197537738752, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 5.5405626
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738752, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.3505346
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738752, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 5.167271
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738752, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.088982075
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738752, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -4.455993e-16
+      objectReference: {fileID: 0}
     - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.16
+      value: -51.5
       objectReference: {fileID: 0}
     - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.33
+      value: -0.82
       objectReference: {fileID: 0}
     - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.97
+      value: 38.13
       objectReference: {fileID: 0}
     - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
         type: 3}
@@ -33038,6 +33097,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 4058296197537738758, guid: 4d4e3aa5789453249a9d2687379dc609,
         type: 3}
       propertyPath: m_Name
@@ -33072,6 +33141,11 @@ PrefabInstance:
       propertyPath: itemText
       value: 
       objectReference: {fileID: 926445943}
+    - target: {fileID: 5211973721219016928, guid: 4a9eac664e867614abf3ddc872eedaaa,
+        type: 3}
+      propertyPath: itialDmg
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5211973721219016929, guid: 4a9eac664e867614abf3ddc872eedaaa,
         type: 3}
       propertyPath: m_LocalPosition.x
