@@ -1099,6 +1099,51 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 1360079416}
+    - target: {fileID: 7031430069050437933, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.3157773
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031430069050437933, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.015557765
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031430069050437933, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.018319521
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031430069050437933, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9485289
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031430069050437933, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031430069050437933, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9.37
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031430069050437933, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 36.761
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031430069050437933, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 2.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031430069050437933, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 3.19
+      objectReference: {fileID: 0}
     - target: {fileID: 7031430069050437934, guid: a2eed68ba9bc44e47801d00ee83fc748,
         type: 3}
       propertyPath: m_Enabled
@@ -8792,6 +8837,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf90910c8023704692c4c23b59dd7fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorsAnim: {fileID: 0}
+  lightsAnim: {fileID: 0}
+  hasKey: 0
 --- !u!65 &1209571879
 BoxCollider:
   m_ObjectHideFlags: 0
