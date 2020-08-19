@@ -5,22 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class ElevatorScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Animator doorsAnim;
+    public Animator lightsAnim;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public bool hasKey = false;
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.tag == "Player" && hasKey == true)
         {
+            doorsAnim.SetBool("HasKey", true);
+            lightsAnim.SetBool("HasKey", true);
             if (SceneManager.GetActiveScene().name == "Overworld_Level1-FINAL")
             {
                 GameManager.instance.StartCoroutine(GameManager.instance.LoadLevelTwo());

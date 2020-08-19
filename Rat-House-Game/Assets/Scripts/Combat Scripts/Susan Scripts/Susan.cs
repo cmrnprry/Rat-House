@@ -114,7 +114,7 @@ public class Susan : MonoBehaviour
             CombatStats.totalHits = beats[3].beatsToHit.Count;
 
             //Set the base attack
-            _baseAttack = beats[3].base_damage;]
+            _baseAttack = beats[3].base_damage;
         }
         else if (chance >= 25) //mug throw
         {
@@ -123,7 +123,7 @@ public class Susan : MonoBehaviour
             CombatStats.totalHits = beats[0].beatsToHit.Count;
 
             //Set the base attack
-            _baseAttack = beats[0].base_damage;]
+            _baseAttack = beats[0].base_damage;
         }
         else if (chance >= 20) //baby pics
         {
@@ -132,7 +132,7 @@ public class Susan : MonoBehaviour
             CombatStats.totalHits = beats[1].beatsToHit.Count;
 
             //Set the base attack
-            _baseAttack = beats[1].base_damage;]
+            _baseAttack = beats[1].base_damage;
         }
         else //Lecture
         {
@@ -141,7 +141,7 @@ public class Susan : MonoBehaviour
             CombatStats.totalHits = beats[2].beatsToHit.Count;
 
             //Set the base attack
-            _baseAttack = beats[2].base_damage;]
+            _baseAttack = beats[2].base_damage;
         }
 
         Note.showDodge = true;
