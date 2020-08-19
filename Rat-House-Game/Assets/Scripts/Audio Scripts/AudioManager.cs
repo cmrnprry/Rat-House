@@ -15,6 +15,8 @@ public class AudioManager : MonoBehaviour
     public List<BeatMapStruct> playerBeatMap = new List<BeatMapStruct>();
     public List<BeatMapStruct> enemyBeatMap = new List<BeatMapStruct>();
 
+    public bool nextBeat = false;
+
     [Header("Countdown Timer")]
     public TextMeshProUGUI countdownText;
 
@@ -138,7 +140,7 @@ public class AudioManager : MonoBehaviour
         mapBeatsPerSec = mapBpm / 60f;
 
         //Sets the total beats for the first clip
-        totalBeats = 8.5f;
+        totalBeats = 9f;
     }
 
     //Start BG music when a fight starts
@@ -146,6 +148,8 @@ public class AudioManager : MonoBehaviour
     {
         //Record the time when the music starts
         dspSongTime = (float)AudioSettings.dspTime;
+        CombatController.instance.heartAnim.SetBool("IsOn", true);
+        GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).GetComponent<Animator>().SetTrigger("Idle");
 
         //Start the background music
         bgMusic.clip = bgClips[0];
@@ -192,6 +196,19 @@ public class AudioManager : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
         StartCoroutine(UpdateBeats());
+    }
+
+    public IEnumerator WaitUntilNextBeat(double curPos)
+    {
+        while (curPos % 4 != 0)
+        {
+            curPos += 0.5;
+        }
+
+        Debug.Log(curPos);
+
+        yield return new WaitUntil(() => curPos <= songPositionInBeats);
+        nextBeat = true;
     }
 
     //Waits a second before starting the attack music

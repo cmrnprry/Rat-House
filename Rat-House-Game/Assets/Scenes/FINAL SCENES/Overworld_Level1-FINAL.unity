@@ -7155,6 +7155,7 @@ MonoBehaviour:
   itemMenuParent: {fileID: 2047170076}
   itemMenu: {fileID: 659507233}
   menuSelect: {fileID: 991569133}
+  heartAnim: {fileID: 514497559}
   playerHealthSlider: {fileID: 260704543}
   playerHealthText: {fileID: 295888272}
   hitDetectionText: {fileID: 1574809780}
@@ -26001,13 +26002,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693538628}
-  m_LocalRotation: {x: 0.26766738, y: 0.016459525, z: 0.017513782, w: 0.9632116}
-  m_LocalPosition: {x: -0.18, y: 9.52, z: -8.37}
+  m_LocalRotation: {x: 0.3157773, y: 0.015557765, z: 0.018319521, w: 0.9485289}
+  m_LocalPosition: {x: -0.18, y: 8.43, z: -9.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1291760756}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 31.002, y: 2.7470002, z: 2.845}
+  m_LocalEulerAnglesHint: {x: 36.761, y: 2.94, z: 3.19}
 --- !u!81 &1693538630
 AudioListener:
   m_ObjectHideFlags: 0
@@ -31300,12 +31301,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80d5d300fe857942a18f9eac668c606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextBeat: 0
   countdownText: {fileID: 564185256}
   SFX: {fileID: 379674665}
   attackSFX:
-  - {fileID: 8300000, guid: 51cc77f92873a8544b4db7692f7f7c53, type: 3}
-  - {fileID: 8300000, guid: e06b5ba1e370bc849a9ea3f420650f83, type: 3}
-  - {fileID: 8300000, guid: 58772bbe06b328f4aa46b1ad3c7d1113, type: 3}
+  - {fileID: 8300000, guid: 90b0412b905e41e44b8b5b8dee9dae31, type: 3}
+  - {fileID: 8300000, guid: a928e5978c52dcb48aa95fb042390c7f, type: 3}
+  - {fileID: 8300000, guid: 9b7f64ffeb202594d957e5c4ce2dace9, type: 3}
   dodgeSFX: []
   enemySFX:
   - {fileID: 8300000, guid: dd9631c589030cf4fbc347c13320ed3e, type: 3}
@@ -31597,7 +31599,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 752624973}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.34873345
+  m_Size: 0.34873337
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

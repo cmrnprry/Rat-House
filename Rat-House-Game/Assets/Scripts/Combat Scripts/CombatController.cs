@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using static EnemyController;
+using System;
 
 public enum ActionType
 {
@@ -116,6 +117,7 @@ public class CombatController : MonoBehaviour
     private GameObject _enemyEffects;
 
     [Header("UI")]
+    public Animator heartAnim;
     public Slider playerHealthSlider;
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI hitDetectionText;
@@ -194,10 +196,11 @@ public class CombatController : MonoBehaviour
         //find the enemy parent
         _enemyParent = GameObject.FindGameObjectWithTag("Enemy Parent");
         _enemyEffects = GameObject.FindGameObjectWithTag("Enemy Effects");
-
+        
 
         //Place the enemies
         PlaceEnemies();
+        
         _battleEnd = _inBattle.Count - 1;
         _battleStart = 0;
 
@@ -216,6 +219,7 @@ public class CombatController : MonoBehaviour
         var index = 0;
         Debug.Log("place enemies");
 
+        
         foreach (var e in enemyList)
         {
             //Instasiate the enmy of Type
@@ -237,6 +241,8 @@ public class CombatController : MonoBehaviour
             //increase the index
             index++;
         }
+
+       
     }
 
     //For adding an enemy to a battle
@@ -364,19 +370,15 @@ public class CombatController : MonoBehaviour
             switch (_actionList[_selectedAction])
             {
                 case ActionType.Punch:
-                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray();
                     StartCoroutine(ChooseEnemy());
                     break;
                 case ActionType.Kick:
-                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray(); //TODO: put in kick attacks
                     StartCoroutine(ChooseEnemy());
                     break;
                 case ActionType.Throw:
-                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray(); //TODO: put in throw attacks
                     StartCoroutine(ChooseEnemy());
                     break;
                 case ActionType.Heal:
-                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray(); //TODO: put in heal attacks
                     StartCoroutine(ChoosePlayer());
                     break;
                 default:
@@ -719,6 +721,12 @@ public class CombatController : MonoBehaviour
                     //Waits untik this returns true
                     yield return new WaitUntil(() => susan.IsTurnOver());
 
+                    StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
+
+                    yield return new WaitUntil(() => AudioManager.instance.nextBeat);
+                    AudioManager.instance.nextBeat = false;
+                    susan.Idle();
+
                     //Reset the IsTurnOver to be false
                     susan.SetIsTurnOver(false);
 
@@ -830,7 +838,7 @@ public class CombatController : MonoBehaviour
     void PlayerStatusEffect(EnemyType e)
     {
         Debug.Log("Effect?");
-        int effectChance = Random.Range(0, 101);
+        int effectChance = UnityEngine.Random.Range(0, 101);
         var effect = StatusEffect.None;
 
         if (e == EnemyType.Water_Cooler)

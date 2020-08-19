@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class TutorialScript : MonoBehaviour
 {
@@ -24,8 +25,6 @@ public class TutorialScript : MonoBehaviour
 
     public Dialogue dialogue;
 
-    private bool _skip = false;
-
     [TextArea(3, 5)]
     public string[] afterBattleDialogue;
 
@@ -41,62 +40,70 @@ public class TutorialScript : MonoBehaviour
     //Shows the Opening Dialogue for the tutorial
     public IEnumerator ShowOpeningDialogue()
     {
+        Debug.Log("wait to stop typing");
         //Waits for the text to stop typing
         yield return new WaitUntil(() => dialogue.isTyping == false);
 
+        yield return new WaitForEndOfFrame();
+
+        Debug.Log("wait to hit action");
         //wait for the player to press enter/space
-        yield return new WaitUntil(() => Input.GetButton("SelectAction"));
+        yield return new WaitUntil(() => Input.GetButtonDown("SelectAction"));
 
+        yield return new WaitForEndOfFrame();
+
+        Debug.Log("action hit");
         //when you press space...
-        if (Input.GetButton("SelectAction") && !_skip)
+
+        Debug.Log("next");
+        //When we're at the end of the intro dialogue
+        if (_index == dialogue.sentences.Length)
         {
-            //When we're at the end of the intro dialogue
-            if (_index == dialogue.sentences.Length)
-            {
-                overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
+            overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
 
-                //Lower the text box
-                anim.SetBool("isOpen", false);
+            //Lower the text box
+            anim.SetBool("isOpen", false);
 
-                //reset the index to 0
-                _index = 0;
+            //reset the index to 0
+            _index = 0;
 
-                yield return new WaitForSecondsRealtime(.2f);
+            yield return new WaitForSecondsRealtime(.2f);
 
-                //play some sort of screen wipe
-                GameManager.instance.anim.CrossFade("Fade_Out", 1);
-                yield return new WaitForSeconds(2);
+            //play some sort of screen wipe
+            GameManager.instance.anim.CrossFade("Fade_Out", 1);
+            yield return new WaitForSeconds(2);
 
-                //load correct scene
-                TurnOffScene();
-                SceneManager.LoadScene("Tutorial_Battle-FINAL", LoadSceneMode.Additive);
-                GameManager.instance.anim.CrossFade("Fade_In", 1);
+            //load correct scene
+            TurnOffScene();
+            SceneManager.LoadScene("Tutorial_Battle-FINAL", LoadSceneMode.Additive);
+            GameManager.instance.anim.CrossFade("Fade_In", 1);
 
-                //Turn off the top overlay and turn on the player health bar
-                GameManager.instance.topOverlay.SetActive(false);
-                GameManager.instance.healthParent.SetActive(true);
+            //Turn off the top overlay and turn on the player health bar
+            GameManager.instance.topOverlay.SetActive(false);
+            GameManager.instance.healthParent.SetActive(true);
 
-                yield return new WaitForFixedUpdate();
-                                
-                //Set up the battle scene
-                SetUpTutorialBattle();
+            yield return new WaitForFixedUpdate();
 
-                yield return new WaitForFixedUpdate();
+            //Set up the battle scene
+            SetUpTutorialBattle();
 
-                StartTutorialBattle();
-                yield break;
-            }
+            yield return new WaitForFixedUpdate();
 
-            //increase the index
-            _index++;
-
-            //load next sentence
-            dialogue.NextSentence();
-
-            //Restart the coroutine
-            StartCoroutine(ShowOpeningDialogue());
+            StartTutorialBattle();
             yield break;
         }
+
+        //increase the index
+        _index++;
+
+        //load next sentence
+        dialogue.NextSentence();
+
+        //Restart the coroutine
+        StartCoroutine(ShowOpeningDialogue());
+        yield break;
+
+
     }
 
     void StartTutorialBattle()
@@ -119,92 +126,89 @@ public class TutorialScript : MonoBehaviour
 
     IEnumerator ReturnControlToPlayer()
     {
-        //If the player has not skipped the tutorial
-        if (!_skip)
+        //do action depending on where we are in dialogue
+        switch (_index)
         {
-            //do action depending on where we are in dialogue
-            switch (_index)
-            {
-                case 2:
-                    StartCoroutine(Punch());
-                    break;
-                case 4:
-                    StartCoroutine(StartAttackMusic(0));
-                    break;
-                case 6:
-                    StartCoroutine(Kick());
-                    break;
-                case 8:
-                    StartCoroutine(UseAttackItem());
-                    break;
-                case 10:
-                    StartCoroutine(EnemyAttacks());
-                    break;
-                case 12:
-                    StartCoroutine(UseHealthItem());
-                    break;
-                case 14:
-                    StartCoroutine(AnyAttack());
-                    break;
-                default:
-                    Debug.LogError("Something has gone wrong :(");
-                    break;
-            }
+            case 2:
+                StartCoroutine(Punch());
+                break;
+            case 4:
+                StartCoroutine(StartAttackMusic(0));
+                break;
+            case 6:
+                StartCoroutine(Kick());
+                break;
+            case 8:
+                StartCoroutine(UseAttackItem());
+                break;
+            case 10:
+                StartCoroutine(EnemyAttacks());
+                break;
+            case 12:
+                StartCoroutine(UseHealthItem());
+                break;
+            case 14:
+                StartCoroutine(AnyAttack());
+                break;
+            default:
+                Debug.LogError("Something has gone wrong :(");
+                break;
+        }
 
-            //Waiting for player to finish an action
-            yield return new WaitUntil(() => _isFinished);
+        //Waiting for player to finish an action
+        yield return new WaitUntil(() => _isFinished);
 
-            yield return new WaitForSecondsRealtime(.2f);
+        yield return new WaitForSecondsRealtime(.2f);
 
-            //If this is the last bit of dialogue
-            if (_index == duringBattleDialogue.Length)
-            {
-                Debug.Log("End tutorial battle");
+        //If this is the last bit of dialogue
+        if (_index == duringBattleDialogue.Length)
+        {
+            Debug.Log("End tutorial battle");
 
-                //Stop the music
-                AudioManager.instance.StopCombatMusic();
+            //Stop the music
+            AudioManager.instance.StopCombatMusic();
 
-                //set thes entences in the dialogue manager to be the afer battle dialogue
-                dialogue.sentences = afterBattleDialogue;
+            //set thes entences in the dialogue manager to be the afer battle dialogue
+            dialogue.sentences = afterBattleDialogue;
 
-                //Turn the top overlay back on and the player health off
-                GameManager.instance.topOverlay.SetActive(true);
-                GameManager.instance.healthParent.SetActive(false);
+            //Turn the top overlay back on and the player health off
+            GameManager.instance.topOverlay.SetActive(true);
+            GameManager.instance.healthParent.SetActive(false);
 
-                //play some sort of screen wipe
-                GameManager.instance.anim.CrossFade("Fade_Out", 1);
-                yield return new WaitForSeconds(2);
+            //play some sort of screen wipe
+            GameManager.instance.anim.CrossFade("Fade_Out", 1);
+            yield return new WaitForSeconds(2);
 
-                //load correct scene
-                TurnOnScene();
-                SceneManager.UnloadSceneAsync("Tutorial_Battle-FINAL");
-                GameManager.instance.anim.CrossFade("Fade_In", 1);
+            //load correct scene
+            TurnOnScene();
+            SceneManager.UnloadSceneAsync("Tutorial_Battle-FINAL");
+            GameManager.instance.anim.CrossFade("Fade_In", 1);
 
-                yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSecondsRealtime(0.5f);
 
-                //Reset index to 0
-                _index = 0;
+            //Reset index to 0
+            _index = 0;
 
-                //Open the dilogue box
-                anim.SetBool("isOpen", true);
-
-                //Start dialogue
-                dialogue.StartDialogue();
-                StartCoroutine(ShowAfterBattleDialogue());
-
-                yield break;
-            }
-
-            //reset the bool to fase
-            _isFinished = false;
-
-            //open the daiologue box
+            //Open the dilogue box
             anim.SetBool("isOpen", true);
 
-            //Go to the next sentence
-            dialogue.NextSentence();
-            StartCoroutine(ShowBattleDialogue());
+            //Start dialogue
+            dialogue.StartDialogue();
+            StartCoroutine(ShowAfterBattleDialogue());
+
+            yield break;
         }
+
+        //reset the bool to fase
+        _isFinished = false;
+
+        //open the daiologue box
+        anim.SetBool("isOpen", true);
+
+        //Go to the next sentence
+        dialogue.NextSentence();
+        StartCoroutine(ShowBattleDialogue());
+
     }
 
     IEnumerator ShowAfterBattleDialogue()
@@ -219,7 +223,7 @@ public class TutorialScript : MonoBehaviour
         yield return new WaitUntil(() => Input.GetButton("SelectAction"));
 
         //when you press space...
-        if (Input.GetButtonDown("SelectAction") && !_skip)
+        if (Input.GetButtonDown("SelectAction"))
         {
             Debug.Log("Next Line");
 
@@ -286,9 +290,10 @@ public class TutorialScript : MonoBehaviour
         //Wait half a second
         yield return new WaitForSecondsRealtime(0.5f);
 
-        if (selected == 0 || selected == 1)
+        if (selected == 0 || selected == 1 || selected == 2)
         {
             var e = CombatController.instance._inBattle[0].GetComponent<Enemy>();
+            StartCoroutine(HitEnemy(e));
             e.healthSlider.value -= .25f;
         }
 
@@ -304,7 +309,9 @@ public class TutorialScript : MonoBehaviour
             CombatController.instance.selectedAction = ActionType.Punch;
 
             CombatController.instance.ResetSlider();
-            StartCoroutine(AnyAttack());
+
+            if (_index == 14)
+                StartCoroutine(AnyAttack());
             yield break;
         }
 
@@ -324,7 +331,7 @@ public class TutorialScript : MonoBehaviour
         CombatController.instance.selectedAction = ActionType.Kick;
 
         //Change the selected action
-        var x = CombatController.instance.attackMenu.transform.GetChild(1);
+        var x = CombatController.instance.attackMenu.transform.GetChild(1).GetChild(0);
         CombatController.instance.menuSelect.transform.position = x.position;
 
         yield return new WaitForEndOfFrame();
@@ -372,7 +379,7 @@ public class TutorialScript : MonoBehaviour
         yield return new WaitUntil(() => Input.GetButtonDown("Down"));
 
         //Change the selected action
-        var x = CombatController.instance.itemMenu.transform.GetChild(1);
+        var x = CombatController.instance.itemMenu.transform.GetChild(1).GetChild(0);
         CombatController.instance.menuSelect.transform.position = x.position;
 
         yield return new WaitForEndOfFrame();
@@ -390,7 +397,11 @@ public class TutorialScript : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
+
         var e = CombatController.instance._inBattle[0].GetComponent<Enemy>();
+        StartCoroutine(HitEnemy(e));
+        var item = new Items(ItemType.Hot_Coffee, 1, 10, StatusEffect.Burn);
+        e.SetStatusEffect(item);
         e.healthSlider.value -= .25f;
 
         //wait for above to be done
@@ -434,13 +445,38 @@ public class TutorialScript : MonoBehaviour
         Debug.Log("Use health Item");
 
         //wait for the player to press hit down
-        yield return new WaitUntil(() => Input.GetButtonDown("Right"));
+        yield return new WaitUntil(() => Input.GetButtonDown("Down"));
 
         //Change selected action
-        CombatController.instance.selectedAction = ActionType.Item;
+        CombatController.instance.selectedAction = ActionType.Kick;
 
-        //change to item menu
-        ShowItemMenu(2, 1);
+        //Change the selected action
+        var x = CombatController.instance.attackMenu.transform.GetChild(1).GetChild(0);
+        CombatController.instance.menuSelect.transform.position = x.position;
+
+        yield return new WaitForEndOfFrame();
+
+        //wait for the player to press hit down
+        yield return new WaitUntil(() => Input.GetButtonDown("Down"));
+
+        //Change selected action
+        CombatController.instance.selectedAction = ActionType.Throw;
+
+        //Change the selected action
+        var y = CombatController.instance.attackMenu.transform.GetChild(2).GetChild(0);
+        CombatController.instance.menuSelect.transform.position = y.position;
+
+        yield return new WaitForEndOfFrame();
+
+        //wait for the player to press hit down
+        yield return new WaitUntil(() => Input.GetButtonDown("Down"));
+
+        //Change selected action
+        CombatController.instance.selectedAction = ActionType.Heal;
+
+        //Change the selected action
+        var z = CombatController.instance.attackMenu.transform.GetChild(3).GetChild(0);
+        CombatController.instance.menuSelect.transform.position = z.position;
 
         yield return new WaitForEndOfFrame();
 
@@ -455,8 +491,18 @@ public class TutorialScript : MonoBehaviour
         //when you hit space...
         StartCoroutine(SelectPlayer());
 
-        //wait for the player to slesct enemy
         yield return new WaitUntil(() => _enemySelected);
+        yield return new WaitForEndOfFrame();
+
+        //Start the attack music
+        StartCoroutine(StartAttackMusic(3));
+
+        //set selected enemy to fase
+        _enemySelected = false;
+
+        //wait until the attack music has stopped playing
+        yield return new WaitUntil(() => AudioManager.instance.startAction);
+        yield return new WaitUntil(() => !AudioManager.instance.startAction);
 
         yield return new WaitForSecondsRealtime(0.5f);
 
@@ -473,106 +519,104 @@ public class TutorialScript : MonoBehaviour
     IEnumerator AnyAttack()
     {
         Debug.Log("Choose Action");
-        if (!_skip)
+        yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("Right") || Input.GetButtonDown("SelectAction"));
+
+        if (Input.GetButtonDown("Up"))
         {
-            yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("Right") || Input.GetButtonDown("SelectAction"));
-
-            if (Input.GetButtonDown("Up"))
-            {
-                if (_selected == 0)
-                {
-                    _selected = _maxBattleOptions - 1;
-                }
-                else
-                {
-                    _selected--;
-                }
-            }
-            else if (Input.GetButtonDown("Down"))
-            {
-                if (_selected == _maxBattleOptions - 1)
-                {
-                    _selected = 0;
-                }
-                else
-                {
-                    _selected++;
-                }
-            }
-            else if (Input.GetButtonDown("SelectAction"))
-            {
-                switch (_selected)
-                {
-                    case 0:
-                        Debug.Log("Punch");
-                        CombatController.instance.selectedAction = ActionType.Punch;
-                        StartCoroutine(ChooseAttack());
-                        break;
-                    case 1:
-                        Debug.Log("Kick");
-                        CombatController.instance.selectedAction = ActionType.Kick;
-                        StartCoroutine(ChooseAttack());
-                        break;
-                    case 2:
-                        Debug.Log("Throw");
-                        CombatController.instance.selectedAction = ActionType.Throw;
-                        StartCoroutine(ChooseAttack());
-                        break;
-                    case 3:
-                        Debug.Log("Suck Blood");
-                        CombatController.instance.selectedAction = ActionType.Heal;
-                        StartCoroutine(ChooseAttack());
-                        break;
-                    default:
-                        Debug.LogError("Something has gone wrong in Combat Controller");
-                        break;
-                }
-
-                _selected = 0;
-                yield break;
-            }
-            else if (Input.GetButtonDown("Right"))
-            {
-                Debug.Log("Open Item Menu");
-
-                //Wait a frame before showing anything
-                yield return new WaitForEndOfFrame();
-
-                //Switch to the menu selection
-                ShowItemMenu(1, 1);
-
-                //reset the selected action to 0
-                _selected = 0;
-                StartCoroutine(ChooseItem());
-                yield break;
-            }
-
-            //Fix Highlight
-            var x = CombatController.instance.attackMenu.transform.GetChild(_selected);
-            CombatController.instance.menuSelect.transform.position = x.position;
-
-            //Change selected action
             if (_selected == 0)
             {
-                CombatController.instance.selectedAction = ActionType.Punch;
+                _selected = _maxBattleOptions - 1;
             }
-            else if (_selected == 1)
+            else
             {
-                CombatController.instance.selectedAction = ActionType.Kick;
+                _selected--;
             }
-            else if (_selected == 2)
-            {
-                CombatController.instance.selectedAction = ActionType.Throw;
-            }
-            else if (_selected == 3)
-            {
-                CombatController.instance.selectedAction = ActionType.Heal;
-            }
-
-
-            yield return new WaitForEndOfFrame();
-            StartCoroutine(AnyAttack());
         }
+        else if (Input.GetButtonDown("Down"))
+        {
+            if (_selected == _maxBattleOptions - 1)
+            {
+                _selected = 0;
+            }
+            else
+            {
+                _selected++;
+            }
+        }
+        else if (Input.GetButtonDown("SelectAction"))
+        {
+            switch (_selected)
+            {
+                case 0:
+                    Debug.Log("Punch");
+                    CombatController.instance.selectedAction = ActionType.Punch;
+                    StartCoroutine(ChooseAttack());
+                    break;
+                case 1:
+                    Debug.Log("Kick");
+                    CombatController.instance.selectedAction = ActionType.Kick;
+                    StartCoroutine(ChooseAttack());
+                    break;
+                case 2:
+                    Debug.Log("Throw");
+                    CombatController.instance.selectedAction = ActionType.Throw;
+                    StartCoroutine(ChooseAttack());
+                    break;
+                case 3:
+                    Debug.Log("Suck Blood");
+                    CombatController.instance.selectedAction = ActionType.Heal;
+                    StartCoroutine(ChooseAttack());
+                    break;
+                default:
+                    Debug.LogError("Something has gone wrong in Combat Controller");
+                    break;
+            }
+
+            _selected = 0;
+            yield break;
+        }
+        else if (Input.GetButtonDown("Right"))
+        {
+            Debug.Log("Open Item Menu");
+
+            //Wait a frame before showing anything
+            yield return new WaitForEndOfFrame();
+
+            //Switch to the menu selection
+            ShowItemMenu(2, 1);
+
+            //reset the selected action to 0
+            _selected = 0;
+            StartCoroutine(ChooseItem());
+            yield break;
+        }
+
+        //Fix Highlight
+        var x = CombatController.instance.attackMenu.transform.GetChild(_selected).GetChild(0);
+        CombatController.instance.menuSelect.transform.position = x.position;
+
+        //Change selected action
+        if (_selected == 0)
+        {
+            CombatController.instance.selectedAction = ActionType.Punch;
+        }
+        else if (_selected == 1)
+        {
+            CombatController.instance.selectedAction = ActionType.Kick;
+        }
+        else if (_selected == 2)
+        {
+            CombatController.instance.selectedAction = ActionType.Throw;
+        }
+        else if (_selected == 3)
+        {
+            CombatController.instance.selectedAction = ActionType.Heal;
+        }
+
+
+        yield return new WaitForEndOfFrame();
+        StartCoroutine(AnyAttack());
+
 
     }
 
@@ -594,93 +638,112 @@ public class TutorialScript : MonoBehaviour
     IEnumerator ChooseItem()
     {
         Debug.Log("Choose Item");
-        if (!_skip)
+        yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("Left") || Input.GetButtonDown("SelectAction"));
+
+        if (Input.GetButtonDown("Up"))
         {
-            yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("Left") || Input.GetButtonDown("SelectAction"));
-
-            if (Input.GetButtonDown("Up"))
+            if (_selected == 0)
             {
-                if (_selected == 0)
-                {
-                    _selected = 1;
-                }
-                else
-                {
-                    _selected--;
-                }
+                _selected = 1;
             }
-            else if (Input.GetButtonDown("Down"))
+            else
             {
-                if (_selected == 1)
-                {
-                    _selected = 0;
-                }
-                else
-                {
-                    _selected++;
-                }
+                _selected--;
             }
-            else if (Input.GetButtonDown("SelectAction"))
-            {
-                switch (_selected)
-                {
-                    case 1:
-                        Debug.Log("Action Item");
-                        yield return new WaitForEndOfFrame();
-                        StartCoroutine(SelectEnemy());
-
-                        //wait for the player to slesct enemy
-                        yield return new WaitUntil(() => _enemySelected);
-
-                        yield return new WaitForEndOfFrame();
-
-                        //Play some animation
-
-                        yield return new WaitForSecondsRealtime(0.5f);
-
-                        _isFinished = true;
-                        _enemySelected = false;
-                        break;
-                    case 0:
-                        Debug.Log("Heal");
-                        CombatController.instance.playerHealthSlider.value += .1f;
-                        CombatController.instance.playerHealthText.text = 95 + "%";
-                        
-                        ShowBattleMenu();
-                        _selected = 0;
-                        CombatController.instance.HighlightMenuItem();
-                        CombatController.instance.selectedAction = ActionType.Punch;
-
-                        StartCoroutine(AnyAttack());
-                        break;
-                    default:
-                        Debug.LogError("Something has gone wrong in Combat Controller");
-                        break;
-                }
-
-                _selected = 0;
-                yield break;
-            }
-            else if (Input.GetButtonDown("Left"))
-            {
-                ShowBattleMenu();
-                _selected = 0;
-                CombatController.instance.HighlightMenuItem();
-                CombatController.instance.selectedAction = ActionType.Punch;
-
-                StartCoroutine(AnyAttack());
-
-                yield break;
-            }
-
-            //Fix Highlight
-            var x = CombatController.instance.attackMenu.transform.GetChild(_selected);
-            CombatController.instance.menuSelect.transform.position = x.position;
-
-            yield return new WaitForEndOfFrame();
-
-            StartCoroutine(ChooseItem());
         }
+        else if (Input.GetButtonDown("Down"))
+        {
+            if (_selected == 1)
+            {
+                _selected = 0;
+            }
+            else
+            {
+                _selected++;
+            }
+        }
+        else if (Input.GetButtonDown("SelectAction"))
+        {
+            var e = CombatController.instance._inBattle[0].GetComponent<Enemy>();
+            switch (_selected)
+            {
+                case 1:
+                    Debug.Log("Action Item");
+                    yield return new WaitForEndOfFrame();
+                    StartCoroutine(SelectEnemy());
+
+                    //wait for the player to slesct enemy
+                    yield return new WaitUntil(() => _enemySelected);
+
+                    yield return new WaitForEndOfFrame();
+
+                    //Play some animation
+                    
+                    StartCoroutine(HitEnemy(e));
+
+                    yield return new WaitForSecondsRealtime(0.5f);
+
+                    _isFinished = true;
+                    _enemySelected = false;
+                    break;
+                case 2:
+                    Debug.Log("Action Item");
+                    yield return new WaitForEndOfFrame();
+                    StartCoroutine(SelectEnemy());
+
+                    //wait for the player to slesct enemy
+                    yield return new WaitUntil(() => _enemySelected);
+
+                    yield return new WaitForEndOfFrame();
+
+                    //Play some animation
+                    StartCoroutine(HitEnemy(e));
+
+                    yield return new WaitForSecondsRealtime(0.5f);
+
+                    _isFinished = true;
+                    _enemySelected = false;
+                    break;
+                case 0:
+                    Debug.Log("Heal");
+                    CombatController.instance.playerHealthSlider.value += .1f;
+                    CombatController.instance.playerHealthText.text = 95 + "%";
+
+                    ShowBattleMenu();
+                    _selected = 0;
+                    CombatController.instance.HighlightMenuItem();
+                    CombatController.instance.selectedAction = ActionType.Punch;
+
+                    StartCoroutine(AnyAttack());
+                    break;
+                default:
+                    Debug.LogError("Something has gone wrong in Combat Controller");
+                    break;
+            }
+
+            _selected = 0;
+            yield break;
+        }
+        else if (Input.GetButtonDown("Left"))
+        {
+            ShowBattleMenu();
+            _selected = 0;
+            CombatController.instance.HighlightMenuItem();
+            CombatController.instance.selectedAction = ActionType.Punch;
+
+            StartCoroutine(AnyAttack());
+
+            yield break;
+        }
+
+        //Fix Highlight
+        var x = CombatController.instance.attackMenu.transform.GetChild(_selected);
+        CombatController.instance.menuSelect.transform.position = x.position;
+
+        yield return new WaitForEndOfFrame();
+
+        StartCoroutine(ChooseItem());
+
     }
 
     IEnumerator SelectEnemy()
@@ -742,11 +805,11 @@ public class TutorialScript : MonoBehaviour
         {
             var item = i.item.ToString().Replace('_', ' ');
             var obj = Instantiate(text, CombatController.instance.itemMenu.transform);
-            if (i.item == ItemType.Plastic_Utensils)
+            if (i.item == ItemType.Plastic_Utensils || i.item == ItemType.Hot_Coffee)
             {
                 obj.GetComponent<TextMeshProUGUI>().text = item + " (" + damage + ")";
             }
-            else if (i.item == ItemType.Calmy_Tea)
+            else if (i.item == ItemType.Jims_Lunch)
             {
                 obj.GetComponent<TextMeshProUGUI>().text = item + " (" + health + ")";
             }
@@ -754,7 +817,7 @@ public class TutorialScript : MonoBehaviour
         }
 
         //resets highlight to 0
-        var x = CombatController.instance.itemMenu.transform.GetChild(0);
+        var x = CombatController.instance.itemMenu.transform.GetChild(0).GetChild(0);
         CombatController.instance.menuSelect.transform.position = x.position;
     }
 
@@ -771,6 +834,16 @@ public class TutorialScript : MonoBehaviour
         CombatController.instance.itemMenuParent.SetActive(false);
     }
 
+    public IEnumerator HitEnemy(Enemy e)
+    {
+        e.EnemyHit();
+        StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
+
+        yield return new WaitUntil(() => AudioManager.instance.nextBeat);
+        AudioManager.instance.nextBeat = false;
+        e.Idle();
+    }
+
     //Shows the Battle Dialogue for the tutorial
     public IEnumerator ShowBattleDialogue()
     {
@@ -784,7 +857,7 @@ public class TutorialScript : MonoBehaviour
         yield return new WaitUntil(() => Input.GetButtonDown("SelectAction"));
 
         //when you press space...
-        if (Input.GetButton("SelectAction") && !_skip)
+        if (Input.GetButton("SelectAction"))
         {
             //When we're at the end of the intro dialogue
             if (_index % 2 == 1 && _index != 0)
@@ -829,12 +902,6 @@ public class TutorialScript : MonoBehaviour
         //Adds enemy and sets up placement
         CombatController.instance.enemyList.Add(EnemyType.Tutorial_Intern);
         CombatController.instance.TutorialSetUp();
-    }
-
-    public void SkipTutorial()
-    {
-        StopAllCoroutines();
-        _skip = true;
     }
 
     public void TurnOffScene()

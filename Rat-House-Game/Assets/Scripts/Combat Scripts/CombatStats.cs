@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public struct Beat
 {
@@ -20,6 +21,11 @@ public struct Beat
 
 public class CombatStats : MonoBehaviour
 {
+    //Slider
+    private SpriteRenderer slider;
+    private string colorText;
+    private Color color;
+
     //Player Stats
     public float playerHealth;
     public GameObject player;
@@ -31,7 +37,6 @@ public class CombatStats : MonoBehaviour
     private int turnsUntilEffectOver;
 
     //Enemy Stats
-    [HideInInspector]
     public List<float> enemyHealth;
     private List<float> enemyBaseAccuracy;
     private int _enemiesLeft = 0;
@@ -58,6 +63,11 @@ public class CombatStats : MonoBehaviour
     public AudioClip[] actionSounds;
 
     public int action = 0;
+
+    private void Start()
+    {
+        slider = transform.GetChild(0).GetComponent<SpriteRenderer>();
+    }
 
     public void SetStats()
     {
@@ -94,7 +104,6 @@ public class CombatStats : MonoBehaviour
                 //Basically if it's at the start bounds of being early and the far bounds of being 
                 if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
                 {
-                    StartCoroutine(ShowText());
                     DetectAttackHit(transform.position);
                 }
             }
@@ -108,7 +117,6 @@ public class CombatStats : MonoBehaviour
                 //Basically if it's at the start bounds of being early and the far bounds of being 
                 if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
                 {
-                    StartCoroutine(ShowText());
                     DetectAttackHit(transform.position);
                 }
             }
@@ -118,11 +126,13 @@ public class CombatStats : MonoBehaviour
             {
                 if (transform.position.x > hitList[index].pos + offset && !hitNote) //greater than the pos + offset
                 {
-                    //source.clip = missSound;
-                    //   source.Play();
+                    AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[2];
+                    AudioManager.instance.SFX.Play();
 
                     CombatController.instance.hitDetectionText.text = "Miss!";
+                    colorText = "#7E7E7E";
                     StartCoroutine(ShowText());
+                    
                     index++;
                 }
 
@@ -142,8 +152,7 @@ public class CombatStats : MonoBehaviour
                 //if the slider is within the offset range
                 //Basically if it's at the start bounds of being early and the far bounds of being 
                 if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
-                {
-                    StartCoroutine(ShowText());
+                {   
                     DetectDodgeHit(transform.position);
                 }
             }
@@ -156,7 +165,6 @@ public class CombatStats : MonoBehaviour
                 //Basically if it's at the start bounds of being early and the far bounds of being 
                 if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
                 {
-                    StartCoroutine(ShowText());
                     DetectDodgeHit(transform.position);
                 }
             }
@@ -166,11 +174,13 @@ public class CombatStats : MonoBehaviour
             {
                 if (transform.position.x < hitList[index].pos - offset && !hitNote) //greater than the pos + offset
                 {
-                    //source.clip = missSound;
-                    // source.Play();
+                    AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[2];
+                    AudioManager.instance.SFX.Play();
 
                     CombatController.instance.hitDetectionText.text = "Miss!";
-                    CombatController.instance.hitDetectionText.gameObject.SetActive(true);
+                    colorText = "#7E7E7E";
+                    StartCoroutine(ShowText());
+
                     index++;
                 }
 
@@ -186,9 +196,14 @@ public class CombatStats : MonoBehaviour
 
     IEnumerator ShowText()
     {
+        ColorUtility.TryParseHtmlString(colorText, out color);
         CombatController.instance.hitDetectionText.gameObject.SetActive(true);
-        yield return new WaitForSecondsRealtime(AudioManager.instance.beatsPerSec);
+        slider.color = color;
+
+        yield return new WaitForSecondsRealtime(0.25f);
+
         CombatController.instance.hitDetectionText.gameObject.SetActive(false);
+        slider.color = Color.white;
     }
 
     private void DetectAttackHit(Vector3 pos)
@@ -199,7 +214,9 @@ public class CombatStats : MonoBehaviour
             //play Late animation
             CombatController.instance.hitDetectionText.text = "Late!";
             Debug.Log("Late!");
+            AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[1];
             amountHit += .5f;
+            colorText = "#FFD900";
         }
         //if the player is "perfect"
         else if (pos.x <= hitList[index].pos + delta)// && pos.x >= hitList[index].pos - delta) //between the pos +/- delta
@@ -207,7 +224,9 @@ public class CombatStats : MonoBehaviour
             //play Perfect animation
             CombatController.instance.hitDetectionText.text = "Perfect!";
             Debug.Log("Perfect!");
+            AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[0];
             amountHit += 1;
+            colorText = "#FF0000";
         }
         //the player is early
         else if (pos.x < hitList[index].pos - delta && pos.x >= hitList[index].pos - offset) //between the pos and -offset
@@ -215,23 +234,19 @@ public class CombatStats : MonoBehaviour
             //play Early animation
             CombatController.instance.hitDetectionText.text = "Early!";
             Debug.Log("Early!");
+            AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[1];
             amountHit += .5f;
+            colorText = "#FFD900";
         }
 
-        Debug.Log("Hit at: " + transform.position.x);
-        Debug.Log("Beat to hit at: " + hitList[index]);
-        Debug.Log("Beat in song: " + AudioManager.instance.songPositionInBeats);
-        Debug.Log("Beat in song (sec): " + AudioManager.instance.songPosition);
-        PlayRandomAttackClip();
+        //Debug.Log("Hit at: " + transform.position.x);
+        //Debug.Log("Beat to hit at: " + hitList[index]);
+        //Debug.Log("Beat in song: " + AudioManager.instance.songPositionInBeats);
+        //Debug.Log("Beat in song (sec): " + AudioManager.instance.songPosition);
+        StartCoroutine(ShowText());
+        AudioManager.instance.SFX.Play();
         index++;
         hitNote = true;
-    }
-
-    void PlayRandomAttackClip()
-    {
-        var random = Random.Range(0, 2);
-        AudioManager.instance.SFX.clip = actionSounds[random];
-        AudioManager.instance.SFX.Play();
     }
 
     private void DetectDodgeHit(Vector3 pos)
@@ -242,7 +257,9 @@ public class CombatStats : MonoBehaviour
             //play Late animation
             CombatController.instance.hitDetectionText.text = "Early!";
             Debug.Log("Early!");
+            AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[1];
             amountHit += .5f;
+            colorText = "#FFD900";
         }
         //if the player is "perfect"
         else if (pos.x <= hitList[index].pos + delta && pos.x >= hitList[index].pos - delta) //between the pos +/- delta
@@ -250,7 +267,9 @@ public class CombatStats : MonoBehaviour
             //play Perfect animation
             CombatController.instance.hitDetectionText.text = "Perfect!";
             Debug.Log("Perfect!");
+            AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[0];
             amountHit += 1;
+            colorText = "#FF0000";
         }
         //the player is late
         else if (pos.x < hitList[index].pos - delta && pos.x >= hitList[index].pos - offset) //between the pos and -offset
@@ -258,11 +277,15 @@ public class CombatStats : MonoBehaviour
             //play Early animation
             CombatController.instance.hitDetectionText.text = "Late!";
             Debug.Log("Late!");
+            AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[1];
             amountHit += .5f;
+            colorText = "#FFD900";
         }
 
         index++;
         hitNote = true;
+        StartCoroutine(ShowText());
+        AudioManager.instance.SFX.Play();
     }
 
     //Updates the player's health, both damage and healing
@@ -337,7 +360,7 @@ public class CombatStats : MonoBehaviour
 
         //if we're attactking susan, set enemy to null
         _ = attackSusan ? e = null : e = CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>();
-        
+
         //if using an item, otherwise calculate damage and show splash screens
         if (isItem)
         {
@@ -368,7 +391,12 @@ public class CombatStats : MonoBehaviour
         {
             //Show hit Animation
             GameManager.instance.susan.EnemyHit();
-            yield return new WaitForSecondsRealtime(0.25f);
+
+            StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
+
+            yield return new WaitUntil(() => AudioManager.instance.nextBeat);
+            AudioManager.instance.nextBeat = false;
+            GameManager.instance.susan.Idle();
 
             GameManager.instance.susan.UpdateHealth(damage);
             enemyHealth[enemyAttacked] -= damage;
@@ -378,17 +406,18 @@ public class CombatStats : MonoBehaviour
         }
         else
         {
+            Debug.Log("Hit Enemy");
             //Show hit Animation
             e.EnemyHit();
-            yield return new WaitForSecondsRealtime(0.25f);
 
             enemyHealth[enemyAttacked] -= damage;
             e.UpdateHealth(damage);
+
         }
 
         if (enemyHealth[enemyAttacked] <= 0)
         {
-            //play enemy death animiation
+            Debug.Log("Enemy Dead");
 
             StartCoroutine(EnemyDeath(enemyAttacked, e));
 
@@ -398,6 +427,16 @@ public class CombatStats : MonoBehaviour
                 StartCoroutine(GameManager.instance.BattleWon());
                 yield break;
             }
+
+            yield return new WaitUntil(() => CombatController.instance._inBattle[enemyAttacked] == null);
+        }
+        else
+        {
+            StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
+
+            yield return new WaitUntil(() => AudioManager.instance.nextBeat);
+            AudioManager.instance.nextBeat = false;
+            e.Idle();
         }
 
         yield return new WaitForEndOfFrame();
@@ -409,6 +448,7 @@ public class CombatStats : MonoBehaviour
 
     void SwitchTurn()
     {
+        Debug.Log("Seitch Turns");
         //Reset the # of total hits and amount it
         totalHits = 0;
         amountHit = 0;
@@ -421,6 +461,9 @@ public class CombatStats : MonoBehaviour
     //Handles what happens when an enemy dies
     public IEnumerator EnemyDeath(int enemyAttacked, Enemy enemy)
     {
+        //decrease the number o f enemies left
+        _enemiesLeft -= 1;
+
         //Death Sound
         AudioManager.instance.SFX.clip = AudioManager.instance.enemySFX[AudioManager.instance.enemySFX.Count - 1];
         AudioManager.instance.SFX.Play();
@@ -429,12 +472,9 @@ public class CombatStats : MonoBehaviour
         CombatController.instance.enemyHealthBars[enemyAttacked].gameObject.SetActive(false);
 
         enemy.EnemyDeath();
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(1f);
 
         Debug.Log("Enemy Dead");
-
-        //decrease the number o f enemies left
-        _enemiesLeft -= 1;
 
         //Destroy Enemy
         Destroy(CombatController.instance._inBattle[enemyAttacked].gameObject);

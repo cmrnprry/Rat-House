@@ -34,7 +34,6 @@ public class Note : MonoBehaviour
 
     public static bool showDodge = false;
 
-
     private void Start()
     {
         rend = GetComponent<Renderer>();
