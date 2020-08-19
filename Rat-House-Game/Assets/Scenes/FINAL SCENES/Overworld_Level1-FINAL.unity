@@ -3700,10 +3700,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971b5b31f07b6214698837fd9535d64b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  dialogue: {fileID: 1929291418}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   player: {fileID: 1291760750}
   aNiceConversation:
   - Jan:Man, I really wish they'd fix the vending machine already.
@@ -3844,6 +3840,7 @@ MonoBehaviour:
   player: {fileID: 1291760752}
   itemGetAnim: {fileID: 926445942}
   itemText: {fileID: 926445943}
+  hasKey: 0
 --- !u!114 &274487377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8883,7 +8880,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Example Text
+  m_text: Example Text Example Text Example Text Example Text Example Text Example
+    Text Example Text Example Text Example Text Example Text Example Text Example
+    Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c34937cc34877e44faa02d7f362d5d06, type: 2}
   m_sharedMaterial: {fileID: -405927259361655241, guid: c34937cc34877e44faa02d7f362d5d06,
@@ -8912,7 +8911,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 70
+  m_fontSize: 53.55
   m_fontSizeBase: 60.9
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8953,12 +8952,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 569022208}
-    characterCount: 12
+    characterCount: 155
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 23
+    wordCount: 24
     linkCount: 0
-    lineCount: 1
+    lineCount: 3
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -9000,8 +8999,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -15.08, y: -25.984}
-  m_SizeDelta: {x: 1271.0767, y: 154.87411}
+  m_AnchoredPosition: {x: -15.08, y: 17.6}
+  m_SizeDelta: {x: 1271.0767, y: 192.81525}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &572329375
 GameObject:
@@ -9514,7 +9513,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ec19c7b661f086438f3daa14d33d4a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elevatorScript: {fileID: 2044352358}
 --- !u!65 &584043917
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12078,13 +12076,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   itemComments:
   - Hi, I'm placeholder text
   - Sorry, the real text will be put in when we change the sprites
   - Oops! looks like the final text hasn't been put in yet!
+  itemComment: 
   playerInRange: 0
 --- !u!1 &837875807
 GameObject:
@@ -15649,10 +15645,10 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 30
-  m_fontSizeBase: 40
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 25
   m_fontSizeMax: 30
   m_fontStyle: 0
@@ -15666,7 +15662,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -15737,8 +15733,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -432.1, y: 123.2}
-  m_SizeDelta: {x: 388.5932, y: 52.391388}
+  m_AnchoredPosition: {x: -432.1, y: 118.6}
+  m_SizeDelta: {x: 388.5932, y: 69.464905}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1092574976
 PrefabInstance:
@@ -18617,10 +18613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971b5b31f07b6214698837fd9535d64b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  dialogue: {fileID: 1929291418}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   player: {fileID: 1291760750}
   aNiceConversation:
   - Jan:Oh, hey, Joe. What are you doing here, I thought you were let go?
@@ -21585,13 +21577,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   itemComments:
   - Hi, I'm placeholder text
   - Sorry, the real text will be put in when we change the sprites
   - Oops! looks like the final text hasn't been put in yet!
+  itemComment: 
   playerInRange: 0
 --- !u!4 &1443087119 stripped
 Transform:
@@ -22652,10 +22642,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971b5b31f07b6214698837fd9535d64b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  dialogue: {fileID: 1929291418}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   player: {fileID: 1291760750}
   aNiceConversation:
   - Wilbur:Ah, Mr. Vampire, I didn't expect to see you here today...or any day, in
@@ -31168,26 +31154,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   itemComments:
   - Hi, I'm placeholder text
   - Sorry, the real text will be put in when we change the sprites
   - Oops! looks like the final text hasn't been put in yet!
+  itemComment: 
   playerInRange: 0
---- !u!114 &2044352358 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6107416186872977924, guid: 4d4e3aa5789453249a9d2687379dc609,
-    type: 3}
-  m_PrefabInstance: {fileID: 4058296197114521444}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaf90910c8023704692c4c23b59dd7fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2047170076
 GameObject:
   m_ObjectHideFlags: 0
@@ -31983,13 +31955,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   itemComments:
   - Hi, I'm placeholder text
   - Sorry, the real text will be put in when we change the sprites
   - Oops! looks like the final text hasn't been put in yet!
+  itemComment: 
   playerInRange: 0
 --- !u!1 &2109468451
 GameObject:
@@ -32173,13 +32143,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12742f2189ea56545a05724a747a0543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 926109704}
-  nameText: {fileID: 1078000864}
-  dialogueText: {fileID: 569022208}
   itemComments:
   - Janet and her children.
   - Wherefore doest Janet insist on leaving pictures of her children everywhere?
   - Ah, youth.
+  itemComment: 
   playerInRange: 0
 --- !u!1 &2112951558
 GameObject:
