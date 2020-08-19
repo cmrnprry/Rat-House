@@ -1,50 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class InteractableText : MonoBehaviour
 {
-    //public Animator anim;
-
-    //public TextMeshProUGUI nameText;
-    //public TextMeshProUGUI dialogueText;
-
     public string[] itemComments;
     public string itemComment;
 
     public bool playerInRange;
 
+    IEnumerator ShowInteractabeText()
+    {
+        //If you press space when the player is close enough...
+        if (Input.GetButton("SelectAction") && !GameManager.instance.dialogueInProgress && GameManager.instance.GetGameState() != GameState.Battle)
+        {
+            GameManager.instance.dialogueInProgress = true;
+            GameManager.instance.dialogueOver = false;
 
-    //IEnumerator ShowInteractabeText()
-    //{
-    //    // dialogueManager = GetComponent<Dialogue>();
-    //    //If you press space when the player is close enough...
-    //    if (Input.GetButton("SelectAction") && !GameManager.instance.dialogueInProgress && GameManager.instance.GetGameState() != GameState.Battle)
-    //    {
-    //        GameManager.instance.dialogueInProgress = true;
-    //        GameManager.instance.dialogueOver = false;
+            GameManager.instance.diaAnim.SetBool("isOpen", true);
+            GameManager.instance.dialogue.speakerName.text = "Joe";
+            GameManager.instance.dialogue.dia.text = itemComments[Random.Range(0, itemComments.Length)];
 
+            yield return new WaitUntil(() => Input.GetButtonDown("SelectAction"));
 
-    //        GameManager.instance.diaAnim.SetBool("isOpen", true);
-    //        GameManager.instance.dialogueParent.dialogue.StartDialogue = "Joe";
-    //        dialogueText.text = itemComments[Random.Range(0, itemComments.Length)];
+            //end dialogue
+            GameManager.instance.diaAnim.SetBool("isOpen", false);
+            GameManager.instance.dialogueInProgress = false;
+            GameManager.instance.dialogueOver = true;
 
-    //        yield return new WaitUntil(() => Input.GetButtonDown("SelectAction"));
+            playerInRange = false;
+            yield break;
+        }
 
-    //        //end dialogue
-    //        GameManager.instance.diaAnim.SetBool("isOpen", false);
-    //        GameManager.instance.dialogueInProgress = false;
-    //        GameManager.instance.dialogueOver = true;
-
-    //        playerInRange = false;
-    //        yield break;
-    //    }
-
-    //    yield return new WaitForEndOfFrame();
-    //    StartCoroutine(ShowInteractabeText());
-    //}
+        yield return new WaitForEndOfFrame();
+        StartCoroutine(ShowInteractabeText());
+    }
 
     //Check if the player is close enough
     void OnTriggerEnter(Collider other)
@@ -52,8 +42,7 @@ public class InteractableText : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
-            itemComment = itemComments[Random.Range(0, itemComments.Length)];
-            StartCoroutine(GameManager.instance.ShowInteractabeText(itemComment));
+            StartCoroutine(ShowInteractabeText());
         }
     }
 

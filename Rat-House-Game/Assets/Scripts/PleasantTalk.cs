@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class PleasantTalk : MonoBehaviour
 {
@@ -10,7 +9,6 @@ public class PleasantTalk : MonoBehaviour
     private int _index = 0;
 
     //public Animator anim;
-    private Dialogue dialogue;
 
     //public TextMeshProUGUI nameText;
     //public TextMeshProUGUI dialogueText;
@@ -19,11 +17,6 @@ public class PleasantTalk : MonoBehaviour
 
     [TextArea(3, 5)]
     public string[] aNiceConversation;
-
-    private void Start()
-    {
-        dialogue = GetComponent<Dialogue>();
-    }
 
     public void SetNPCDialogue()
     {
@@ -42,22 +35,22 @@ public class PleasantTalk : MonoBehaviour
 
         //turn on textbox and start dialogue
         GameManager.instance.diaAnim.SetBool("isOpen", true);
-        dialogue.sentences = aNiceConversation;
-        dialogue.StartDialogue();
+        GameManager.instance.dialogue.sentences = aNiceConversation;
+        GameManager.instance.dialogue.StartDialogue();
         StartCoroutine(HaveANiceConversation());
     }
 
     IEnumerator HaveANiceConversation()
     {
         //Waits for the text to stop typing
-        yield return new WaitUntil(() => dialogue.isTyping == false);
+        yield return new WaitUntil(() => GameManager.instance.dialogue.isTyping == false);
 
         //wait for the player to press enter/space
         yield return new WaitUntil(() => Input.GetButton("SelectAction"));
 
         //when you press space...
         //When we're at the end of the intro dialogue
-        if (_index == dialogue.sentences.Length)
+        if (_index == GameManager.instance.dialogue.sentences.Length)
         {
             //Lower the text box
             GameManager.instance.diaAnim.SetBool("isOpen", false);
@@ -80,7 +73,7 @@ public class PleasantTalk : MonoBehaviour
         _index++;
 
         //load next sentence
-        dialogue.NextSentence();
+        GameManager.instance.dialogue.NextSentence();
 
         //Restart the coroutine
         StartCoroutine(HaveANiceConversation());

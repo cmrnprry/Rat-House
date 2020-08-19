@@ -8957,7 +8957,7 @@ MonoBehaviour:
     spaceCount: 23
     wordCount: 24
     linkCount: 0
-    lineCount: 3
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -8999,8 +8999,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -15.08, y: 17.6}
-  m_SizeDelta: {x: 1271.0767, y: 192.81525}
+  m_AnchoredPosition: {x: -18, y: 2.4}
+  m_SizeDelta: {x: 1284.3562, y: 192.8153}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &572329375
 GameObject:
@@ -13589,8 +13589,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 64.4, y: -295}
-  m_SizeDelta: {x: 1427.3313, y: 366.84222}
+  m_AnchoredPosition: {x: 92.9, y: -295}
+  m_SizeDelta: {x: 1484.2434, y: 366.84222}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &926439597
 GameObject:
@@ -15645,8 +15645,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 55
+  m_fontSizeBase: 55
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 25
@@ -15662,7 +15662,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 0
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -15733,8 +15733,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -432.1, y: 118.6}
-  m_SizeDelta: {x: 388.5932, y: 69.464905}
+  m_AnchoredPosition: {x: -438.7, y: 118.6}
+  m_SizeDelta: {x: 401.87262, y: 69.464905}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1092574976
 PrefabInstance:
