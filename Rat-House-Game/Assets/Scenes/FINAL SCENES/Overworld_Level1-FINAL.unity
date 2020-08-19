@@ -7156,6 +7156,7 @@ MonoBehaviour:
   itemMenuParent: {fileID: 2047170076}
   itemMenu: {fileID: 659507233}
   menuSelect: {fileID: 991569133}
+  heartAnim: {fileID: 514497559}
   playerHealthSlider: {fileID: 260704543}
   playerHealthText: {fileID: 295888272}
   hitDetectionText: {fileID: 1574809780}
@@ -31140,9 +31141,9 @@ MonoBehaviour:
   countdownText: {fileID: 564185256}
   SFX: {fileID: 379674665}
   attackSFX:
-  - {fileID: 8300000, guid: 51cc77f92873a8544b4db7692f7f7c53, type: 3}
-  - {fileID: 8300000, guid: e06b5ba1e370bc849a9ea3f420650f83, type: 3}
-  - {fileID: 8300000, guid: 58772bbe06b328f4aa46b1ad3c7d1113, type: 3}
+  - {fileID: 8300000, guid: 90b0412b905e41e44b8b5b8dee9dae31, type: 3}
+  - {fileID: 8300000, guid: a928e5978c52dcb48aa95fb042390c7f, type: 3}
+  - {fileID: 8300000, guid: 9b7f64ffeb202594d957e5c4ce2dace9, type: 3}
   dodgeSFX: []
   enemySFX:
   - {fileID: 8300000, guid: dd9631c589030cf4fbc347c13320ed3e, type: 3}
@@ -31434,7 +31435,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 752624973}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.34873345
+  m_Size: 0.34873337
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

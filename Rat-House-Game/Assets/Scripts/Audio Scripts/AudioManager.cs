@@ -138,7 +138,7 @@ public class AudioManager : MonoBehaviour
         mapBeatsPerSec = mapBpm / 60f;
 
         //Sets the total beats for the first clip
-        totalBeats = 8.5f;
+        totalBeats = 9f;
     }
 
     //Start BG music when a fight starts
@@ -146,6 +146,7 @@ public class AudioManager : MonoBehaviour
     {
         //Record the time when the music starts
         dspSongTime = (float)AudioSettings.dspTime;
+        CombatController.instance.heartAnim.SetBool("IsOn", true);
 
         //Start the background music
         bgMusic.clip = bgClips[0];

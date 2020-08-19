@@ -116,6 +116,7 @@ public class CombatController : MonoBehaviour
     private GameObject _enemyEffects;
 
     [Header("UI")]
+    public Animator heartAnim;
     public Slider playerHealthSlider;
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI hitDetectionText;
@@ -364,19 +365,15 @@ public class CombatController : MonoBehaviour
             switch (_actionList[_selectedAction])
             {
                 case ActionType.Punch:
-                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray();
                     StartCoroutine(ChooseEnemy());
                     break;
                 case ActionType.Kick:
-                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray(); //TODO: put in kick attacks
                     StartCoroutine(ChooseEnemy());
                     break;
                 case ActionType.Throw:
-                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray(); //TODO: put in throw attacks
                     StartCoroutine(ChooseEnemy());
                     break;
                 case ActionType.Heal:
-                    _stats.actionSounds = AudioManager.instance.attackSFX.GetRange(0, 3).ToArray(); //TODO: put in heal attacks
                     StartCoroutine(ChoosePlayer());
                     break;
                 default:

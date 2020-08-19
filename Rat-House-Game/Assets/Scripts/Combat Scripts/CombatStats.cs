@@ -31,7 +31,6 @@ public class CombatStats : MonoBehaviour
     private int turnsUntilEffectOver;
 
     //Enemy Stats
-    [HideInInspector]
     public List<float> enemyHealth;
     private List<float> enemyBaseAccuracy;
     private int _enemiesLeft = 0;
@@ -118,8 +117,8 @@ public class CombatStats : MonoBehaviour
             {
                 if (transform.position.x > hitList[index].pos + offset && !hitNote) //greater than the pos + offset
                 {
-                    //source.clip = missSound;
-                    //   source.Play();
+                    AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[2];
+                    AudioManager.instance.SFX.Play();
 
                     CombatController.instance.hitDetectionText.text = "Miss!";
                     StartCoroutine(ShowText());
@@ -166,8 +165,8 @@ public class CombatStats : MonoBehaviour
             {
                 if (transform.position.x < hitList[index].pos - offset && !hitNote) //greater than the pos + offset
                 {
-                    //source.clip = missSound;
-                    // source.Play();
+                    AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[2];
+                    AudioManager.instance.SFX.Play();
 
                     CombatController.instance.hitDetectionText.text = "Miss!";
                     CombatController.instance.hitDetectionText.gameObject.SetActive(true);
@@ -199,6 +198,7 @@ public class CombatStats : MonoBehaviour
             //play Late animation
             CombatController.instance.hitDetectionText.text = "Late!";
             Debug.Log("Late!");
+            AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[1];
             amountHit += .5f;
         }
         //if the player is "perfect"
@@ -207,6 +207,7 @@ public class CombatStats : MonoBehaviour
             //play Perfect animation
             CombatController.instance.hitDetectionText.text = "Perfect!";
             Debug.Log("Perfect!");
+            AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[0];
             amountHit += 1;
         }
         //the player is early
@@ -215,23 +216,17 @@ public class CombatStats : MonoBehaviour
             //play Early animation
             CombatController.instance.hitDetectionText.text = "Early!";
             Debug.Log("Early!");
+            AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[1];
             amountHit += .5f;
         }
 
-        Debug.Log("Hit at: " + transform.position.x);
-        Debug.Log("Beat to hit at: " + hitList[index]);
-        Debug.Log("Beat in song: " + AudioManager.instance.songPositionInBeats);
-        Debug.Log("Beat in song (sec): " + AudioManager.instance.songPosition);
-        PlayRandomAttackClip();
+        //Debug.Log("Hit at: " + transform.position.x);
+        //Debug.Log("Beat to hit at: " + hitList[index]);
+        //Debug.Log("Beat in song: " + AudioManager.instance.songPositionInBeats);
+        //Debug.Log("Beat in song (sec): " + AudioManager.instance.songPosition);
+        AudioManager.instance.SFX.Play();
         index++;
         hitNote = true;
-    }
-
-    void PlayRandomAttackClip()
-    {
-        var random = Random.Range(0, 2);
-        AudioManager.instance.SFX.clip = actionSounds[random];
-        AudioManager.instance.SFX.Play();
     }
 
     private void DetectDodgeHit(Vector3 pos)
@@ -242,6 +237,7 @@ public class CombatStats : MonoBehaviour
             //play Late animation
             CombatController.instance.hitDetectionText.text = "Early!";
             Debug.Log("Early!");
+            AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[1];
             amountHit += .5f;
         }
         //if the player is "perfect"
@@ -250,6 +246,7 @@ public class CombatStats : MonoBehaviour
             //play Perfect animation
             CombatController.instance.hitDetectionText.text = "Perfect!";
             Debug.Log("Perfect!");
+            AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[0];
             amountHit += 1;
         }
         //the player is late
@@ -258,11 +255,13 @@ public class CombatStats : MonoBehaviour
             //play Early animation
             CombatController.instance.hitDetectionText.text = "Late!";
             Debug.Log("Late!");
+            AudioManager.instance.SFX.clip = AudioManager.instance.attackSFX[1];
             amountHit += .5f;
         }
 
         index++;
         hitNote = true;
+        AudioManager.instance.SFX.Play();
     }
 
     //Updates the player's health, both damage and healing
@@ -337,7 +336,7 @@ public class CombatStats : MonoBehaviour
 
         //if we're attactking susan, set enemy to null
         _ = attackSusan ? e = null : e = CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>();
-        
+
         //if using an item, otherwise calculate damage and show splash screens
         if (isItem)
         {
@@ -378,6 +377,7 @@ public class CombatStats : MonoBehaviour
         }
         else
         {
+            Debug.Log("Hit Enemy");
             //Show hit Animation
             e.EnemyHit();
             yield return new WaitForSecondsRealtime(0.25f);
@@ -388,7 +388,7 @@ public class CombatStats : MonoBehaviour
 
         if (enemyHealth[enemyAttacked] <= 0)
         {
-            //play enemy death animiation
+            Debug.Log("Enemy Dead");
 
             StartCoroutine(EnemyDeath(enemyAttacked, e));
 
@@ -398,6 +398,8 @@ public class CombatStats : MonoBehaviour
                 StartCoroutine(GameManager.instance.BattleWon());
                 yield break;
             }
+
+            yield return new WaitUntil(() => CombatController.instance._inBattle[enemyAttacked] == null);
         }
 
         yield return new WaitForEndOfFrame();
@@ -409,6 +411,7 @@ public class CombatStats : MonoBehaviour
 
     void SwitchTurn()
     {
+        Debug.Log("Seitch Turns");
         //Reset the # of total hits and amount it
         totalHits = 0;
         amountHit = 0;
@@ -421,6 +424,9 @@ public class CombatStats : MonoBehaviour
     //Handles what happens when an enemy dies
     public IEnumerator EnemyDeath(int enemyAttacked, Enemy enemy)
     {
+        //decrease the number o f enemies left
+        _enemiesLeft -= 1;
+
         //Death Sound
         AudioManager.instance.SFX.clip = AudioManager.instance.enemySFX[AudioManager.instance.enemySFX.Count - 1];
         AudioManager.instance.SFX.Play();
@@ -429,12 +435,9 @@ public class CombatStats : MonoBehaviour
         CombatController.instance.enemyHealthBars[enemyAttacked].gameObject.SetActive(false);
 
         enemy.EnemyDeath();
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(1f);
 
         Debug.Log("Enemy Dead");
-
-        //decrease the number o f enemies left
-        _enemiesLeft -= 1;
 
         //Destroy Enemy
         Destroy(CombatController.instance._inBattle[enemyAttacked].gameObject);
