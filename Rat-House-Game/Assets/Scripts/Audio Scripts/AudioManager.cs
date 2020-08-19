@@ -149,6 +149,7 @@ public class AudioManager : MonoBehaviour
         //Record the time when the music starts
         dspSongTime = (float)AudioSettings.dspTime;
         CombatController.instance.heartAnim.SetBool("IsOn", true);
+        GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).GetComponent<Animator>().SetTrigger("Idle");
 
         //Start the background music
         bgMusic.clip = bgClips[0];
@@ -199,7 +200,14 @@ public class AudioManager : MonoBehaviour
 
     public IEnumerator WaitUntilNextBeat(double curPos)
     {
-        yield return new WaitUntil(() => curPos + 2 <= songPositionInBeats);
+        while (curPos % 4 != 0)
+        {
+            curPos += 0.5;
+        }
+
+        Debug.Log(curPos);
+
+        yield return new WaitUntil(() => curPos <= songPositionInBeats);
         nextBeat = true;
     }
 

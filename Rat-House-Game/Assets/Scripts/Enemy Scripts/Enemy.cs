@@ -395,6 +395,7 @@ public class Enemy : MonoBehaviour
 
     public void Idle()
     {
+        Debug.Log("idle");
         anim.SetTrigger("Idle");
     }
 

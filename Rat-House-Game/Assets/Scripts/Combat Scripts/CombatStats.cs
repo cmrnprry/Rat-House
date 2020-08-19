@@ -387,14 +387,9 @@ public class CombatStats : MonoBehaviour
             //Show hit Animation
             e.EnemyHit();
 
-            StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
-
-            yield return new WaitUntil(() => AudioManager.instance.nextBeat);
-            AudioManager.instance.nextBeat = false;
-            e.Idle();
-
             enemyHealth[enemyAttacked] -= damage;
             e.UpdateHealth(damage);
+
         }
 
         if (enemyHealth[enemyAttacked] <= 0)
@@ -411,6 +406,14 @@ public class CombatStats : MonoBehaviour
             }
 
             yield return new WaitUntil(() => CombatController.instance._inBattle[enemyAttacked] == null);
+        }
+        else
+        {
+            StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
+
+            yield return new WaitUntil(() => AudioManager.instance.nextBeat);
+            AudioManager.instance.nextBeat = false;
+            e.Idle();
         }
 
         yield return new WaitForEndOfFrame();

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using static EnemyController;
+using System;
 
 public enum ActionType
 {
@@ -218,7 +219,7 @@ public class CombatController : MonoBehaviour
         var index = 0;
         Debug.Log("place enemies");
 
-        GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).GetComponent<Animator>().SetTrigger("Idle");
+        
         foreach (var e in enemyList)
         {
             //Instasiate the enmy of Type
@@ -240,6 +241,8 @@ public class CombatController : MonoBehaviour
             //increase the index
             index++;
         }
+
+       
     }
 
     //For adding an enemy to a battle
@@ -718,6 +721,12 @@ public class CombatController : MonoBehaviour
                     //Waits untik this returns true
                     yield return new WaitUntil(() => susan.IsTurnOver());
 
+                    StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
+
+                    yield return new WaitUntil(() => AudioManager.instance.nextBeat);
+                    AudioManager.instance.nextBeat = false;
+                    susan.Idle();
+
                     //Reset the IsTurnOver to be false
                     susan.SetIsTurnOver(false);
 
@@ -829,7 +838,7 @@ public class CombatController : MonoBehaviour
     void PlayerStatusEffect(EnemyType e)
     {
         Debug.Log("Effect?");
-        int effectChance = Random.Range(0, 101);
+        int effectChance = UnityEngine.Random.Range(0, 101);
         var effect = StatusEffect.None;
 
         if (e == EnemyType.Water_Cooler)
