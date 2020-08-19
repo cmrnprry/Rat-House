@@ -663,7 +663,7 @@ GameObject:
   - component: {fileID: 86748119}
   - component: {fileID: 86748118}
   m_Layer: 0
-  m_Name: Basic Health
+  m_Name: Jim's Lunch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -708,7 +708,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 495c4ca4945537d4d95b3cb31af5c6d7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2bd68aeb570864a4395c27384e9bb67a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -727,7 +727,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 86748115}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25.599998, y: -0.6899999, z: 37.95}
+  m_LocalPosition: {x: -23.39, y: -0.6899999, z: 37.95}
   m_LocalScale: {x: 1.0783358, y: 1.0783358, z: 1.0783358}
   m_Children: []
   m_Father: {fileID: 744097144}
@@ -747,9 +747,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemGetAnim: {fileID: 0}
   itemText: {fileID: 0}
-  itemType: 0
-  effectType: 0
-  itialDmg: 0
+  itemType: 4
+  effectType: 1
+  itialDmg: 15
 --- !u!65 &86748119
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -761,8 +761,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.56, y: 2.56, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 4.2274337, y: 3.8042808, z: 0.2}
+  m_Center: {x: 0.13754149, y: 0.11695411, z: 0}
 --- !u!1001 &89920887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1882,7 +1882,7 @@ GameObject:
   - component: {fileID: 293077310}
   - component: {fileID: 293077309}
   m_Layer: 0
-  m_Name: Basic Health
+  m_Name: Calmy Tea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1927,7 +1927,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 495c4ca4945537d4d95b3cb31af5c6d7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de239b22b7f20bb418f8c9ac30b78109, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1946,7 +1946,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293077306}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.66, y: -0.6899999, z: -9.549999}
+  m_LocalPosition: {x: 12.66, y: -0.27, z: -9.549999}
   m_LocalScale: {x: 1.0783358, y: 1.0783358, z: 1.0783358}
   m_Children: []
   m_Father: {fileID: 744097144}
@@ -1968,7 +1968,7 @@ MonoBehaviour:
   itemText: {fileID: 0}
   itemType: 0
   effectType: 0
-  itialDmg: 0
+  itialDmg: 15
 --- !u!65 &293077310
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1977,11 +1977,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293077306}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.56, y: 2.56, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0.0000009536743}
+  m_Size: {x: 5.495852, y: 4.573092, z: 0.2}
+  m_Center: {x: -0.028672736, y: -0.13286437, z: 0.0000009534879}
 --- !u!1 &303243635
 GameObject:
   m_ObjectHideFlags: 0
@@ -2929,7 +2929,7 @@ GameObject:
   - component: {fileID: 468992937}
   - component: {fileID: 468992936}
   m_Layer: 0
-  m_Name: Basic Damage
+  m_Name: Pam's Fruitcake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2974,7 +2974,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 52ef26991459ca541b12b1d677d46eb4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3e303834073bc1748bf26035099d2058, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2993,7 +2993,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 468992933}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -28.1, y: -0.6899999, z: 20.850002}
+  m_LocalPosition: {x: -28.1, y: 0.16, z: 20.850002}
   m_LocalScale: {x: 1.0783358, y: 1.0783358, z: 1.0783358}
   m_Children: []
   m_Father: {fileID: 744097144}
@@ -3013,9 +3013,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemGetAnim: {fileID: 0}
   itemText: {fileID: 0}
-  itemType: 1
-  effectType: 0
-  itialDmg: 0
+  itemType: 3
+  effectType: 7
+  itialDmg: 15
 --- !u!65 &468992937
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3027,8 +3027,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 10, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0.0000038146973}
+  m_Size: {x: 4.5647435, y: 3.6113915, z: 0.2}
+  m_Center: {x: 0.609794, y: -0.7535274, z: 0.0000038139517}
 --- !u!1 &469962873
 GameObject:
   m_ObjectHideFlags: 0
@@ -3331,6 +3331,127 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3068719547254053562, guid: 764f2779cc6289640816d7dc5a42ae5f,
     type: 3}
   m_PrefabInstance: {fileID: 516247830}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &531946337
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4058296197537738752, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 6.678935
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738752, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.2279608
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738752, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 5.691987
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738752, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.065072864
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 42.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.801
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 18.969
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738758, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Name
+      value: Elevator
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107416186872977924, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: doorsAnim
+      value: 
+      objectReference: {fileID: 531946339}
+    - target: {fileID: 6107416186872977924, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: lightsAnim
+      value: 
+      objectReference: {fileID: 531946338}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4d4e3aa5789453249a9d2687379dc609, type: 3}
+--- !u!95 &531946338 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8650478602586545064, guid: 4d4e3aa5789453249a9d2687379dc609,
+    type: 3}
+  m_PrefabInstance: {fileID: 531946337}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &531946339 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4623428694773327872, guid: 4d4e3aa5789453249a9d2687379dc609,
+    type: 3}
+  m_PrefabInstance: {fileID: 531946337}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &531951703
 PrefabInstance:
@@ -4179,7 +4300,7 @@ GameObject:
   - component: {fileID: 602336489}
   - component: {fileID: 602336488}
   m_Layer: 0
-  m_Name: Basic Damage
+  m_Name: Plastic Utensils
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4224,7 +4345,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 52ef26991459ca541b12b1d677d46eb4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 98d18bf2b305d0848ae7f4b1109d8890, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4243,7 +4364,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602336485}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 41.01, y: -1.37, z: -0.47}
+  m_LocalPosition: {x: 41.01, y: 0.39, z: -0.47}
   m_LocalScale: {x: 1.0783358, y: 1.0783358, z: 1.0783358}
   m_Children: []
   m_Father: {fileID: 744097144}
@@ -4264,8 +4385,8 @@ MonoBehaviour:
   itemGetAnim: {fileID: 0}
   itemText: {fileID: 0}
   itemType: 1
-  effectType: 0
-  itialDmg: 0
+  effectType: 3
+  itialDmg: 15
 --- !u!65 &602336489
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4277,8 +4398,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 10, z: 0.2}
-  m_Center: {x: 0.0000038146973, y: 0, z: 0}
+  m_Size: {x: 5.51954, y: 5.8574233, z: 0.2}
+  m_Center: {x: -0.02183935, y: 0.07879204, z: -7.7160413e-17}
 --- !u!1001 &607027734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5669,7 +5790,7 @@ GameObject:
   - component: {fileID: 815567937}
   - component: {fileID: 815567936}
   m_Layer: 0
-  m_Name: microwave_PNG15726 (5)
+  m_Name: Portrait
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5714,7 +5835,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 46fdb8a68ac907949a6f969597dcb119, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 512f6f404ca279745a5d858f5a20b90b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5754,7 +5875,10 @@ MonoBehaviour:
   anim: {fileID: 0}
   nameText: {fileID: 0}
   dialogueText: {fileID: 0}
-  itemComments: []
+  itemComments:
+  - Ah, youth.
+  - Janet and her children.
+  - Wherefore doest Janet insist on leaving pictures of her children everywhere?
   playerInRange: 0
 --- !u!135 &815567937
 SphereCollider:
@@ -8762,63 +8886,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1207913461}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1209571877
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1209571880}
-  - component: {fileID: 1209571879}
-  - component: {fileID: 1209571878}
-  m_Layer: 0
-  m_Name: Elevator
-  m_TagString: Untagged
-  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1209571878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209571877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaf90910c8023704692c4c23b59dd7fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!65 &1209571879
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209571877}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &1209571880
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209571877}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -1, z: -9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1249741800
 GameObject:
   m_ObjectHideFlags: 0
@@ -9459,6 +9526,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1403908153}
   - component: {fileID: 1403908152}
+  - component: {fileID: 1403908155}
+  - component: {fileID: 1403908154}
   m_Layer: 0
   m_Name: key 1
   m_TagString: Untagged
@@ -9505,7 +9574,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 93fc57d460b6e5042acee94500456872, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 561c37bcbbb7e234b9c1c5f9a3d54194, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -9525,11 +9594,39 @@ Transform:
   m_GameObject: {fileID: 1403908151}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -51.04, y: 0.18, z: 40.48}
-  m_LocalScale: {x: 0.28837746, y: 0.28837746, z: 0.28837746}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1403908154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403908151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ec19c7b661f086438f3daa14d33d4a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemGetAnim: {fileID: 0}
+  itemText: {fileID: 0}
+  elevatorScript: {fileID: 0}
+--- !u!65 &1403908155
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403908151}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.57, y: 3.57, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1407195484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11661,7 +11758,7 @@ GameObject:
   - component: {fileID: 1847733840}
   - component: {fileID: 1847733839}
   m_Layer: 0
-  m_Name: Basic Health
+  m_Name: Hot Coffee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11706,7 +11803,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 495c4ca4945537d4d95b3cb31af5c6d7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2d5c30159ae4d2044922b233280c67d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -11745,9 +11842,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemGetAnim: {fileID: 0}
   itemText: {fileID: 0}
-  itemType: 0
-  effectType: 0
-  itialDmg: 0
+  itemType: 2
+  effectType: 5
+  itialDmg: 15
 --- !u!65 &1847733840
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12155,7 +12252,7 @@ GameObject:
   - component: {fileID: 1979796331}
   - component: {fileID: 1979796330}
   m_Layer: 0
-  m_Name: Basic Damage
+  m_Name: Hot Coffee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12200,7 +12297,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 52ef26991459ca541b12b1d677d46eb4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2d5c30159ae4d2044922b233280c67d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -12239,9 +12336,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemGetAnim: {fileID: 0}
   itemText: {fileID: 0}
-  itemType: 1
-  effectType: 0
-  itialDmg: 0
+  itemType: 2
+  effectType: 5
+  itialDmg: 15
 --- !u!65 &1979796331
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12253,8 +12350,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 10, z: 0.2}
-  m_Center: {x: 0.0000009536743, y: 0, z: 0}
+  m_Size: {x: 4.3298483, y: 4.428227, z: 0.2}
+  m_Center: {x: -0.2916446, y: -0.10046811, z: 0}
 --- !u!1 &1981501854
 GameObject:
   m_ObjectHideFlags: 0
@@ -12268,7 +12365,7 @@ GameObject:
   - component: {fileID: 1981501858}
   - component: {fileID: 1981501857}
   m_Layer: 0
-  m_Name: Basic Health
+  m_Name: Jim's Lunch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12313,7 +12410,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 495c4ca4945537d4d95b3cb31af5c6d7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2bd68aeb570864a4395c27384e9bb67a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -12352,9 +12449,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemGetAnim: {fileID: 0}
   itemText: {fileID: 0}
-  itemType: 0
-  effectType: 0
-  itialDmg: 0
+  itemType: 4
+  effectType: 1
+  itialDmg: 15
 --- !u!65 &1981501858
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12366,8 +12463,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.56, y: 2.56, z: 0.2}
-  m_Center: {x: -0.0000038146973, y: 0, z: 0}
+  m_Size: {x: 4.141427, y: 3.0672674, z: 0.2}
+  m_Center: {x: 0.13260701, y: 0.17793362, z: 0}
 --- !u!1001 &1981541013
 PrefabInstance:
   m_ObjectHideFlags: 0

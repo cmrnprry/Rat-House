@@ -8420,6 +8420,11 @@ PrefabInstance:
       propertyPath: itemText
       value: 
       objectReference: {fileID: 926445943}
+    - target: {fileID: 5211973721219016928, guid: 4a9eac664e867614abf3ddc872eedaaa,
+        type: 3}
+      propertyPath: itialDmg
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5211973721219016929, guid: 4a9eac664e867614abf3ddc872eedaaa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9489,7 +9494,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 584043913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.41, y: 0.31, z: -5.35}
+  m_LocalPosition: {x: -0.52, y: 0.31, z: 57.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -19169,8 +19174,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 3.0150256, z: 0.22192639}
+  m_Center: {x: 0, y: 0.6937578, z: -0.027090967}
 --- !u!23 &1291760754
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -22005,6 +22010,11 @@ PrefabInstance:
       propertyPath: effectType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5211973721219016928, guid: 4a9eac664e867614abf3ddc872eedaaa,
+        type: 3}
+      propertyPath: itialDmg
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5211973721219016929, guid: 4a9eac664e867614abf3ddc872eedaaa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22166,6 +22176,11 @@ PrefabInstance:
         type: 3}
       propertyPath: effectType
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2166726889032688278, guid: 7999644b788d2d24081951c94af4661b,
+        type: 3}
+      propertyPath: itialDmg
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688279, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
@@ -30328,6 +30343,11 @@ PrefabInstance:
       propertyPath: effectType
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2166726889032688278, guid: 7999644b788d2d24081951c94af4661b,
+        type: 3}
+      propertyPath: itialDmg
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688279, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -32058,7 +32078,7 @@ GameObject:
   - component: {fileID: 2110983991}
   - component: {fileID: 2110983990}
   m_Layer: 0
-  m_Name: Objective (2)
+  m_Name: Picture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32158,8 +32178,8 @@ MonoBehaviour:
   dialogueText: {fileID: 569022208}
   itemComments:
   - Janet and her children.
-  - wherefore doest Janet insist on leaving pictures of her children everywhere?
-  - Oops! looks like the final text hasn't been put in yet!
+  - Wherefore doest Janet insist on leaving pictures of her children everywhere?
+  - Ah, youth.
   playerInRange: 0
 --- !u!1 &2112951558
 GameObject:
@@ -32948,6 +32968,11 @@ PrefabInstance:
       propertyPath: itemText
       value: 
       objectReference: {fileID: 926445943}
+    - target: {fileID: 2166726889032688278, guid: 7999644b788d2d24081951c94af4661b,
+        type: 3}
+      propertyPath: itialDmg
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688279, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -33022,20 +33047,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4058296197537738752, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 5.5405626
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738752, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.3505346
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738752, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 5.167271
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738752, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.088982075
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738752, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -4.455993e-16
+      objectReference: {fileID: 0}
     - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.16
+      value: -51.5
       objectReference: {fileID: 0}
     - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.33
+      value: -0.82
       objectReference: {fileID: 0}
     - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.97
+      value: 38.13
       objectReference: {fileID: 0}
     - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
         type: 3}
@@ -33077,6 +33127,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 4058296197537738758, guid: 4d4e3aa5789453249a9d2687379dc609,
         type: 3}
       propertyPath: m_Name
@@ -33111,6 +33171,11 @@ PrefabInstance:
       propertyPath: itemText
       value: 
       objectReference: {fileID: 926445943}
+    - target: {fileID: 5211973721219016928, guid: 4a9eac664e867614abf3ddc872eedaaa,
+        type: 3}
+      propertyPath: itialDmg
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5211973721219016929, guid: 4a9eac664e867614abf3ddc872eedaaa,
         type: 3}
       propertyPath: m_LocalPosition.x
