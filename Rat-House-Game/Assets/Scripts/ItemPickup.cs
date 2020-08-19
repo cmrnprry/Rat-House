@@ -4,11 +4,7 @@ using UnityEngine;
 using TMPro;
 
 public class ItemPickup : MonoBehaviour
-{   
-    //public Animator itemGetAnim;
-
-    //public TextMeshProUGUI itemText;
-
+{
     public ItemType itemType;
     public StatusEffect effectType;
     public int itialDmg;

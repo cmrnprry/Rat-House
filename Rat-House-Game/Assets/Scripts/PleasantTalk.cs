@@ -9,23 +9,28 @@ public class PleasantTalk : MonoBehaviour
 
     private int _index = 0;
 
-    public Animator anim;
-    public Dialogue dialogue;
+    //public Animator anim;
+    private Dialogue dialogue;
 
-    public TextMeshProUGUI nameText;
-    public TextMeshProUGUI dialogueText;
+    //public TextMeshProUGUI nameText;
+    //public TextMeshProUGUI dialogueText;
 
     public GameObject player;
 
     [TextArea(3, 5)]
     public string[] aNiceConversation;
 
+    private void Start()
+    {
+        dialogue = GetComponent<Dialogue>();
+    }
+
     public void SetNPCDialogue()
     {
         //if there's no dialogue to be set
         if (aNiceConversation.Length <= 0)
         {
-           GameManager.instance.dialogueOver = true;
+            GameManager.instance.dialogueOver = true;
             GameManager.instance.dialogueInProgress = false;
             return;
         }
@@ -36,7 +41,7 @@ public class PleasantTalk : MonoBehaviour
         GameManager.instance.dialogueOver = false;
 
         //turn on textbox and start dialogue
-        anim.SetBool("isOpen", true);
+        GameManager.instance.diaAnim.SetBool("isOpen", true);
         dialogue.sentences = aNiceConversation;
         dialogue.StartDialogue();
         StartCoroutine(HaveANiceConversation());
@@ -55,7 +60,7 @@ public class PleasantTalk : MonoBehaviour
         if (_index == dialogue.sentences.Length)
         {
             //Lower the text box
-            anim.SetBool("isOpen", false);
+            GameManager.instance.diaAnim.SetBool("isOpen", false);
 
             //reset the index to 0
             _index = 0;
