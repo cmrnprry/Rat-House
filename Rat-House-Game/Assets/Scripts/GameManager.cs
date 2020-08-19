@@ -78,6 +78,11 @@ public class GameManager : MonoBehaviour
     public GameObject[] overworldLevelOne;
     public PlayerController player;
 
+    [Header("Key Items")]
+    public Animator itemGetAnim;
+    public TextMeshProUGUI itemText;
+    public bool hasKey = false;
+
     void Awake()
     {
         if (instance != null && instance != this)
@@ -443,6 +448,8 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator LoadLevelTwo()
     {
+        hasKey = false;
+
         anim.CrossFade("Fade_Out", 1);
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene("Overworld_Level2-FINAL");

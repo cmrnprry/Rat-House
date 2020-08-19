@@ -4,11 +4,7 @@ using UnityEngine;
 using TMPro;
 
 public class ItemPickup : MonoBehaviour
-{   
-    public Animator itemGetAnim;
-
-    public TextMeshProUGUI itemText;
-
+{
     public ItemType itemType;
     public StatusEffect effectType;
     public int itialDmg;
@@ -21,8 +17,8 @@ public class ItemPickup : MonoBehaviour
                 CombatController.instance.itemList.Add(new Items(itemType, 1, itialDmg, effectType));
                 GameManager.instance.CollapseItemList(CombatController.instance.itemList);
 
-                itemText.text = this.gameObject.name + " has been added to your record";
-                itemGetAnim.SetTrigger("textPopup");
+                GameManager.instance.itemText.text = this.gameObject.name + " has been added to your record";
+                GameManager.instance.itemGetAnim.SetTrigger("textPopup");
 
                 Destroy(this.gameObject);
             }
