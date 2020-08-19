@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     public GameObject credits;
     public GameObject mainmenu;
     public GameObject StartWithTutorial;
+    public GameObject transistion;
 
     public void StartGame()
     {
@@ -26,12 +27,34 @@ public class MainMenu : MonoBehaviour
 
     public void StartTutorial()
     {
-        SceneManager.LoadScene("Tutorial-FINAL");
+        StartCoroutine(Transition(true));
     }
 
     public void SkipTutorial()
     {
-        SceneManager.LoadScene("Overworld_Level1-FINAL");
+        StartCoroutine(Transition(false));
+    }
+
+    //true for no skip
+    IEnumerator Transition(bool skip)
+    {
+        var anim = transistion.GetComponent<Animator>();
+
+        anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSeconds(2);
+        yield return new WaitForFixedUpdate();
+        anim.CrossFade("Fade_In", 1);
+
+        if (skip)
+        {
+            SceneManager.LoadScene("Tutorial-FINAL");
+        }
+        else
+        {
+            SceneManager.LoadScene("Overworld_Level1-FINAL");
+        }
+
+        yield return new WaitForFixedUpdate();
     }
 
     public void ExitGame()
