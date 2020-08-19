@@ -5,11 +5,11 @@ using TMPro;
 
 public class KeyScript : MonoBehaviour
 {
-    public Animator itemGetAnim;
+    //public Animator itemGetAnim;
 
-    public TextMeshProUGUI itemText;
+    //public TextMeshProUGUI itemText;
 
-    public ElevatorScript elevatorScript;
+    //public ElevatorScript elevatorScript;
 
     // Start is called before the first frame update
     void Start()
@@ -19,10 +19,10 @@ public class KeyScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        elevatorScript.hasKey = true;
+        GameManager.instance.hasKey = true;
 
-        itemText.text = "Elevator Keycard has been added to your record";
-        itemGetAnim.SetTrigger("textPopup");
+        GameManager.instance.itemText.text = "Elevator Keycard has been added to your record";
+        GameManager.instance.itemGetAnim.SetTrigger("textPopup");
 
         Destroy(this.gameObject);
     }

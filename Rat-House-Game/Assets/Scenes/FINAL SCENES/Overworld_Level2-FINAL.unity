@@ -745,8 +745,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemGetAnim: {fileID: 0}
-  itemText: {fileID: 0}
   itemType: 4
   effectType: 1
   itialDmg: 15
@@ -1099,6 +1097,26 @@ PrefabInstance:
       propertyPath: anim
       value: 
       objectReference: {fileID: 1360079416}
+    - target: {fileID: 7031430068269388567, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3.5123055
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031430068269388567, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.2561527
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031430068269388567, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.27039003
+      objectReference: {fileID: 0}
+    - target: {fileID: 7031430068269388567, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.108061075
+      objectReference: {fileID: 0}
     - target: {fileID: 7031430069050437934, guid: a2eed68ba9bc44e47801d00ee83fc748,
         type: 3}
       propertyPath: m_Enabled
@@ -1964,8 +1982,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemGetAnim: {fileID: 0}
-  itemText: {fileID: 0}
   itemType: 0
   effectType: 0
   itialDmg: 15
@@ -3011,8 +3027,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemGetAnim: {fileID: 0}
-  itemText: {fileID: 0}
   itemType: 3
   effectType: 7
   itialDmg: 15
@@ -4382,8 +4396,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemGetAnim: {fileID: 0}
-  itemText: {fileID: 0}
   itemType: 1
   effectType: 3
   itialDmg: 15
@@ -9529,7 +9541,7 @@ GameObject:
   - component: {fileID: 1403908155}
   - component: {fileID: 1403908154}
   m_Layer: 0
-  m_Name: key 1
+  m_Name: key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9611,9 +9623,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ec19c7b661f086438f3daa14d33d4a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemGetAnim: {fileID: 0}
-  itemText: {fileID: 0}
-  elevatorScript: {fileID: 0}
 --- !u!65 &1403908155
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11840,8 +11849,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemGetAnim: {fileID: 0}
-  itemText: {fileID: 0}
   itemType: 2
   effectType: 5
   itialDmg: 15
@@ -12334,8 +12341,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemGetAnim: {fileID: 0}
-  itemText: {fileID: 0}
   itemType: 2
   effectType: 5
   itialDmg: 15
@@ -12447,8 +12452,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemGetAnim: {fileID: 0}
-  itemText: {fileID: 0}
   itemType: 4
   effectType: 1
   itialDmg: 15

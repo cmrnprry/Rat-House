@@ -3842,6 +3842,8 @@ MonoBehaviour:
   anim: {fileID: 388530925}
   overworldLevelOne: []
   player: {fileID: 1291760752}
+  itemGetAnim: {fileID: 926445942}
+  itemText: {fileID: 926445943}
 --- !u!114 &274487377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9512,8 +9514,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ec19c7b661f086438f3daa14d33d4a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemGetAnim: {fileID: 926445942}
-  itemText: {fileID: 926445943}
   elevatorScript: {fileID: 2044352358}
 --- !u!65 &584043917
 BoxCollider:
