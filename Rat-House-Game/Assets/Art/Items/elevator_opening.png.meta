@@ -1,0 +1,788 @@
+fileFormatVersion: 2
+guid: f8f24a95f30021044b82573a525c9553
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1432591186081168462
+    second: elevator_opening_0
+  - first:
+      213: -8340073319680601322
+    second: elevator_opening_1
+  - first:
+      213: 8805562125596128662
+    second: elevator_opening_2
+  - first:
+      213: -4228847057721972899
+    second: elevator_opening_3
+  - first:
+      213: -8443816790501915748
+    second: elevator_opening_4
+  - first:
+      213: -4180234748385280065
+    second: elevator_opening_5
+  - first:
+      213: -8649577761621150677
+    second: elevator_opening_6
+  - first:
+      213: 8853906883791477327
+    second: elevator_opening_7
+  - first:
+      213: 7548299451107270522
+    second: elevator_opening_8
+  - first:
+      213: 3669489080630427481
+    second: elevator_opening_9
+  - first:
+      213: 6931024388829509632
+    second: elevator_opening_10
+  - first:
+      213: -1835554410904918792
+    second: elevator_opening_11
+  - first:
+      213: 7774913453487168873
+    second: elevator_opening_12
+  - first:
+      213: -6823112309211152924
+    second: elevator_opening_13
+  - first:
+      213: 6191305537213815994
+    second: elevator_opening_14
+  - first:
+      213: -4687196256410885152
+    second: elevator_opening_15
+  - first:
+      213: 4231274368394197397
+    second: elevator_opening_16
+  - first:
+      213: 2167574215968063571
+    second: elevator_opening_17
+  - first:
+      213: -4410190958875409029
+    second: elevator_opening_18
+  - first:
+      213: -2303898398114806243
+    second: elevator_opening_19
+  - first:
+      213: -5365367456117776413
+    second: elevator_opening_20
+  - first:
+      213: 4518406411564777095
+    second: elevator_opening_21
+  - first:
+      213: 7701662098094336878
+    second: elevator_opening_22
+  - first:
+      213: -5398541387381847611
+    second: elevator_opening_23
+  - first:
+      213: 7334430642038811104
+    second: elevator_opening_24
+  - first:
+      213: 6305198129315679028
+    second: elevator_opening_25
+  - first:
+      213: 7804296806717976273
+    second: elevator_opening_26
+  - first:
+      213: 7320130648420452643
+    second: elevator_opening_27
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: elevator_opening_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1620
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4c39b2f71691e310800000000000000
+      internalID: 1432591186081168462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_1
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 1620
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61399bbd08b124c80800000000000000
+      internalID: -8340073319680601322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_2
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 1620
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6957acf6914a33a70800000000000000
+      internalID: 8805562125596128662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_3
+      rect:
+        serializedVersion: 2
+        x: 1425
+        y: 1620
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d57a603a10e1055c0800000000000000
+      internalID: -4228847057721972899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_4
+      rect:
+        serializedVersion: 2
+        x: 1900
+        y: 1620
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9387a5cd5981da80800000000000000
+      internalID: -8443816790501915748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_5
+      rect:
+        serializedVersion: 2
+        x: 2375
+        y: 1620
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbf30c8e4a2dcf5c0800000000000000
+      internalID: -4180234748385280065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_6
+      rect:
+        serializedVersion: 2
+        x: 2850
+        y: 1620
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b24f37d6ad686f780800000000000000
+      internalID: -8649577761621150677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_7
+      rect:
+        serializedVersion: 2
+        x: 3325
+        y: 1620
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4ad6ca96656fda70800000000000000
+      internalID: 8853906883791477327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1080
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7f5681bb52f0c860800000000000000
+      internalID: 7548299451107270522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_9
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 1080
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95fb62680e4ace230800000000000000
+      internalID: 3669489080630427481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_10
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 1080
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00870c1a5f1ff2060800000000000000
+      internalID: 6931024388829509632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_11
+      rect:
+        serializedVersion: 2
+        x: 1425
+        y: 1080
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f46c1c0dfcc686e0800000000000000
+      internalID: -1835554410904918792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_12
+      rect:
+        serializedVersion: 2
+        x: 1900
+        y: 1080
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96d128ab79a06eb60800000000000000
+      internalID: 7774913453487168873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_13
+      rect:
+        serializedVersion: 2
+        x: 2375
+        y: 1080
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4edbfd2518f6f41a0800000000000000
+      internalID: -6823112309211152924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_14
+      rect:
+        serializedVersion: 2
+        x: 2850
+        y: 1080
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abcd989459febe550800000000000000
+      internalID: 6191305537213815994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_15
+      rect:
+        serializedVersion: 2
+        x: 3325
+        y: 1080
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e3a610b6dbb3feb0800000000000000
+      internalID: -4687196256410885152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 540
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 599f95bae9188ba30800000000000000
+      internalID: 4231274368394197397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_17
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 540
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 350821fd345c41e10800000000000000
+      internalID: 2167574215968063571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_18
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 540
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b75879860badbc2c0800000000000000
+      internalID: -4410190958875409029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_19
+      rect:
+        serializedVersion: 2
+        x: 1425
+        y: 540
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1686cd0d98e600e0800000000000000
+      internalID: -2303898398114806243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_20
+      rect:
+        serializedVersion: 2
+        x: 1900
+        y: 540
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ef98a0c9b26a85b0800000000000000
+      internalID: -5365367456117776413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_21
+      rect:
+        serializedVersion: 2
+        x: 2375
+        y: 540
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78e7a2811ba94be30800000000000000
+      internalID: 4518406411564777095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_22
+      rect:
+        serializedVersion: 2
+        x: 2850
+        y: 540
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6ba0018fdcc1ea60800000000000000
+      internalID: 7701662098094336878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_23
+      rect:
+        serializedVersion: 2
+        x: 3325
+        y: 540
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c94cdbf5378415b0800000000000000
+      internalID: -5398541387381847611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e9a6783fc129c560800000000000000
+      internalID: 7334430642038811104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_25
+      rect:
+        serializedVersion: 2
+        x: 475
+        y: 0
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43b8150da40908750800000000000000
+      internalID: 6305198129315679028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_26
+      rect:
+        serializedVersion: 2
+        x: 950
+        y: 0
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dee326c89e6e4c60800000000000000
+      internalID: 7804296806717976273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: elevator_opening_27
+      rect:
+        serializedVersion: 2
+        x: 1425
+        y: 0
+        width: 475
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3290d808a04569560800000000000000
+      internalID: 7320130648420452643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
