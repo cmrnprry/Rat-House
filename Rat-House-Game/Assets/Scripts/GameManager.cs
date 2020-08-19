@@ -325,7 +325,7 @@ public class GameManager : MonoBehaviour
 
         //If we were in the battle scene, make sure to clear it out
         if (_currState != GameState.Tutorial)
-            CombatController.instance.moClearBattle();
+            CombatController.instance.ClearBattle();
 
         //UnLoad the Battle Scene
         SceneManager.UnloadSceneAsync("Battle-FINAL");
