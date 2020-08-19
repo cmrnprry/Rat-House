@@ -25,6 +25,7 @@ public class CombatStats : MonoBehaviour
     public GameObject player;
 
     //status effect tracking
+    private Enemy e;
     private StatusEffect effect;
     public bool hasEffect = false;
     private int turnsUntilEffectOver;
@@ -138,7 +139,6 @@ public class CombatStats : MonoBehaviour
             //inceasese the index if the player misses OR hits a note since the cannot do both
             if (Input.GetButtonDown("Circle") && !hitList[index].isSquare) //circle
             {
-                Debug.Log("hit circle");
                 //if the slider is within the offset range
                 //Basically if it's at the start bounds of being early and the far bounds of being 
                 if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
@@ -151,7 +151,6 @@ public class CombatStats : MonoBehaviour
             //inceasese the index if the player misses OR hits a note since the cannot do both
             if (Input.GetButtonDown("Square") && hitList[index].isSquare) // square
             {
-                Debug.Log("hit square");
 
                 //if the slider is within the offset range
                 //Basically if it's at the start bounds of being early and the far bounds of being 
@@ -172,7 +171,6 @@ public class CombatStats : MonoBehaviour
 
                     CombatController.instance.hitDetectionText.text = "Miss!";
                     CombatController.instance.hitDetectionText.gameObject.SetActive(true);
-                    Debug.Log("Miss!");
                     index++;
                 }
 
@@ -238,8 +236,6 @@ public class CombatStats : MonoBehaviour
 
     private void DetectDodgeHit(Vector3 pos)
     {
-        Debug.Log("hit detected");
-
         //if the player hits Early
         if (pos.x > hitList[index].pos + delta && pos.x <= hitList[index].pos + offset) //between the pos and offset
         {
@@ -265,8 +261,6 @@ public class CombatStats : MonoBehaviour
             amountHit += .5f;
         }
 
-        Debug.Log("Hit at: " + transform.position.x);
-        Debug.Log("Beat to hit at: " + hitList[index]);
         index++;
         hitNote = true;
     }
@@ -312,20 +306,43 @@ public class CombatStats : MonoBehaviour
         }
     }
 
+    void ApplyItemEffect(bool isSusan)
+    {
+        if (isSusan && !GameManager.instance.susan.hasEffect)
+        {
+            GameManager.instance.susan.SetStatusEffect(itemUsed);
+        }
+        else if (!isSusan && !e.hasEffect)
+        {
+            e.SetStatusEffect(itemUsed);
+        }
+    }
+
+    bool AttackingSusan(int enemyAttacked)
+    {
+        if (GameManager.instance.isSusanBattle && enemyAttacked == 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public IEnumerator DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false)
     {
         //check if it we're using "good" or "bad" splash screens
         var splashScreen = amountHit >= (totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
-        Enemy e = CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>();
-
+        bool attackSusan = AttackingSusan(enemyAttacked);
         float damage = 0;
+
+        //if we're attactking susan, set enemy to null
+        _ = attackSusan ? e = null : e = CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>();
+        
+        //if using an item, otherwise calculate damage and show splash screens
         if (isItem)
         {
             damage = itemUsed.delta;
-
-            //only apply the effect if they don't already have one
-            if (!e.hasEffect)
-                e.SetStatusEffect(itemUsed);
+            ApplyItemEffect(attackSusan);
         }
         else
         {
@@ -342,18 +359,16 @@ public class CombatStats : MonoBehaviour
 
         Debug.Log("Damage: " + damage);
 
-        //Show hit Animation
-        e.EnemyHit();
-        yield return new WaitForSecondsRealtime(0.25f);
-
         if (CombatController.instance.selectedAction == ActionType.Heal)
         {
             UpdatePlayerHealth(damage);
             yield return new WaitForSecondsRealtime(0.75f);
         }
-        else if (CombatController.instance.enemyList[enemyAttacked] == EnemyType.Susan)
+        else if (attackSusan)
         {
-
+            //Show hit Animation
+            GameManager.instance.susan.EnemyHit();
+            yield return new WaitForSecondsRealtime(0.25f);
 
             GameManager.instance.susan.UpdateHealth(damage);
             enemyHealth[enemyAttacked] -= damage;
@@ -363,6 +378,10 @@ public class CombatStats : MonoBehaviour
         }
         else
         {
+            //Show hit Animation
+            e.EnemyHit();
+            yield return new WaitForSecondsRealtime(0.25f);
+
             enemyHealth[enemyAttacked] -= damage;
             e.UpdateHealth(damage);
         }
@@ -370,7 +389,7 @@ public class CombatStats : MonoBehaviour
         if (enemyHealth[enemyAttacked] <= 0)
         {
             //play enemy death animiation
-            
+
             StartCoroutine(EnemyDeath(enemyAttacked, e));
 
             //If there are no more enemies, return to overworld
@@ -486,7 +505,7 @@ public class CombatStats : MonoBehaviour
 
         Color color = new Color();
         ColorUtility.TryParseHtmlString(CombatController.instance.GetColor(se), out color);
-        Debug.Log("Color: " + color.ToString());
+
         player.transform.GetChild(0).GetComponent<SpriteRenderer>().color = color;
 
         //For now, they will all last 3 turns

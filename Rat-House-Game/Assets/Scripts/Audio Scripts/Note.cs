@@ -187,7 +187,6 @@ public class Note : MonoBehaviour
     {
         CombatController.instance.hitDetectionText.gameObject.SetActive(false);
 
-        Debug.Log("clear");
         foreach (Transform child in noteParent.transform)
         {
             Destroy(child.gameObject);

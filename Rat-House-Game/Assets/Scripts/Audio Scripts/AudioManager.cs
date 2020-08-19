@@ -229,7 +229,7 @@ public class AudioManager : MonoBehaviour
         {
             currPos += 0.5;
         }
-        Debug.Log("currPos: " + currPos);
+
         StartCoroutine(CountDown(currPos));
 
         yield return new WaitUntil(() => countdownText.gameObject.activeSelf);
@@ -246,6 +246,7 @@ public class AudioManager : MonoBehaviour
 
     public IEnumerator CountDown(double startBeat)
     {
+        Debug.Log("Start Countdown");
         countdownText.gameObject.SetActive(true);
 
         //Show get ready text

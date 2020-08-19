@@ -30,7 +30,6 @@ public class Enemy : MonoBehaviour
 
     [Header("Animations")]
     private Animator anim;
-    public bool animOver = true;
 
     public string effectName;
     private ParticleSystem _attackAnim;
@@ -179,7 +178,6 @@ public class Enemy : MonoBehaviour
 
         //Play some animation
         _attackAnim.Play();
-        Debug.Log("Play attack animation");
 
         yield return new WaitUntil(() => AudioManager.instance.startDodge);
 

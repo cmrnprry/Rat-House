@@ -12,7 +12,7 @@ public class Susan : MonoBehaviour
     public List<EnemyType> phaseOneBattle;
     public List<EnemyType> phaseTwoBattle;
 
-    public Animator susanAnim;
+    public Animator anim;
 
     [Header("Dialogue")]
     [TextArea(3, 5)]
@@ -31,9 +31,13 @@ public class Susan : MonoBehaviour
     [Header("Stats")]
     [SerializeReference]
     private float _maxHealth;
-    [SerializeReference]
-    private float _currentHealth;
+    public float _currentHealth;
     private int phase = 0;
+
+    //status effect tracking
+    private StatusEffect effect;
+    public bool hasEffect = false;
+    private int turnsUntilEffectOver;
 
     [SerializeReference]
     private float _baseAttack;
@@ -60,18 +64,15 @@ public class Susan : MonoBehaviour
         _currentHealth = _maxHealth;
     }
 
-    public void UpdateHealth(float dmg)
+    public void UpdateHealth(float dmg, bool effectUpdate = false)
     {
         _currentHealth -= dmg;
-        susanAnim.SetBool("WasHit", true);
         healthSlider.value = (_currentHealth / _maxHealth);
 
 
-        if(_currentHealth <= 0)
+        if (_currentHealth <= 0)
         {
-            susanAnim.SetBool("Died", true);
-            new WaitForSeconds(2);
-            SusanDeath();
+            StartCoroutine(SusanDeath());
         }
         else if (_currentHealth <= 50 && phase == 2)
         {
@@ -90,7 +91,7 @@ public class Susan : MonoBehaviour
 
             SetDialogue(phaseOneDialogue);
         }
-        else
+        else if (!effectUpdate)
         {
             StartCoroutine(CombatController.instance.EnemyPhase());
         }
@@ -151,8 +152,7 @@ public class Susan : MonoBehaviour
         StartCoroutine(AudioManager.instance.SetDodgeMap(music));
 
         //Play some animation
-        susanAnim.SetBool("EnemyTurn", true);
-        Debug.Log("Play attack animation");
+        anim.SetTrigger("Attack");
 
         yield return new WaitUntil(() => AudioManager.instance.startDodge);
 
@@ -162,12 +162,10 @@ public class Susan : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
 
         _turnOver = true;
-        susanAnim.SetBool("EnemyTurn", false);
     }
 
     public void SetDialogue(string[] dia)
     {
-        Debug.Log("set dialogue");
         GameManager.instance.diaAnim.SetBool("isOpen", true);
         GameManager.instance.dialogue.sentences = dia;
         GameManager.instance.dialogue.StartDialogue();
@@ -176,7 +174,6 @@ public class Susan : MonoBehaviour
 
     public IEnumerator SusanDialogue()
     {
-        Debug.Log("here");
         //Waits for the text to stop typing
         yield return new WaitUntil(() => GameManager.instance.dialogue.isTyping == false);
 
@@ -237,8 +234,6 @@ public class Susan : MonoBehaviour
         GameManager.instance.anim.CrossFade("Fade_Out", 1);
         yield return new WaitForSeconds(2);
 
-        Debug.Log("load");
-
         GameManager.instance.topOverlay.SetActive(false);
         SceneManager.LoadScene("Susan_Battle-FINAL", LoadSceneMode.Additive);
         GameManager.instance.TurnOffScene();
@@ -277,7 +272,7 @@ public class Susan : MonoBehaviour
 
         yield return null;
     }
-    
+
     IEnumerator PhaseTwo()
     {
         foreach (var e in phaseTwoBattle)
@@ -294,19 +289,67 @@ public class Susan : MonoBehaviour
         yield return null;
     }
 
-    public void SusanDeath()
+    public IEnumerator SusanDeath()
     {
+        Debug.Log("Dead");
+        anim.SetTrigger("Dead");
+        yield return new WaitForSecondsRealtime(2f);
+
+        healthSlider.gameObject.SetActive(false);
+
         //turn off all battle stuffs
         GameManager.instance.battleAnimator.SetBool("IsOpen", false);
+        GameManager.instance.healthParent.SetActive(false);
+        CombatController.instance.ClearBattle();
         CombatController.instance.TurnOffHighlight();
+        phase = 3;
         SetDialogue(postBattleDialogue);
+    }
+
+    public void SetStatusEffect(Items item)
+    {
+        Debug.Log("Here");
+        effect = item.effect;
+        hasEffect = true;
+
+        Color color = new Color();
+        ColorUtility.TryParseHtmlString(CombatController.instance.GetColor(effect), out color);
+
+        anim.gameObject.GetComponent<SpriteRenderer>().color = color;
+
+        //For now, they will all last 3 turns
+        turnsUntilEffectOver = 3;
+    }
+
+    public void UpdateEffect()
+    {
+        if (hasEffect)
+        {
+            turnsUntilEffectOver -= 1;
+            UpdateHealth((int)effect, true);
+
+            if (turnsUntilEffectOver <= 0)
+                RemoveEffect();
+        }
+    }
+
+    public void RemoveEffect()
+    {
+        hasEffect = false;
+        effect = StatusEffect.None;
+        anim.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    public void EnemyHit()
+    {
+        anim.SetTrigger("Hit");
     }
 
     public float GetStartingHealth()
     {
         return _maxHealth;
     }
-    
+
     public bool IsTurnOver()
     {
         return _turnOver;
