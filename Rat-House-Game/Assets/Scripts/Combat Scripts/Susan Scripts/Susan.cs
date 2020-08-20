@@ -182,7 +182,7 @@ public class Susan : MonoBehaviour
 
         //when you press space...
         //When we're at the end of the intro dialogue
-        if (_index == 0)//GameManager.instance.dialogue.sentences.Length)
+        if (_index == GameManager.instance.dialogue.sentences.Length)
         {
             //Lower the text box
             GameManager.instance.diaAnim.SetBool("isOpen", false);
@@ -209,7 +209,7 @@ public class Susan : MonoBehaviour
             else if (phase >= 3)
             {
                 Debug.Log("end");
-                SceneManager.LoadScene("Temp-LastScene");
+
             }
 
             phase += 1;
@@ -303,6 +303,19 @@ public class Susan : MonoBehaviour
         CombatController.instance.ClearBattle();
         CombatController.instance.TurnOffHighlight();
         phase = 3;
+
+        GameManager.instance.anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSeconds(1);
+
+        yield return new WaitForFixedUpdate();
+
+        SceneManager.LoadScene("Temp-LastScene");
+        yield return new WaitForFixedUpdate();
+        anim.CrossFade("Fade_In", 1);
+
+        yield return new WaitForSeconds(1);
+               
+
         SetDialogue(postBattleDialogue);
     }
 
@@ -347,7 +360,7 @@ public class Susan : MonoBehaviour
 
     public void Idle()
     {
-       
+
         anim.SetTrigger("Idle");
     }
 
