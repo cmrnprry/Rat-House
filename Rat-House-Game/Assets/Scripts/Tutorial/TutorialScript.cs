@@ -57,7 +57,7 @@ public class TutorialScript : MonoBehaviour
 
         Debug.Log("next");
         //When we're at the end of the intro dialogue
-        if (_index == dialogue.sentences.Length)
+        if (_index == 0)//dialogue.sentences.Length)
         {
             overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
 

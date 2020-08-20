@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public GameObject currEnemy;
 
     //what level we're currently on
-    public int level;
+    public int level = 1;
     public bool tempWait;
     public bool isSusanBattle = false;
 
@@ -42,10 +42,13 @@ public class GameManager : MonoBehaviour
     //reference to the canvas
     public GameObject canvas;
 
+    public GameObject pauseMenu;
+
     //Overworld Inventoy
     public GameObject inventoryParent;
     public GameObject inventoryItems;
     public GameObject item;
+    public Sprite[] itemImages;
 
     //Battle Menu Parent
     public GameObject battleParent;
@@ -89,6 +92,7 @@ public class GameManager : MonoBehaviour
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
+            Destroy(canvas.gameObject);
         }
         else
         {
@@ -111,6 +115,23 @@ public class GameManager : MonoBehaviour
 
         if (_currState == GameState.Tutorial)
         { StartTutorial(); }
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Pause"))
+        {
+            pauseMenu.SetActive(!pauseMenu.activeSelf);
+            pauseMenu.GetComponent<PauseMenu>().MainPause();
+            Time.timeScale = pauseMenu.activeSelf ? 0 : 1;
+        }
+    }
+
+    IEnumerator PauseMenu()
+    {
+        yield return new WaitUntil(() => Input.GetButtonDown("Pause"));
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+        StartCoroutine(PauseMenu());
     }
 
     public void TurnOffScene()
@@ -156,11 +177,16 @@ public class GameManager : MonoBehaviour
                 }
 
                 obj.GetComponent<TextMeshProUGUI>().text = i + " (" + it.count + ") - " + desctription;
-                //TODO: set image
+                foreach (var s in itemImages)
+                {
+                    if (s.name == it.item.ToString())
+                    {
+                        obj.transform.GetChild(0).GetComponent<Image>().sprite = s;
+                        break;
+                    }
+                }
             }
         }
-
-
     }
 
     /** Method that is called when the game state needs to be updated
@@ -222,7 +248,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
 
     /** Start Combat by:
     * Switching to the correct scene
@@ -364,7 +389,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        SceneManager.LoadScene("Overworld_Level1_AfterTutorial-FINAL");
+        SceneManager.LoadScene("Overworld_Level1-FINAL");
 
         yield return new WaitForEndOfFrame();
 
@@ -481,8 +506,10 @@ public class GameManager : MonoBehaviour
         anim.CrossFade("Fade_Out", 1);
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene("Overworld_Level2-FINAL");
+        level = 2;
         anim.CrossFade("Fade_In", 1);
         yield return new WaitForSeconds(1);
+        AudioManager.instance.bgMusic.clip = AudioManager.instance.bgClips[level];
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         StartCoroutine(player.PlayerMovement());
         overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
