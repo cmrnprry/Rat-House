@@ -14107,7 +14107,7 @@ GameObject:
   - component: {fileID: 836004235}
   - component: {fileID: 836004234}
   m_Layer: 0
-  m_Name: Objective (1)
+  m_Name: Desk Phone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14121,7 +14121,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 836004231}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -26.22, y: 0.38, z: -3.2299995}
+  m_LocalPosition: {x: -25.78, y: 1.38, z: -2.83}
   m_LocalScale: {x: 0.32949, y: 0.32949, z: 0.32949}
   m_Children: []
   m_Father: {fileID: 1863131930}
@@ -14166,7 +14166,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 46fdb8a68ac907949a6f969597dcb119, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fdcb3e62571e4e14988e31c4426a9d64, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -14188,8 +14188,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10.024977
-  m_Center: {x: -4.0249677, y: 0, z: 0}
+  m_Radius: 9.073864
+  m_Center: {x: -4.0249677, y: 0, z: -0.9511142}
 --- !u!114 &836004235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14203,9 +14203,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemComments:
-  - Hi, I'm placeholder text
-  - Sorry, the real text will be put in when we change the sprites
-  - Oops! looks like the final text hasn't been put in yet!
+  - The ringing... at which hour wilt 't cease?
+  - Thee used to calleth me on mine desk phone.
+  - I wonder if 't be true it's the Nigerian prince calling back with mine wage...
   itemComment: 
   playerInRange: 0
 --- !u!1 &837875807
@@ -24182,7 +24182,7 @@ GameObject:
   - component: {fileID: 1437674723}
   - component: {fileID: 1437674722}
   m_Layer: 0
-  m_Name: Objective (4)
+  m_Name: Filing Cabinet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24196,8 +24196,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1437674719}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 32.54, y: 0.38, z: -7.9399986}
-  m_LocalScale: {x: 0.32949, y: 0.32949, z: 0.32949}
+  m_LocalPosition: {x: 32.54, y: 1.09, z: -7.9399986}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 1863131930}
   m_RootOrder: 4
@@ -24241,7 +24241,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 46fdb8a68ac907949a6f969597dcb119, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 21b3738af461fd749889e1882d90171d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -24263,8 +24263,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 9.622804
-  m_Center: {x: 2.306759, y: 0, z: -1.3160353}
+  m_Radius: 4.7866044
+  m_Center: {x: 0.41785786, y: 0, z: 0}
 --- !u!114 &1437674723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24278,9 +24278,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemComments:
-  - Hi, I'm placeholder text
-  - Sorry, the real text will be put in when we change the sprites
-  - Oops! looks like the final text hasn't been put in yet!
+  - Oh magic box, what secrets doth thee hold?
+  - I wonder if 't be true it hath mine files?
+  - It's just full of boring papers.
   itemComment: 
   playerInRange: 0
 --- !u!4 &1443087119 stripped
@@ -35114,7 +35114,7 @@ GameObject:
   - component: {fileID: 2032790983}
   - component: {fileID: 2032790982}
   m_Layer: 0
-  m_Name: Objective
+  m_Name: Picture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35128,7 +35128,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2032790979}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.43, y: 2.67, z: -42.89}
+  m_LocalPosition: {x: -4.01, y: 1.56, z: -40.4}
   m_LocalScale: {x: 0.32949, y: 0.32949, z: 0.32949}
   m_Children: []
   m_Father: {fileID: 1863131930}
@@ -35173,7 +35173,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 46fdb8a68ac907949a6f969597dcb119, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 512f6f404ca279745a5d858f5a20b90b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -35210,9 +35210,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemComments:
-  - Hi, I'm placeholder text
-  - Sorry, the real text will be put in when we change the sprites
-  - Oops! looks like the final text hasn't been put in yet!
+  - Janet and her children.
+  - Ah, youth.
+  - Wherefore doest Janet insist on leaving pictures of her children everywhere?
   itemComment: 
   playerInRange: 0
 --- !u!1 &2047170076
@@ -35994,7 +35994,7 @@ GameObject:
   - component: {fileID: 2108897793}
   - component: {fileID: 2108897792}
   m_Layer: 0
-  m_Name: Objective (3)
+  m_Name: Vending Machine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36008,8 +36008,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108897789}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 31.52, y: 0.38, z: -31.609999}
-  m_LocalScale: {x: 0.32949, y: 0.32949, z: 0.32949}
+  m_LocalPosition: {x: 31.52, y: 0.73, z: -31.26}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 1863131930}
   m_RootOrder: 3
@@ -36053,7 +36053,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 46fdb8a68ac907949a6f969597dcb119, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ae4d894e7f3c17940a86e298233fff4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -36075,8 +36075,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 11.596545
-  m_Center: {x: -2.3900468, y: 0, z: -3.206498}
+  m_Radius: 4.551012
+  m_Center: {x: 0, y: 0, z: -1.0735737}
 --- !u!114 &2108897793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36090,9 +36090,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemComments:
-  - Hi, I'm placeholder text
-  - Sorry, the real text will be put in when we change the sprites
-  - Oops! looks like the final text hasn't been put in yet!
+  - Behold, mine closest friend, mine fiercest enemy.
+  - It at each moment robs me of mine wages without rewarding me with mine promised
+    treats.
+  - Vile beast, I demand the snacks contained within thee!
   itemComment: 
   playerInRange: 0
 --- !u!1 &2109468451
