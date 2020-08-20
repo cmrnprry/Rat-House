@@ -4694,6 +4694,11 @@ MonoBehaviour:
   _currState: 0
   currEnemy: {fileID: 0}
   level: 0
+  levelOneDialogue:
+  - Joe:Test
+  - Joe:Testing
+  levelTwoDialogue:
+  - Joe:I am speaking
   tempWait: 0
   isSusanBattle: 0
   numberRetries: 0
