@@ -58,6 +58,8 @@ public class Enemy : MonoBehaviour
     //Handles a single enemy's turn
     public void AttackPlayer(EnemyType e)
     {
+        _attackAnim.gameObject.transform.position = transform.position;
+
         switch (e)
         {
             case EnemyType.Coffee:
@@ -98,7 +100,7 @@ public class Enemy : MonoBehaviour
         int attackChance = CalculateChance(100);
         int music = 0;
 
-        if (attackChance >= 70)
+        if (attackChance <= 70)
         {
             //Set the beats to hit and the total hits
             AudioManager.instance.chosenEnemyAttack = coffeeBeats[0].beatsToHit;
