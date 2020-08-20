@@ -124,14 +124,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fbdf2dc74f7fd409f9e62071e5644f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 35
+  _maxHealth: 55
   _currentHealth: 0
   hasEffect: 0
   _baseAttack: 5
   healthSlider: {fileID: 0}
   numberOfAttacks: 2
   chancesOfHitting: 460000001e000000
-  effectName: coffee_effect
+  effectName: computer_effect
 --- !u!1 &946027272030525306
 GameObject:
   m_ObjectHideFlags: 0
