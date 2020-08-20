@@ -15,14 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/FINAL SCENES/Battle-FINAL.unity
     guid: bfcdd27e9a0f39140aa7a9bc31f9e324
   - enabled: 1
-    path: Assets/Scenes/FINAL SCENES/Susan_Battle-FINAL.unity
-    guid: 0b662b9aa1c21f64ba4bf673de02568d
-  - enabled: 1
     path: Assets/Scenes/FINAL SCENES/Tutorial-FINAL.unity
     guid: cffd9fd05a0203040ba65a63604dee7a
-  - enabled: 1
-    path: Assets/Scenes/FINAL SCENES/Tutorial_Battle-FINAL.unity
-    guid: 60615a6d36c2e3d4ab4bad6c6aba3d16
   - enabled: 1
     path: Assets/Scenes/FINAL SCENES/Overworld_Level2-FINAL.unity
     guid: 80edbf9223f5477418ad4d50a0e69635
@@ -32,7 +26,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FINAL SCENES/Overworld_BreakRoom_FINAL.unity
     guid: f6920569b5499bd41b7e3624cf367bdf
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   m_configObjects: {}

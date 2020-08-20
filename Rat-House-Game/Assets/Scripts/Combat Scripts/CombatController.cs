@@ -701,6 +701,7 @@ public class CombatController : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(0.5f);
         Debug.Log("Enemy Phase Start");
+        Image[] splashScreen = null;
 
         //for each non-defeated enemy, do their attacks
         if (enemy < _inBattle.Count)
@@ -709,10 +710,9 @@ public class CombatController : MonoBehaviour
             {
                 GameObject e = _inBattle[enemy];
                 Enemy en = e.GetComponent<Enemy>();
-
+                Debug.Log("amount & total hits : " + CombatStats.totalHits + " " + CombatStats.amountHit);
                 //check if it we're using "good" or "bad" splash screens
-                var splashScreen = (CombatStats.amountHit >= (CombatStats.totalHits / 2) && CombatStats.amountHit != 0) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
-
+                
                 if (e.name == "Susan(Clone)")
                 {
                     var susan = GameManager.instance.susan;
@@ -731,6 +731,7 @@ public class CombatController : MonoBehaviour
                     susan.SetIsTurnOver(false);
 
                     //Deal Damage to Player
+                    splashScreen = (CombatStats.amountHit >= (CombatStats.totalHits / 2) && CombatStats.amountHit != 0) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
                     _stats.UpdatePlayerHealth(-1 * susan.GetBaseAttack());
 
                     //Update the enemy effect if any
@@ -752,8 +753,9 @@ public class CombatController : MonoBehaviour
                     en.SetIsTurnOver(false);
 
                     //Deal Damage to Player
+                    Debug.Log("amount & total hits : " + CombatStats.totalHits + " " + CombatStats.amountHit);
+                    splashScreen = (CombatStats.amountHit >= (CombatStats.totalHits / 2) && CombatStats.amountHit != 0) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
                     _stats.UpdatePlayerHealth(-1 * en.GetBaseAttack());
-
                     //Update the enemy effect if any
                     en.UpdateEffect();
 
@@ -773,7 +775,6 @@ public class CombatController : MonoBehaviour
 
 
                 Debug.Log("Turn Over");
-
                 //turn on splashscreens and play animation
                 splashScreen[splashScreen.Length - 1].gameObject.SetActive(true);
 

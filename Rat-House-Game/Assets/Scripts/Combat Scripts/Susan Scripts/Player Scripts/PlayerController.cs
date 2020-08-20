@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(h * speed, 0.0f, v * speed);
 
 
-        if ((h > 0 || h < 0 || v > 0 || v < 0) && h!= 0)
+        if ((h > 0 || h < 0 || v > 0 || v < 0) && (h != 0 || v != 0))
         {
             anim.SetBool("Left", true);
 
@@ -46,15 +46,13 @@ public class PlayerController : MonoBehaviour
 
         _rb.velocity = movement;
 
-        if (Input.GetButton("SelectAction"))
+        if (_isSusan)
         {
-            if (_isSusan)
-            {
-                StopPlayerMovement();
-                GameManager.instance.SetGameState(GameState.Susan);
-                yield break;
-            }
+            StopPlayerMovement();
+            GameManager.instance.SetGameState(GameState.Susan);
+            yield break;
         }
+
         else if (Input.GetButton("OpenInventory"))
         {
             GameManager.instance.OpenInventory();
