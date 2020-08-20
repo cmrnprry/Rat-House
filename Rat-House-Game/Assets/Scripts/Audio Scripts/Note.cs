@@ -58,7 +58,7 @@ public class Note : MonoBehaviour
             if (gameObject.transform.position.x >= restartPoint.x)
             {
                 Debug.Log("action over");
-
+                
                 ClearBeats();
 
                 AudioManager.instance.startAction = false;
@@ -76,6 +76,7 @@ public class Note : MonoBehaviour
         }
         else if (AudioManager.instance.startDodge)
         {
+            Debug.Log("doging");
             //Moves the block based on where we are in the the music in BEATS
             gameObject.transform.position = Vector3.Lerp(restartPoint, startPoint, AudioManager.instance.mapProgression);
 

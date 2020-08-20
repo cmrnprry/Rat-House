@@ -14,7 +14,8 @@ public enum GameState
     CutScene = 3,
     Tutorial,
     Dead = 4,
-    AfterOverworld = 5
+    AfterOverworld = 5,
+    SkipTutorial
 }
 
 public class GameManager : MonoBehaviour
@@ -109,12 +110,6 @@ public class GameManager : MonoBehaviour
         CombatController.instance.itemList.Add(new Items(ItemType.Jims_Lunch, 2, 15, StatusEffect.Cures_Poison));
         CombatController.instance.itemList.Add(new Items(ItemType.Hot_Coffee, 1, 15, StatusEffect.Burn));
         CombatController.instance.itemList.Add(new Items(ItemType.Plastic_Utensils, 2, 10, StatusEffect.Bleed));
-
-        //all objects in the scenes
-        overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
-
-        if (_currState == GameState.Tutorial)
-        { StartTutorial(); }
     }
 
     private void Update()
@@ -214,6 +209,9 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Tutorial:
                 StartTutorial();
+                break;
+            case GameState.SkipTutorial:
+                StartCoroutine(SkipTutorial());
                 break;
             default:
                 Debug.LogError("Something has gone wrong in GameState Update loop");
@@ -497,6 +495,13 @@ public class GameManager : MonoBehaviour
 
         //start the dialogue in the tutorial script
         StartCoroutine(tutorial.ShowOpeningDialogue());
+    }
+
+    IEnumerator SkipTutorial()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     public IEnumerator LoadLevelTwo()
