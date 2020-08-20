@@ -147,7 +147,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 39617439}
     - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Sprite
@@ -454,6 +454,11 @@ PrefabInstance:
       propertyPath: m_Center.x
       value: 0.57483387
       objectReference: {fileID: 0}
+    - target: {fileID: 4418494013484784436, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 39617439}
     - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Sprite
@@ -917,6 +922,11 @@ PrefabInstance:
       propertyPath: m_Center.x
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 4418494013484784436, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 39617439}
     - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Sprite
@@ -1566,6 +1576,11 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4418494013484784436, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 39617439}
     - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Sprite
@@ -6459,6 +6474,11 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4418494013484784436, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 39617439}
     - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Sprite
@@ -12248,7 +12268,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 39617439}
     - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_WasSpriteAssigned
