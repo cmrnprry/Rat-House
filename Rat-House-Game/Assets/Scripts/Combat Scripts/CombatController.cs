@@ -150,6 +150,7 @@ public class CombatController : MonoBehaviour
 
         //Reset Stats
         _stats.SetStats();
+        _stats.RemoveEffect();
         ResetSlider();
 
         AudioManager.instance.StartCombatMusic();
@@ -822,6 +823,9 @@ public class CombatController : MonoBehaviour
         //Play player turn SFX
         AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[3];
         AudioManager.instance.SFX.Play();
+
+        if (_stats.hasEffect)
+            _stats.UpdateEffect();
 
         //Turn on the highlight
         ShowActionMenu();

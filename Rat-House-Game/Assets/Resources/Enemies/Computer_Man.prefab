@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 1883127459658231691}
   - component: {fileID: 613301602276499685}
   m_Layer: 0
-  m_Name: coffee
+  m_Name: computer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -219,7 +219,7 @@ public class Susan : MonoBehaviour
 
                 yield return new WaitForFixedUpdate();
 
-                SceneManager.LoadScene("MainMenu");
+                SceneManager.LoadScene("Main Menu");
                 yield return new WaitForFixedUpdate();
                 GameManager.instance.anim.CrossFade("Fade_In", 1);
 
@@ -305,7 +305,7 @@ public class Susan : MonoBehaviour
     public IEnumerator SusanDeath()
     {
         Debug.Log("Dead");
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(.5f);
 
         anim.SetTrigger("Dead");
         yield return new WaitForSecondsRealtime(2f);
