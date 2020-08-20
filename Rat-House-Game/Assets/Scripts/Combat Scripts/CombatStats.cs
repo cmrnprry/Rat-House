@@ -401,6 +401,11 @@ public class CombatStats : MonoBehaviour
             GameManager.instance.susan.UpdateHealth(damage);
             enemyHealth[enemyAttacked] -= damage;
 
+            if (GameManager.instance.susan._currentHealth <= 0)
+            {
+                yield break;
+            }
+
             SwitchTurn();
             yield break;
         }

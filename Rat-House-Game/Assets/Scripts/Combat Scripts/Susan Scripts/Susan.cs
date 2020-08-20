@@ -13,6 +13,7 @@ public class Susan : MonoBehaviour
     public List<EnemyType> phaseTwoBattle;
 
     public Animator anim;
+    public GameObject finalImage;
 
     [Header("Dialogue")]
     [TextArea(3, 5)]
@@ -209,6 +210,18 @@ public class Susan : MonoBehaviour
             else if (phase >= 3)
             {
                 Debug.Log("end");
+                yield return new WaitForSecondsRealtime(5f);
+
+                GameManager.instance.anim.CrossFade("Fade_Out", 1);
+                yield return new WaitForSeconds(1);
+
+                finalImage.SetActive(false);
+
+                yield return new WaitForFixedUpdate();
+
+                SceneManager.LoadScene("MainMenu");
+                yield return new WaitForFixedUpdate();
+                GameManager.instance.anim.CrossFade("Fade_In", 1);
 
             }
 
@@ -292,10 +305,13 @@ public class Susan : MonoBehaviour
     public IEnumerator SusanDeath()
     {
         Debug.Log("Dead");
+        yield return new WaitForSecondsRealtime(2f);
+
         anim.SetTrigger("Dead");
         yield return new WaitForSecondsRealtime(2f);
 
         healthSlider.gameObject.SetActive(false);
+        anim = null;
 
         //turn off all battle stuffs
         GameManager.instance.battleAnimator.SetBool("IsOpen", false);
@@ -307,14 +323,16 @@ public class Susan : MonoBehaviour
         GameManager.instance.anim.CrossFade("Fade_Out", 1);
         yield return new WaitForSeconds(1);
 
+        finalImage.SetActive(true);
+
         yield return new WaitForFixedUpdate();
 
-        SceneManager.LoadScene("Temp-LastScene");
+        SceneManager.LoadScene("LastScene");
         yield return new WaitForFixedUpdate();
-        anim.CrossFade("Fade_In", 1);
+        GameManager.instance.anim.CrossFade("Fade_In", 1);
 
         yield return new WaitForSeconds(1);
-               
+
 
         SetDialogue(postBattleDialogue);
     }
