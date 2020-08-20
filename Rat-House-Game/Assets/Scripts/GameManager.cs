@@ -396,11 +396,14 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-
-
         anim.CrossFade("Fade_In", 1);
 
         yield return new WaitForEndOfFrame();
+
+        SetEnemyDialogue(levelOneDialogue);
+
+        yield return new WaitUntil(() => dialogueInProgress);
+        yield return new WaitUntil(() => !dialogueInProgress);
 
         overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();

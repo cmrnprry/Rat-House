@@ -5,9 +5,9 @@ using UnityEngine;
 public class InteractableText : MonoBehaviour
 {
     public string[] itemComments;
-    public string itemComment;
 
     public bool playerInRange;
+    private int lastRand;
 
     IEnumerator ShowInteractabeText()
     {
@@ -19,7 +19,8 @@ public class InteractableText : MonoBehaviour
 
             GameManager.instance.diaAnim.SetBool("isOpen", true);
             GameManager.instance.dialogue.speakerName.text = "Joe";
-            GameManager.instance.dialogue.dia.text = itemComments[Random.Range(0, itemComments.Length)];
+            GameManager.instance.dialogue.dia.text = itemComments[RandNumber()];
+            //GameManager.instance.dialogue.dia.text = itemComments[Random.Range(0, itemComments.Length)];
 
             yield return new WaitUntil(() => Input.GetButtonDown("SelectAction"));
 
@@ -35,6 +36,19 @@ public class InteractableText : MonoBehaviour
         yield return new WaitForEndOfFrame();
         StartCoroutine(ShowInteractabeText());
     }
+
+    int RandNumber()
+    {
+        int rand = Random.Range(0, itemComments.Length);
+        
+        if (Random.Range(0, itemComments.Length) == lastRand)
+        {
+            return RandNumber();
+        }
+        
+        Debug.Log("rand number: " + rand);
+        return rand;
+    } 
 
     //Check if the player is close enough
     void OnTriggerEnter(Collider other)

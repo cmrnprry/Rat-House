@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour
         StopAllCoroutines();
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
+        anim.SetBool("Left", false);
     }
 
     void OnCollisionEnter(Collision collider)
