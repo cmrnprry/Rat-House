@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5211973721219016930
+--- !u!1 &1555809893976923595
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5211973721219016929}
-  - component: {fileID: 5211973721219016942}
-  - component: {fileID: 5211973721219016943}
-  - component: {fileID: 5211973721219016928}
+  - component: {fileID: 2580247154994676979}
+  - component: {fileID: 3222547762381426020}
+  - component: {fileID: 1659377660748839454}
+  - component: {fileID: 4298098730076422840}
   m_Layer: 0
-  m_Name: lubch
+  m_Name: Jim's Lunch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5211973721219016929
+--- !u!4 &2580247154994676979
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5211973721219016930}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -42.32, y: 0.83, z: 12.870003}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_GameObject: {fileID: 1555809893976923595}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9.15, y: 0.83, z: -7.2599983}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5211973721219016942
+--- !u!212 &3222547762381426020
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5211973721219016930}
+  m_GameObject: {fileID: 1555809893976923595}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 52ef26991459ca541b12b1d677d46eb4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2bd68aeb570864a4395c27384e9bb67a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83,33 +83,31 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!65 &5211973721219016943
+--- !u!65 &1659377660748839454
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5211973721219016930}
+  m_GameObject: {fileID: 1555809893976923595}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 10, z: 0.2}
+  m_Size: {x: 6, y: 6, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5211973721219016928
+--- !u!114 &4298098730076422840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5211973721219016930}
+  m_GameObject: {fileID: 1555809893976923595}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemGetAnim: {fileID: 0}
-  itemText: {fileID: 0}
-  itemType: 4
-  effectType: 1
-  itialDmg: 15
+  itemType: 1
+  effectType: 3
+  itialDmg: 10
