@@ -32,6 +32,7 @@ public class AudioManager : MonoBehaviour
     //Background Combat Music
     public AudioSource bgMusic;
     public List<AudioClip> bgClips;
+    public List<AudioClip> metronome;
 
     [Header("BeatMap Beats")]
     public bool startAction;
@@ -163,7 +164,7 @@ public class AudioManager : MonoBehaviour
     public void StopCombatMusic()
     {
         //Start the background music
-        bgMusic.clip = bgClips[1];
+        bgMusic.clip = bgClips[GameManager.instance.level];
         bgMusic.Play();
 
         //Start the update loop

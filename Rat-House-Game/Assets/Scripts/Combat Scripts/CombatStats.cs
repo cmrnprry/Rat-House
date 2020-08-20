@@ -39,7 +39,7 @@ public class CombatStats : MonoBehaviour
     //Enemy Stats
     public List<float> enemyHealth;
     private List<float> enemyBaseAccuracy;
-    private int _enemiesLeft = 0;
+    public int _enemiesLeft = 0;
 
     //Track Player Damage
     public static bool hitNote = false;

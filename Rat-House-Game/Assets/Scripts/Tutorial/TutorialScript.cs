@@ -57,7 +57,7 @@ public class TutorialScript : MonoBehaviour
 
         Debug.Log("next");
         //When we're at the end of the intro dialogue
-        if (_index == dialogue.sentences.Length)
+        if (_index == 0)//dialogue.sentences.Length)
         {
             overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
 
@@ -161,7 +161,7 @@ public class TutorialScript : MonoBehaviour
         yield return new WaitForSecondsRealtime(.2f);
 
         //If this is the last bit of dialogue
-        if (_index == duringBattleDialogue.Length)
+        if (_index >= duringBattleDialogue.Length)
         {
             Debug.Log("End tutorial battle");
 
@@ -174,6 +174,7 @@ public class TutorialScript : MonoBehaviour
             //Turn the top overlay back on and the player health off
             GameManager.instance.topOverlay.SetActive(true);
             GameManager.instance.healthParent.SetActive(false);
+            CombatController.instance.enemyHealthBars[0].gameObject.SetActive(false);
 
             //play some sort of screen wipe
             GameManager.instance.anim.CrossFade("Fade_Out", 1);
@@ -223,31 +224,32 @@ public class TutorialScript : MonoBehaviour
         yield return new WaitUntil(() => Input.GetButton("SelectAction"));
 
         //when you press space...
-        if (Input.GetButtonDown("SelectAction"))
+        Debug.Log("Next Line");
+
+        //incease the index
+        _index++;
+
+        //load next sentence
+        dialogue.NextSentence();
+
+        //When we're at the end of the intro dialogue
+        if (_index == afterBattleDialogue.Length)
         {
-            Debug.Log("Next Line");
+            CombatController.instance._inBattle = new List<GameObject>();
 
-            //incease the index
-            _index++;
+            yield return new WaitForEndOfFrame();
+            Debug.Log("End tutorial");
 
-            //load next sentence
-            dialogue.NextSentence();
+            yield return new WaitForSecondsRealtime(.5f);
 
-            //When we're at the end of the intro dialogue
-            if (_index == afterBattleDialogue.Length)
-            {
-                Debug.Log("End tutorial");
-
-                yield return new WaitForSecondsRealtime(.5f);
-
-                //set the game state to be the overworld
-                GameManager.instance.SetGameState(GameState.Overworld);
-                yield break;
-            }
-
-            StartCoroutine(ShowAfterBattleDialogue());
+            //set the game state to be the overworld
+            GameManager.instance.SetGameState(GameState.AfterOverworld);
             yield break;
         }
+
+        StartCoroutine(ShowAfterBattleDialogue());
+        yield break;
+
 
     }
 
@@ -678,7 +680,7 @@ public class TutorialScript : MonoBehaviour
                     yield return new WaitForEndOfFrame();
 
                     //Play some animation
-                    
+
                     StartCoroutine(HitEnemy(e));
 
                     yield return new WaitForSecondsRealtime(0.5f);

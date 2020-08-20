@@ -14,6 +14,7 @@ public enum GameState
     CutScene = 3,
     Tutorial,
     Dead = 4,
+    AfterOverworld = 5
 }
 
 public class GameManager : MonoBehaviour
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
     public GameObject currEnemy;
 
     //what level we're currently on
-    public int level;
+    public int level = 1;
     public bool tempWait;
     public bool isSusanBattle = false;
 
@@ -41,10 +42,13 @@ public class GameManager : MonoBehaviour
     //reference to the canvas
     public GameObject canvas;
 
+    public GameObject pauseMenu;
+
     //Overworld Inventoy
     public GameObject inventoryParent;
     public GameObject inventoryItems;
     public GameObject item;
+    public Sprite[] itemImages;
 
     //Battle Menu Parent
     public GameObject battleParent;
@@ -88,6 +92,7 @@ public class GameManager : MonoBehaviour
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
+            Destroy(canvas.gameObject);
         }
         else
         {
@@ -110,6 +115,23 @@ public class GameManager : MonoBehaviour
 
         if (_currState == GameState.Tutorial)
         { StartTutorial(); }
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Pause"))
+        {
+            pauseMenu.SetActive(!pauseMenu.activeSelf);
+            pauseMenu.GetComponent<PauseMenu>().MainPause();
+            Time.timeScale = pauseMenu.activeSelf ? 0 : 1;
+        }
+    }
+
+    IEnumerator PauseMenu()
+    {
+        yield return new WaitUntil(() => Input.GetButtonDown("Pause"));
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+        StartCoroutine(PauseMenu());
     }
 
     public void TurnOffScene()
@@ -155,11 +177,16 @@ public class GameManager : MonoBehaviour
                 }
 
                 obj.GetComponent<TextMeshProUGUI>().text = i + " (" + it.count + ") - " + desctription;
-                //TODO: set image
+                foreach (var s in itemImages)
+                {
+                    if (s.name == it.item.ToString())
+                    {
+                        obj.transform.GetChild(0).GetComponent<Image>().sprite = s;
+                        break;
+                    }
+                }
             }
         }
-
-
     }
 
     /** Method that is called when the game state needs to be updated
@@ -182,7 +209,8 @@ public class GameManager : MonoBehaviour
                 isSusanBattle = true;
                 susan.SetDialogue(susan.preBattleDialogue);
                 break;
-            case GameState.CutScene:
+            case GameState.AfterOverworld:
+                StartCoroutine(AfterTutorial());
                 break;
             case GameState.Tutorial:
                 StartTutorial();
@@ -220,7 +248,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
 
     /** Start Combat by:
     * Switching to the correct scene
@@ -329,8 +356,7 @@ public class GameManager : MonoBehaviour
         TurnOnScene();
 
         //If we were in the battle scene, make sure to clear it out
-        if (_currState != GameState.Tutorial)
-            CombatController.instance.ClearBattle();
+        CombatController.instance.ClearBattle();
 
         //UnLoad the Battle Scene
         SceneManager.UnloadSceneAsync("Battle-FINAL");
@@ -348,6 +374,33 @@ public class GameManager : MonoBehaviour
 
         //Give player movement 
         StartCoroutine(player.PlayerMovement());
+        dialogueOver = false;
+        postBattle = false;
+    }
+
+    private IEnumerator AfterTutorial()
+    {
+        //play some sort of screen wipe
+        anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSeconds(2);
+
+        //Turn off the battle music
+        AudioManager.instance.StopCombatMusic();
+
+        yield return new WaitForEndOfFrame();
+
+        SceneManager.LoadScene("Overworld_Level1-FINAL");
+
+        yield return new WaitForEndOfFrame();
+
+
+
+        anim.CrossFade("Fade_In", 1);
+
+        yield return new WaitForEndOfFrame();
+
+        overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         dialogueOver = false;
         postBattle = false;
     }
@@ -453,8 +506,10 @@ public class GameManager : MonoBehaviour
         anim.CrossFade("Fade_Out", 1);
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene("Overworld_Level2-FINAL");
+        level = 2;
         anim.CrossFade("Fade_In", 1);
         yield return new WaitForSeconds(1);
+        AudioManager.instance.bgMusic.clip = AudioManager.instance.bgClips[level];
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         StartCoroutine(player.PlayerMovement());
         overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
