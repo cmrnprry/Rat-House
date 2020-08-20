@@ -4697,10 +4697,16 @@ MonoBehaviour:
   currEnemy: {fileID: 0}
   level: 0
   levelOneDialogue:
-  - Joe:Test
-  - Joe:Testing
+  - Joe:Mine mug is in the breaketh room on the third floor.
+  - Joe:I will needeth to findeth a keycard for the elevator, then go up.
+  - Joe:I've barricaded the building's entrance - no one's going anywhere until I
+    has't mine mug.
   levelTwoDialogue:
-  - Joe:I am speaking
+  - Joe:This is the second floor.
+  - Joe:I wilt needeth to findeth another keycard to taketh the elevator up one more
+    level.
+  - Joe:In hindsight, this seemeth like a really inefficient way for an office to
+    be setteth up.
   tempWait: 0
   isSusanBattle: 0
   numberRetries: 0
