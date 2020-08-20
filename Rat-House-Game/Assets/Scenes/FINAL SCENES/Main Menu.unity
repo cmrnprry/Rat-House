@@ -4641,41 +4641,43 @@ MonoBehaviour:
   anim: {fileID: 1452746229}
   dialogue: {fileID: 1157376755}
   afterBattleDialogue:
-  - Joe:Ha! That'll show you not to get between me and my mug!
-  - Joe:Hang on, muggy...Lord Joethius P. Bradford III, Esquire's coming.
+  - Joe:Ha! That'll showeth thee not to cometh between me and mine mug!
+  - Joe:Hang on, muggy... Lord Joethius P. Bradford III, Esquire's coming.
   duringBattleDialogue:
-  - Joe:I need to choose an attack. Use the ARROW KEYS to select punch, hit SPACE
-    or ENTER to confirm, then select an enemy the same way!
+  - Joe:I need to chooseth an attack. Useth the ARROW KEYS to select PUNCH, hitteth
+    Z to confirm, then select an enemy the same way!
   - 'Intern:Joe, I''m going to call HR. '
-  - Joe:I'll start with a classic. Press SPACE or ENTER when the slider hits a beat
-    to hit this fool!
+  - Joe:I'll start with a classic. Press Z or < on RED SQUARES at which hour the
+    slider hitteth a beat to hitteth this fool!
   - Intern:Who are you talking to? Do not hit me!
-  - Joe:I'll follow that up with a kick. Select kick, then hit SPACE or ENTER when
-    the slider hits a beat.
+  - 'Joe: I''ll followeth that up with a KICK. Select KICK, then hitteth Z or < at
+    which hour the slider hitteth a RED SQUARE, and C or / at which hour the slider
+    hitteth a PURPLE CIRCLE.'
   - Intern:What the hell man? I'm just an intern.
-  - Joe:He's still standing? Good thing I have my ITEMS. Select an item to throw
-    at him.
+  - Joe:She's still standing? Valorous thing I has't mine ITEMS. Select an item to
+    throweth at that lady.
   - Intern:You got that stuff back? Joanne promised me that they wouldn't give you
     any more "dangerous office supplies!"
   - 'Intern:Okay, I do not get payed enough to be attacked by an buisness-emo wannabe. '
-  - Joe:He looks pretty annoyed...prepare to DODGE his attack!
-  - Joe:Ouch! I should heal up. I should have some blood in my ITEMS.
-  - Intern:WHY ARE YOU JUST CARRYING AROUND SOMEONE'S BLOOD!?
-  - Joe:Now to finish him off! Any attack should do!
+  - Joe:That lady looks quite annoyed... prepare to DODGE her attack!
+  - Joe:Ouch! I should heal up. I should has't JIM'S LUNCH in mine ITEMS.
+  - Intern:Wait, you're the one who's been taking people's food from the fridge in
+    the break room?
+  - Joe:Now to finish that lady off! Any attack should doth!
   - Intern:Is this how it ends? Getting knocked out by some asshole who narrates
     his life as if he's the main character in a video game??
   beforeBattleDialogue:
-  - Joe:Ah, another day another dollar.
-  - Joe:I, Lord Joethius P. Bradford III, Esquire, (Joe Vampire) have returned to
-    my place of employment yet again for another day of work.
+  - Joe:Ah, anoth'r day anoth'r dollar.
+  - Joe:I, Lord Joethius P. Bradford III, Esquire, (Joe Vampire) hath returned to
+    mine place of employment for another day of worketh.
   - Intern:Joe? What are you doing here?
-  - Joe:What do you mean? I work here.
+  - Joe:What doth thee mean? I worketh hither.
   - Intern:No??? You were literally fired yesterday for never actually doing any
     work and attacking all your coworkers.
   - Joe:Ah, I see.
-  - Joe:In that case, let me just go get my mug.
+  - Joe:In that case, alloweth me to just retrieveth mine mug.
   - Intern:Joe, you're not allowed back into the building.
-  - Joe:What? You dare to stand in my way? Then prepare for battle!
+  - Joe:What? Thee dare to standeth in mine way? Then prepare for battle!
   - Intern:This is exactly what I was talking about...
   overworldLevelOne: []
 --- !u!114 &511622178

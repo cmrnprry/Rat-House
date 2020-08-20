@@ -324,7 +324,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: postBattleDialogue.Array.data[1]
-      value: Robert:Mmhm. I'm gonna go on my lunch break now.
+      value: Robert:Mmhm. I'm gonna go take five.
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c9c3f00faed8045b4ef147a8f4af91, type: 3}
@@ -437,7 +437,7 @@ PrefabInstance:
     - target: {fileID: 42456529856132471, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Radius
-      value: 4.132312
+      value: 4.2162385
       objectReference: {fileID: 0}
     - target: {fileID: 42456529856132471, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -447,12 +447,12 @@ PrefabInstance:
     - target: {fileID: 42456529856132471, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Center.z
-      value: 0.55747795
+      value: 1.1525869
       objectReference: {fileID: 0}
     - target: {fileID: 42456529856132471, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Center.x
-      value: 0.57483387
+      value: 1.2538695
       objectReference: {fileID: 0}
     - target: {fileID: 4418494013484784436, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -558,7 +558,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: enemiesInBattle.Array.data[1]
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -573,8 +573,8 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[1]
-      value: Joe:Aha! What's this? bethought thee could sneak up on Lord Joethius
-        P. Bradford III, Esquire, didst thee? Well, t shalt beest thy fatal mistake!
+      value: Joe:Aha! What's this? Bethought thee could sneak up on Lord Joethius
+        P. Bradford III, Esquire, didst thee? Well, it shalt beest thy fatal mistake!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -782,7 +782,7 @@ Transform:
   - {fileID: 1887627352}
   - {fileID: 1633639531}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &86748115
 GameObject:
@@ -1092,7 +1092,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[5]
-      value: Joe:'Cause I'm definitely getting Jeremy vibes.
+      value: Joe:Because I'm definitely getting Jeremy vibes.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -1113,12 +1113,12 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: postBattleDialogue.Array.data[1]
-      value: Joe:Cool, later Jeremy.
+      value: Joe:Alright, later Jeremy.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: beatenBattleDialogue.Array.data[0]
-      value: I am computer man!
+      value: ???:I am computer man!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c9c3f00faed8045b4ef147a8f4af91, type: 3}
@@ -1345,6 +1345,39 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1828227502}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &183487025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 183487026}
+  m_Layer: 0
+  m_Name: NPCs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &183487026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183487025}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.56, y: 0.109999895, z: 59.62065}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1350364417}
+  - {fileID: 531951704}
+  - {fileID: 1609835771}
+  m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &201125798
@@ -1762,6 +1795,11 @@ PrefabInstance:
         type: 3}
       propertyPath: beatenBattleDialogue.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: enemiesInBattle.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -3162,7 +3200,7 @@ Transform:
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 2061135770}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &475142424
 MonoBehaviour:
@@ -3652,7 +3690,7 @@ PrefabInstance:
     - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4058296197537738753, guid: 4d4e3aa5789453249a9d2687379dc609,
         type: 3}
@@ -3713,7 +3751,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 183487026}
     m_Modifications:
     - target: {fileID: 1354362925966036612, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
@@ -3749,32 +3787,32 @@ PrefabInstance:
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 54.51
+      value: 72.07
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.378572
+      value: -31.242079
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
@@ -3784,7 +3822,7 @@ PrefabInstance:
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
@@ -3803,6 +3841,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9979b97d23762944c9d9627bb1e44d2e, type: 3}
+--- !u!4 &531951704 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
+    type: 3}
+  m_PrefabInstance: {fileID: 531951703}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &534816153
 GameObject:
   m_ObjectHideFlags: 0
@@ -5659,7 +5703,7 @@ Transform:
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 2061135770}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &732950807
 MonoBehaviour:
@@ -6162,7 +6206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 815567933}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 46.16, y: 2.42, z: -9.550001}
+  m_LocalPosition: {x: 46.16, y: 2.24, z: -9.550001}
   m_LocalScale: {x: 0.4066998, y: 0.4066998, z: 0.4066998}
   m_Children: []
   m_Father: {fileID: 2061135770}
@@ -6183,7 +6227,7 @@ MonoBehaviour:
   itemComments:
   - Ah, youth.
   - Janet and her children.
-  - Wherefore doest Janet insist on leaving pictures of her children everywhere?
+  - Why doest Janet insist on leaving pictures of her children everywhere?
   itemComment: 
   playerInRange: 0
 --- !u!135 &815567937
@@ -6197,8 +6241,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 9
-  m_Center: {x: -0.0000047683716, y: 0.00000047683716, z: 0}
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &838445605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6933,7 +6977,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: enemiesInBattle.Array.data[1]
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -8170,7 +8214,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 2061135770}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1057760270
 MonoBehaviour:
@@ -8473,7 +8517,7 @@ Transform:
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 2061135770}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1100750592
 MonoBehaviour:
@@ -9559,7 +9603,7 @@ MonoBehaviour:
     another day. I just wanteth mine mug.
   - No mug hither - just candles, journals, feather quills, inkwells, scrolls, a
     human skull...
-  - mine desk is the only one worth looking at in this entire building.
+  - Mine desk is the only one worth looking at in this entire building.
   itemComment: 
   playerInRange: 0
 --- !u!135 &1284233307
@@ -9573,8 +9617,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 12.330077
-  m_Center: {x: -0.054179825, y: 0, z: 4.580348}
+  m_Radius: 13
+  m_Center: {x: 0, y: 0, z: 5}
 --- !u!212 &1284233308
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9723,7 +9767,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 183487026}
     m_Modifications:
     - target: {fileID: 1354362925966036612, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
@@ -9759,32 +9803,32 @@ PrefabInstance:
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -29.435793
+      value: -11.875793
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.24
+      value: 0.1300001
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.02545
+      value: -46.5952
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
@@ -9794,7 +9838,7 @@ PrefabInstance:
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
@@ -9813,6 +9857,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9979b97d23762944c9d9627bb1e44d2e, type: 3}
+--- !u!4 &1350364417 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1350364416}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1352271128
 GameObject:
   m_ObjectHideFlags: 0
@@ -11079,7 +11129,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 183487026}
     m_Modifications:
     - target: {fileID: 1354362925966036612, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
@@ -11133,32 +11183,32 @@ PrefabInstance:
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.56
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 59.62065
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
@@ -11168,7 +11218,7 @@ PrefabInstance:
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
@@ -11187,6 +11237,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9979b97d23762944c9d9627bb1e44d2e, type: 3}
+--- !u!4 &1609835771 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1609835770}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1617196123
 GameObject:
   m_ObjectHideFlags: 0
@@ -13192,7 +13248,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[2]
-      value: Joe:...aye.
+      value: Joe:...Aye.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -13635,10 +13691,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 481729827}
-  - {fileID: 1100750591}
   - {fileID: 1057760269}
-  - {fileID: 732950806}
+  - {fileID: 1100750591}
   - {fileID: 475142423}
+  - {fileID: 732950806}
   - {fileID: 815567935}
   - {fileID: 1284233305}
   m_Father: {fileID: 0}
