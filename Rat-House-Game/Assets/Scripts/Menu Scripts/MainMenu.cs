@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     public GameObject credits;
     public GameObject mainmenu;
     public GameObject StartWithTutorial;
-    public GameObject transistion;
+    public Animator transition;
 
     public void StartGame()
     {
@@ -27,6 +27,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartTutorial()
     {
+        GameManager.instance.SetGameState(GameState.Tutorial);
         StartCoroutine(Transition(true));
     }
 
@@ -38,12 +39,12 @@ public class MainMenu : MonoBehaviour
     //true for no skip
     IEnumerator Transition(bool skip)
     {
-        var anim = transistion.GetComponent<Animator>();
-
-        anim.CrossFade("Fade_Out", 1);
+        GameManager.instance.anim.CrossFade("Fade_Out", 1);
+        transition.CrossFade("Fade_Out", 1);
         yield return new WaitForSeconds(2);
         yield return new WaitForFixedUpdate();
-        anim.CrossFade("Fade_In", 1);
+        transition.CrossFade("Fade_In", 1);
+        GameManager.instance.anim.CrossFade("Fade_In", 1);
 
         if (skip)
         {
@@ -51,6 +52,7 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
+            GameManager.instance.SetGameState(GameState.SkipTutorial);
             SceneManager.LoadScene("Overworld_Level1-FINAL");
         }
 

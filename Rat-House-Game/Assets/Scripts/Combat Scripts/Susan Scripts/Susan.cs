@@ -235,7 +235,7 @@ public class Susan : MonoBehaviour
         yield return new WaitForSeconds(2);
 
         GameManager.instance.topOverlay.SetActive(false);
-        SceneManager.LoadScene("Susan_Battle-FINAL", LoadSceneMode.Additive);
+        SceneManager.LoadScene("Battle-FINAL", LoadSceneMode.Additive);
         GameManager.instance.TurnOffScene();
 
         GameManager.instance.anim.CrossFade("Fade_In", 1);

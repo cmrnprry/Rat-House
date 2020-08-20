@@ -57,7 +57,7 @@ public class TutorialScript : MonoBehaviour
 
         Debug.Log("next");
         //When we're at the end of the intro dialogue
-        if (_index == 0)//dialogue.sentences.Length)
+        if (_index == dialogue.sentences.Length)
         {
             overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
 
@@ -75,7 +75,7 @@ public class TutorialScript : MonoBehaviour
 
             //load correct scene
             TurnOffScene();
-            SceneManager.LoadScene("Tutorial_Battle-FINAL", LoadSceneMode.Additive);
+            SceneManager.LoadScene("Battle-FINAL", LoadSceneMode.Additive);
             GameManager.instance.anim.CrossFade("Fade_In", 1);
 
             //Turn off the top overlay and turn on the player health bar
@@ -182,7 +182,7 @@ public class TutorialScript : MonoBehaviour
 
             //load correct scene
             TurnOnScene();
-            SceneManager.UnloadSceneAsync("Tutorial_Battle-FINAL");
+            SceneManager.UnloadSceneAsync("Battle-FINAL");
             GameManager.instance.anim.CrossFade("Fade_In", 1);
 
             yield return new WaitForSecondsRealtime(0.5f);

@@ -16,6 +16,13 @@ TagManager:
   - coffee_effect
   - water_effect
   - Enemy Effects
+  - DeadScreen
+  - Enemy Health Parent
+  - Dialogue
+  - MenuSelect
+  - Button
+  - Susan
+  - computer_effect
   layers:
   - Default
   - TransparentFX

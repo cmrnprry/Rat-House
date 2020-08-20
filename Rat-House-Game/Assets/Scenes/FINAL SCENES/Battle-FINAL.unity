@@ -68676,6 +68676,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: computer_effect
       objectReference: {fileID: 0}
+    - target: {fileID: 5174597381977407519, guid: f8f338ede24f79b4dac3b131d90c69eb,
+        type: 3}
+      propertyPath: m_TagString
+      value: computer_effect
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8f338ede24f79b4dac3b131d90c69eb, type: 3}
 --- !u!4 &1107360218 stripped
