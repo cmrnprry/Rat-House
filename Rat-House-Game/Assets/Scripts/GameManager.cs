@@ -32,6 +32,11 @@ public class GameManager : MonoBehaviour
 
     //what level we're currently on
     public int level = 1;
+    [TextArea(3, 5)]
+    public string[] levelOneDialogue;
+    [TextArea(3, 5)]
+    public string[] levelTwoDialogue;
+
     public bool tempWait;
     public bool isSusanBattle = false;
 
@@ -501,6 +506,12 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(1f);
         overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
+
+        SetEnemyDialogue(levelOneDialogue);
+
+        yield return new WaitUntil(() => dialogueInProgress);
+        yield return new WaitUntil(() => !dialogueInProgress);
+
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
@@ -516,6 +527,12 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         AudioManager.instance.bgMusic.clip = AudioManager.instance.bgClips[level];
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        SetEnemyDialogue(levelTwoDialogue);
+
+        yield return new WaitUntil(() => dialogueInProgress);
+        yield return new WaitUntil(() => !dialogueInProgress);
+
         StartCoroutine(player.PlayerMovement());
         overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
     }
