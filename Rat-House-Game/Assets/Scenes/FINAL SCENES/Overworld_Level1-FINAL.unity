@@ -1958,6 +1958,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
+      propertyPath: enemiesInBattle.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
       propertyPath: preBattleDialogue.Array.data[0]
       value: Robert:Ah! J-Joe! What are you doing here?
       objectReference: {fileID: 0}
@@ -2617,12 +2622,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 274478521}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.52, y: 0.027, z: 14.86}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -299.07495, y: -157.05588, z: 21.075989}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_Father: {fileID: 1118167190}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &280186119
 PrefabInstance:
@@ -2793,7 +2798,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[5]
-      value: Joe:And wherefore not,  pray tell?
+      value: Joe:And wherefore not, pray tell?
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -2813,7 +2818,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: postBattleDialogue.Array.data[1]
-      value: 'Water Man: Well...I tried.'
+      value: Water Man:Well...I tried.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -6092,51 +6097,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85e864bd6cd25fe4186ab68bfc74f13e, type: 3}
---- !u!1 &572329375
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 572329376}
-  - component: {fileID: 572329377}
-  m_Layer: 0
-  m_Name: Waypoint 1
-  m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &572329376
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 572329375}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -64.95072, y: -5.0122657, z: 31.711035}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 949605440}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &572329377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 572329375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1228e167e6462546b85dd970e42a331, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waitSeconds: 2
-  speedOut: 5
 --- !u!1 &572709921
 GameObject:
   m_ObjectHideFlags: 0
@@ -6166,7 +6126,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 949605440}
-  m_RootOrder: 18
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &572709923
 MonoBehaviour:
@@ -7927,7 +7887,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: enemiesInBattle.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -8046,7 +8006,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 949605440}
-  m_RootOrder: 13
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &720311737
 GameObject:
@@ -8320,7 +8280,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 949605440}
-  m_RootOrder: 15
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &774506788
 MonoBehaviour:
@@ -8577,7 +8537,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 836004231}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25.78, y: 1.38, z: -2.83}
+  m_LocalPosition: {x: -25.52, y: 1.38, z: -2.83}
   m_LocalScale: {x: 0.32949, y: 0.32949, z: 0.32949}
   m_Children: []
   m_Father: {fileID: 1863131930}
@@ -8644,8 +8604,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 9.073864
-  m_Center: {x: -4.0249677, y: 0, z: -0.9511142}
+  m_Radius: 10
+  m_Center: {x: -2, y: 0, z: 0}
 --- !u!114 &836004235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8661,7 +8621,7 @@ MonoBehaviour:
   itemComments:
   - The ringing... at which hour wilt 't cease?
   - Thee used to calleth me on mine desk phone.
-  - I wonder if 't be true it's the Nigerian prince calling back with mine wage...
+  - I wonder if it is the Nigerian prince calling back with mine wage...
   itemComment: 
   playerInRange: 0
 --- !u!1 &844094727
@@ -9891,9 +9851,6 @@ Transform:
   - {fileID: 1456930589}
   - {fileID: 1250986610}
   - {fileID: 1553802013}
-  - {fileID: 1238212995}
-  - {fileID: 2012256715}
-  - {fileID: 572329376}
   - {fileID: 1035718443}
   - {fileID: 1177334110}
   - {fileID: 718899157}
@@ -10679,7 +10636,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 949605440}
-  m_RootOrder: 11
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1038700239
 GameObject:
@@ -11387,6 +11344,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1547397061}
     m_Modifications:
+    - target: {fileID: 42456529856132471, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: m_Radius
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4418494013484784436, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: player
@@ -11526,7 +11488,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[3]
-      value: Joe:I've literally never seen you before in my life, lmao.
+      value: Joe:I've literally never seen you before in my life.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -11537,7 +11499,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[5]
-      value: 'Joe: I have no clue what you''re talking about, dude.'
+      value: 'Joe: I have no clue what you''re talking about, sir.'
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -11728,7 +11690,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 949605440}
-  m_RootOrder: 14
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1118167189
 GameObject:
@@ -11757,10 +11719,11 @@ Transform:
   m_LocalPosition: {x: 320.59494, y: 157.08287, z: -6.215989}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1493063224}
+  - {fileID: 1354362925037672627}
   - {fileID: 1258183790}
+  - {fileID: 274478525}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1118835691
 GameObject:
@@ -12430,7 +12393,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 949605440}
-  m_RootOrder: 12
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1181208132
 PrefabInstance:
@@ -12787,7 +12750,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 949605440}
-  m_RootOrder: 16
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1206386407
 MonoBehaviour:
@@ -12888,51 +12851,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 641c31979aa373a4a8b08edd5477b759, type: 3}
---- !u!1 &1238212994
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1238212995}
-  - component: {fileID: 1238212996}
-  m_Layer: 0
-  m_Name: Waypoint 1
-  m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1238212995
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1238212994}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -48.430725, y: -5.0122657, z: 39.841034}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 949605440}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1238212996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1238212994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1228e167e6462546b85dd970e42a331, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waitSeconds: 2
-  speedOut: 5
 --- !u!1001 &1238560384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13242,7 +13160,6 @@ GameObject:
   - component: {fileID: 1258183789}
   - component: {fileID: 1258183791}
   - component: {fileID: 1258183788}
-  - component: {fileID: 1258183792}
   m_Layer: 0
   m_Name: npc2
   m_TagString: Untagged
@@ -13264,13 +13181,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1291760750}
   aNiceConversation:
-  - Jan:Oh, hey, Joe. What are you doing here, I thought you were let go?
-  - Joe:Thee pathetic fool. didst thee truly believeth I would simply leaveth this
+  - Jan:Oh, hey, Joe. What are you doing here? I thought you were let go?
+  - Joe:Thee pathetic fool. Didst thee truly believeth I would simply leaveth this
     lodging without having retrieved mine most precious mug?
   - Jan:Oh, yeah, that makes sense. You're heading to the third floor break room
     then?
-  - Joe:Wherefore must thee bother me with these pointless questions? Of course that
-    is mine destination.
+  - Joe:Why must thee bother me with these pointless questions? Of course that is
+    mine destination.
   - Jan:Huh, yeah, now I remember why no one likes you. Good luck getting your cup,
     man.
   - Joe:I doth not require 'luck'.
@@ -13351,25 +13268,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 7
   m_Center: {x: 0, y: 0, z: 0}
---- !u!95 &1258183792
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1258183787}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 343eca6d3840ba941b015615cf16a37b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1263244140
 GameObject:
   m_ObjectHideFlags: 0
@@ -13562,7 +13460,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 949605440}
-  m_RootOrder: 17
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1272445693
 MonoBehaviour:
@@ -15804,8 +15702,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.7866044
-  m_Center: {x: 0.41785786, y: 0, z: 0}
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1437674723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15821,7 +15719,7 @@ MonoBehaviour:
   itemComments:
   - Oh magic box, what secrets doth thee hold?
   - I wonder if 't be true it hath mine files?
-  - It's just full of boring papers.
+  - It is just full of boring papers.
   itemComment: 
   playerInRange: 0
 --- !u!4 &1443087119 stripped
@@ -16704,122 +16602,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1483295785}
   m_Mesh: {fileID: 2534964839176971238, guid: 799eda35160445745a57c6d9e0dd0e55, type: 3}
---- !u!1 &1493063221
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1493063224}
-  - component: {fileID: 1493063223}
-  - component: {fileID: 1493063225}
-  - component: {fileID: 1493063222}
-  m_Layer: 0
-  m_Name: npc1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1493063222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1493063221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 971b5b31f07b6214698837fd9535d64b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1291760750}
-  aNiceConversation:
-  - Wilbur:Ah, Mr. Vampire, I didn't expect to see you here today...or any day, in
-    fact. I thought you had been...erm...well, fired.
-  - Joe:Cease thy ramblings, mortal. I am simply hither for mine mug.
-  - Wilbur:Ah, yes, of course. I'd offer to lend you my keycard for the elevator,
-    but I seem to have misplaced it. I'm sure it's around the office, somewhere...
-  - Joe:I shalt figure something out.
---- !u!212 &1493063223
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1493063221}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a9df42205dec74c4dbdedff1528732da, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 3.45, y: 8.18}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &1493063224
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1493063221}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -267.53494, y: -156.92487, z: 54.77599}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
-  m_Children: []
-  m_Father: {fileID: 1118167190}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1493063225
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1493063221}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 7
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1495045816
 GameObject:
   m_ObjectHideFlags: 0
@@ -17621,12 +17403,7 @@ PrefabInstance:
     - target: {fileID: 42456529856132471, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Radius
-      value: 3.11236
-      objectReference: {fileID: 0}
-    - target: {fileID: 42456529856132471, guid: 96c9c3f00faed8045b4ef147a8f4af91,
-        type: 3}
-      propertyPath: m_Center.z
-      value: -0.11650276
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 4418494013484784436, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -17662,27 +17439,27 @@ PrefabInstance:
     - target: {fileID: 6611816924529999032, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: wayPoints.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6611816924529999032, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: wayPoints.Array.data[0]
       value: 
-      objectReference: {fileID: 1238212996}
+      objectReference: {fileID: 0}
     - target: {fileID: 6611816924529999032, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: wayPoints.Array.data[1]
       value: 
-      objectReference: {fileID: 2012256716}
+      objectReference: {fileID: 0}
     - target: {fileID: 6611816924529999032, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: wayPoints.Array.data[2]
       value: 
-      objectReference: {fileID: 572329377}
+      objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725827, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -44.3308
+      value: -36.33
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725827, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -17692,7 +17469,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725827, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.354954
+      value: -10.09
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725827, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -17746,8 +17523,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
+      propertyPath: postBattleDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: enemiesInBattle.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
       propertyPath: preBattleDialogue.Array.data[0]
-      value: Robert:Ha, I knew you'd show up! Billy from IT owes me $10.
+      value: Robert:Ha, I knew you'd show up! Billy from I.T. owes me $10.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -17789,6 +17581,16 @@ PrefabInstance:
         type: 3}
       propertyPath: enemiesInBattle.Array.data[1]
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.data[0]
+      value: Robert:Well...that was dumb.
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.data[0]
+      value: Robert:I need more coffee...
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96c9c3f00faed8045b4ef147a8f4af91, type: 3}
@@ -17893,17 +17695,17 @@ PrefabInstance:
     - target: {fileID: 42456529856132471, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Radius
-      value: 3.6770058
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 42456529856132471, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Center.x
-      value: -0.25828218
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 42456529856132471, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Center.z
-      value: -0.16869354
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4418494013484784436, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -23057,51 +22859,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 764f2779cc6289640816d7dc5a42ae5f, type: 3}
---- !u!1 &2012256714
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2012256715}
-  - component: {fileID: 2012256716}
-  m_Layer: 0
-  m_Name: Waypoint 1
-  m_TagString: Untagged
-  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2012256715
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2012256714}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -64.95072, y: -5.0122657, z: 39.841034}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 949605440}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2012256716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2012256714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1228e167e6462546b85dd970e42a331, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waitSeconds: 2
-  speedOut: 5
 --- !u!1 &2017492945
 GameObject:
   m_ObjectHideFlags: 0
@@ -23330,8 +23087,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 10.148372
-  m_Center: {x: 0.88721895, y: 0, z: 0}
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2032790983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23347,7 +23104,7 @@ MonoBehaviour:
   itemComments:
   - Janet and her children.
   - Ah, youth.
-  - Wherefore doest Janet insist on leaving pictures of her children everywhere?
+  - Why doest Janet insist on leaving pictures of her children everywhere?
   itemComment: 
   playerInRange: 0
 --- !u!1 &2059486543
@@ -23718,8 +23475,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.551012
-  m_Center: {x: 0, y: 0, z: -1.0735737}
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2108897793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23833,8 +23590,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 12.556246
-  m_Center: {x: 2.0739384, y: 0, z: 0}
+  m_Radius: 10
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2110983991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23849,7 +23606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemComments:
   - Janet and her children.
-  - Wherefore doest Janet insist on leaving pictures of her children everywhere?
+  - Why doest Janet insist on leaving pictures of her children everywhere?
   - Ah, youth.
   itemComment: 
   playerInRange: 0
@@ -24438,7 +24195,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1118167190}
     m_Modifications:
     - target: {fileID: 1354362925966036612, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
@@ -24473,32 +24230,32 @@ PrefabInstance:
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 53.06
+      value: -267.53494
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.158
+      value: -156.92487
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 48.56
+      value: 54.77599
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
@@ -24508,7 +24265,7 @@ PrefabInstance:
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
         type: 3}
@@ -24527,6 +24284,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9979b97d23762944c9d9627bb1e44d2e, type: 3}
+--- !u!4 &1354362925037672627 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1354362925966036618, guid: 9979b97d23762944c9d9627bb1e44d2e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1354362925037672626}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2166726889820531885
 PrefabInstance:
   m_ObjectHideFlags: 0
