@@ -739,7 +739,7 @@ public class TutorialScript : MonoBehaviour
         }
 
         //Fix Highlight
-        var x = CombatController.instance.attackMenu.transform.GetChild(_selected);
+        var x = CombatController.instance.attackMenu.transform.GetChild(_selected).GetChild(0);
         CombatController.instance.menuSelect.transform.position = x.position;
 
         yield return new WaitForEndOfFrame();
