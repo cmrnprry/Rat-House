@@ -10217,25 +10217,26 @@ MonoBehaviour:
   anim: {fileID: 0}
   finalImage: {fileID: 1578001955}
   preBattleDialogue:
-  - Joe:Ah, at last, I've made it to the top floor!
-  - "Joe:Come to think of it, this is kind of a weird place for the break room, huh?\r"
-  - Joe:Regardless, at last I can reclaim my beloved mug and be on my way.
+  - Joe:Ah, at last, I've madeth it to the top floor!
+  - "Joe:Cometh to bethink of 't, this is kind of a weird location for the breaketh
+    room, is it not? \r\n"
+  - Joe:Regardless, at last I can reclaim mine beloved mug and beest on mine way.
   - Susan:*slurping from Joe's mug*
-  - Joe:Egads! That's...that's my mug!
+  - Joe:Egads! That's... that's mine mug!
   - Susan:Joe! How'd you get in here?
-  - Joe:You're drinking from my favorite mug!
+  - Joe:Thou art drinking from mine most beloved mug!
   - Susan:So you've discovered my darkest secret...I fire my employees, then take
     their leftover mugs for myself!
-  - Joe:You evil bastard! You won't get away with this! I'll fight for my mug!
+  - Joe:Thee evil witch! Thee won't get away with this! I'll square for mine mug!
   phaseOneDialogue:
   - Susan:Give it up, Joe Vampire! You can never defeat me - my position gives me
     too much authority over you! Your precious mug is mine!
-  - "Joe:Hahaha...Susan...you\u2019re forgetting one very important thing..."
+  - "Joe: Hahaha... Susan... you\u2019re forgetting one very important thing..."
   - "Susan:Oh yeah? And what\u2019s that?"
-  - Joe:I have HR on speed dial!
+  - 'Joe: I has''t HR on speed dial!'
   - Susan:What?! No!
-  - "Joe:Hello? Yes, I\u2019d like to make a complaint against Susan for theft of
-    employee property."
+  - "Joe: Good morrow to you, m'lady. Aye, I\u2019d like to maketh a complaint against
+    Susan for theft of employee property."
   - "HR Rep:Oh no! We take these reports very seriously here at Big Corporation Inc.
     We\u2019ll look into the issue immediately!"
   - ' :SUSAN IS NOW UNDER INVESTICATION AND HAS BEEN DEMOTED'
@@ -10244,7 +10245,7 @@ MonoBehaviour:
     We\u2019re a little understaffed - Joe Vampire keeps beating up employees"
   phaseTwoDialogue:
   - HR Rep:Hello? Is this, um...Mr. Vampire?
-  - Joe:No! I am Joethius P...ugh. Yes. Joe Vampire speaking.
+  - Joe:No! I am Joethius P...ugh. Aye. Joe Vampire speaking.
   - "HR Rep:Excellent. Well, we\u2019ve looked into your claims, Mr. Vampire, and
     it seems you\u2019re not the first to report Susan for taking employees\u2019
     property! Of course, we here at Big Corporation Inc. do not endorse theft! She
@@ -10254,9 +10255,10 @@ MonoBehaviour:
   - Susan:Harry! Jason! If you want good references from me at your next jobs, then
     get in here and help me kill Joe Vampire!
   postBattleDialogue:
-  - Joe:At last! I've completed my quest and taken back what was rightfully mine!
-  - Joe:My precious mug...I'll never let you out of my sight again
-  - "Joe:\rCome along, my beloved...I need to find a new job so I can pay my rent.\r\n"
+  - Joe:At last! I've completed mine quest and taken back what wast rightfully mine!
+  - Joe:Mine most precious mug... I'll nev'r alloweth thee out of mine sight again.
+  - "Joe: Come along, mine beloved... I needeth to findeth a new job so I can payeth
+    mine rent. \r\n"
   _maxHealth: 150
   _currentHealth: 0
   hasEffect: 0
@@ -14963,7 +14965,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2053471970
 RectTransform:
   m_ObjectHideFlags: 0
