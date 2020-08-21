@@ -31,9 +31,9 @@ public enum StatusEffect
     Cures_Burn = 0,
     Cures_Poison = 1,
     Cures_Bleed = 2,
-    Burn = 5,
-    Poison = 7,
-    Bleed = 3
+    Burn = 10,
+    Poison = 12,
+    Bleed = 8
 }
 
 public struct Items
