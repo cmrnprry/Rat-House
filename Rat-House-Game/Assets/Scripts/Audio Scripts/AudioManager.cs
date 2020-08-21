@@ -149,7 +149,7 @@ public class AudioManager : MonoBehaviour
     {
         //Record the time when the music starts
         dspSongTime = (float)AudioSettings.dspTime;
-        CombatController.instance.heartAnim.SetBool("IsOn", true);
+        //CombatController.instance.heartAnim.SetBool("IsOn", true);
         GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).GetComponent<Animator>().SetTrigger("Idle");
 
         //Start the background music

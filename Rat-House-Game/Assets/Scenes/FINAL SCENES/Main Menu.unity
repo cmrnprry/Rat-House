@@ -4661,9 +4661,8 @@ MonoBehaviour:
     any more "dangerous office supplies!"
   - 'Intern:Okay, I do not get payed enough to be attacked by an buisness-emo wannabe. '
   - Joe:That lady looks quite annoyed... prepare to DODGE her attack!
-  - Joe:Ouch! I should heal up. I should has't JIM'S LUNCH in mine ITEMS.
-  - Intern:Wait, you're the one who's been taking people's food from the fridge in
-    the break room?
+  - Joe:Ouch! I should heal up. Valorous thing I keepeth some BLOOD on me.
+  - Intern:WHY would you have that?!
   - Joe:Now to finish that lady off! Any attack should doth!
   - Intern:Is this how it ends? Getting knocked out by some asshole who narrates
     his life as if he's the main character in a video game??
@@ -4695,7 +4694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currState: 0
   currEnemy: {fileID: 0}
-  level: 0
+  level: 1
   levelOneDialogue:
   - Joe:Mine mug is in the breaketh room on the third floor.
   - Joe:I will needeth to findeth a keycard for the elevator, then go up.
@@ -14963,7 +14962,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2053471970
 RectTransform:
   m_ObjectHideFlags: 0

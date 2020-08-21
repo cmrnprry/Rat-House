@@ -56,8 +56,9 @@ public class TutorialScript : MonoBehaviour
         //when you press space...
 
         Debug.Log("next");
+        Debug.Log("index: " + _index);
         //When we're at the end of the intro dialogue
-        if (_index == dialogue.sentences.Length)
+        if (_index == dialogue.sentences.Length - 1)
         {
             overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
 
