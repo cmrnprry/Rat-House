@@ -1182,6 +1182,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2032267821}
   - {fileID: 234120932}
   - {fileID: 2092476158}
   - {fileID: 714646234}
@@ -1408,7 +1409,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 50f90fcbf90897c44b7cc86c7381eeba, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1460,7 +1461,7 @@ RectTransform:
   m_Children:
   - {fileID: 1861779}
   m_Father: {fileID: 1507827008}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2617,7 +2618,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 97511259}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -4167,6 +4168,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463156916}
   m_CullTransparentMesh: 0
+--- !u!1 &486985455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 486985456}
+  - component: {fileID: 486985458}
+  - component: {fileID: 486985457}
+  m_Layer: 5
+  m_Name: Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &486985456
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486985455}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.34792003, y: 0.34792003, z: 0.34792003}
+  m_Children: []
+  m_Father: {fileID: 1507827008}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 7.8, y: 6.5}
+  m_SizeDelta: {x: 5660.8867, y: 3237.1494}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &486985457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486985455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.69411767}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &486985458
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486985455}
+  m_CullTransparentMesh: 0
 --- !u!1 &491384961
 GameObject:
   m_ObjectHideFlags: 0
@@ -4642,41 +4717,42 @@ MonoBehaviour:
   anim: {fileID: 1452746229}
   dialogue: {fileID: 1157376755}
   afterBattleDialogue:
-  - Joe:Ha! That'll show you not to get between me and my mug!
-  - Joe:Hang on, muggy...Lord Joethius P. Bradford III, Esquire's coming.
+  - Joe:Ha! That'll showeth thee not to cometh between me and mine mug!
+  - Joe:Hang on, muggy... Lord Joethius P. Bradford III, Esquire's coming.
   duringBattleDialogue:
-  - Joe:I need to choose an attack. Use the ARROW KEYS to select punch, hit SPACE
-    or ENTER to confirm, then select an enemy the same way!
+  - Joe:I need to chooseth an attack. Useth the ARROW KEYS to select PUNCH, hitteth
+    Z to confirm, then select an enemy the same way!
   - 'Intern:Joe, I''m going to call HR. '
-  - Joe:I'll start with a classic. Press SPACE or ENTER when the slider hits a beat
-    to hit this fool!
+  - Joe:I'll start with a classic. Press Z or < on RED SQUARES at which hour the
+    slider hitteth a beat to hitteth this fool!
   - Intern:Who are you talking to? Do not hit me!
-  - Joe:I'll follow that up with a kick. Select kick, then hit SPACE or ENTER when
-    the slider hits a beat.
+  - 'Joe: I''ll followeth that up with a KICK. Select KICK, then hitteth Z or < at
+    which hour the slider hitteth a RED SQUARE, and C or / at which hour the slider
+    hitteth a PURPLE CIRCLE.'
   - Intern:What the hell man? I'm just an intern.
-  - Joe:He's still standing? Good thing I have my ITEMS. Select an item to throw
-    at him.
+  - Joe:She's still standing? Valorous thing I has't mine ITEMS. Select an item to
+    throweth at that lady.
   - Intern:You got that stuff back? Joanne promised me that they wouldn't give you
     any more "dangerous office supplies!"
   - 'Intern:Okay, I do not get payed enough to be attacked by an buisness-emo wannabe. '
-  - Joe:He looks pretty annoyed...prepare to DODGE his attack!
-  - Joe:Ouch! I should heal up. I should have some blood in my ITEMS.
-  - Intern:WHY ARE YOU JUST CARRYING AROUND SOMEONE'S BLOOD!?
-  - Joe:Now to finish him off! Any attack should do!
+  - Joe:That lady looks quite annoyed... prepare to DODGE her attack!
+  - Joe:Ouch! I should heal up. Valorous thing I keepeth some BLOOD on me.
+  - Intern:WHY would you have that?!
+  - Joe:Now to finish that lady off! Any attack should doth!
   - Intern:Is this how it ends? Getting knocked out by some asshole who narrates
     his life as if he's the main character in a video game??
   beforeBattleDialogue:
-  - Joe:Ah, another day another dollar.
-  - Joe:I, Lord Joethius P. Bradford III, Esquire, (Joe Vampire) have returned to
-    my place of employment yet again for another day of work.
+  - Joe:Ah, anoth'r day anoth'r dollar.
+  - Joe:I, Lord Joethius P. Bradford III, Esquire, (Joe Vampire) hath returned to
+    mine place of employment for another day of worketh.
   - Intern:Joe? What are you doing here?
-  - Joe:What do you mean? I work here.
+  - Joe:What doth thee mean? I worketh hither.
   - Intern:No??? You were literally fired yesterday for never actually doing any
     work and attacking all your coworkers.
   - Joe:Ah, I see.
-  - Joe:In that case, let me just go get my mug.
+  - Joe:In that case, alloweth me to just retrieveth mine mug.
   - Intern:Joe, you're not allowed back into the building.
-  - Joe:What? You dare to stand in my way? Then prepare for battle!
+  - Joe:What? Thee dare to standeth in mine way? Then prepare for battle!
   - Intern:This is exactly what I was talking about...
   overworldLevelOne: []
 --- !u!114 &511622178
@@ -4693,12 +4769,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currState: 0
   currEnemy: {fileID: 0}
-  level: 0
+  level: 1
   levelOneDialogue:
-  - Joe:Test
-  - Joe:Testing
+  - Joe:Mine mug is in the breaketh room on the third floor.
+  - Joe:I will needeth to findeth a keycard for the elevator, then go up.
+  - Joe:I've barricaded the building's entrance - no one's going anywhere until I
+    has't mine mug.
   levelTwoDialogue:
-  - Joe:I am speaking
+  - Joe:This is the second floor.
+  - Joe:I wilt needeth to findeth another keycard to taketh the elevator up one more
+    level.
+  - Joe:In hindsight, this seemeth like a really inefficient way for an office to
+    be setteth up.
   tempWait: 0
   isSusanBattle: 0
   numberRetries: 0
@@ -5241,7 +5323,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1507827008}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6575,7 +6657,7 @@ RectTransform:
   m_Children:
   - {fileID: 182454693}
   m_Father: {fileID: 97511259}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6866,7 +6948,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 8d054e5f4a5c51f46b0ca09018bfb573, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10208,25 +10290,26 @@ MonoBehaviour:
   anim: {fileID: 0}
   finalImage: {fileID: 1578001955}
   preBattleDialogue:
-  - Joe:Ah, at last, I've made it to the top floor!
-  - "Joe:Come to think of it, this is kind of a weird place for the break room, huh?\r"
-  - Joe:Regardless, at last I can reclaim my beloved mug and be on my way.
+  - Joe:Ah, at last, I've madeth it to the top floor!
+  - "Joe:Cometh to bethink of 't, this is kind of a weird location for the breaketh
+    room, is it not? \r\n"
+  - Joe:Regardless, at last I can reclaim mine beloved mug and beest on mine way.
   - Susan:*slurping from Joe's mug*
-  - Joe:Egads! That's...that's my mug!
+  - Joe:Egads! That's... that's mine mug!
   - Susan:Joe! How'd you get in here?
-  - Joe:You're drinking from my favorite mug!
+  - Joe:Thou art drinking from mine most beloved mug!
   - Susan:So you've discovered my darkest secret...I fire my employees, then take
     their leftover mugs for myself!
-  - Joe:You evil bastard! You won't get away with this! I'll fight for my mug!
+  - Joe:Thee evil witch! Thee won't get away with this! I'll square for mine mug!
   phaseOneDialogue:
   - Susan:Give it up, Joe Vampire! You can never defeat me - my position gives me
     too much authority over you! Your precious mug is mine!
-  - "Joe:Hahaha...Susan...you\u2019re forgetting one very important thing..."
+  - "Joe: Hahaha... Susan... you\u2019re forgetting one very important thing..."
   - "Susan:Oh yeah? And what\u2019s that?"
-  - Joe:I have HR on speed dial!
+  - 'Joe: I has''t HR on speed dial!'
   - Susan:What?! No!
-  - "Joe:Hello? Yes, I\u2019d like to make a complaint against Susan for theft of
-    employee property."
+  - "Joe: Good morrow to you, m'lady. Aye, I\u2019d like to maketh a complaint against
+    Susan for theft of employee property."
   - "HR Rep:Oh no! We take these reports very seriously here at Big Corporation Inc.
     We\u2019ll look into the issue immediately!"
   - ' :SUSAN IS NOW UNDER INVESTICATION AND HAS BEEN DEMOTED'
@@ -10235,7 +10318,7 @@ MonoBehaviour:
     We\u2019re a little understaffed - Joe Vampire keeps beating up employees"
   phaseTwoDialogue:
   - HR Rep:Hello? Is this, um...Mr. Vampire?
-  - Joe:No! I am Joethius P...ugh. Yes. Joe Vampire speaking.
+  - Joe:No! I am Joethius P...ugh. Aye. Joe Vampire speaking.
   - "HR Rep:Excellent. Well, we\u2019ve looked into your claims, Mr. Vampire, and
     it seems you\u2019re not the first to report Susan for taking employees\u2019
     property! Of course, we here at Big Corporation Inc. do not endorse theft! She
@@ -10245,9 +10328,10 @@ MonoBehaviour:
   - Susan:Harry! Jason! If you want good references from me at your next jobs, then
     get in here and help me kill Joe Vampire!
   postBattleDialogue:
-  - Joe:At last! I've completed my quest and taken back what was rightfully mine!
-  - Joe:My precious mug...I'll never let you out of my sight again
-  - "Joe:\rCome along, my beloved...I need to find a new job so I can pay my rent.\r\n"
+  - Joe:At last! I've completed mine quest and taken back what wast rightfully mine!
+  - Joe:Mine most precious mug... I'll nev'r alloweth thee out of mine sight again.
+  - "Joe: Come along, mine beloved... I needeth to findeth a new job so I can payeth
+    mine rent. \r\n"
   _maxHealth: 150
   _currentHealth: 0
   hasEffect: 0
@@ -12296,6 +12380,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 486985456}
   - {fileID: 1972418652}
   - {fileID: 156969650}
   - {fileID: 594278632}
@@ -14573,7 +14658,7 @@ RectTransform:
   m_Children:
   - {fileID: 170601460}
   m_Father: {fileID: 1507827008}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -14822,6 +14907,80 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &2032267820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2032267821}
+  - component: {fileID: 2032267823}
+  - component: {fileID: 2032267822}
+  m_Layer: 5
+  m_Name: Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2032267821
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032267820}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 97511259}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -3.2, y: 12.8}
+  m_SizeDelta: {x: 1819.911, y: 1009.2301}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2032267822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032267820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.69411767}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2032267823
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032267820}
+  m_CullTransparentMesh: 0
 --- !u!1 &2047401272
 GameObject:
   m_ObjectHideFlags: 0
@@ -14954,7 +15113,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2053471970
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15524,7 +15683,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 97511259}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}

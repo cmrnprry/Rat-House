@@ -530,6 +530,7 @@ public class GameManager : MonoBehaviour
         anim.CrossFade("Fade_In", 1);
         yield return new WaitForSeconds(1);
         AudioManager.instance.bgMusic.clip = AudioManager.instance.bgClips[level];
+        AudioManager.instance.bgMusic.Play();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         SetEnemyDialogue(levelTwoDialogue);
