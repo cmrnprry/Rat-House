@@ -5,13 +5,7 @@ using UnityEngine;
 public class PleasantTalk : MonoBehaviour
 {
     private bool playerInRange = false;
-
     private int _index = 0;
-
-    //public Animator anim;
-
-    //public TextMeshProUGUI nameText;
-    //public TextMeshProUGUI dialogueText;
 
     public GameObject player;
 
@@ -53,17 +47,11 @@ public class PleasantTalk : MonoBehaviour
         if (_index == GameManager.instance.dialogue.sentences.Length)
         {
             //Lower the text box
-            GameManager.instance.diaAnim.SetBool("isOpen", false);
+            TurnOffDialogue();
 
             //reset the index to 0
             _index = 0;
 
-            yield return new WaitForSecondsRealtime(.2f);
-
-            GameManager.instance.dialogueOver = true;
-            GameManager.instance.dialogueInProgress = false;
-
-            //yield return new WaitUntil(() => GameManager.instance.dialogueOver && !GameManager.instance.dialogueInProgress);
             StartCoroutine(player.GetComponent<PlayerController>().PlayerMovement());
 
             yield break;
@@ -86,7 +74,6 @@ public class PleasantTalk : MonoBehaviour
         {            
             playerInRange = true;
             SetNPCDialogue();
-
         }
     }
 
@@ -94,8 +81,17 @@ public class PleasantTalk : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInRange = false;
-            StopAllCoroutines();
+            TurnOffDialogue();
         }
+    }
+
+    void TurnOffDialogue()
+    {
+        playerInRange = false;
+        GameManager.instance.diaAnim.SetBool("isOpen", false);
+        GameManager.instance.dialogueInProgress = false;
+        GameManager.instance.dialogueOver = true;
+
+        StopAllCoroutines();
     }
 }

@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _rb = this.GetComponent<Rigidbody>();
-        StartCoroutine(PlayerMovement());
+        //StartCoroutine(PlayerMovement());
 
         //Items the player starts with
 
@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     //An Enumerator that controls the player movement
     public IEnumerator PlayerMovement()
     {
+        Debug.Log("WALKING");
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 

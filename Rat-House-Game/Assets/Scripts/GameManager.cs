@@ -75,7 +75,6 @@ public class GameManager : MonoBehaviour
     public Dialogue dialogue;
     public bool dialogueOver = false;
     public bool dialogueInProgress = false;
-    public bool postBattle = false;
     private int _index = 0;
 
     [Header("Tutorial Script")]
@@ -119,7 +118,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Pause"))
+        if (Input.GetButtonDown("Pause") && (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("Main Menu") && SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LastScene")))
         {
             pauseMenu.SetActive(!pauseMenu.activeSelf);
             pauseMenu.GetComponent<PauseMenu>().MainPause();
@@ -307,7 +306,7 @@ public class GameManager : MonoBehaviour
         //Waits for the text to stop typing
         yield return new WaitUntil(() => dialogue.isTyping == false);
 
-        //wait for the player to press enter/space
+        //wait for the player to press enter/z
         yield return new WaitUntil(() => Input.GetButton("SelectAction"));
 
         //when you press space...
@@ -320,7 +319,7 @@ public class GameManager : MonoBehaviour
             //reset the index to 0
             _index = 0;
 
-            yield return new WaitForSecondsRealtime(.2f);
+            yield return new WaitForSecondsRealtime(.25f);
 
             dialogueOver = true;
             dialogueInProgress = false;
@@ -378,37 +377,6 @@ public class GameManager : MonoBehaviour
         //Give player movement 
         StartCoroutine(player.PlayerMovement());
         dialogueOver = false;
-        postBattle = false;
-    }
-
-    private IEnumerator AfterTutorial()
-    {
-        //play some sort of screen wipe
-        anim.CrossFade("Fade_Out", 1);
-        yield return new WaitForSeconds(2);
-
-        //Turn off the battle music
-        AudioManager.instance.StopCombatMusic();
-
-        yield return new WaitForEndOfFrame();
-
-        SceneManager.LoadScene("Overworld_Level1-FINAL");
-
-        yield return new WaitForEndOfFrame();
-
-        anim.CrossFade("Fade_In", 1);
-
-        yield return new WaitForEndOfFrame();
-
-        SetEnemyDialogue(levelOneDialogue);
-
-        yield return new WaitUntil(() => dialogueInProgress);
-        yield return new WaitUntil(() => !dialogueInProgress);
-
-        overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        dialogueOver = false;
-        postBattle = false;
     }
 
     //The Battle was won
@@ -516,6 +484,39 @@ public class GameManager : MonoBehaviour
         yield return new WaitUntil(() => !dialogueInProgress);
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        StartCoroutine(player.PlayerMovement());
+    }
+
+    private IEnumerator AfterTutorial()
+    {
+        //play some sort of screen wipe
+        anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSeconds(2);
+
+        //Turn off the battle music
+        AudioManager.instance.StopCombatMusic();
+
+        yield return new WaitForEndOfFrame();
+
+        SceneManager.LoadScene("Overworld_Level1-FINAL");
+
+        yield return new WaitForEndOfFrame();
+
+        anim.CrossFade("Fade_In", 1);
+
+        yield return new WaitForEndOfFrame();
+
+        SetEnemyDialogue(levelOneDialogue);
+
+        yield return new WaitUntil(() => dialogueInProgress);
+        yield return new WaitUntil(() => !dialogueInProgress);
+
+        Debug.Log("here");
+
+        overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        StartCoroutine(player.PlayerMovement());
+        dialogueOver = false;
     }
 
     public IEnumerator LoadLevelTwo()
