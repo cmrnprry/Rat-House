@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class ItemPickup : MonoBehaviour
@@ -20,7 +21,7 @@ public class ItemPickup : MonoBehaviour
                 GameManager.instance.itemText.text = this.gameObject.name + " has been added to your record";
                 GameManager.instance.itemGetAnim.SetTrigger("textPopup");
 
-                Destroy(this.gameObject);
+                this.gameObject.SetActive(false);
             }
         }        
     }

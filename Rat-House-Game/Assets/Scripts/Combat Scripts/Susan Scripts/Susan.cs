@@ -264,6 +264,9 @@ public class Susan : MonoBehaviour
         CombatController.instance.SetUpSusanBattle();
         healthSlider.value = 1;
 
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
         AudioManager.instance.StartCombatMusic();
         StartCoroutine(CombatController.instance.ChooseAction());
 

@@ -487,6 +487,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Sprite
       objectReference: {fileID: 0}
+    - target: {fileID: 148030195128576409, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3081878294285747290, guid: a2eed68ba9bc44e47801d00ee83fc748,
         type: 3}
       propertyPath: m_Sprite
@@ -507,6 +512,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3081878294285747290, guid: a2eed68ba9bc44e47801d00ee83fc748,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5145370357957445419, guid: a2eed68ba9bc44e47801d00ee83fc748,
         type: 3}
@@ -2412,12 +2422,12 @@ PrefabInstance:
     - target: {fileID: 7926202670088244093, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
         type: 3}
       propertyPath: m_Size.z
-      value: 3.1477928
+      value: 3.8108292
       objectReference: {fileID: 0}
     - target: {fileID: 7926202670088244093, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
         type: 3}
       propertyPath: m_Center.z
-      value: 0.050317764
+      value: -0.2812004
       objectReference: {fileID: 0}
     - target: {fileID: 7926202670088244093, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
         type: 3}

@@ -13,7 +13,7 @@ public class KeyScript : MonoBehaviour
             GameManager.instance.itemText.text = "Elevator Keycard has been added to your record";
             GameManager.instance.itemGetAnim.SetTrigger("textPopup");
 
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         }        
     }
 }

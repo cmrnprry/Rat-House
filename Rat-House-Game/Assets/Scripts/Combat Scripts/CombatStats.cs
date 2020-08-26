@@ -106,8 +106,7 @@ public class CombatStats : MonoBehaviour
                     DetectAttackHit(transform.position);
                 }
             }
-
-            //inceasese the index if the player misses OR hits a note since the cannot do both
+            
             if (Input.GetButtonDown("Square") && hitList[index].isSquare) // square
             {
                 Debug.Log("hit square");
@@ -131,7 +130,7 @@ public class CombatStats : MonoBehaviour
                     CombatController.instance.hitDetectionText.text = "Miss!";
                     colorText = "#7E7E7E";
                     StartCoroutine(ShowText());
-                    
+
                     index++;
                 }
 
@@ -151,12 +150,11 @@ public class CombatStats : MonoBehaviour
                 //if the slider is within the offset range
                 //Basically if it's at the start bounds of being early and the far bounds of being 
                 if (transform.position.x >= hitList[index].pos - offset && transform.position.x <= hitList[index].pos + offset && !hitNote)
-                {   
+                {
                     DetectDodgeHit(transform.position);
                 }
             }
-
-            //inceasese the index if the player misses OR hits a note since the cannot do both
+            
             if (Input.GetButtonDown("Square") && hitList[index].isSquare) // square
             {
 
@@ -218,7 +216,7 @@ public class CombatStats : MonoBehaviour
             colorText = "#FFD900";
         }
         //if the player is "perfect"
-        else if (pos.x <= hitList[index].pos + delta)// && pos.x >= hitList[index].pos - delta) //between the pos +/- delta
+        else if (pos.x <= hitList[index].pos + delta && pos.x >= hitList[index].pos - delta) //between the pos +/- delta
         {
             //play Perfect animation
             CombatController.instance.hitDetectionText.text = "Perfect!";
@@ -238,10 +236,6 @@ public class CombatStats : MonoBehaviour
             colorText = "#FFD900";
         }
 
-        //Debug.Log("Hit at: " + transform.position.x);
-        //Debug.Log("Beat to hit at: " + hitList[index]);
-        //Debug.Log("Beat in song: " + AudioManager.instance.songPositionInBeats);
-        //Debug.Log("Beat in song (sec): " + AudioManager.instance.songPosition);
         StartCoroutine(ShowText());
         AudioManager.instance.SFX.Play();
         index++;
@@ -404,7 +398,7 @@ public class CombatStats : MonoBehaviour
                 yield break;
             }
 
-            SwitchTurn();
+            SwitchToEnemyTurn();
             yield break;
         }
         else
@@ -446,17 +440,21 @@ public class CombatStats : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        SwitchTurn();
+        SwitchToEnemyTurn();
 
         StartCoroutine(CombatController.instance.EnemyPhase());
     }
 
-    void SwitchTurn()
+    void SwitchToEnemyTurn()
     {
         Debug.Log("Seitch Turns");
         //Reset the # of total hits and amount it
         totalHits = 0;
         amountHit = 0;
+
+        //flip fangs
+        SliderEnemy();
+        gameObject.GetComponent<Note>().Flip();
 
         //After the damage has been delt we want to switch to the enemies turn
         AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[2];
@@ -590,5 +588,16 @@ public class CombatStats : MonoBehaviour
         effect = StatusEffect.None;
 
         player.transform.GetChild(0).GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    public void SliderEnemy()
+    {
+        Debug.Log("here");
+        gameObject.transform.position = new Vector3(12.5f, 6.19f, 0f);
+    }
+
+    public void SliderPlayer()
+    {
+        gameObject.transform.position = new Vector3(3f, 6.19f, 0f);
     }
 }

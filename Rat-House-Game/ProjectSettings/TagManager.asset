@@ -23,6 +23,7 @@ TagManager:
   - Button
   - Susan
   - computer_effect
+  - PlayerBattle
   layers:
   - Default
   - TransparentFX
