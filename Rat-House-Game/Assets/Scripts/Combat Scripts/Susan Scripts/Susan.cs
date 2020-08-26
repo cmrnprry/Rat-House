@@ -52,6 +52,7 @@ public class Susan : MonoBehaviour
     public int[] chancesOfHitting;
 
     private bool _turnOver = false;
+    public bool nextPhase = false;
 
     public string effectName;
     private ParticleSystem _attackAnim;
@@ -81,6 +82,7 @@ public class Susan : MonoBehaviour
             GameManager.instance.battleAnimator.SetBool("IsOpen", false);
             CombatController.instance.TurnOffHighlight();
 
+            nextPhase = true;
             SetDialogue(phaseTwoDialogue);
         }
         else if (_currentHealth <= 100 && phase == 1)
@@ -90,6 +92,7 @@ public class Susan : MonoBehaviour
             GameManager.instance.battleAnimator.SetBool("IsOpen", false);
             CombatController.instance.TurnOffHighlight();
 
+            nextPhase = true;
             SetDialogue(phaseOneDialogue);
         }
         else if (!effectUpdate)
@@ -183,7 +186,7 @@ public class Susan : MonoBehaviour
 
         //when you press space...
         //When we're at the end of the intro dialogue
-        if (_index == GameManager.instance.dialogue.sentences.Length)
+        if (_index == GameManager.instance.dialogue.sentences.Length - 1)
         {
             //Lower the text box
             GameManager.instance.diaAnim.SetBool("isOpen", false);
@@ -213,7 +216,7 @@ public class Susan : MonoBehaviour
                 yield return new WaitForSecondsRealtime(5f);
 
                 GameManager.instance.anim.CrossFade("Fade_Out", 1);
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSecondsRealtime(1);
 
                 finalImage.SetActive(false);
 
@@ -245,7 +248,7 @@ public class Susan : MonoBehaviour
     {
         //play some sort of screen wipe
         GameManager.instance.anim.CrossFade("Fade_Out", 1);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSecondsRealtime(2);
 
         GameManager.instance.topOverlay.SetActive(false);
         SceneManager.LoadScene("Battle-FINAL", LoadSceneMode.Additive);
@@ -282,7 +285,7 @@ public class Susan : MonoBehaviour
         CombatController.instance.ResetSlider();
         CombatController.instance.ShowActionMenu();
         CombatController.instance.HighlightMenuItem();
-
+        nextPhase = false;
         yield return null;
     }
 
@@ -298,14 +301,13 @@ public class Susan : MonoBehaviour
         CombatController.instance.ResetSlider();
         CombatController.instance.ShowActionMenu();
         CombatController.instance.HighlightMenuItem();
-
+        nextPhase = false;
         yield return null;
     }
 
     public IEnumerator SusanDeath()
     {
         Debug.Log("Dead");
-        yield return new WaitForSecondsRealtime(.5f);
 
         anim.SetTrigger("Dead");
         yield return new WaitForSecondsRealtime(2f);
@@ -314,14 +316,14 @@ public class Susan : MonoBehaviour
         anim = null;
 
         //turn off all battle stuffs
+        GameManager.instance.anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSecondsRealtime(1);
+
         GameManager.instance.battleAnimator.SetBool("IsOpen", false);
         GameManager.instance.healthParent.SetActive(false);
         CombatController.instance.ClearBattle();
         CombatController.instance.TurnOffHighlight();
         phase = 3;
-
-        GameManager.instance.anim.CrossFade("Fade_Out", 1);
-        yield return new WaitForSeconds(1);
 
         finalImage.SetActive(true);
 
@@ -331,7 +333,7 @@ public class Susan : MonoBehaviour
         yield return new WaitForFixedUpdate();
         GameManager.instance.anim.CrossFade("Fade_In", 1);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSecondsRealtime(1);
 
 
         SetDialogue(postBattleDialogue);
@@ -394,6 +396,8 @@ public class Susan : MonoBehaviour
 
     public void SetIsTurnOver(bool over)
     {
+        UpdateEffect();
+
         _turnOver = over;
     }
 

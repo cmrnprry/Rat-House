@@ -10,7 +10,7 @@ public class EnemySight : MonoBehaviour
     public GameObject player;
     public GameObject exclamation;
 
-    void Awake()
+    void Start()
     {
         enemyController = GetComponent<EnemyController>();
         enemyMovement = GetComponent<EnemyMovement>();
@@ -22,26 +22,29 @@ public class EnemySight : MonoBehaviour
         {
             enemyMovement.canMove = true;
         }
-        else if (other.gameObject == player && !GameManager.instance.dialogueInProgress)
+        else if (other.gameObject == player && !GameManager.instance.dialogueInProgress && !GameManager.instance.transition)
         {
+            player.GetComponent<PlayerController>().StopPlayerMovement();
             exclamation.SetActive(true);
             enemyMovement.canMove = false;
-            player.GetComponent<PlayerController>().StopPlayerMovement();
-
 
             if (!enemyController.isBeaten)
             {
+                Debug.Log("not beaten");
                 //Set battle enemies
                 CombatController.instance.SetEnemies(enemyController.enemiesInBattle);
                 GameManager.instance.currEnemy = this.gameObject;
 
                 //Set dialogue and enable the ability to start battle
-                GameManager.instance.SetEnemyDialogue(enemyController.preBattleDialogue);
+              StartCoroutine(GameManager.instance.SetEnemyDialogue(enemyController.preBattleDialogue));
+
+                exclamation.SetActive(false);
                 StartCoroutine(StartBattle());
             }
             else if (enemyController.isBeaten)
             {
-                GameManager.instance.SetEnemyDialogue(enemyController.beatenBattleDialogue);
+                Debug.Log("beaten");
+                StartCoroutine(GameManager.instance.SetEnemyDialogue(enemyController.beatenBattleDialogue));
                 StartCoroutine(GivePlayerBack());
             }
 
@@ -50,8 +53,10 @@ public class EnemySight : MonoBehaviour
 
     IEnumerator StartBattle()
     {
+        Debug.Log("start battle");
+        yield return new WaitForEndOfFrame();
         yield return new WaitUntil(() => GameManager.instance.dialogueOver && !GameManager.instance.dialogueInProgress);
-        exclamation.SetActive(false);
+
         GameManager.instance.SetGameState(GameState.Battle);
     }
 

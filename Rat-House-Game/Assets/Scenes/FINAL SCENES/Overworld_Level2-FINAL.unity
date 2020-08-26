@@ -1926,7 +1926,7 @@ PrefabInstance:
     - target: {fileID: 1555809893976923595, guid: 4bda4278b8f86414ca47931ae58002a6,
         type: 3}
       propertyPath: m_Name
-      value: Jim's Lunch (2)
+      value: Jim's Lunch
       objectReference: {fileID: 0}
     - target: {fileID: 2580247154994676979, guid: 4bda4278b8f86414ca47931ae58002a6,
         type: 3}
@@ -3632,7 +3632,7 @@ PrefabInstance:
     - target: {fileID: 2166726889032688276, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_Name
-      value: calmy tea (1)
+      value: Calmy Tea
       objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688279, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
@@ -3896,7 +3896,7 @@ PrefabInstance:
     - target: {fileID: 6305841416386575541, guid: b910610d69e7ee3489ed2173dab36604,
         type: 3}
       propertyPath: m_Name
-      value: Hot Coffee (3)
+      value: Hot Coffee
       objectReference: {fileID: 0}
     - target: {fileID: 6305841416386575542, guid: b910610d69e7ee3489ed2173dab36604,
         type: 3}
@@ -3952,6 +3952,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305841416386575543, guid: b910610d69e7ee3489ed2173dab36604,
+        type: 3}
+      propertyPath: itialDmg
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b910610d69e7ee3489ed2173dab36604, type: 3}
@@ -4056,7 +4061,7 @@ PrefabInstance:
     - target: {fileID: 6305841416386575541, guid: b910610d69e7ee3489ed2173dab36604,
         type: 3}
       propertyPath: m_Name
-      value: Hot Coffee (4)
+      value: Hot Coffee
       objectReference: {fileID: 0}
     - target: {fileID: 6305841416386575542, guid: b910610d69e7ee3489ed2173dab36604,
         type: 3}
@@ -4128,6 +4133,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 6305841416386575543, guid: b910610d69e7ee3489ed2173dab36604,
+        type: 3}
+      propertyPath: itialDmg
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b910610d69e7ee3489ed2173dab36604, type: 3}
 --- !u!4 &432061545 stripped
@@ -4146,7 +4156,7 @@ PrefabInstance:
     - target: {fileID: 332974378841108213, guid: 3f88c785a5ee87d4dafd9a2137e209b2,
         type: 3}
       propertyPath: m_Name
-      value: Plastic Utensils (1)
+      value: Plastic Utensils
       objectReference: {fileID: 0}
     - target: {fileID: 8809036697201013583, guid: 3f88c785a5ee87d4dafd9a2137e209b2,
         type: 3}
@@ -7763,7 +7773,7 @@ PrefabInstance:
     - target: {fileID: 1555809893976923595, guid: 4bda4278b8f86414ca47931ae58002a6,
         type: 3}
       propertyPath: m_Name
-      value: Jim's Lunch (1)
+      value: Jim's Lunch
       objectReference: {fileID: 0}
     - target: {fileID: 2580247154994676979, guid: 4bda4278b8f86414ca47931ae58002a6,
         type: 3}
@@ -7928,7 +7938,7 @@ PrefabInstance:
     - target: {fileID: 6305841416386575541, guid: b910610d69e7ee3489ed2173dab36604,
         type: 3}
       propertyPath: m_Name
-      value: Hot Coffee (2)
+      value: Hot Coffee
       objectReference: {fileID: 0}
     - target: {fileID: 6305841416386575542, guid: b910610d69e7ee3489ed2173dab36604,
         type: 3}
@@ -7984,6 +7994,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305841416386575543, guid: b910610d69e7ee3489ed2173dab36604,
+        type: 3}
+      propertyPath: itialDmg
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b910610d69e7ee3489ed2173dab36604, type: 3}
@@ -10005,7 +10020,7 @@ PrefabInstance:
     - target: {fileID: 332974378841108213, guid: 3f88c785a5ee87d4dafd9a2137e209b2,
         type: 3}
       propertyPath: m_Name
-      value: Plastic Utensils (2)
+      value: Plastic Utensils
       objectReference: {fileID: 0}
     - target: {fileID: 8809036697201013583, guid: 3f88c785a5ee87d4dafd9a2137e209b2,
         type: 3}
@@ -10434,7 +10449,7 @@ PrefabInstance:
     - target: {fileID: 1493558144674363487, guid: df65d76dd55d37a4ba91d9efbcfdedd1,
         type: 3}
       propertyPath: m_Name
-      value: Pam's Fruitcake (1)
+      value: Pam's Fruitcake
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df65d76dd55d37a4ba91d9efbcfdedd1, type: 3}
@@ -13045,6 +13060,72 @@ Transform:
   m_Father: {fileID: 1828227502}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1417671960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1417671963}
+  - component: {fileID: 1417671962}
+  - component: {fileID: 1417671961}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1417671961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417671960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1417671962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417671960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &1417671963
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417671960}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1419624474
 GameObject:
   m_ObjectHideFlags: 0
@@ -13887,7 +13968,7 @@ PrefabInstance:
     - target: {fileID: 1555809893976923595, guid: 4bda4278b8f86414ca47931ae58002a6,
         type: 3}
       propertyPath: m_Name
-      value: Jim's Lunch (3)
+      value: Jim's Lunch
       objectReference: {fileID: 0}
     - target: {fileID: 2580247154994676979, guid: 4bda4278b8f86414ca47931ae58002a6,
         type: 3}
@@ -14743,7 +14824,7 @@ PrefabInstance:
     - target: {fileID: 1493558144674363487, guid: df65d76dd55d37a4ba91d9efbcfdedd1,
         type: 3}
       propertyPath: m_Name
-      value: Pam's Fruitcake (2)
+      value: Pam's Fruitcake
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df65d76dd55d37a4ba91d9efbcfdedd1, type: 3}
@@ -16373,7 +16454,7 @@ PrefabInstance:
     - target: {fileID: 2166726889032688276, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}
       propertyPath: m_Name
-      value: calmy tea (2)
+      value: Calmy Tea
       objectReference: {fileID: 0}
     - target: {fileID: 2166726889032688279, guid: 7999644b788d2d24081951c94af4661b,
         type: 3}

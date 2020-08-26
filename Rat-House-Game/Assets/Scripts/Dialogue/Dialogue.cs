@@ -13,16 +13,14 @@ public class Dialogue : MonoBehaviour
     public TextMeshProUGUI dia;
     public TextMeshProUGUI speakerName;
 
-    //Image of the person speaking
-    public Image speakerHead;
-
-    //Array of speaker head sprites
-    public Sprite[] heads;
-
     //Array of the dialogue
     [TextArea(3, 5)]
     public string[] sentences;
     private string text = "";
+
+    //Image of the person speaking
+    public Image speakerHead;
+    public Sprite[] heads;
 
     //Where we are in the sentences array
     public int index;
@@ -37,6 +35,8 @@ public class Dialogue : MonoBehaviour
     //At the start of a conversation...
     public void StartDialogue()
     {
+        Debug.Log("starts");
+
         dia.text = "";
         text = "";
         index = 0;
@@ -92,7 +92,6 @@ public class Dialogue : MonoBehaviour
                 break;
         }
 
-
         return head;
     }
 
@@ -127,7 +126,7 @@ public class Dialogue : MonoBehaviour
         {
             dia.text += letter;
 
-            yield return new WaitForSeconds(typingSpeed);
+            yield return new WaitForSecondsRealtime(typingSpeed);
         }
 
         isTyping = false;

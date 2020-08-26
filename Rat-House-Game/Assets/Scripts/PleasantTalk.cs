@@ -44,7 +44,7 @@ public class PleasantTalk : MonoBehaviour
 
         //when you press space...
         //When we're at the end of the intro dialogue
-        if (_index == GameManager.instance.dialogue.sentences.Length)
+        if (_index == GameManager.instance.dialogue.sentences.Length - 1)
         {
             //Lower the text box
             TurnOffDialogue();

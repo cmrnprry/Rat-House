@@ -21,9 +21,8 @@ public class TutorialScript : MonoBehaviour
     private int _selected = 0;
     private int _maxBattleOptions = 4;
 
-    public Animator anim;
-
-    public Dialogue dialogue;
+    private Animator diaAnim;
+    private Dialogue dialogue;
 
     [TextArea(3, 5)]
     public string[] afterBattleDialogue;
@@ -36,6 +35,11 @@ public class TutorialScript : MonoBehaviour
 
     public GameObject[] overworldLevelOne;
 
+    void Start()
+    {
+        diaAnim = GameManager.instance.diaAnim;
+        dialogue = GameManager.instance.dialogue;
+    }
 
     //Shows the Opening Dialogue for the tutorial
     public IEnumerator ShowOpeningDialogue()
@@ -63,7 +67,7 @@ public class TutorialScript : MonoBehaviour
             overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
 
             //Lower the text box
-            anim.SetBool("isOpen", false);
+            //anim.SetBool("isOpen", false);
 
             //reset the index to 0
             _index = 0;
@@ -72,7 +76,7 @@ public class TutorialScript : MonoBehaviour
 
             //play some sort of screen wipe
             GameManager.instance.anim.CrossFade("Fade_Out", 1);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSecondsRealtime(2);
 
             //load correct scene
             TurnOffScene();
@@ -115,7 +119,7 @@ public class TutorialScript : MonoBehaviour
         Debug.Log("start Tutorial Battle");
 
         //Open the dialogue box
-        anim.SetBool("isOpen", true);
+        diaAnim.SetBool("isOpen", true);
 
         //set the sentences in the dialogue manager
         dialogue.sentences = duringBattleDialogue;
@@ -179,7 +183,7 @@ public class TutorialScript : MonoBehaviour
 
             //play some sort of screen wipe
             GameManager.instance.anim.CrossFade("Fade_Out", 1);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSecondsRealtime(2);
 
             //load correct scene
             TurnOnScene();
@@ -192,7 +196,7 @@ public class TutorialScript : MonoBehaviour
             _index = 0;
 
             //Open the dilogue box
-            anim.SetBool("isOpen", true);
+            diaAnim.SetBool("isOpen", true);
 
             //Start dialogue
             dialogue.StartDialogue();
@@ -205,7 +209,7 @@ public class TutorialScript : MonoBehaviour
         _isFinished = false;
 
         //open the daiologue box
-        anim.SetBool("isOpen", true);
+        diaAnim.SetBool("isOpen", true);
 
         //Go to the next sentence
         dialogue.NextSentence();
@@ -244,7 +248,7 @@ public class TutorialScript : MonoBehaviour
             yield return new WaitForSecondsRealtime(.5f);
 
             //set the game state to be the overworld
-            GameManager.instance.SetGameState(GameState.AfterOverworld);
+            GameManager.instance.SetGameState(GameState.AfterTutorial);
             yield break;
         }
 
@@ -300,7 +304,7 @@ public class TutorialScript : MonoBehaviour
             e.healthSlider.value -= .25f;
         }
 
-        if (CombatController.instance.selectedAction == ActionType.Heal)
+        if (CombatController.instance.selectedActionType == ActionType.Heal)
         {
             ShowBattleMenu();
             _selected = 0;
@@ -309,7 +313,7 @@ public class TutorialScript : MonoBehaviour
             CombatController.instance.playerHealthText.text = 100 + "%";
 
             CombatController.instance.HighlightMenuItem();
-            CombatController.instance.selectedAction = ActionType.Punch;
+            CombatController.instance.selectedActionType = ActionType.Punch;
 
             CombatController.instance.ResetSlider();
 
@@ -331,7 +335,7 @@ public class TutorialScript : MonoBehaviour
         yield return new WaitUntil(() => Input.GetButtonDown("Down"));
 
         //Change selected action
-        CombatController.instance.selectedAction = ActionType.Kick;
+        CombatController.instance.selectedActionType = ActionType.Kick;
 
         //Change the selected action
         var x = CombatController.instance.attackMenu.transform.GetChild(1).GetChild(0);
@@ -371,7 +375,7 @@ public class TutorialScript : MonoBehaviour
         yield return new WaitUntil(() => Input.GetButtonDown("Right"));
 
         //Change selected action to Items
-        CombatController.instance.selectedAction = ActionType.Item;
+        CombatController.instance.selectedActionType = ActionType.Item;
 
         yield return new WaitForEndOfFrame();
 
@@ -451,7 +455,7 @@ public class TutorialScript : MonoBehaviour
         yield return new WaitUntil(() => Input.GetButtonDown("Down"));
 
         //Change selected action
-        CombatController.instance.selectedAction = ActionType.Kick;
+        CombatController.instance.selectedActionType = ActionType.Kick;
 
         //Change the selected action
         var x = CombatController.instance.attackMenu.transform.GetChild(1).GetChild(0);
@@ -463,7 +467,7 @@ public class TutorialScript : MonoBehaviour
         yield return new WaitUntil(() => Input.GetButtonDown("Down"));
 
         //Change selected action
-        CombatController.instance.selectedAction = ActionType.Throw;
+        CombatController.instance.selectedActionType = ActionType.Throw;
 
         //Change the selected action
         var y = CombatController.instance.attackMenu.transform.GetChild(2).GetChild(0);
@@ -475,7 +479,7 @@ public class TutorialScript : MonoBehaviour
         yield return new WaitUntil(() => Input.GetButtonDown("Down"));
 
         //Change selected action
-        CombatController.instance.selectedAction = ActionType.Heal;
+        CombatController.instance.selectedActionType = ActionType.Heal;
 
         //Change the selected action
         var z = CombatController.instance.attackMenu.transform.GetChild(3).GetChild(0);
@@ -516,7 +520,7 @@ public class TutorialScript : MonoBehaviour
         ShowBattleMenu();
         CombatController.instance.HighlightMenuItem();
         //Change selected action
-        CombatController.instance.selectedAction = ActionType.Punch;
+        CombatController.instance.selectedActionType = ActionType.Punch;
     }
 
     IEnumerator AnyAttack()
@@ -552,22 +556,22 @@ public class TutorialScript : MonoBehaviour
             {
                 case 0:
                     Debug.Log("Punch");
-                    CombatController.instance.selectedAction = ActionType.Punch;
+                    CombatController.instance.selectedActionType = ActionType.Punch;
                     StartCoroutine(ChooseAttack());
                     break;
                 case 1:
                     Debug.Log("Kick");
-                    CombatController.instance.selectedAction = ActionType.Kick;
+                    CombatController.instance.selectedActionType = ActionType.Kick;
                     StartCoroutine(ChooseAttack());
                     break;
                 case 2:
                     Debug.Log("Throw");
-                    CombatController.instance.selectedAction = ActionType.Throw;
+                    CombatController.instance.selectedActionType = ActionType.Throw;
                     StartCoroutine(ChooseAttack());
                     break;
                 case 3:
                     Debug.Log("Suck Blood");
-                    CombatController.instance.selectedAction = ActionType.Heal;
+                    CombatController.instance.selectedActionType = ActionType.Heal;
                     StartCoroutine(ChooseAttack());
                     break;
                 default:
@@ -601,19 +605,19 @@ public class TutorialScript : MonoBehaviour
         //Change selected action
         if (_selected == 0)
         {
-            CombatController.instance.selectedAction = ActionType.Punch;
+            CombatController.instance.selectedActionType = ActionType.Punch;
         }
         else if (_selected == 1)
         {
-            CombatController.instance.selectedAction = ActionType.Kick;
+            CombatController.instance.selectedActionType = ActionType.Kick;
         }
         else if (_selected == 2)
         {
-            CombatController.instance.selectedAction = ActionType.Throw;
+            CombatController.instance.selectedActionType = ActionType.Throw;
         }
         else if (_selected == 3)
         {
-            CombatController.instance.selectedAction = ActionType.Heal;
+            CombatController.instance.selectedActionType = ActionType.Heal;
         }
 
 
@@ -715,7 +719,7 @@ public class TutorialScript : MonoBehaviour
                     ShowBattleMenu();
                     _selected = 0;
                     CombatController.instance.HighlightMenuItem();
-                    CombatController.instance.selectedAction = ActionType.Punch;
+                    CombatController.instance.selectedActionType = ActionType.Punch;
 
                     StartCoroutine(AnyAttack());
                     break;
@@ -732,7 +736,7 @@ public class TutorialScript : MonoBehaviour
             ShowBattleMenu();
             _selected = 0;
             CombatController.instance.HighlightMenuItem();
-            CombatController.instance.selectedAction = ActionType.Punch;
+            CombatController.instance.selectedActionType = ActionType.Punch;
 
             StartCoroutine(AnyAttack());
 
@@ -866,7 +870,7 @@ public class TutorialScript : MonoBehaviour
             if (_index % 2 == 1 && _index != 0)
             {
                 //Lower the text box
-                anim.SetBool("isOpen", false);
+                diaAnim.SetBool("isOpen", false);
 
                 yield return new WaitForSecondsRealtime(.2f);
 

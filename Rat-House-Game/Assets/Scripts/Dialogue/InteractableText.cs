@@ -10,18 +10,24 @@ public class InteractableText : MonoBehaviour
     public GameObject pressEnter;
     private int lastRand;
 
+    private Animator diaAnim;
+    private Dialogue dialogue;
+
+
+    private void Start()
+    {
+        diaAnim = GameManager.instance.diaAnim;
+        dialogue = GameManager.instance.dialogue;
+    }
+
     IEnumerator ShowInteractabeText()
     {
         //If you press space when the player is close enough...
         if (Input.GetButton("SelectAction") && !GameManager.instance.dialogueInProgress && GameManager.instance.GetGameState() != GameState.Battle)
         {
-            GameManager.instance.dialogueInProgress = true;
-            GameManager.instance.dialogueOver = false;
+            TurnOnDialogue();
 
-            GameManager.instance.diaAnim.SetBool("isOpen", true);
-            GameManager.instance.dialogue.speakerName.text = "Joe";
-            GameManager.instance.dialogue.dia.text = itemComments[RandNumber()];
-
+            yield return new WaitForFixedUpdate();
             yield return new WaitUntil(() => Input.GetButtonDown("SelectAction"));
 
             //end dialogue
@@ -73,10 +79,20 @@ public class InteractableText : MonoBehaviour
     {
         pressEnter.SetActive(false);
         playerInRange = false;
-        GameManager.instance.diaAnim.SetBool("isOpen", false);
+        diaAnim.SetBool("isOpen", false);
         GameManager.instance.dialogueInProgress = false;
         GameManager.instance.dialogueOver = true;
 
         StopAllCoroutines();
+    }
+
+    void TurnOnDialogue()
+    {
+        GameManager.instance.dialogueInProgress = true;
+        GameManager.instance.dialogueOver = false;
+
+        diaAnim.SetBool("isOpen", true);
+        dialogue.speakerName.text = "Joe";
+        dialogue.dia.text = itemComments[RandNumber()];
     }
 }

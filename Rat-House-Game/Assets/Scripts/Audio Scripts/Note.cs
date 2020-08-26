@@ -89,11 +89,11 @@ public class Note : MonoBehaviour
                 gameObject.transform.position = restartPoint;
             }
         }
-        else if (CombatController.instance.selectedAction != _curAction)
+        else if (CombatController.instance.selectedActionType != _curAction)
         {
             ClearBeats();
 
-            _curAction = CombatController.instance.selectedAction;
+            _curAction = CombatController.instance.selectedActionType;
 
 
             if (_curAction != ActionType.Item)
@@ -149,7 +149,7 @@ public class Note : MonoBehaviour
         }
     }
 
-    private void ShowAttackBeats()
+    public void ShowAttackBeats()
     {
         if (_curAction != ActionType.Item)
         {

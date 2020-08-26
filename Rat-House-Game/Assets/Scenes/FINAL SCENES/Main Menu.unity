@@ -190,7 +190,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -884,7 +884,7 @@ MonoBehaviour:
   - {fileID: 1813099590}
   - {fileID: 11364398}
   _inBattle: []
-  selectedAction: 0
+  selectedActionType: 0
   enemyTurnOver: 0
   _stats: {fileID: 0}
   attackMenuParent: {fileID: 1701367610}
@@ -1064,8 +1064,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1689,7 +1689,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1922,7 +1922,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3008,8 +3008,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4714,8 +4714,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e97f2b51c41b32d47b466871c3f7f8d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 1452746229}
-  dialogue: {fileID: 1157376755}
   afterBattleDialogue:
   - Joe:Ha! That'll showeth thee not to cometh between me and mine mug!
   - Joe:Hang on, muggy... Lord Joethius P. Bradford III, Esquire's coming.
@@ -4783,7 +4781,6 @@ MonoBehaviour:
     be setteth up.
   tempWait: 0
   isSusanBattle: 0
-  numberRetries: 0
   canvas: {fileID: 20798670}
   pauseMenu: {fileID: 1923456991}
   inventoryParent: {fileID: 1402875831}
@@ -4803,12 +4800,12 @@ MonoBehaviour:
   topOverlay: {fileID: 1209985666}
   diaAnim: {fileID: 1452746229}
   dialogue: {fileID: 1157376755}
-  dialogueOver: 0
+  dialogueOver: 1
   dialogueInProgress: 0
   tutorial: {fileID: 511622177}
   susan: {fileID: 1310167809}
   anim: {fileID: 2053471971}
-  overworldLevelOne: []
+  overworldObjects: []
   player: {fileID: 0}
   itemGetAnim: {fileID: 1915241301}
   itemText: {fileID: 1915241302}
@@ -5045,7 +5042,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 1.25
+  m_padding: 0
   m_canvasRenderer: {fileID: 560042390}
   m_TextComponent: {fileID: 1866327959}
   m_materialReferenceIndex: 1
@@ -8896,6 +8893,7 @@ MonoBehaviour:
   anim: {fileID: 1452746229}
   dia: {fileID: 1866327959}
   speakerName: {fileID: 821247191}
+  sentences: []
   speakerHead: {fileID: 1119297779}
   heads:
   - {fileID: 21300000, guid: ef3f8f72c9c45e14181b33e0a9e4606e, type: 3}
@@ -8906,9 +8904,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f6b04e47e076cc64ba72cb4fc5788bc5, type: 3}
   - {fileID: 21300000, guid: 68c7554645390654086d4989c82a9109, type: 3}
   - {fileID: 21300000, guid: 84ff1f61d0299ba4baf915e25a1811e2, type: 3}
-  sentences: []
   index: 0
-  typingSpeed: 0.025
+  typingSpeed: 0.015
   isTyping: 0
 --- !u!4 &1157376756
 Transform:
@@ -10339,6 +10336,7 @@ MonoBehaviour:
   healthSlider: {fileID: 0}
   numberOfAttacks: 4
   chancesOfHitting: 
+  nextPhase: 0
   effectName: susan_effect
 --- !u!4 &1310167810
 Transform:
@@ -15998,8 +15996,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
