@@ -108,6 +108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a085d8aa081c1f64ab5c63114781c9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 1
-  effectType: 3
-  itialDmg: 10
+  itemType: 4
+  effectType: 1
+  itialDmg: 15

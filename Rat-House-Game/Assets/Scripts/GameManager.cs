@@ -11,11 +11,9 @@ public enum GameState
     Overworld = 0,
     Battle = 1,
     Susan = 2,
-    CutScene = 3,
-    Tutorial,
-    Dead = 4,
-    AfterOverworld = 5,
-    SkipTutorial
+    Tutorial = 3,
+    AfterTutorial = 4,
+    SkipTutorial = 5
 }
 
 public class GameManager : MonoBehaviour
@@ -37,17 +35,12 @@ public class GameManager : MonoBehaviour
     [TextArea(3, 5)]
     public string[] levelTwoDialogue;
 
-    public bool tempWait;
+    public bool tempWait = true;
     public bool isSusanBattle = false;
-
-    [Header("Handles Difficulty")]
-    //Number of times the player has retried a battle
-    public int numberRetries = 0;
 
     [Header("UI Items")]
     //reference to the canvas
     public GameObject canvas;
-
     public GameObject pauseMenu;
 
     //Overworld Inventoy
@@ -75,7 +68,7 @@ public class GameManager : MonoBehaviour
     public Dialogue dialogue;
     public bool dialogueOver = false;
     public bool dialogueInProgress = false;
-    public bool postBattle = false;
+    public bool transition = false;
     private int _index = 0;
 
     [Header("Tutorial Script")]
@@ -85,7 +78,7 @@ public class GameManager : MonoBehaviour
     [Header("Scene Objects")]
     public Susan susan;
     public Animator anim;
-    public GameObject[] overworldLevelOne;
+    public GameObject[] overworldObjects;
     public PlayerController player;
 
     [Header("Key Items")]
@@ -119,7 +112,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Pause"))
+        if (Input.GetButtonDown("Pause") && (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("Main Menu") && SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LastScene")))
         {
             pauseMenu.SetActive(!pauseMenu.activeSelf);
             pauseMenu.GetComponent<PauseMenu>().MainPause();
@@ -127,16 +120,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator PauseMenu()
-    {
-        yield return new WaitUntil(() => Input.GetButtonDown("Pause"));
-        pauseMenu.SetActive(!pauseMenu.activeSelf);
-        StartCoroutine(PauseMenu());
-    }
+
+
+    /****************************   HANDLES RETURING TO OVERWORLD   **********************************************/
+
 
     public void TurnOffScene()
     {
-        foreach (GameObject obj in overworldLevelOne)
+        foreach (GameObject obj in overworldObjects)
         {
             obj.SetActive(false);
         }
@@ -144,10 +135,59 @@ public class GameManager : MonoBehaviour
 
     public void TurnOnScene()
     {
-        foreach (GameObject obj in overworldLevelOne)
+        foreach (GameObject obj in overworldObjects)
         {
             obj.SetActive(true);
         }
+    }
+
+    private IEnumerator ReturnToOverworld()
+    {
+        transition = true;
+        Debug.Log("return");
+        anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSecondsRealtime(2);
+
+        //Turn off the battle UI
+        TurnOffBattleMenus();
+        Debug.Log("off");
+
+        yield return new WaitForEndOfFrame();
+
+        TurnOnScene();
+
+        //UnLoad the Battle Scene
+        SceneManager.UnloadSceneAsync("Battle-FINAL");
+
+        anim.CrossFade("Fade_In", 1);
+
+        yield return new WaitForEndOfFrame();
+
+        Debug.Log("show");
+        //Show any Dialogue
+        if (currEnemy.GetComponent<EnemyController>().isBeaten)
+        {
+            StartCoroutine(SetEnemyDialogue(currEnemy.GetComponent<EnemyController>().postBattleDialogue));
+
+            yield return new WaitForEndOfFrame();
+            yield return new WaitUntil(() => dialogueOver && !dialogueInProgress);
+        }
+
+        //Give player movement 
+        StartCoroutine(player.PlayerMovement());
+        transition = false;
+    }
+
+
+
+    /****************************   HANDLES INVENTORY AND PAUSE MENUS   **********************************************/
+
+
+    IEnumerator PauseMenu()
+    {
+        yield return new WaitUntil(() => Input.GetButtonDown("Pause"));
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
+        StartCoroutine(PauseMenu());
     }
 
     public void OpenInventory()
@@ -166,14 +206,16 @@ public class GameManager : MonoBehaviour
             inventoryParent.SetActive(true);
             foreach (var it in CombatController.instance.itemList)
             {
-                var i = it.item.ToString().Replace('_', ' ');
-                var obj = Instantiate(item, inventoryItems.transform);
+                string i = it.item.ToString().Replace('_', ' ');
+                GameObject obj = Instantiate(item, inventoryItems.transform);
                 obj.gameObject.SetActive(true);
 
-                string desctription = "Deals " + it.delta + " damage and causes the " + it.effect.ToString() + " status effect";
+                string color = CombatController.instance.GetColor(it.effect);
+                string desctription = "Deals " + it.delta + " damage and causes the <color=" + color + ">" + it.effect.ToString() + "</color> status effect";
+
                 if ((int)it.item == 0 || (int)it.item == 4)
                 {
-                    desctription = "Heals " + it.delta + " damage and cures the " + it.effect.ToString().Substring(6) + " status effect";
+                    desctription = "Heals " + it.delta + " damage and cures the <color=" + color + ">" + it.effect.ToString().Substring(6) + "</color> status effect";
                 }
 
                 obj.GetComponent<TextMeshProUGUI>().text = i + " (" + it.count + ") - " + desctription;
@@ -186,41 +228,6 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-        }
-    }
-
-    /** Method that is called when the game state needs to be updated
-     * For now it starts in the Overworld until cutscenes are implemented
-     * 
-     **/
-    private void UpdateGameState()
-    {
-        switch (_currState)
-        {
-            case GameState.Overworld:
-                StartCoroutine(ReturnToOverworld());
-                break;
-            case GameState.Battle:
-                Debug.Log("Battle");
-                StartCoroutine(StartBattle());
-                break;
-            case GameState.Susan:
-                Debug.Log("Susan");
-                isSusanBattle = true;
-                susan.SetDialogue(susan.preBattleDialogue);
-                break;
-            case GameState.AfterOverworld:
-                StartCoroutine(AfterTutorial());
-                break;
-            case GameState.Tutorial:
-                StartTutorial();
-                break;
-            case GameState.SkipTutorial:
-                StartCoroutine(SkipTutorial());
-                break;
-            default:
-                Debug.LogError("Something has gone wrong in GameState Update loop");
-                break;
         }
     }
 
@@ -245,86 +252,62 @@ public class GameManager : MonoBehaviour
                     {
                         itemList.Insert(i, newItem);
                     }
-
-
                 }
             }
         }
     }
 
-    /** Start Combat by:
-    * Switching to the correct scene
-    * Starting the background audio in the Audio Manager
-    * Giving the player the ability to choose in the battle menu
-    **/
-    public IEnumerator StartBattle()
+
+
+    /****************************   HANDLES DIALOGUE   **********************************************/
+
+
+    public IEnumerator SetEnemyDialogue(string[] dia)
     {
-        //play some sort of screen wipe
-        anim.CrossFade("Fade_Out", 1);
-        yield return new WaitForSeconds(2);
-        TurnOffScene();
-
-        yield return new WaitForFixedUpdate();
-
-        topOverlay.SetActive(false);
-        SceneManager.LoadScene("Battle-FINAL", LoadSceneMode.Additive);
-        yield return new WaitForFixedUpdate();
-
-
-
-        yield return new WaitForSeconds(2);
-        AudioManager.instance.StartCombatMusic();
-
-        topOverlay.SetActive(false);
-
-        anim.CrossFade("Fade_In", 1);
-
-        yield return new WaitForFixedUpdate();
-
-        //Spawn the correct enemies 
-        CombatController.instance.SetUpBattleScene();
-    }
-
-    public void SetEnemyDialogue(string[] dia)
-    {
+        Debug.Log("here");
         //if there's no dialogue to be set
         if (dia.Length <= 0)
         {
             dialogueOver = true;
             dialogueInProgress = false;
-            return;
+            yield break;
         }
 
+        //Set stuff
+        dialogueOver = false;
         dialogueInProgress = true;
         diaAnim.SetBool("isOpen", true);
         dialogue.sentences = dia;
+        
+        yield return new WaitForEndOfFrame();
+
         dialogue.StartDialogue();
+
+        yield return new WaitForEndOfFrame();
+
         StartCoroutine(ShowEnemyDialogue());
+
     }
 
     IEnumerator ShowEnemyDialogue()
     {
-        //Waits for the text to stop typing
-        yield return new WaitUntil(() => dialogue.isTyping == false);
-
-        //wait for the player to press enter/space
-        yield return new WaitUntil(() => Input.GetButton("SelectAction"));
+        yield return new WaitUntil(() => dialogue.isTyping == false && Input.GetButton("SelectAction"));
+        yield return new WaitForSecondsRealtime(0.15f);
 
         //when you press space...
         //When we're at the end of the intro dialogue
-        if (_index == dialogue.sentences.Length)
+        if (_index == dialogue.sentences.Length - 1)
         {
+            Debug.Log("end of dialogue");
             //Lower the text box
             diaAnim.SetBool("isOpen", false);
 
-            //reset the index to 0
+            yield return null;
+
             _index = 0;
-
-            yield return new WaitForSecondsRealtime(.2f);
-
             dialogueOver = true;
             dialogueInProgress = false;
-
+            Debug.Log("end of dialogue");
             yield break;
         }
 
@@ -340,81 +323,43 @@ public class GameManager : MonoBehaviour
 
     }
 
-    //Returns to the overworld from a differnt scene
-    private IEnumerator ReturnToOverworld()
-    {
-        //reset the number of retries to 0
-        numberRetries = 0;
 
-        //play some sort of screen wipe
-        anim.CrossFade("Fade_Out", 1);
-        yield return new WaitForSeconds(2);
 
-        //Turn off the battle music
-        AudioManager.instance.StopCombatMusic();
+    /****************************   HANDLES GENERAL BATTLE & WIN/LOSS   **********************************************/
 
-        //Turn off the battle UI
-        battleAnimator.SetBool("IsOpen", false);
-        TurnOffBattleMenus();
-        TurnOnScene();
 
-        //If we were in the battle scene, make sure to clear it out
-        CombatController.instance.ClearBattle();
-
-        //UnLoad the Battle Scene
-        SceneManager.UnloadSceneAsync("Battle-FINAL");
-
-        anim.CrossFade("Fade_In", 1);
-
-        yield return new WaitForEndOfFrame();
-
-        //Show any Dialogue
-        if (currEnemy.GetComponent<EnemyController>().isBeaten)
-        {
-            SetEnemyDialogue(currEnemy.GetComponent<EnemyController>().postBattleDialogue);
-            yield return new WaitUntil(() => dialogueOver);
-        }
-
-        //Give player movement 
-        StartCoroutine(player.PlayerMovement());
-        dialogueOver = false;
-        postBattle = false;
-    }
-
-    private IEnumerator AfterTutorial()
+    public IEnumerator StartBattle()
     {
         //play some sort of screen wipe
         anim.CrossFade("Fade_Out", 1);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSecondsRealtime(2);
+        TurnOffScene();
 
-        //Turn off the battle music
-        AudioManager.instance.StopCombatMusic();
+        yield return new WaitForFixedUpdate();
+
+        topOverlay.SetActive(false);
+        SceneManager.LoadScene("Battle-FINAL", LoadSceneMode.Additive);
 
         yield return new WaitForEndOfFrame();
-
-        SceneManager.LoadScene("Overworld_Level1-FINAL");
-
         yield return new WaitForEndOfFrame();
+
+        AudioManager.instance.StartCombatMusic();
+
+        yield return new WaitForSecondsRealtime(2);
+
+        topOverlay.SetActive(false);
 
         anim.CrossFade("Fade_In", 1);
 
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForFixedUpdate();
 
-        SetEnemyDialogue(levelOneDialogue);
-
-        yield return new WaitUntil(() => dialogueInProgress);
-        yield return new WaitUntil(() => !dialogueInProgress);
-
-        overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        dialogueOver = false;
-        postBattle = false;
+        //Spawn the correct enemies 
+        CombatController.instance.SetUpBattleScene();
     }
 
-    //The Battle was won
-    //TODO: Set the beaten enemy to Beaten
     public IEnumerator BattleWon()
     {
+        Debug.Log("battle Won");
         //Play win music if any
 
         //Play win anim if any
@@ -431,13 +376,14 @@ public class GameManager : MonoBehaviour
         SetGameState(GameState.Overworld);
     }
 
-    //The Battle was won
-    //TODO: Set the beaten enemy to Beaten
     public IEnumerator BattleLost()
     {
-        //Play some sort of death animation or something
+        anim.CrossFade("Fade_Out", 1);
 
-        //while animaiotn is playing, return null
+        yield return new WaitForSecondsRealtime(2);
+        yield return new WaitForEndOfFrame();
+
+        anim.CrossFade("Fade_In", 1);
 
         yield return null;
 
@@ -445,16 +391,13 @@ public class GameManager : MonoBehaviour
         deathScreenParent.SetActive(true);
     }
 
-    //Retry the current battle
     public void RetryBattle()
     {
-        numberRetries++;
         topOverlay.SetActive(false);
         healthParent.SetActive(true);
         CombatController.instance.ResetBattle();
     }
 
-    //Retrun to the overworld
     public void QuitBattle()
     {
         CombatController.instance.ClearBattle();
@@ -464,6 +407,10 @@ public class GameManager : MonoBehaviour
 
     void TurnOffBattleMenus()
     {
+        Debug.Log("turn off");
+        //Clear Battle Stuffs
+        CombatController.instance.ClearBattle();
+
         //Turn off the battle music
         AudioManager.instance.StopCombatMusic();
 
@@ -473,6 +420,11 @@ public class GameManager : MonoBehaviour
         healthParent.SetActive(false);
         topOverlay.SetActive(true);
     }
+
+
+
+    /****************************   SETTING AND UPDATING GAME STATE   **********************************************/
+
 
     //Set the current game state
     public void SetGameState(GameState state)
@@ -490,16 +442,51 @@ public class GameManager : MonoBehaviour
         return _currState;
     }
 
-    //Handles the tutorial stuff
+    private void UpdateGameState()
+    {
+        switch (_currState)
+        {
+            case GameState.Overworld:
+                StartCoroutine(ReturnToOverworld());
+                break;
+            case GameState.Battle:
+                Debug.Log("Battle");
+                StartCoroutine(StartBattle());
+                break;
+            case GameState.Susan:
+                Debug.Log("Susan");
+                isSusanBattle = true;
+                susan.SetDialogue(susan.preBattleDialogue);
+                break;
+            case GameState.AfterTutorial:
+                StartCoroutine(AfterTutorial());
+                break;
+            case GameState.Tutorial:
+                StartTutorial();
+                break;
+            case GameState.SkipTutorial:
+                StartCoroutine(SkipTutorial());
+                break;
+            default:
+                Debug.LogError("Something has gone wrong in GameState Update loop");
+                break;
+        }
+    }
+
+
+
+    /****************************   HANDLES LOADING AND TUTORIAL   **********************************************/
+
+
     void StartTutorial()
     {
         //open the text box and start dialogue
-        tutorial.anim.SetBool("isOpen", true);
+        diaAnim.SetBool("isOpen", true);
 
         //set thesentences in the dialogue manager
-        tutorial.dialogue.sentences = tutorial.beforeBattleDialogue;
+        dialogue.sentences = tutorial.beforeBattleDialogue;
 
-        tutorial.dialogue.StartDialogue();
+        dialogue.StartDialogue();
 
         //start the dialogue in the tutorial script
         StartCoroutine(tutorial.ShowOpeningDialogue());
@@ -507,49 +494,93 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SkipTutorial()
     {
+        //Not sure why we wait here but I will not temp God
         yield return new WaitForSecondsRealtime(1f);
-        overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
 
-        SetEnemyDialogue(levelOneDialogue);
+        overworldObjects = SceneManager.GetActiveScene().GetRootGameObjects();
+        StartCoroutine(SetEnemyDialogue(levelOneDialogue));
 
-        yield return new WaitUntil(() => dialogueInProgress);
-        yield return new WaitUntil(() => !dialogueInProgress);
+        Debug.Log("Waiting");
+
+        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(() => !dialogueInProgress && dialogueOver);
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        StartCoroutine(player.PlayerMovement());
     }
+
+    private IEnumerator AfterTutorial()
+    {
+        //play some sort of screen wipe
+        anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSecondsRealtime(2);
+
+        //Turn off the battle music
+        AudioManager.instance.StopCombatMusic();
+
+        yield return new WaitForEndOfFrame();
+
+        SceneManager.LoadScene("Overworld_Level1-FINAL");
+
+        yield return new WaitForEndOfFrame();
+
+        anim.CrossFade("Fade_In", 1);
+
+        yield return new WaitForSecondsRealtime(1);
+
+        StartCoroutine(SetEnemyDialogue(levelOneDialogue));
+
+        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(() => !dialogueInProgress && dialogueOver);
+
+        overworldObjects = SceneManager.GetActiveScene().GetRootGameObjects();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        StartCoroutine(player.PlayerMovement());
+    }
+
+    //TODO: AT SOME POINT MAKE LOADING ONE FUNCTION INSTEAD OF A BUNCHA SEPERATE ONES
 
     public IEnumerator LoadLevelTwo()
     {
         hasKey = false;
+        level = 2;
 
         anim.CrossFade("Fade_Out", 1);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSecondsRealtime(2f);
+
         SceneManager.LoadScene("Overworld_Level2-FINAL");
-        level = 2;
+
         anim.CrossFade("Fade_In", 1);
-        yield return new WaitForSeconds(1);
+
+        yield return new WaitForSecondsRealtime(1);
+
         AudioManager.instance.bgMusic.clip = AudioManager.instance.bgClips[level];
         AudioManager.instance.bgMusic.Play();
+
+        StartCoroutine(SetEnemyDialogue(levelTwoDialogue));
+
+        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(() => !dialogueInProgress && dialogueOver);
+
+        overworldObjects = SceneManager.GetActiveScene().GetRootGameObjects();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-
-        SetEnemyDialogue(levelTwoDialogue);
-
-        yield return new WaitUntil(() => dialogueInProgress);
-        yield return new WaitUntil(() => !dialogueInProgress);
-
         StartCoroutine(player.PlayerMovement());
-        overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
     }
 
     public IEnumerator LoadBreakRoom()
     {
         anim.CrossFade("Fade_Out", 1);
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSecondsRealtime(2f);
+
         SceneManager.LoadScene("Overworld_BreakRoom_FINAL");
+
         anim.CrossFade("Fade_In", 1);
-        yield return new WaitForSeconds(1);
+
+        yield return new WaitForSecondsRealtime(1);
+
+
+        overworldObjects = SceneManager.GetActiveScene().GetRootGameObjects();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         StartCoroutine(player.PlayerMovement());
-        overworldLevelOne = SceneManager.GetActiveScene().GetRootGameObjects();
     }
 }

@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _rb = this.GetComponent<Rigidbody>();
-        StartCoroutine(PlayerMovement());
+        //StartCoroutine(PlayerMovement());
 
         //Items the player starts with
 

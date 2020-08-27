@@ -38,7 +38,6 @@ public class CombatStats : MonoBehaviour
 
     //Enemy Stats
     public List<float> enemyHealth;
-    private List<float> enemyBaseAccuracy;
     public int _enemiesLeft = 0;
 
     //Track Player Damage
@@ -288,7 +287,6 @@ public class CombatStats : MonoBehaviour
         AudioManager.instance.SFX.Play();
     }
 
-    //Updates the player's health, both damage and healing
     public void UpdatePlayerHealth(float delta)
     {
         //If the player was hit
@@ -369,7 +367,7 @@ public class CombatStats : MonoBehaviour
         }
         else
         {
-            damage = PlayerDamageModifier(_attackDamage[(int)CombatController.instance.selectedAction]);
+            damage = PlayerDamageModifier(_attackDamage[(int)CombatController.instance.selectedActionType]);
             splashScreen[action].gameObject.SetActive(true);
 
             string animation = "Base Layer." + splashScreen[action].gameObject.name;
@@ -382,7 +380,7 @@ public class CombatStats : MonoBehaviour
 
         Debug.Log("Damage: " + damage);
 
-        if (CombatController.instance.selectedAction == ActionType.Heal)
+        if (CombatController.instance.selectedActionType == ActionType.Heal)
         {
             UpdatePlayerHealth(damage);
             yield return new WaitForSecondsRealtime(0.75f);
@@ -429,6 +427,8 @@ public class CombatStats : MonoBehaviour
             //If there are no more enemies, return to overworld
             if (_enemiesLeft <= 0)
             {
+                Debug.Log("battle Won eqwbij");
+
                 StartCoroutine(GameManager.instance.BattleWon());
                 yield break;
             }

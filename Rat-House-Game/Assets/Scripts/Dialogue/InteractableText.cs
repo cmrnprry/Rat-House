@@ -7,29 +7,32 @@ public class InteractableText : MonoBehaviour
     public string[] itemComments;
 
     public bool playerInRange;
+    public GameObject pressEnter;
     private int lastRand;
+
+    private Animator diaAnim;
+    private Dialogue dialogue;
+
+
+    private void Start()
+    {
+        diaAnim = GameManager.instance.diaAnim;
+        dialogue = GameManager.instance.dialogue;
+    }
 
     IEnumerator ShowInteractabeText()
     {
         //If you press space when the player is close enough...
         if (Input.GetButton("SelectAction") && !GameManager.instance.dialogueInProgress && GameManager.instance.GetGameState() != GameState.Battle)
         {
-            GameManager.instance.dialogueInProgress = true;
-            GameManager.instance.dialogueOver = false;
+            TurnOnDialogue();
 
-            GameManager.instance.diaAnim.SetBool("isOpen", true);
-            GameManager.instance.dialogue.speakerName.text = "Joe";
-            GameManager.instance.dialogue.dia.text = itemComments[RandNumber()];
-            //GameManager.instance.dialogue.dia.text = itemComments[Random.Range(0, itemComments.Length)];
-
+            yield return new WaitForFixedUpdate();
             yield return new WaitUntil(() => Input.GetButtonDown("SelectAction"));
 
             //end dialogue
-            GameManager.instance.diaAnim.SetBool("isOpen", false);
-            GameManager.instance.dialogueInProgress = false;
-            GameManager.instance.dialogueOver = true;
+            TurnOffDialogue();
 
-            playerInRange = false;
             yield break;
         }
 
@@ -40,15 +43,16 @@ public class InteractableText : MonoBehaviour
     int RandNumber()
     {
         int rand = Random.Range(0, itemComments.Length);
-        
+
         if (Random.Range(0, itemComments.Length) == lastRand)
         {
             return RandNumber();
         }
-        
+
         Debug.Log("rand number: " + rand);
+        lastRand = rand;
         return rand;
-    } 
+    }
 
     //Check if the player is close enough
     void OnTriggerEnter(Collider other)
@@ -56,6 +60,7 @@ public class InteractableText : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
+            pressEnter.SetActive(true);
             StartCoroutine(ShowInteractabeText());
         }
     }
@@ -66,9 +71,28 @@ public class InteractableText : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //close the text box
-            playerInRange = false;
-            StopAllCoroutines();
-            GameManager.instance.diaAnim.SetBool("isOpen", false);
+            TurnOffDialogue();
         }
+    }
+
+    void TurnOffDialogue()
+    {
+        pressEnter.SetActive(false);
+        playerInRange = false;
+        diaAnim.SetBool("isOpen", false);
+        GameManager.instance.dialogueInProgress = false;
+        GameManager.instance.dialogueOver = true;
+
+        StopAllCoroutines();
+    }
+
+    void TurnOnDialogue()
+    {
+        GameManager.instance.dialogueInProgress = true;
+        GameManager.instance.dialogueOver = false;
+
+        diaAnim.SetBool("isOpen", true);
+        dialogue.speakerName.text = "Joe";
+        dialogue.dia.text = itemComments[RandNumber()];
     }
 }
