@@ -2354,6 +2354,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Susan
       objectReference: {fileID: 0}
+    - target: {fileID: 885643733926557914, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
         type: 3}
       propertyPath: m_LocalPosition.x
