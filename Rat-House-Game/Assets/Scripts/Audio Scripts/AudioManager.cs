@@ -153,7 +153,7 @@ public class AudioManager : MonoBehaviour
         //Start the background music
         bgMusic.clip = bgClips[0];
         bgMusic.Play();
-        GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).GetComponent<Animator>().SetTrigger("Idle");
+        GameObject.FindGameObjectWithTag("PlayerBattle").transform.GetChild(0).GetComponent<Animator>().SetTrigger("Idle");
 
         //Start the update loop
         StartCoroutine(UpdateBeats());
@@ -238,6 +238,8 @@ public class AudioManager : MonoBehaviour
     //Waits a second before starting the dodge music
     public IEnumerator SetDodgeMap(int action = 0)
     {
+        CombatController.instance._stats.gameObject.GetComponent<Note>().ShowDodgeBeats();
+
         //want currPos to round up to the next 1/2 second/next beat
         double currPos = Math.Round(songPositionInBeats, MidpointRounding.AwayFromZero);
         while (currPos % 4 != 0)

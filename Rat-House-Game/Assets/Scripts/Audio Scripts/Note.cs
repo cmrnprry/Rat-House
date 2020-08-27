@@ -110,13 +110,6 @@ public class Note : MonoBehaviour
             Flip(1);
             gameObject.transform.position = startPoint;
         }
-
-        if (showDodge)
-        {
-            Flip();
-            ShowDodgeBeats();
-            showDodge = false;
-        }
     }
 
     public void ShowDodgeBeats()
@@ -200,8 +193,7 @@ public class Note : MonoBehaviour
         CombatStats.hitNote = false;
     }
 
-    //flip the fangs when dodging
-    // num is either positive or negative depending on which way it sould be facing
+    
     public void Flip(int num = -1)
     {
         Vector3 theScale = gameObject.transform.GetChild(0).localScale;

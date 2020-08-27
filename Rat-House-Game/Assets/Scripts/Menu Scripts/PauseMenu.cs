@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
@@ -16,7 +17,7 @@ public class PauseMenu : MonoBehaviour
     // Start is called before the first frame update
     public void ExitGame()
     {
-        Application.Quit();
+        SceneManager.LoadScene("Main Menu");
     }
 
     public void Back()

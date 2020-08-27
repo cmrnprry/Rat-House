@@ -691,7 +691,7 @@ public class CombatController : MonoBehaviour
         Debug.Log("Selected Enemy: " + _selectedEnemy);
 
         //TODO: MAKE THIS NOT HARD CODED IN I DONT FORSEE THE NUMBERS CHSNGING BUT ITS BAD FIX IT
-        _stats.gameObject.transform.position = new Vector3(12.5f, 6.19f, 0f);
+        _stats.SliderEnemy();
 
         _stats.itemUsed = itemUsed;
         StartCoroutine(_stats.DealDamageToEnemy(_selectedEnemy, isItem));

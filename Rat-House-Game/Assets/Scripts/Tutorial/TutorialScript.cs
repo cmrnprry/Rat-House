@@ -93,6 +93,7 @@ public class TutorialScript : MonoBehaviour
             SetUpTutorialBattle();
 
             yield return new WaitForFixedUpdate();
+            yield return new WaitForFixedUpdate();
 
             StartTutorialBattle();
             yield break;

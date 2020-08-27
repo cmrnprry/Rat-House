@@ -80069,10 +80069,6 @@ MonoBehaviour:
   anim: {fileID: 0}
   dia: {fileID: 0}
   speakerName: {fileID: 0}
-  speakerHead: {fileID: 0}
-  heads:
-  - {fileID: 21300000, guid: ef3f8f72c9c45e14181b33e0a9e4606e, type: 3}
-  - {fileID: 21300000, guid: 393353222db96424eaeba189b3471c02, type: 3}
   sentences:
   - I need to choose an attack. Use the ARROW KEYS to select punch, hit SPACE or
     ENTER to confirm, then select an enemy the same way!
@@ -80093,6 +80089,10 @@ MonoBehaviour:
   - Now to finish him off! Any attack should do!
   - Is this how it ends? Getting knocked out by some asshole who narrates his life
     as if he's the main character in a video game??
+  speakerHead: {fileID: 0}
+  heads:
+  - {fileID: 21300000, guid: ef3f8f72c9c45e14181b33e0a9e4606e, type: 3}
+  - {fileID: 21300000, guid: 393353222db96424eaeba189b3471c02, type: 3}
   index: 0
   typingSpeed: 0.025
   isTyping: 0
@@ -129698,6 +129698,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9085890178396904512, guid: 52a525171b834d943b7930752af8a643,
+        type: 3}
+      propertyPath: m_TagString
+      value: PlayerBattle
       objectReference: {fileID: 0}
     - target: {fileID: 9085890178396904526, guid: 52a525171b834d943b7930752af8a643,
         type: 3}
