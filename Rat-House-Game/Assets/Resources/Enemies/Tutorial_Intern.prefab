@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 393353222db96424eaeba189b3471c02, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f935f26b2b1d3d14cac0c665030b638b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 1752859934033595268}
   - component: {fileID: 3322740837598703127}
   m_Layer: 0
-  m_Name: Intern
+  m_Name: Tutorial_Intern
   m_TagString: Intern
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
