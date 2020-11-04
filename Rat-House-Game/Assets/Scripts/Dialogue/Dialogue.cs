@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class Dialogue : MonoBehaviour
 {
@@ -20,7 +21,14 @@ public class Dialogue : MonoBehaviour
 
     //Image of the person speaking
     public Image speakerHead;
-    public Sprite[] heads;
+    public Sprite[] joeheads;
+    public Sprite[] waterheads;
+    public Sprite[] coffeeheads;
+    public Sprite[] internheads;
+    public Sprite[] npcOneheads;
+    public Sprite[] npcTwoheads;
+    public Sprite[] susanheads;
+    public Sprite[] computerheads;
 
     //Where we are in the sentences array
     public int index;
@@ -47,52 +55,51 @@ public class Dialogue : MonoBehaviour
     public void SetDialogue()
     {
         string[] set = sentences[index].Split(':');
+        string[] speaker = set[0].Split('_');
 
-        speakerName.text = set[0];
         text = set[1];
 
-        int head = GetSpeakerHead(set[0]);
-        speakerHead.sprite = heads[head];
+        ChooseHead(speaker[0], Int32.Parse(speaker[1]));
+
+        //int head = GetSpeakerHead(set[0]);
+        //speakerHead.sprite = heads[head];
 
         StartCoroutine(Type());
     }
 
-    int GetSpeakerHead(string name)
+    void ChooseHead(string name, int type)
     {
-        int head = -1;
-
+        speakerName.text = name;
         switch (name)
         {
             case "Joe":
-                head = 0;
+                speakerHead.sprite = joeheads[type];
                 break;
             case "Intern":
-                head = 1;
+                speakerHead.sprite = internheads[type];
                 break;
             case "Bill":
-                head = 2;
+                speakerHead.sprite = waterheads[type];
                 break;
             case "Robert":
-                head = 3;
+                speakerHead.sprite = coffeeheads[type];
                 break;
             case "???":
-                head = 4;
+                speakerHead.sprite = computerheads[type];
                 break;
             case "Susan":
-                head = 5;
+                speakerHead.sprite = susanheads[type];
                 break;
             case "Wilbur":
-                head = 6;
+                speakerHead.sprite = npcTwoheads[type];
                 break;
             case "Jan":
-                head = 7;
+                speakerHead.sprite = npcOneheads[type];
                 break;
             default:
-                head = 0;
+                speakerHead.sprite = null;
                 break;
         }
-
-        return head;
     }
 
     //For each new sentence...
@@ -112,7 +119,7 @@ public class Dialogue : MonoBehaviour
         else
         {
             anim.SetBool("isOpen", false);
-            speakerHead.sprite = heads[0];
+            speakerHead.sprite = joeheads[0];
             speakerName.text = "Joe";
         }
     }

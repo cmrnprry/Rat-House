@@ -93,7 +93,7 @@ public class InteractableText : MonoBehaviour
 
         diaAnim.SetBool("isOpen", true);
         dialogue.speakerName.text = "Joe";
-        dialogue.speakerHead.sprite = dialogue.heads[0];
+        dialogue.speakerHead.sprite = dialogue.joeheads[0];
         dialogue.dia.text = itemComments[RandNumber()];
     }
 }

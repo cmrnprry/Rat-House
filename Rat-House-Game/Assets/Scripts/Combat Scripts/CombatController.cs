@@ -445,6 +445,7 @@ public class CombatController : MonoBehaviour
 
             //Switch to the menu selection
             ShowItemsMenu();
+            yield return null;
             HighlightMenuItem();
 
             //reset the selected action to 0

@@ -8,6 +8,7 @@ public class PleasantTalk : MonoBehaviour
     private int _index = 0;
 
     public GameObject player;
+    public GameObject talking;
 
     [TextArea(3, 5)]
     public string[] aNiceConversation;
@@ -73,6 +74,7 @@ public class PleasantTalk : MonoBehaviour
         if (other.CompareTag("Player"))
         {            
             playerInRange = true;
+            talking.SetActive(true);
             SetNPCDialogue();
         }
     }
@@ -88,6 +90,7 @@ public class PleasantTalk : MonoBehaviour
     void TurnOffDialogue()
     {
         playerInRange = false;
+        talking.SetActive(false);
         GameManager.instance.diaAnim.SetBool("isOpen", false);
         GameManager.instance.dialogueInProgress = false;
         GameManager.instance.dialogueOver = true;
