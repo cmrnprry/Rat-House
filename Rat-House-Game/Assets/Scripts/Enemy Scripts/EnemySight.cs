@@ -24,6 +24,7 @@ public class EnemySight : MonoBehaviour
         }
         else if (other.gameObject == player && !GameManager.instance.dialogueInProgress && !GameManager.instance.transition)
         {
+            Debug.Log("here");
             player.GetComponent<PlayerController>().StopPlayerMovement();
             exclamation.SetActive(true);
             enemyMovement.canMove = false;
@@ -36,9 +37,7 @@ public class EnemySight : MonoBehaviour
                 GameManager.instance.currEnemy = this.gameObject;
 
                 //Set dialogue and enable the ability to start battle
-              StartCoroutine(GameManager.instance.SetEnemyDialogue(enemyController.preBattleDialogue));
-
-                exclamation.SetActive(false);
+                StartCoroutine(GameManager.instance.SetEnemyDialogue(enemyController.preBattleDialogue));
                 StartCoroutine(StartBattle());
             }
             else if (enemyController.isBeaten)
@@ -57,6 +56,7 @@ public class EnemySight : MonoBehaviour
         yield return new WaitForEndOfFrame();
         yield return new WaitUntil(() => GameManager.instance.dialogueOver && !GameManager.instance.dialogueInProgress);
 
+        exclamation.SetActive(false);
         GameManager.instance.SetGameState(GameState.Battle);
     }
 

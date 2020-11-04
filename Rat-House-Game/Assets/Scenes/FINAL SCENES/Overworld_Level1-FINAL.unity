@@ -9117,28 +9117,28 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: beatenBattleDialogue.Array.data[0]
-      value: Intern:Leave me alone!
+      value: Intern_0:Leave me alone!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: postBattleDialogue.Array.data[0]
-      value: Intern:What is wrong with you?
+      value: Intern_0:What is wrong with you?
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[0]
-      value: Intern:Oh, hey, could you point me towards Mr. Henderson's office? I'm
-        a new intern, don't really know my way around yet, haha.
+      value: Intern_0:Oh, hey, could you point me towards Mr. Henderson's office?
+        I'm a new intern, don't really know my way around yet, haha.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[1]
-      value: Joe:Thee dareth approach me? Prepare thineself for combat, mortal!
+      value: Joe_0:Thee dareth approach me? Prepare thineself for combat, mortal!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[2]
-      value: Intern:Wait, what?
+      value: Intern_0:Wait, what?
       objectReference: {fileID: 0}
     - target: {fileID: 8209886538226783415, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -13591,7 +13591,7 @@ PrefabInstance:
     - target: {fileID: 3062426543565731120, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4418494013484784436, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}

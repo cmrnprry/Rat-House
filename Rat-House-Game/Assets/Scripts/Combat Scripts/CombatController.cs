@@ -731,7 +731,7 @@ public class CombatController : MonoBehaviour
         else if (itemMenuParent.activeSelf && itemList.Count > 0)
         {
             var x = itemMenu.transform.GetChild(_selectedItem).GetChild(0);
-            menuSelect.transform.position = x.position;
+            menuSelect.transform.position = x.position + 31;
         }
     }
 
