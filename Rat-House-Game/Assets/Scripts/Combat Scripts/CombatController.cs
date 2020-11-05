@@ -162,7 +162,6 @@ public class CombatController : MonoBehaviour
         GameManager.instance.battleAnimator.SetBool("IsOpen", true);
 
         ShowActionMenu();
-        HighlightMenuItem();
     }
 
     public void PlaceEnemies()
@@ -340,7 +339,6 @@ public class CombatController : MonoBehaviour
         StopAllCoroutines();
 
         ShowActionMenu();
-        HighlightMenuItem();
 
         GameManager.instance.battleAnimator.SetBool("IsOpen", true);
     }
@@ -445,11 +443,10 @@ public class CombatController : MonoBehaviour
 
             //Switch to the menu selection
             ShowItemsMenu();
-            yield return null;
-            HighlightMenuItem();
 
             //reset the selected action to 0
             _selectedAction = 0;
+
             yield break;
         }
 
@@ -465,6 +462,19 @@ public class CombatController : MonoBehaviour
     {
         //Wait until a correct key is pressed
         yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("SelectAction") || Input.GetButtonDown("Left"));
+
+        if (Input.GetButton("Left"))
+        {
+            //Folder flip
+            AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[4];
+            AudioManager.instance.SFX.Play();
+
+            yield return new WaitForEndOfFrame();
+
+            //Switch to the action selection
+            ShowActionMenu();
+            yield break;
+        }
 
         //If you hvae items other wise turn  off the highlight
         if (itemList.Count > 0)
@@ -511,22 +521,6 @@ public class CombatController : MonoBehaviour
         else
         {
             menuSelect.SetActive(false);
-        }
-
-        if (Input.GetButton("Left"))
-        {
-            //Folder flip
-            AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[4];
-            AudioManager.instance.SFX.Play();
-
-            Debug.Log("Open Action Menu");
-
-            yield return new WaitForEndOfFrame();
-
-            //Switch to the action selection
-            ShowActionMenu();
-            HighlightMenuItem();
-            yield break;
         }
 
         yield return new WaitForEndOfFrame();
@@ -597,7 +591,6 @@ public class CombatController : MonoBehaviour
             GameManager.instance.battleAnimator.SetBool("IsOpen", true);
 
             ShowActionMenu();
-            HighlightMenuItem();
             yield break;
         }
 
@@ -637,7 +630,6 @@ public class CombatController : MonoBehaviour
             GameManager.instance.battleAnimator.SetBool("IsOpen", true);
 
             ShowActionMenu();
-            HighlightMenuItem();
             yield break;
         }
 
@@ -731,7 +723,7 @@ public class CombatController : MonoBehaviour
         else if (itemMenuParent.activeSelf && itemList.Count > 0)
         {
             var x = itemMenu.transform.GetChild(_selectedItem).GetChild(0);
-            menuSelect.transform.position = x.position + 31;
+            menuSelect.transform.position = x.position + new Vector3(7, 0, 0);
         }
     }
 
@@ -871,7 +863,6 @@ public class CombatController : MonoBehaviour
             _stats.UpdateEffect();
 
         ShowActionMenu();
-        HighlightMenuItem();
         GameManager.instance.battleAnimator.SetBool("IsOpen", true);
 
         yield return new WaitForEndOfFrame();
@@ -966,7 +957,6 @@ public class CombatController : MonoBehaviour
 
     public void ShowActionMenu()
     {
-        Debug.Log("start Action");
         //Clear Item Menu
         ClearItemMenu();
 
@@ -979,11 +969,11 @@ public class CombatController : MonoBehaviour
 
         //restart the abiliy to chose an action
         StartCoroutine(ChooseAction());
+        HighlightMenuItem();
     }
 
     void ShowItemsMenu()
     {
-        _selectedItem = 0;
         //get the objects for the items
         var text = attackMenu.transform.GetChild(0).gameObject;
 
@@ -1000,8 +990,13 @@ public class CombatController : MonoBehaviour
             obj.GetComponent<TextMeshProUGUI>().text = item + " (" + i.count + ")";
         }
 
-        //Start the item choice coroutine
+        //Set to 0
+        _selectedItem = 0;
+
+        //Start the item choice coroutine 
+        HighlightMenuItem();
         StartCoroutine(ChooseItem());
+       
     }
 
     void ClearItemMenu()
