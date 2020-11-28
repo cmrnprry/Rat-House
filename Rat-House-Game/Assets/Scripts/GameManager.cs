@@ -43,23 +43,21 @@ public class GameManager : MonoBehaviour
     public GameObject canvas;
     public GameObject pauseMenu;
 
-    //Overworld Inventoy
-    public GameObject inventoryParent;
-    public GameObject inventoryItems;
-    public GameObject item;
-    public Sprite[] itemImages;
+    [Header("Overworld Inventoy")]
+    public InventoryMenu inventory;
+    public GameObject invParent;
 
-    //Battle Menu Parent
+    [Header("Battle Menu Parent")]
     public GameObject battleParent;
     public Animator battleAnimator;
 
-    //Dialogue Menu Parent
+    [Header("Dialogue Menu Parent")]
     public GameObject dialogueParent;
 
-    //Death Screen Parent
+    [Header("Death Screen Parent")]
     public GameObject deathScreenParent;
 
-    //Health Bar Parent
+    [Header("Health Bar Parent")]
     public GameObject healthParent;
     public GameObject topOverlay;
 
@@ -112,11 +110,19 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Pause") && (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("Main Menu") && SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LastScene")))
+        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("Main Menu") && SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LastScene"))
         {
-            pauseMenu.SetActive(!pauseMenu.activeSelf);
-            pauseMenu.GetComponent<PauseMenu>().MainPause();
-            Time.timeScale = pauseMenu.activeSelf ? 0 : 1;
+            if (Input.GetButtonDown("Pause"))
+            {
+                pauseMenu.SetActive(!pauseMenu.activeSelf);
+                pauseMenu.GetComponent<PauseMenu>().MainPause();
+                Time.timeScale = pauseMenu.activeSelf ? 0 : 1;
+            }
+            else if (Input.GetButton("OpenInventory"))
+            {
+                Time.timeScale = invParent.activeSelf ? 0 : 1;
+            }
+
         }
     }
 
@@ -192,42 +198,14 @@ public class GameManager : MonoBehaviour
 
     public void OpenInventory()
     {
-        if (inventoryParent.activeSelf)
+        if (invParent.activeSelf)
         {
-            foreach (Transform child in inventoryItems.transform)
-            {
-                Destroy(child.gameObject);
-            }
-
-            inventoryParent.SetActive(false);
+            inventory.CloseInventory();
         }
         else
         {
-            inventoryParent.SetActive(true);
-            foreach (var it in CombatController.instance.itemList)
-            {
-                string i = it.item.ToString().Replace('_', ' ');
-                GameObject obj = Instantiate(item, inventoryItems.transform);
-                obj.gameObject.SetActive(true);
-
-                string color = CombatController.instance.GetColor(it.effect);
-                string desctription = "Deals " + it.delta + " damage and causes the <color=" + color + ">" + it.effect.ToString() + "</color> status effect";
-
-                if ((int)it.item == 0 || (int)it.item == 4)
-                {
-                    desctription = "Heals " + it.delta + " damage and cures the <color=" + color + ">" + it.effect.ToString().Substring(6) + "</color> status effect";
-                }
-
-                obj.GetComponent<TextMeshProUGUI>().text = i + " (" + it.count + ") - " + desctription;
-                foreach (var s in itemImages)
-                {
-                    if (s.name == it.item.ToString())
-                    {
-                        obj.transform.GetChild(0).GetComponent<Image>().sprite = s;
-                        break;
-                    }
-                }
-            }
+            invParent.SetActive(true);
+            inventory.OpenInventory();
         }
     }
 
@@ -278,7 +256,7 @@ public class GameManager : MonoBehaviour
         dialogueInProgress = true;
         diaAnim.SetBool("isOpen", true);
         dialogue.sentences = dia;
-        
+
         yield return new WaitForEndOfFrame();
 
         dialogue.StartDialogue();
