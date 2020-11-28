@@ -14,7 +14,6 @@ public class PauseMenu : MonoBehaviour
     public Slider bg;
     public Slider sfx;
 
-    // Start is called before the first frame update
     public void ExitGame()
     {
         SceneManager.LoadScene("Main Menu");

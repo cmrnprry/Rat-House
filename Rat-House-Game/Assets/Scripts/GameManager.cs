@@ -200,6 +200,7 @@ public class GameManager : MonoBehaviour
     {
         if (invParent.activeSelf)
         {
+            invParent.SetActive(false);
             inventory.CloseInventory();
         }
         else
