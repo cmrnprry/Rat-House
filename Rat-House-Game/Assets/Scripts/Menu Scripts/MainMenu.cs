@@ -44,7 +44,7 @@ public class MainMenu : MonoBehaviour
         yield return new WaitForSecondsRealtime(2);
         yield return new WaitForFixedUpdate();
         transition.CrossFade("Fade_In", 1);
-        GameManager.instance.anim.CrossFade("Fade_In", 1);
+        //GameManager.instance.anim.CrossFade("Fade_In", 1);
 
         if (skip)
         {

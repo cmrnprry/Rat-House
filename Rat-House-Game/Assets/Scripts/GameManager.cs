@@ -326,8 +326,6 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(2);
 
-        topOverlay.SetActive(false);
-
         anim.CrossFade("Fade_In", 1);
 
         yield return new WaitForFixedUpdate();
@@ -473,6 +471,9 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SkipTutorial()
     {
+        anim.gameObject.SetActive(true);
+        anim.CrossFade("Fade_In", 1);
+
         //Not sure why we wait here but I will not temp God
         yield return new WaitForSecondsRealtime(1f);
 

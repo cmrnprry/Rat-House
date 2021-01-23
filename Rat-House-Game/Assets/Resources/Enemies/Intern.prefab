@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 7277390699516960796}
   - component: {fileID: 5110331908581513549}
   - component: {fileID: 1752859934033595268}
-  - component: {fileID: 3322740837598703127}
+  - component: {fileID: 6848050468513694699}
   m_Layer: 0
   m_Name: Intern
   m_TagString: Intern
@@ -213,7 +213,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &3322740837598703127
+--- !u!114 &6848050468513694699
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4383787726713012056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3fbdf2dc74f7fd409f9e62071e5644f, type: 3}
+  m_Script: {fileID: 11500000, guid: 45f5833e2aae5984dbebf1f0559170a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 15
@@ -231,5 +231,4 @@ MonoBehaviour:
   _baseAttack: 5
   healthSlider: {fileID: 0}
   numberOfAttacks: 1
-  chancesOfHitting: 64000000
   effectName: intern_effect

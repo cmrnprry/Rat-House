@@ -15,6 +15,7 @@ public enum ActionType
     Heal = 3,
 }
 
+[System.Serializable]
 public enum ItemType
 {
     Calmy_Tea = 0, // heals small heath, fixes burn
@@ -31,11 +32,12 @@ public enum StatusEffect
     Cures_Burn = 0,
     Cures_Poison = 1,
     Cures_Bleed = 2,
-    Burn = 10,
-    Poison = 12,
-    Bleed = 8
+    Burn = 5,
+    Poison = 8,
+    Bleed = 2
 }
 
+[System.Serializable]
 public struct Items
 {
     //i = item type
@@ -70,6 +72,7 @@ public class CombatController : MonoBehaviour
 
     //List of all potential player item
     public List<Items> itemList = new List<Items>();
+    private List<Items> copyItems = new List<Items>();
 
     //base damage that attacks can do
     public List<float> attackDamage = new List<float>();
@@ -146,6 +149,11 @@ public class CombatController : MonoBehaviour
     {
         //Find the stats 
         _stats = GameObject.FindGameObjectWithTag("CombatStats").GetComponent<CombatStats>();
+        foreach (Items i in itemList)
+        {
+            copyItems.Add(i);
+        }
+        Debug.Log(copyItems.Count);
 
         //find the enemy parent
         _enemyParent = GameObject.FindGameObjectWithTag("Enemy Parent");
@@ -181,7 +189,7 @@ public class CombatController : MonoBehaviour
 
             //Set enemy health
 
-            _ = (e == EnemyType.Susan) ? GameManager.instance.susan.healthSlider = enemyHealthBars[index] : enemy.GetComponent<Enemy>().healthSlider = enemyHealthBars[index];
+            _ = (e == EnemyType.Susan) ? GameManager.instance.susan.healthSlider = enemyHealthBars[index] : enemy.GetComponent<EnemyCombatBehaviour>().healthSlider = enemyHealthBars[index];
 
             //Parent enemy
             enemy.transform.parent = _enemyParent.transform;
@@ -238,10 +246,10 @@ public class CombatController : MonoBehaviour
 
 
         //Set enemy health
-        _stats.enemyHealth[index] = newE.GetComponent<Enemy>().GetStartingHealth();
+        _stats.enemyHealth[index] = newE.GetComponent<EnemyCombatBehaviour>().GetStartingHealth();
         enemyHealthBars[index].gameObject.SetActive(true);
         enemyHealthBars[index].value = 1;
-        newE.GetComponent<Enemy>().healthSlider = enemyHealthBars[index];
+        newE.GetComponent<EnemyCombatBehaviour>().healthSlider = enemyHealthBars[index];
 
         //Parent enemy
         newE.transform.parent = _enemyParent.transform;
@@ -326,6 +334,11 @@ public class CombatController : MonoBehaviour
     public void ResetBattle()
     {
         PlaceEnemies();
+        itemList = new List<Items>();
+        foreach (Items i in copyItems)
+        {
+            itemList.Add(i);
+        }
 
         //Reset Stats
         _stats.SetStats();
@@ -671,7 +684,7 @@ public class CombatController : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.75f);
 
         //TODO: MAKE THIS NOT HARD CODED IN I DONT FORSEE THE NUMBERS CHSNGING BUT ITS BAD FIX IT
-        _stats.gameObject.transform.position = new Vector3(12.5f, 6.19f, 0f);
+        _stats.SwitchToEnemyTurn();
 
         //Start Enemy Phase & play sfx
         AudioManager.instance.SFX.clip = AudioManager.instance.UISFX[2];
@@ -753,7 +766,7 @@ public class CombatController : MonoBehaviour
             {
                 float damage = 0;
                 GameObject enemyObj = _inBattle[enemy];
-                Enemy enemyScript = enemyObj.GetComponent<Enemy>();
+                EnemyCombatBehaviour enemyScript = enemyObj.GetComponent<EnemyCombatBehaviour>();
 
                 if (enemyObj.name == "Susan(Clone)")
                 {
@@ -783,7 +796,7 @@ public class CombatController : MonoBehaviour
                 }
                 else
                 {
-                    enemyScript.AttackPlayer(enemyList[enemy]);
+                   StartCoroutine(enemyScript.AttackPlayer());
 
                     yield return new WaitUntil(() => enemyScript.IsTurnOver());
                     enemyScript.SetIsTurnOver(false);
@@ -834,6 +847,7 @@ public class CombatController : MonoBehaviour
 
         enemyTurnOver = true;
 
+        //If there are no enemies left
         if (_stats._enemiesLeft <= 0)
         {
             StartCoroutine(GameManager.instance.BattleWon());

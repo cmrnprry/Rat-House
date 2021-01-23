@@ -300,7 +300,7 @@ public class TutorialScript : MonoBehaviour
 
         if (selected == 0 || selected == 1 || selected == 2)
         {
-            var e = CombatController.instance._inBattle[0].GetComponent<Enemy>();
+            var e = CombatController.instance._inBattle[0].GetComponent<EnemyCombatBehaviour>();
             StartCoroutine(HitEnemy(e));
             e.healthSlider.value -= .25f;
         }
@@ -406,7 +406,7 @@ public class TutorialScript : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
 
-        var e = CombatController.instance._inBattle[0].GetComponent<Enemy>();
+        var e = CombatController.instance._inBattle[0].GetComponent<EnemyCombatBehaviour>();
         StartCoroutine(HitEnemy(e));
         var item = new Items(ItemType.Hot_Coffee, 1, 10, StatusEffect.Burn);
         e.SetStatusEffect(item);
@@ -431,9 +431,9 @@ public class TutorialScript : MonoBehaviour
         CombatController.instance.TurnOffHighlight();
 
         //For now this is the placeholder attacks
-        var e = CombatController.instance._inBattle[0].GetComponent<Enemy>();
+        var e = CombatController.instance._inBattle[0].GetComponent<EnemyCombatBehaviour>();
 
-        e.AttackPlayer(EnemyType.Tutorial_Intern);
+        StartCoroutine(e.AttackPlayer());
 
         yield return new WaitUntil(() => e.IsTurnOver());
 
@@ -672,7 +672,7 @@ public class TutorialScript : MonoBehaviour
         }
         else if (Input.GetButtonDown("SelectAction"))
         {
-            var e = CombatController.instance._inBattle[0].GetComponent<Enemy>();
+            var e = CombatController.instance._inBattle[0].GetComponent<EnemyCombatBehaviour>();
             switch (_selected)
             {
                 case 1:
@@ -842,7 +842,7 @@ public class TutorialScript : MonoBehaviour
         CombatController.instance.itemMenuParent.SetActive(false);
     }
 
-    public IEnumerator HitEnemy(Enemy e)
+    public IEnumerator HitEnemy(EnemyCombatBehaviour e)
     {
         e.EnemyHit();
         StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));

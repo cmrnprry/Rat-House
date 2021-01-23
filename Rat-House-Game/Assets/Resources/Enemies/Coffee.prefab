@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 951688889708083882}
   - component: {fileID: 7926202670088244093}
   - component: {fileID: 5578912527076105551}
-  - component: {fileID: 8751216279485706765}
+  - component: {fileID: 7150523852468961257}
   m_Layer: 0
   m_Name: Coffee
   m_TagString: Coffee
@@ -112,7 +112,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &8751216279485706765
+--- !u!114 &7150523852468961257
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 885643733926557914}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3fbdf2dc74f7fd409f9e62071e5644f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f714f7d47d502a40b2c77cd317e8bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 35
@@ -130,7 +130,6 @@ MonoBehaviour:
   _baseAttack: 5
   healthSlider: {fileID: 0}
   numberOfAttacks: 2
-  chancesOfHitting: 460000001e000000
   effectName: coffee_effect
 --- !u!1 &946027272030525306
 GameObject:

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5193615787017668257}
   - component: {fileID: 2401820386830963706}
   - component: {fileID: 5253903775405515671}
-  - component: {fileID: 2800836433385330374}
+  - component: {fileID: 3491489400542485282}
   m_Layer: 0
   m_Name: Water_Cooler
   m_TagString: Water_Cooler
@@ -112,7 +112,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &2800836433385330374
+--- !u!114 &3491489400542485282
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3489745968461303871}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3fbdf2dc74f7fd409f9e62071e5644f, type: 3}
+  m_Script: {fileID: 11500000, guid: f477a5fe58083954abb327bfb9b93196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 45
@@ -130,8 +130,7 @@ MonoBehaviour:
   _baseAttack: 10
   healthSlider: {fileID: 0}
   numberOfAttacks: 2
-  chancesOfHitting: 3c00000028000000
-  effectName: coffee_effect
+  effectName: water_effect
 --- !u!1 &7195869509373582166
 GameObject:
   m_ObjectHideFlags: 0

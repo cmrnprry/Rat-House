@@ -2615,6 +2615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1548882285}
+  talking: {fileID: 0}
   aNiceConversation:
   - Jan:Oh, hey, Joe. What are you doing here, I thought you were let go?
   - Joe:Thee pathetic fool. didst thee truly believeth I would simply leaveth this
@@ -2686,7 +2687,7 @@ SpriteRenderer:
   m_Size: {x: 3.24, y: 7.19}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &204875104
@@ -13555,17 +13556,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 393353222db96424eaeba189b3471c02,
+      objectReference: {fileID: 21300000, guid: f935f26b2b1d3d14cac0c665030b638b,
         type: 3}
     - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Size.x
-      value: 2.46
+      value: 2.27
       objectReference: {fileID: 0}
     - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Size.y
-      value: 7.11
+      value: 6.86
       objectReference: {fileID: 0}
     - target: {fileID: 5856605394123240293, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -19556,6 +19557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1548882285}
+  talking: {fileID: 0}
   aNiceConversation:
   - Wilbur:Ah, Mr. Vampire, I didn't expect to see you here today...or any day, in
     fact. I thought you had been...erm...well, fired.
@@ -19623,7 +19625,7 @@ SpriteRenderer:
   m_Size: {x: 3.45, y: 8.18}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &1898427749

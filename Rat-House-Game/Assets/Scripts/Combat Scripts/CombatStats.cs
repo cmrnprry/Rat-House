@@ -31,7 +31,7 @@ public class CombatStats : MonoBehaviour
     public GameObject player;
 
     //status effect tracking
-    private Enemy e;
+    private EnemyCombatBehaviour e;
     private StatusEffect effect;
     public bool hasEffect = false;
     private int turnsUntilEffectOver;
@@ -83,7 +83,7 @@ public class CombatStats : MonoBehaviour
         //for each enemy on the board add their health to the list
         foreach (GameObject e in CombatController.instance._inBattle)
         {
-            var h = (e.name == "Susan(Clone)") ? GameManager.instance.susan.GetStartingHealth() : e.GetComponent<Enemy>().GetStartingHealth();
+            var h = (e.name == "Susan(Clone)") ? GameManager.instance.susan.GetStartingHealth() : e.GetComponent<EnemyCombatBehaviour>().GetStartingHealth();
             enemyHealth.Add(h);
         }
 
@@ -351,7 +351,7 @@ public class CombatStats : MonoBehaviour
         float damage = 0;
 
         //if we're attactking susan, set enemy to null
-        _ = attackSusan ? e = null : e = CombatController.instance._inBattle[enemyAttacked].GetComponent<Enemy>();
+        _ = attackSusan ? e = null : e = CombatController.instance._inBattle[enemyAttacked].GetComponent<EnemyCombatBehaviour>();
 
         //if using an item, otherwise calculate damage and show splash screens
         if (isItem)
@@ -445,7 +445,7 @@ public class CombatStats : MonoBehaviour
         StartCoroutine(CombatController.instance.EnemyPhase());
     }
 
-    void SwitchToEnemyTurn()
+    public void SwitchToEnemyTurn()
     {
         Debug.Log("Seitch Turns");
         //Reset the # of total hits and amount it
@@ -462,7 +462,7 @@ public class CombatStats : MonoBehaviour
     }
 
     //Handles what happens when an enemy dies
-    public IEnumerator EnemyDeath(int enemyAttacked, Enemy enemy)
+    public IEnumerator EnemyDeath(int enemyAttacked, EnemyCombatBehaviour enemy)
     {
         //decrease the number o f enemies left
         _enemiesLeft -= 1;
