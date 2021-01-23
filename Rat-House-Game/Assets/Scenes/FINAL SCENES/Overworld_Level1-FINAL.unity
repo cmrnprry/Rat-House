@@ -2293,7 +2293,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725833, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Name
-      value: Enemy (2)
+      value: Coffee Man
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -2303,7 +2303,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: postBattleDialogue.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -2318,7 +2318,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[0]
-      value: Robert:Ah! J-Joe! What are you doing here?
+      value: Robert_2:Ah! J-Joe! What are you doing here?
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -2328,28 +2328,33 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[1]
-      value: Joe:I has't cometh to retrieve mine most beloved mug!
+      value: Joe_0:I have come to retrieve my most beloved mug! Unhand it at once!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[2]
-      value: Robert:But...but...you're not allowed in here anymore! If you don't
-        go away, I think I'm supposed to kill you!
+      value: Robert_0:Y-your mug? I think Susan came in and took it earlier!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[3]
-      value: Joe:Then you'd best prepare thineself for battle, mortal fool!
+      value: Joe_1:You think you can fool me with your mortal lies? Prepare thyself
+        for battle!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: postBattleDialogue.Array.data[0]
-      value: Robert:Okay, okay, you win, stop hitting me already!
+      value: Joe_2:...this is not mine mug. Curious!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: beatenBattleDialogue.Array.data[0]
-      value: Robert:I need more coffee...
+      value: Robert_1:I need more coffee...
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.data[1]
+      value: Robert_1:SEE?! I told you! Now can you stop hitting me already?!
       objectReference: {fileID: 0}
     - target: {fileID: 8209886538226783415, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -3147,9 +3152,26 @@ MonoBehaviour:
   player: {fileID: 1291760750}
   talking: {fileID: 1956504535}
   aNiceConversation:
-  - Jan:Man, I really wish they'd fix the vending machine already.
-  - Jan:I've got mad munchies right now.
-  - Joe:Indeed.
+  - Joe_1:You too, Janet? You would stand in my way? You pathetic fool. Very well,
+    but know I take no joy in this.
+  - 'Jan_2:Relax, Joe, we don''t have to fight today. Even though I''d win. Here,
+    look at this. '
+  - Joe_0:What is this? Company letterhead - your wife excused you from all corporate
+    combat events? She can do that?
+  - "Jan_1:She\u2019s the chief medical officer, Joe."
+  - "Joe_0:Don\u2019t we sell fax machines? What in the hell do we need a medical
+    officer for?"
+  - 'Jan_2:Joe.         '
+  - Jan_1:How many people have you maimed today?
+  - 'Joe_0:Well,    '
+  - 'Joe_0:           '
+  - 'Jan_0:              '
+  - 'Joe_2:        '
+  - 'Jan_0:         '
+  - "Joe_1:That\u2019s a vague question. Do you mean in the office? Doth my approach
+    to the office count as well? Are we counting only those -seriously- maimed? "
+  - 'Jan_2: Janet laughs grimly, and returns to her coffee. Your stream of completely
+    reasonable questions goes unanswered.'
 --- !u!135 &274478523
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3369,7 +3391,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725833, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: Water Man
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -3384,7 +3406,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: beatenBattleDialogue.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -3399,65 +3421,76 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[0]
-      value: Bill:Stop right there, Joe!
+      value: Bill_1:Stop right there, Joe!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[2]
-      value: Bill:...We're paid the same amount.
+      value: Bill_0:...We're paid the same amount. Actually, I'm paid more than you.
+        Since, y'know. You're unemployed.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[4]
-      value: Bill:Can't do that, Joe.
+      value: Bill_1:Can't do that, Joe.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[6]
-      value: Bill:New orders from corporate. Leave now, or I guess we have to fight
+      value: Bill_1:New orders from corporate. Leave now, or I guess we have to fight
         or something.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[1]
-      value: Joe:That isn't mine name! I am Lord Joethius P. Bradford III, Esquire,
+      value: Joe_1:That isn't mine name! I am Lord Joethius P. Bradford III, Esquire,
         and thee wilt address me as such, peasant!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[3]
-      value: Joe:How dare thee insult me with such slander! Now, remove yourself
+      value: Joe_1:How dare thee insult me with such slander! Now, remove yourself
         from mine path!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[5]
-      value: Joe:And wherefore not, pray tell?
+      value: Joe_0:And wherefore not, pray tell?
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[7]
-      value: Joe:Thee can't banish me that easily!
+      value: Joe_1:Thou shan't banish me so easily!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: postBattleDialogue.Array.data[0]
-      value: Joe:Ha! Thee art no match for Lord Joethius P. Bradford!
+      value: Joe_3:Ha! Thee art no match for Lord Joethius P. Bradford!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: beatenBattleDialogue.Array.data[0]
-      value: Bill:I'm gonna take my lunch break now.
+      value: 'Bill_2: I''m gonna take my lunch break now.'
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: postBattleDialogue.Array.data[1]
-      value: Billn:Well...I tried.
+      value: Bill_3:Well...I tried.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: beatenBattleDialogue.Array.data[1]
-      value: Joe:Ok.
+      value: 'Joe_0: Ok. I don''t eat lunch.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.data[2]
+      value: 'Bill_1: Since you''re a vampire, and you only drink blood.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.data[3]
+      value: 'Joe_0: Yes. Exactly.'
       objectReference: {fileID: 0}
     - target: {fileID: 8209886538226783415, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -9047,7 +9080,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725833, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Name
-      value: Enemy (4)
+      value: Intern
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725836, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -9122,7 +9155,8 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: postBattleDialogue.Array.data[0]
-      value: Intern_0:What is wrong with you?
+      value: 'Intern_0: I''m not your replacement, I swear! I''m not even getting
+        paid for this!'
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -9133,7 +9167,8 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[1]
-      value: Joe_0:Thee dareth approach me? Prepare thineself for combat, mortal!
+      value: 'Joe_0: A NEW intern? You must be my replacement, then! If you want
+        my position, you can pry it from my cold, undead hands!'
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -13702,74 +13737,81 @@ PrefabInstance:
     - target: {fileID: 7673918425033725833, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Name
-      value: Enemy (3)
+      value: Computer Man
       objectReference: {fileID: 0}
-    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+    - target: {fileID: 7673918425033725833, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
-      propertyPath: preBattleDialogue.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
-        type: 3}
-      propertyPath: postBattleDialogue.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
-        type: 3}
-      propertyPath: beatenBattleDialogue.Array.size
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
+      propertyPath: preBattleDialogue.Array.size
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
       propertyPath: preBattleDialogue.Array.data[0]
-      value: ???:Behooold! It is I! The great and powerful, Computer Man!
+      value: "???_0:Ah. If it isn\u2019t my favorite nemesis. Lord Joethius P. Bradford
+        III, Esquire."
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[1]
-      value: Joe:...Who are you?
+      value: "Joe_2:You have\u2026 other nemeses?"
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[2]
-      value: ???:Wh-What? I-it's...I'm Computer Man. Your arch nemesis!
+      value: "???_4:WHAT?! No, of course not! I mean, just. You\u2019re my nemesis,
+        and I hate you.\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[3]
-      value: Joe:I've literally never seen you before in my life.
+      value: Joe_3:Ah. Well that's good. Because thou art my nemesis and I hate you
+        too.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[4]
-      value: ???:B-but...but...but what about that one time? After work? I follwed
-        you home, remember? And we dueled?
+      value: ???_3:Very much.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[5]
-      value: 'Joe: I have no clue what you''re talking about, sir.'
+      value: 'Joe_0: Indeed.'
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[6]
-      value: ???:I-I'll show you! You won't forget Computer Man this time!
+      value: '???_3:      '
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: postBattleDialogue.Array.data[0]
-      value: ???:Curse you, Lord Joethius P. Bradford III, Esquire! I'll make sure
+      value: ???_2:Curse you, Lord Joethius P. Bradford III, Esquire! I'll make sure
         you regret this! You'll rue the day you crossed Computer Man!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: postBattleDialogue.Array.data[1]
-      value: Joe:I still don't know who you are.
+      value: 'Joe_1: Hah! Beaten again! You shall never best me, Computer man!'
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: beatenBattleDialogue.Array.data[0]
-      value: ???:I'll have my revenge, some day!
+      value: ???_1:I'll have my revenge, some day!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -13785,6 +13827,86 @@ PrefabInstance:
         type: 3}
       propertyPath: enemiesInBattle.Array.data[2]
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[7]
+      value: 'Joe_0:       '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[8]
+      value: '???_3:               '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[9]
+      value: 'Joe_0: So,'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[10]
+      value: '???_1: I-'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[11]
+      value: 'Joe_0: Oh, go ahead.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[12]
+      value: '???_4: Ah, no, after you. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[13]
+      value: 'Joe_1: Well. I indeed to steal this keycard and travel to the third
+        floor and vanquish Susan, and recover my dear mug.
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[14]
+      value: "???_0: Fool! You would have no chance against Susan\u2026 her arts
+        of corporate combat are far too strong! Not that it matters, for you will
+        never get past my firewall!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[15]
+      value: 'Joe_2: Is a firewall some kind of computer th-'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[16]
+      value: "???_2: YES IT\u2019S SOME KIND OF COMPUTER THING"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[17]
+      value: "Joe_1: Ah, well, prepare to \u201Clog off\u201D for good, villain!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[18]
+      value: "???_2: I will NEVER \u201Clog off\u201D!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.data[2]
+      value: '???_2: For the last time, MY NAME ISN''T COMPUTER MAN!'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.data[1]
+      value: 'Joe_3: Does.... next Thursday work for you?'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.data[2]
+      value: '???_4: Uhhh ahahaha yeah that''s totally fine! Works for me hahahahaha'
       objectReference: {fileID: 0}
     - target: {fileID: 8209886538226783415, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -15686,16 +15808,16 @@ MonoBehaviour:
   player: {fileID: 1291760750}
   talking: {fileID: 904174085}
   aNiceConversation:
-  - Jan:Oh, hey, Joe. What are you doing here? I thought you were let go?
-  - Joe:Thee pathetic fool. Didst thee truly believeth I would simply leaveth this
+  - Jan_1:Oh, hey, Joe. What are you doing here? I thought you were let go?
+  - Joe_0:Thee pathetic fool. Didst thee truly believeth I would simply leaveth this
     lodging without having retrieved mine most precious mug?
-  - Jan:Oh, yeah, that makes sense. You're heading to the third floor break room
+  - Jan_1:Oh, yeah, that makes sense. You're heading to the third floor break room
     then?
-  - Joe:Why must thee bother me with these pointless questions? Of course that is
-    mine destination.
-  - Jan:Huh, yeah, now I remember why no one likes you. Good luck getting your cup,
-    man.
-  - Joe:I doth not require 'luck'.
+  - Joe_0:Why must thee bother me with these pointless questions? Of course that
+    is mine destination.
+  - Jan_1:Huh, yeah, now I remember why no one likes you. Good luck getting your
+    cup, man.
+  - Joe_0:I doth not require 'luck'.
 --- !u!212 &1258183789
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19317,12 +19439,13 @@ MonoBehaviour:
   player: {fileID: 1291760750}
   talking: {fileID: 818127245}
   aNiceConversation:
-  - Wilbur:Ah, Mr. Vampire, I didn't expect to see you here today...or any day, in
-    fact. I thought you had been...erm...well, fired.
-  - Joe:Cease thy ramblings, mortal. I am simply hither for mine mug.
-  - Wilbur:Ah, yes, of course. I'd offer to lend you my keycard for the elevator,
+  - Wilbur_0:Ah, Mr. Vampire, I didn't expect to see you here today...or any day,
+    in fact. I thought you had been...erm...well, fired.
+  - Joe_0:Cease thy ramblings, mortal. I am simply hither for mine mug.
+  - Wilbur_2:Ah, yes, of course. I'd offer to lend you my keycard for the elevator,
     but I seem to have misplaced it. I'm sure it's around the office, somewhere...
-  - Joe:I shalt figure something out.
+  - Joe_2:I shalt figure something out.
+  - 'Wilbur_1: Best of luck!'
 --- !u!212 &1493063223
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20640,7 +20763,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725833, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Name
-      value: Enemy (1)
+      value: Coffee Man (2)
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -20665,38 +20788,39 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[0]
-      value: Robert:Ha, I knew you'd show up! Billy from I.T. owes me $10.
+      value: Robert_0:Ha, I knew you'd show up! Billy from I.T. owes me $10.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[1]
-      value: Robert:Anyway, listen, man. I don't actually want to fight you.
+      value: Robert_0:Anyway, listen, man. I don't actually want to fight you.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[2]
-      value: Robert:I'll give you $5 if you just, like...leave.
+      value: Robert_0:I'll give you $5 if you just, like...leave.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[3]
-      value: Joe:Thee bethink thee can bribe me with mere earthly coin, Coffee Man?
+      value: Joe_1:Thee bethink thee can bribe me with mere earthly coin, Coffee
+        Man?
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[4]
-      value: Robert:...Did you just call me 'Coffee Man'? Why would you call me that?
-        Just because I happen to be holding a cup of coffee?
+      value: Robert_1:...Did you just call me 'Coffee Man'? Why would you call me
+        that? I am CLEARLY holding a cup of tea.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[5]
-      value: Joe:I wilt defeat thee, Coffee Man!
+      value: Joe_1:I wilt defeat thee, Coffee Man!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[6]
-      value: Robert:...My name's Robert...
+      value: Robert_2:...My name's Robert...
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -20711,12 +20835,12 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: postBattleDialogue.Array.data[0]
-      value: Robert:Well...that was dumb.
+      value: Robert_2:You made me spill my tea!
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: beatenBattleDialogue.Array.data[0]
-      value: Robert:I need more coffee...
+      value: Robert_0:I need more tea....
       objectReference: {fileID: 0}
     - target: {fileID: 8209886538226783415, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -21009,7 +21133,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725833, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: m_Name
-      value: Enemy (5)
+      value: Water Man (2)
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -21024,7 +21148,7 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: beatenBattleDialogue.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -21039,40 +21163,51 @@ PrefabInstance:
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[0]
-      value: Bill:Aw, man...I was hoping you just wouldn't show up.
+      value: 'Bill_1: Hold it right there, Joe!'
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[1]
-      value: Joe:If 't be true thee bethought I wouldn't returneth for mine mug,
-        then thee truly art a pathetic fool.
+      value: 'Joe_1: You can see as clearly as my reflection that my hands are empty,
+        bearer of water!'
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[2]
-      value: Bill:Yeah, but, like...you're not allowed in the building anymore, so
-        now I have to defeat you in battle or something...
+      value: "Bill_0: You know that\u2019s not what I- agh, Joe, you KNOW I can\u2019t
+        let you past."
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[3]
-      value: Joe:Ha! thee bethink thee can defeat me? Then prepare thineself, Water
-        Man!
+      value: 'Joe_3: Hah! Just try and stop me, knave! Crash upon me like the waves
+        upon the shore!'
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: preBattleDialogue.Array.data[4]
-      value: Bill:I don't get paid enough for this...
+      value: Bill_3:I don't get paid enough for this...
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: postBattleDialogue.Array.data[0]
-      value: Bill:You know what? I don't get paid enough for this. I quit!
+      value: Bill_3:You know what? I just remembered that there's a watercooler that
+        needs refilling on the fourth floor.
       objectReference: {fileID: 0}
     - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
       propertyPath: beatenBattleDialogue.Array.data[0]
-      value: Bill:Gotta fix up my resume...
+      value: 'Bill_2: Remember to stay hydrated! With, uh, blood.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.data[1]
+      value: 'Joe_3: Right, blood, since I''m a vampire!'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7673918425033725838, guid: 96c9c3f00faed8045b4ef147a8f4af91,
+        type: 3}
+      propertyPath: beatenBattleDialogue.Array.data[2]
+      value: 'Bill_2: Yeah, exactly, since you''re a vampire!'
       objectReference: {fileID: 0}
     - target: {fileID: 8209886538226783415, guid: 96c9c3f00faed8045b4ef147a8f4af91,
         type: 3}
@@ -27352,7 +27487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemComments:
-  - Janet and her children.
+  - "A familial photograph\u2026 in color! Someone has money to spend\u2026"
   - Ah, youth.
   - Why doest Janet insist on leaving pictures of her children everywhere?
   playerInRange: 0
@@ -27903,10 +28038,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemComments:
-  - Behold, mine closest friend, mine fiercest enemy.
-  - It at each moment robs me of mine wages without rewarding me with mine promised
-    treats.
-  - Vile beast, I demand the snacks contained within thee!
+  - "A mechanical vendor\u2026 this one dispenses various sundry snacks."
+  - Useless to me, since I am a vampire, and I only drink blood.
+  - Wait, what is this? Blood orange soda? Could it... no, no, of course not.
   playerInRange: 0
   pressEnter: {fileID: 1162339404}
 --- !u!1 &2110983987
@@ -28019,7 +28153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemComments:
-  - Janet and her children.
+  - "A familial photograph\u2026 in color! Someone has money to spend\u2026"
   - Why doest Janet insist on leaving pictures of her children everywhere?
   - Ah, youth.
   playerInRange: 0

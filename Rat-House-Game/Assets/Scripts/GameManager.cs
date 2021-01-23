@@ -329,11 +329,18 @@ public class GameManager : MonoBehaviour
         topOverlay.SetActive(false);
 
         anim.CrossFade("Fade_In", 1);
-
         yield return new WaitForFixedUpdate();
 
         //Spawn the correct enemies 
         CombatController.instance.SetUpBattleScene();
+
+        // plum's gf's debug skip fight code
+#if UNITY_EDITOR
+if (Input.GetKey(KeyCode.LeftShift)) {
+    StartCoroutine(BattleWon());
+    yield break;
+}
+#endif
     }
 
     public IEnumerator BattleWon()
