@@ -91,10 +91,10 @@ public class Dialogue : MonoBehaviour
                 speakerHead.sprite = susanheads[type];
                 break;
             case "Wilbur":
-                speakerHead.sprite = npcTwoheads[type];
+                speakerHead.sprite = npcOneheads[type];
                 break;
             case "Jan":
-                speakerHead.sprite = npcOneheads[type];
+                speakerHead.sprite = npcTwoheads[type];
                 break;
             default:
                 speakerHead.sprite = null;
