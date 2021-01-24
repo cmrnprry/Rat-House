@@ -189,7 +189,7 @@ public class CombatController : MonoBehaviour
 
             //Set enemy health
 
-            _ = (e == EnemyType.Susan) ? GameManager.instance.susan.healthSlider = enemyHealthBars[index] : enemy.GetComponent<EnemyCombatBehaviour>().healthSlider = enemyHealthBars[index];
+            enemy.GetComponent<EnemyCombatBehaviour>().healthSlider = enemyHealthBars[index];
 
             //Parent enemy
             enemy.transform.parent = _enemyParent.transform;
@@ -306,7 +306,8 @@ public class CombatController : MonoBehaviour
 
         //Place the enemies
         PlaceEnemies();
-        GameManager.instance.susan.anim = _enemyParent.transform.GetChild(0).transform.GetChild(0).GetComponent<Animator>();
+        if (_enemyParent.transform.GetChild(0).transform.GetChild(0).tag == "Susan")
+            _enemyParent.transform.GetChild(0).transform.GetChild(0).GetComponent<EnemyCombatBehaviour>().anim = _enemyParent.transform.GetChild(0).transform.GetChild(0).GetComponent<Animator>();
         _battleEnd = _inBattle.Count - 1;
         _battleStart = 0;
 
@@ -768,51 +769,26 @@ public class CombatController : MonoBehaviour
                 GameObject enemyObj = _inBattle[enemy];
                 EnemyCombatBehaviour enemyScript = enemyObj.GetComponent<EnemyCombatBehaviour>();
 
-                if (enemyObj.name == "Susan(Clone)")
+
+                StartCoroutine(enemyScript.AttackPlayer());
+
+                yield return new WaitUntil(() => enemyScript.IsTurnOver());
+
+                splashScreen = (CombatStats.amountHit >= (CombatStats.totalHits / 2) && CombatStats.amountHit != 0) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
+                // _stats.UpdatePlayerHealth(-1 * enemyScript.GetBaseAttack());
+                damage = enemyScript.GetBaseAttack();
+
+                enemyScript.SetIsTurnOver(false);
+
+                _stats.enemyHealth[enemy] = enemyScript._currentHealth;                
+
+                if (enemyScript.tag == "Susan" && (enemyScript._currentHealth <= 0 || enemyScript.nextPhase))
                 {
-                    Susan susan = GameManager.instance.susan;
-                    StartCoroutine(susan.SusanAttack());
-
-                    yield return new WaitUntil(() => susan.IsTurnOver());
-
-                    StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
-                    yield return new WaitUntil(() => AudioManager.instance.nextBeat);
-
-                    susan.Idle();
-                    AudioManager.instance.nextBeat = false;
-
-                    splashScreen = (CombatStats.amountHit >= (CombatStats.totalHits / 2) && CombatStats.amountHit != 0) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
-                    //_stats.UpdatePlayerHealth(-1 * susan.GetBaseAttack());
-                    damage = susan.GetBaseAttack();
-
-                    susan.SetIsTurnOver(false);
-
-                    yield return new WaitForEndOfFrame();
-
-                    if (susan._currentHealth <= 0 || susan.nextPhase)
-                    {
-                        yield break;
-                    }
+                    yield break;
                 }
-                else
+                else if (enemyScript._currentHealth <= 0)
                 {
-                   StartCoroutine(enemyScript.AttackPlayer());
-
-                    yield return new WaitUntil(() => enemyScript.IsTurnOver());
-                    enemyScript.SetIsTurnOver(false);
-
-                    splashScreen = (CombatStats.amountHit >= (CombatStats.totalHits / 2) && CombatStats.amountHit != 0) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
-                    // _stats.UpdatePlayerHealth(-1 * enemyScript.GetBaseAttack());
-                    damage = enemyScript.GetBaseAttack();
-
-                    //Update the enemy effect if any
-                    enemyScript.UpdateEffect();
-
-                    _stats.enemyHealth[enemy] = enemyScript._currentHealth;
-                    if (enemyScript._currentHealth <= 0)
-                    {
-                        StartCoroutine(_stats.EnemyDeath(enemy, enemyScript));
-                    }
+                    StartCoroutine(_stats.EnemyDeath(enemy, enemyScript));
                 }
 
                 Debug.Log("Turn Over");
@@ -1010,7 +986,7 @@ public class CombatController : MonoBehaviour
         //Start the item choice coroutine 
         HighlightMenuItem();
         StartCoroutine(ChooseItem());
-       
+
     }
 
     void ClearItemMenu()

@@ -83,7 +83,7 @@ public class CombatStats : MonoBehaviour
         //for each enemy on the board add their health to the list
         foreach (GameObject e in CombatController.instance._inBattle)
         {
-            var h = (e.name == "Susan(Clone)") ? GameManager.instance.susan.GetStartingHealth() : e.GetComponent<EnemyCombatBehaviour>().GetStartingHealth();
+            var h = e.GetComponent<EnemyCombatBehaviour>().GetStartingHealth();
             enemyHealth.Add(h);
         }
 
@@ -106,7 +106,7 @@ public class CombatStats : MonoBehaviour
                     DetectAttackHit(transform.position);
                 }
             }
-            
+
             if (Input.GetButtonDown("Square") && hitList[index].isSquare) // square
             {
                 Debug.Log("hit square");
@@ -154,7 +154,7 @@ public class CombatStats : MonoBehaviour
                     DetectDodgeHit(transform.position);
                 }
             }
-            
+
             if (Input.GetButtonDown("Square") && hitList[index].isSquare) // square
             {
 
@@ -321,43 +321,25 @@ public class CombatStats : MonoBehaviour
         }
     }
 
-    void ApplyItemEffect(bool isSusan)
+    void ApplyItemEffect()
     {
-        if (isSusan && !GameManager.instance.susan.hasEffect)
-        {
-            GameManager.instance.susan.SetStatusEffect(itemUsed);
-        }
-        else if (!isSusan && !e.hasEffect)
-        {
-            e.SetStatusEffect(itemUsed);
-        }
-    }
-
-    bool AttackingSusan(int enemyAttacked)
-    {
-        if (GameManager.instance.isSusanBattle && enemyAttacked == 0)
-        {
-            return true;
-        }
-
-        return false;
+        e.SetStatusEffect(itemUsed);
     }
 
     public IEnumerator DealDamageToEnemy(int enemyAttacked = 0, bool isItem = false)
     {
         //check if it we're using "good" or "bad" splash screens
         var splashScreen = amountHit >= (totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
-        bool attackSusan = AttackingSusan(enemyAttacked);
         float damage = 0;
 
         //if we're attactking susan, set enemy to null
-        _ = attackSusan ? e = null : e = CombatController.instance._inBattle[enemyAttacked].GetComponent<EnemyCombatBehaviour>();
+        e = CombatController.instance._inBattle[enemyAttacked].GetComponent<EnemyCombatBehaviour>();
 
         //if using an item, otherwise calculate damage and show splash screens
         if (isItem)
         {
             damage = itemUsed.delta;
-            ApplyItemEffect(attackSusan);
+            ApplyItemEffect();
         }
         else
         {
@@ -379,28 +361,6 @@ public class CombatStats : MonoBehaviour
             UpdatePlayerHealth(damage);
             yield return new WaitForSecondsRealtime(0.75f);
         }
-        else if (attackSusan)
-        {
-            //Show hit Animation
-            GameManager.instance.susan.EnemyHit();
-
-            StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
-
-            yield return new WaitUntil(() => AudioManager.instance.nextBeat);
-            AudioManager.instance.nextBeat = false;
-            GameManager.instance.susan.Idle();
-
-            GameManager.instance.susan.UpdateHealth(damage);
-            enemyHealth[enemyAttacked] -= damage;
-
-            if (GameManager.instance.susan._currentHealth <= 0)
-            {
-                yield break;
-            }
-
-            SwitchToEnemyTurn();
-            yield break;
-        }
         else
         {
             Debug.Log("Hit Enemy");
@@ -410,6 +370,11 @@ public class CombatStats : MonoBehaviour
             enemyHealth[enemyAttacked] -= damage;
             e.UpdateHealth(damage);
 
+            if (e.gameObject.tag == "Susan" && e._currentHealth <= 0)
+            {
+                StartCoroutine(e.gameObject.GetComponent<Susan>().SusanDeath());
+                yield break;
+            }
         }
 
         if (enemyHealth[enemyAttacked] <= 0)

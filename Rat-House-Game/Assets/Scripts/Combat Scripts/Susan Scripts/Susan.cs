@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+using Random = UnityEngine.Random;
 
-public class Susan : MonoBehaviour
+public class Susan : EnemyCombatBehaviour
 {
     //holds all the enemies that appear in addition to susan for each phase
     //List of the enemies that will appear
@@ -12,8 +14,7 @@ public class Susan : MonoBehaviour
     public List<EnemyType> phaseOneBattle;
     public List<EnemyType> phaseTwoBattle;
 
-    public Animator anim;
-    public GameObject finalImage;
+    private int phase = 0;
 
     [Header("Dialogue")]
     [TextArea(3, 5)]
@@ -29,33 +30,6 @@ public class Susan : MonoBehaviour
     public string[] postBattleDialogue;
     private int _index;
 
-    [Header("Stats")]
-    [SerializeReference]
-    private float _maxHealth;
-    public float _currentHealth;
-    private int phase = 0;
-
-    //status effect tracking
-    private StatusEffect effect;
-    public bool hasEffect = false;
-    private int turnsUntilEffectOver;
-
-    [SerializeReference]
-    private float _baseAttack;
-
-    [HideInInspector]
-    public Slider healthSlider;
-
-    [Header("Attacks")]
-    //Number of attacks and chances of said attacks hitting. They follow the order in the spread sheet
-    public int numberOfAttacks;
-    public int[] chancesOfHitting;
-
-    private bool _turnOver = false;
-    public bool nextPhase = false;
-
-    public string effectName;
-    private ParticleSystem _attackAnim;
     private List<BeatMapStruct> beats = new List<BeatMapStruct>();
 
 
@@ -101,15 +75,10 @@ public class Susan : MonoBehaviour
         }
     }
 
-    int CalculateChance()
-    {
-        return Random.Range(0, 100);
-    }
-
-    public IEnumerator SusanAttack()
+    public override IEnumerator AttackPlayer()
     {
         //pick which attack is made via the chance
-        int chance = CalculateChance();
+        int chance = CalculateChance(100);
         int music = 0;
 
         if (chance >= 40) // sneak attack
@@ -166,6 +135,12 @@ public class Susan : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
 
         _turnOver = true;
+
+        StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
+        yield return new WaitUntil(() => AudioManager.instance.nextBeat);
+
+        Idle();
+        AudioManager.instance.nextBeat = false;
     }
 
     public void SetDialogue(string[] dia)
@@ -218,7 +193,7 @@ public class Susan : MonoBehaviour
                 GameManager.instance.anim.CrossFade("Fade_Out", 1);
                 yield return new WaitForSecondsRealtime(1);
 
-                finalImage.SetActive(false);
+                GameManager.instance.finalImage.SetActive(false);
 
                 yield return new WaitForFixedUpdate();
 
@@ -328,7 +303,7 @@ public class Susan : MonoBehaviour
         CombatController.instance.TurnOffHighlight();
         phase = 3;
 
-        finalImage.SetActive(true);
+        GameManager.instance.finalImage.SetActive(true);
 
         yield return new WaitForFixedUpdate();
 
@@ -342,70 +317,4 @@ public class Susan : MonoBehaviour
         SetDialogue(postBattleDialogue);
     }
 
-    public void SetStatusEffect(Items item)
-    {
-        Debug.Log("Here");
-        effect = item.effect;
-        hasEffect = true;
-
-        Color color = new Color();
-        ColorUtility.TryParseHtmlString(CombatController.instance.GetColor(effect), out color);
-
-        anim.gameObject.GetComponent<SpriteRenderer>().color = color;
-
-        //For now, they will all last 3 turns
-        turnsUntilEffectOver = 3;
-    }
-
-    public void UpdateEffect()
-    {
-        if (hasEffect)
-        {
-            turnsUntilEffectOver -= 1;
-            UpdateHealth((int)effect, true);
-
-            if (turnsUntilEffectOver <= 0)
-                RemoveEffect();
-        }
-    }
-
-    public void RemoveEffect()
-    {
-        hasEffect = false;
-        effect = StatusEffect.None;
-        anim.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-    }
-
-    public void EnemyHit()
-    {
-        anim.SetTrigger("Hit");
-    }
-
-    public void Idle()
-    {
-
-        anim.SetTrigger("Idle");
-    }
-
-    public float GetStartingHealth()
-    {
-        return _maxHealth;
-    }
-
-    public bool IsTurnOver()
-    {
-        return _turnOver;
-    }
-
-    public void SetIsTurnOver(bool over)
-    {
-        UpdateEffect();
-
-        _turnOver = over;
-    }
-
-    public float GetBaseAttack()
-    {
-        return _baseAttack;
-    }
 }

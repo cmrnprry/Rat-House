@@ -26,9 +26,10 @@ public abstract class EnemyCombatBehaviour : MonoBehaviour
     public int numberOfAttacks;
 
     protected bool _turnOver = false;
+    public bool nextPhase = false;
 
     [Header("Animations")]
-    protected Animator anim;
+    public Animator anim;
 
     public string effectName;
     protected ParticleSystem _attackAnim;
@@ -115,6 +116,8 @@ public abstract class EnemyCombatBehaviour : MonoBehaviour
 
     public void SetIsTurnOver(bool over)
     {
+        UpdateEffect();
+
         _turnOver = over;
     }
 }

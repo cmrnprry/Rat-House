@@ -74,15 +74,17 @@ public class GameManager : MonoBehaviour
     public TutorialScript tutorial;
 
     [Header("Scene Objects")]
-    public Susan susan;
     public Animator anim;
     public GameObject[] overworldObjects;
     public PlayerController player;
+    public GameObject finalImage;
 
     [Header("Key Items")]
     public Animator itemGetAnim;
     public TextMeshProUGUI itemText;
     public bool hasKey = false;
+
+    private Susan susan;
 
     void Awake()
     {
