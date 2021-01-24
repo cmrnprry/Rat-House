@@ -46,14 +46,7 @@ public class PlayerController : MonoBehaviour
 
         _rb.velocity = movement;
 
-        if (_isSusan)
-        {
-            StopPlayerMovement();
-            GameManager.instance.SetGameState(GameState.Susan);
-            yield break;
-        }
-
-        else if (Input.GetButton("OpenInventory"))
+        if (Input.GetButton("OpenInventory"))
         {
             GameManager.instance.OpenInventory();
             yield return new WaitForSecondsRealtime(0.2f);
@@ -76,6 +69,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collider.gameObject.tag == "Susan")
         {
+            
             _isSusan = true;
         }
     }

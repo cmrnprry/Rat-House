@@ -178,8 +178,15 @@ public class CombatController : MonoBehaviour
 
         foreach (var e in enemyList)
         {
+
             //Instasiate the enmy of Type
             GameObject enemy = Instantiate(Resources.Load("Enemies/" + e.ToString(), typeof(GameObject)) as GameObject, enemyPlacement[index], Quaternion.identity);
+
+            if (e == EnemyType.Susan)
+            {
+                GameManager.instance.susan = enemy.GetComponent<Susan>();
+                enemy.GetComponent<EnemyCombatBehaviour>().anim = enemy.transform.GetChild(0).GetComponent<Animator>();
+            }
 
             //Add it to the list of enemy game objects
             _inBattle.Add(enemy);
@@ -292,31 +299,6 @@ public class CombatController : MonoBehaviour
         _enemyEffects = GameObject.FindGameObjectWithTag("Enemy Effects");
 
         PlaceEnemies();
-    }
-
-    public void SetUpSusanBattle()
-    {
-        Debug.Log("set up susan");
-        //Find the stats 
-        _stats = GameObject.FindGameObjectWithTag("CombatStats").GetComponent<CombatStats>();
-
-        //find the enemy parent
-        _enemyParent = GameObject.FindGameObjectWithTag("Enemy Parent");
-        _enemyEffects = GameObject.FindGameObjectWithTag("Enemy Effects");
-
-        //Place the enemies
-        PlaceEnemies();
-        if (_enemyParent.transform.GetChild(0).transform.GetChild(0).tag == "Susan")
-            _enemyParent.transform.GetChild(0).transform.GetChild(0).GetComponent<EnemyCombatBehaviour>().anim = _enemyParent.transform.GetChild(0).transform.GetChild(0).GetComponent<Animator>();
-        _battleEnd = _inBattle.Count - 1;
-        _battleStart = 0;
-
-        //Display player health
-        GameManager.instance.healthParent.SetActive(true);
-        GameManager.instance.battleAnimator.SetBool("IsOpen", true);
-
-        //Set the Stats
-        _stats.SetStats();
     }
 
     public void SetBasePlayerDamage(List<BeatMapStruct> player)
@@ -780,7 +762,7 @@ public class CombatController : MonoBehaviour
 
                 enemyScript.SetIsTurnOver(false);
 
-                _stats.enemyHealth[enemy] = enemyScript._currentHealth;                
+                _stats.enemyHealth[enemy] = enemyScript._currentHealth;
 
                 if (enemyScript.tag == "Susan" && (enemyScript._currentHealth <= 0 || enemyScript.nextPhase))
                 {

@@ -13,8 +13,9 @@ public class Susan : EnemyCombatBehaviour
     public List<EnemyType> startBattle;
     public List<EnemyType> phaseOneBattle;
     public List<EnemyType> phaseTwoBattle;
+    public bool changePhase = false;
 
-    private int phase = 0;
+    private int phase = 1;
 
     [Header("Dialogue")]
     [TextArea(3, 5)]
@@ -36,15 +37,15 @@ public class Susan : EnemyCombatBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // beats = AudioManager.instance.enemyBeatMap.GetRange(6, 4);
+         beats = AudioManager.instance.enemyBeatMap.GetRange(6, 4);
         _currentHealth = _maxHealth;
     }
 
-    public void UpdateHealth(float dmg, bool effectUpdate = false)
+    public override void UpdateHealth(float dmg)
     {
+        Debug.Log("Update Susan Health");
         _currentHealth -= dmg;
         healthSlider.value = (_currentHealth / _maxHealth);
-
 
         if (_currentHealth <= 0)
         {
@@ -68,10 +69,6 @@ public class Susan : EnemyCombatBehaviour
 
             nextPhase = true;
             SetDialogue(phaseOneDialogue);
-        }
-        else if (!effectUpdate)
-        {
-            StartCoroutine(CombatController.instance.EnemyPhase());
         }
     }
 
@@ -170,12 +167,7 @@ public class Susan : EnemyCombatBehaviour
             _index = 0;
 
 
-            if (phase == 0)
-            {
-                Debug.Log("Got to battle");
-                StartCoroutine(GoToBattle());
-            }
-            else if (phase == 1)
+            if (phase == 1)
             {
                 Debug.Log("Phase one");
                 StartCoroutine(PhaseOne());
@@ -217,35 +209,6 @@ public class Susan : EnemyCombatBehaviour
         StartCoroutine(SusanDialogue());
         yield break;
 
-    }
-
-    IEnumerator GoToBattle()
-    {
-        //play some sort of screen wipe
-        GameManager.instance.anim.CrossFade("Fade_Out", 1);
-        yield return new WaitForSecondsRealtime(2);
-
-        GameManager.instance.topOverlay.SetActive(false);
-        SceneManager.LoadScene("Battle-FINAL", LoadSceneMode.Additive);
-        GameManager.instance.TurnOffScene();
-
-        GameManager.instance.anim.CrossFade("Fade_In", 1);
-
-        yield return new WaitForFixedUpdate();
-
-        //Spawn the correct enemies 
-        beats = AudioManager.instance.enemyBeatMap.GetRange(6, 4);
-        CombatController.instance.SetEnemies(startBattle);
-        CombatController.instance.SetUpSusanBattle();
-        healthSlider.value = 1;
-
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForEndOfFrame();
-
-        AudioManager.instance.StartCombatMusic();
-        StartCoroutine(CombatController.instance.ChooseAction());
-
-        yield return new WaitForFixedUpdate();
     }
 
     IEnumerator PhaseOne()

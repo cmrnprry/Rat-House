@@ -84,7 +84,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI itemText;
     public bool hasKey = false;
 
-    private Susan susan;
+    [HideInInspector]
+    public Susan susan;
 
     void Awake()
     {
@@ -442,7 +443,7 @@ if (Input.GetKey(KeyCode.LeftShift)) {
             case GameState.Susan:
                 Debug.Log("Susan");
                 isSusanBattle = true;
-                susan.SetDialogue(susan.preBattleDialogue);
+                StartCoroutine(StartBattle());
                 break;
             case GameState.AfterTutorial:
                 StartCoroutine(AfterTutorial());

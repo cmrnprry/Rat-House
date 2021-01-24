@@ -67,7 +67,7 @@ public abstract class EnemyCombatBehaviour : MonoBehaviour
         }
     }
 
-    public void UpdateHealth(float dmg)
+    public virtual void UpdateHealth(float dmg)
     {
         _currentHealth -= dmg;
 

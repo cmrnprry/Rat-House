@@ -2648,6 +2648,315 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209679625}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &212008729
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1547397061}
+    m_Modifications:
+    - target: {fileID: 885643733926557914, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_Name
+      value: Susan
+      objectReference: {fileID: 0}
+    - target: {fileID: 885643733926557914, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_TagString
+      value: Susan
+      objectReference: {fileID: 0}
+    - target: {fileID: 885643733926557914, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[0]
+      value: Joe_1:Ah, at last, I've madeth it to the top floor!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[1]
+      value: "Joe_1:Cometh to bethink of 't, this is kind of a weird location for
+        the breaketh room, is it not? \r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[2]
+      value: Joe_1:Regardless, at last I can reclaim mine beloved mug and beest on
+        mine way.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[3]
+      value: Susan_1:*slurping from Joe's mug*
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[4]
+      value: Joe_1:Egads! That's... that's mine mug!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[5]
+      value: Susan_1:Joe! How'd you get in here?
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[6]
+      value: Joe_1:Thou art drinking from mine most beloved mug!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[7]
+      value: Susan_1:So you've discovered my darkest secret...I fire my employees,
+        then take their leftover mugs for myself!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: preBattleDialogue.Array.data[8]
+      value: Joe_1:Thee evil witch! Thee won't get away with this! I'll square for
+        mine mug!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: phaseOneDialogue.Array.data[0]
+      value: Susan_1:Give it up, Joe Vampire! You can never defeat me - my position
+        gives me too much authority over you! Your precious mug is mine!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: phaseOneDialogue.Array.data[1]
+      value: "Joe_1: Hahaha... Susan... you\u2019re forgetting one very important
+        thing..."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: phaseOneDialogue.Array.data[2]
+      value: "Susan_1:Oh yeah? And what\u2019s that?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: phaseOneDialogue.Array.data[3]
+      value: 'Joe_1: I has''t HR on speed dial!'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: phaseOneDialogue.Array.data[4]
+      value: Susan_1:What?! No!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: phaseOneDialogue.Array.data[5]
+      value: "Joe_1: Good morrow to you, m'lady. Aye, I\u2019d like to maketh a complaint
+        against Susan for theft of employee property."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: phaseOneDialogue.Array.data[8]
+      value: Susan_1:No! You fool! I could lose my job over this!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: phaseOneDialogue.Array.data[9]
+      value: "Susan_1:Hi Gerald, I know it\u2019s your day off, but we need you to
+        come in. We\u2019re a little understaffed - Joe Vampire keeps beating up
+        employees"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: phaseTwoDialogue.Array.data[1]
+      value: Joe_1:No! I am Joethius P...ugh. Aye. Joe Vampire speaking.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: phaseTwoDialogue.Array.data[4]
+      value: "Susan_1:No! How could you! You\u2019ll pay for this, Joe Vampire! "
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: phaseTwoDialogue.Array.data[5]
+      value: Susan_1:Harry! Jason! If you want good references from me at your next
+        jobs, then get in here and help me kill Joe Vampire!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.data[0]
+      value: Joe_1:At last! I've completed mine quest and taken back what wast rightfully
+        mine!
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.data[1]
+      value: Joe_1:Mine most precious mug... I'll nev'r alloweth thee out of mine
+        sight again.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: postBattleDialogue.Array.data[2]
+      value: "Joe_1: Come along, mine beloved... I needeth to findeth a new job so
+        I can payeth mine rent. \r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -51.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926202670088244093, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3.6447406
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926202670088244093, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.29462743
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926202670088244093, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 3.8108292
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926202670088244093, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.2812004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926202670088244093, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 6.3294783
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926202670088244093, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 2.6647391
+      objectReference: {fileID: 0}
+    - target: {fileID: 7926202670088244093, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8517769230660021125, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1217220064167690495, guid: 7d21cef7f1b3b8543a9712a8c03d8b65, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 7d21cef7f1b3b8543a9712a8c03d8b65, type: 3}
+--- !u!4 &212008730 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5927359117497308248, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+    type: 3}
+  m_PrefabInstance: {fileID: 212008729}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &212008731 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 885643733926557914, guid: 7d21cef7f1b3b8543a9712a8c03d8b65,
+    type: 3}
+  m_PrefabInstance: {fileID: 212008729}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &212008732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212008731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a93dfec451f7f5418dc21c1a79bb99d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemiesInBattle: 040000000100000001000000
+  preBattleDialogue:
+  - Intern_0:Oh, hey, could you point me towards Mr. Henderson's office? I'm a new
+    intern, don't really know my way around yet, haha.
+  - 'Joe_0: A NEW intern? You must be my replacement, then! If you want my position,
+    you can pry it from my cold, undead hands!'
+  - Intern_0:Wait, what?
+  postBattleDialogue:
+  - 'Intern_0: I''m not your replacement, I swear! I''m not even getting paid for
+    this!'
+  beatenBattleDialogue:
+  - Intern_0:Leave me alone!
+  isBeaten: 0
+--- !u!114 &212008733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212008731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74890c135db80144c8f6a85cffda98f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1291760750}
+  exclamation: {fileID: 1198919542}
 --- !u!1 &214318609
 GameObject:
   m_ObjectHideFlags: 0
@@ -15103,6 +15412,87 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1188732302}
   m_Mesh: {fileID: -3903072059075028410, guid: 799eda35160445745a57c6d9e0dd0e55, type: 3}
+--- !u!1 &1198919542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1198919543}
+  - component: {fileID: 1198919544}
+  m_Layer: 0
+  m_Name: '!'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1198919543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198919542}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.26, y: 4.18, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 212008730}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1198919544
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198919542}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: fe121c454b9a8934193837ef11d59b29, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.51, y: 0.82}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &1200808707
 GameObject:
   m_ObjectHideFlags: 0
@@ -21263,6 +21653,7 @@ Transform:
   - {fileID: 1114174933}
   - {fileID: 280186120}
   - {fileID: 199939165}
+  - {fileID: 212008730}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

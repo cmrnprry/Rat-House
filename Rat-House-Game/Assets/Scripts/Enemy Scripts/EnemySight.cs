@@ -27,7 +27,7 @@ public class EnemySight : MonoBehaviour
             Debug.Log("here");
             player.GetComponent<PlayerController>().StopPlayerMovement();
             exclamation.SetActive(true);
-            enemyMovement.canMove = false;
+            _= (enemyMovement != null) ? enemyMovement.canMove = false : true;
 
             if (!enemyController.isBeaten)
             {
@@ -57,7 +57,16 @@ public class EnemySight : MonoBehaviour
         yield return new WaitUntil(() => GameManager.instance.dialogueOver && !GameManager.instance.dialogueInProgress);
 
         exclamation.SetActive(false);
-        GameManager.instance.SetGameState(GameState.Battle);
+        if (gameObject.tag == "Susan")
+        {
+
+            GameManager.instance.SetGameState(GameState.Susan);
+        }
+        else
+        {
+
+            GameManager.instance.SetGameState(GameState.Battle);
+        }
     }
 
     IEnumerator GivePlayerBack()

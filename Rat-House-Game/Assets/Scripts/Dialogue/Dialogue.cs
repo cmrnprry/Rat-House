@@ -67,7 +67,7 @@ public class Dialogue : MonoBehaviour
         StartCoroutine(Type());
     }
 
-    void ChooseHead(string name, int type)
+    void ChooseHead(string name, int type = 0)
     {
         speakerName.text = name;
         switch (name)

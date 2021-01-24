@@ -405,6 +405,11 @@ public class CombatStats : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
+        if (e.gameObject.tag == "Susan" && e.nextPhase)
+        {
+            yield break;
+        }
+
         SwitchToEnemyTurn();
 
         StartCoroutine(CombatController.instance.EnemyPhase());
