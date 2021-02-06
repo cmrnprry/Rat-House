@@ -332,8 +332,16 @@ public class CombatStats : MonoBehaviour
         var splashScreen = amountHit >= (totalHits / 2) ? CombatController.instance.splashScreensGood : CombatController.instance.splashScreensBad;
         float damage = 0;
 
-        //if we're attactking susan, set enemy to null
+        //enemy attacking
         e = CombatController.instance._inBattle[enemyAttacked].GetComponent<EnemyCombatBehaviour>();
+        var e2 = e;
+        var e3 = e;
+
+        if (CombatController.instance.isMultiple)
+        {
+            e2 = CombatController.instance._inBattle[CombatController.instance.enemy2].GetComponent<EnemyCombatBehaviour>();
+            e3 = CombatController.instance._inBattle[CombatController.instance.enemy3].GetComponent<EnemyCombatBehaviour>();
+        }
 
         //if using an item, otherwise calculate damage and show splash screens
         if (isItem)
@@ -363,6 +371,57 @@ public class CombatStats : MonoBehaviour
         }
         else
         {
+            if (CombatController.instance.isMultiple)
+            {
+                e2.EnemyHit();
+                e3.EnemyHit();
+
+                enemyHealth[CombatController.instance.enemy2] -= damage;
+                e2.UpdateHealth(damage);
+
+                enemyHealth[CombatController.instance.enemy3] -= damage;
+                e3.UpdateHealth(damage);
+
+                if (enemyHealth[CombatController.instance.enemy2] <= 0)
+                {
+                    Debug.Log("Enemy Dead");
+
+                    StartCoroutine(EnemyDeath(CombatController.instance.enemy2, e2));
+                }
+                else
+                {
+                    StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
+
+                    yield return new WaitUntil(() => AudioManager.instance.nextBeat);
+                    AudioManager.instance.nextBeat = false;
+                    e2.Idle();
+
+                    if (e2.gameObject.tag == "Susan" && e2.nextPhase)
+                    {
+                        yield break;
+                    }
+                }
+
+                if (enemyHealth[CombatController.instance.enemy3] <= 0)
+                {
+                    Debug.Log("Enemy Dead");
+
+                    StartCoroutine(EnemyDeath(CombatController.instance.enemy3, e3));
+                }
+                else
+                {
+                    StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
+
+                    yield return new WaitUntil(() => AudioManager.instance.nextBeat);
+                    AudioManager.instance.nextBeat = false;
+                    e3.Idle();
+
+                    if (e3.gameObject.tag == "Susan" && e3.nextPhase)
+                    {
+                        yield break;
+                    }
+                }
+            }
             Debug.Log("Hit Enemy");
             //Show hit Animation
             e.EnemyHit();
@@ -401,14 +460,14 @@ public class CombatStats : MonoBehaviour
             yield return new WaitUntil(() => AudioManager.instance.nextBeat);
             AudioManager.instance.nextBeat = false;
             e.Idle();
+
+            if (e.gameObject.tag == "Susan" && e.nextPhase)
+            {
+                yield break;
+            }
         }
 
         yield return new WaitForEndOfFrame();
-
-        if (e.gameObject.tag == "Susan" && e.nextPhase)
-        {
-            yield break;
-        }
 
         SwitchToEnemyTurn();
 
@@ -418,6 +477,10 @@ public class CombatStats : MonoBehaviour
     public void SwitchToEnemyTurn()
     {
         Debug.Log("Seitch Turns");
+        CombatController.instance.isMultiple = false;
+        CombatController.instance.enemy2 = 0;
+        CombatController.instance.enemy3 = 0;
+
         //Reset the # of total hits and amount it
         totalHits = 0;
         amountHit = 0;

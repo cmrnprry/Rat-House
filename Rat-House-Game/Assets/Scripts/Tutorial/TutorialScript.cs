@@ -760,7 +760,7 @@ public class TutorialScript : MonoBehaviour
 
         //Make battle menu disappear and highlight the correct enemy
         GameManager.instance.battleAnimator.SetBool("IsOpen", false);
-        CombatController.instance.HighlightEnemy();
+        CombatController.instance.HighlightSingleEnemy();
 
         //Set enemy selected to be false
         _enemySelected = false;

@@ -103,6 +103,8 @@ public class CombatController : MonoBehaviour
 
     //Checks to see if the player can select from the action list
     public bool enemyTurnOver = false;
+    public bool isMultiple = false;
+    public int enemy2, enemy3 = 0;
 
     //Keeps trackof player/enemy stats in battle
     [HideInInspector]
@@ -413,7 +415,14 @@ public class CombatController : MonoBehaviour
             //Select the correct action
             if (_actionList[_selectedAction] != ActionType.Heal)
             {
-                StartCoroutine(ChooseEnemy());
+                if (_actionList[_selectedAction] == ActionType.Throw)
+                {
+                    StartCoroutine(ChooseMultipleEnemy());
+                }
+                else
+                {
+                    StartCoroutine(ChooseSingleEnemy());
+                }
             }
             else
             { StartCoroutine(ChoosePlayer()); }
@@ -523,7 +532,7 @@ public class CombatController : MonoBehaviour
         StartCoroutine(ChooseItem());
     }
 
-    IEnumerator ChooseEnemy(bool isItem = false)
+    IEnumerator ChooseSingleEnemy(bool isItem = false)
     {
         //Wait until a correct key is pressed
         yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("Left") || Input.GetButtonDown("Right") ||
@@ -590,10 +599,85 @@ public class CombatController : MonoBehaviour
             yield break;
         }
 
-        HighlightEnemy();
+        HighlightSingleEnemy();
 
         yield return new WaitForEndOfFrame();
-        StartCoroutine(ChooseEnemy(isItem));
+        StartCoroutine(ChooseSingleEnemy(isItem));
+    }
+
+    IEnumerator ChooseMultipleEnemy(bool isItem = false)
+    {
+        Debug.Log("Select Multiple");
+        //Wait until a correct key is pressed
+        yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("Left") || Input.GetButtonDown("Right") ||
+        Input.GetButtonDown("SelectAction") || Input.GetButtonDown("Back"));
+
+        if (Input.GetButtonDown("Up") || Input.GetButtonDown("Left"))
+        {
+            if (_selectedEnemy == _battleStart)
+            {
+                _selectedEnemy = _battleEnd;
+            }
+            else
+            {
+                if (_inBattle[_selectedEnemy - 1] == null)
+                {
+                    _selectedEnemy--;
+                }
+                _selectedEnemy--;
+            }
+
+        }
+        else if (Input.GetButtonDown("Down") || Input.GetButtonDown("Right"))
+        {
+            if (_selectedEnemy == _battleEnd)
+            {
+                _selectedEnemy = _battleStart;
+            }
+            else
+            {
+                if (_inBattle[_selectedEnemy + 1] == null)
+                {
+                    _selectedEnemy++;
+                }
+                _selectedEnemy++;
+            }
+        }
+        else if (Input.GetButtonDown("SelectAction"))
+        {
+            TurnOffHighlight();
+
+            if (isItem)
+            {
+                Debug.Log("deal item damage");
+
+                //TODO: Display animation of item usage
+                Debug.Log("item: " + isItem + " " + itemUsed.effect.ToString() + " " + itemUsed.delta);
+                DealDamage(true);
+            }
+            else
+            {
+                Debug.Log("Set Map");
+                isMultiple = true;
+                StartCoroutine(AudioManager.instance.SetAttackMap(_selectedAction));
+            }
+
+            yield break;
+        }
+        else if (Input.GetButtonDown("Back"))
+        {
+            TurnOffHighlight();
+
+            GameManager.instance.battleAnimator.SetBool("IsOpen", true);
+
+            ShowActionMenu();
+            yield break;
+        }
+
+        HighlightMultipleEnemy();
+
+        yield return new WaitForEndOfFrame();
+        StartCoroutine(ChooseMultipleEnemy(isItem));
     }
 
     IEnumerator ChoosePlayer(bool isItem = false)
@@ -645,7 +729,7 @@ public class CombatController : MonoBehaviour
 
         //Choose the item to use
         itemUsed = item;
-        StartCoroutine(ChooseEnemy(true));
+        StartCoroutine(ChooseSingleEnemy(true));
 
         //decrease the amount of the used item
         itemList.Add(new Items(item.item, -1, item.delta, item.effect));
@@ -699,12 +783,63 @@ public class CombatController : MonoBehaviour
         spotlight.transform.localPosition = new Vector3(-4.14f, 0f, -0.14f);
     }
 
-    public void HighlightEnemy()
+    public void HighlightSingleEnemy()
     {
         var spotlight = _enemyEffects.transform.GetChild(0);
 
         spotlight.gameObject.SetActive(true);
         spotlight.transform.position = enemyPlacement[_selectedEnemy];
+    }
+    public void HighlightMultipleEnemy()
+    {
+        var spotlight = _enemyEffects.transform.GetChild(0);
+        var spotlightOne = _enemyEffects.transform.GetChild(1);
+        var spotlightTwo = _enemyEffects.transform.GetChild(2);
+
+        spotlight.gameObject.SetActive(true);
+        spotlight.transform.position = enemyPlacement[_selectedEnemy];
+
+        spotlightOne.gameObject.SetActive(true);
+        spotlightTwo.gameObject.SetActive(true);
+
+        enemy2 = (_selectedEnemy + 1) % (_battleEnd + 1);
+        Debug.Log("one: " + enemy2);
+        enemy2 = CheckDeaths(enemy2);
+        enemy3 = (enemy2 + 1) % (_battleEnd + 1);
+        Debug.Log("two: " + enemy3);
+        enemy3 = CheckDeaths(enemy3);
+
+        spotlightOne.transform.position = enemyPlacement[enemy2];
+        spotlightTwo.transform.position = enemyPlacement[enemy3];
+
+        if (_battleEnd == 2)
+        {
+            spotlightTwo.gameObject.SetActive(false);
+        }
+        else if (_battleEnd == 1)
+        {
+            spotlightOne.gameObject.SetActive(false);
+        }
+    }
+
+    int CheckDeaths(int index)
+    {
+        int i = index;
+        if (_inBattle[index] == null)
+        {
+            Debug.Log("Next Index");
+            i = (i + 1) % (_battleEnd + 1);
+
+            if (_inBattle[i] == null)
+            {
+                Debug.Log("Recur");
+                return CheckDeaths(i);
+            }
+        }
+
+        Debug.Log("Was: " + index);
+        Debug.Log("Using this now: " + i);
+        return i;
     }
 
     public void HighlightMenuItem()
@@ -729,6 +864,8 @@ public class CombatController : MonoBehaviour
 
         //turn off spotlight
         _enemyEffects.transform.GetChild(0).gameObject.SetActive(false);
+        _enemyEffects.transform.GetChild(1).gameObject.SetActive(false);
+        _enemyEffects.transform.GetChild(2).gameObject.SetActive(false);
     }
 
 
