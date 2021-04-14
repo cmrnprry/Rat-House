@@ -186,10 +186,10 @@ TextureImporter:
       name: button_hover_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0.66667175
-        width: 300
-        height: 149.33333
+        x: 872
+        y: 225
+        width: 436
+        height: 225
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -207,10 +207,10 @@ TextureImporter:
       name: button_hover_9
       rect:
         serializedVersion: 2
-        x: 300
-        y: 0.66667175
-        width: 300
-        height: 149.33333
+        x: 0
+        y: 0
+        width: 436
+        height: 225
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -229,9 +229,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 298.6667
-        width: 300
-        height: 149.33333
+        y: 675
+        width: 436
+        height: 225
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -249,10 +249,10 @@ TextureImporter:
       name: button_hover_1
       rect:
         serializedVersion: 2
-        x: 300
-        y: 298.6667
-        width: 300
-        height: 149.33333
+        x: 436
+        y: 675
+        width: 436
+        height: 225
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -270,10 +270,10 @@ TextureImporter:
       name: button_hover_2
       rect:
         serializedVersion: 2
-        x: 600
-        y: 298.6667
-        width: 300
-        height: 149.33333
+        x: 872
+        y: 675
+        width: 436
+        height: 225
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -291,10 +291,10 @@ TextureImporter:
       name: button_hover_3
       rect:
         serializedVersion: 2
-        x: 900
-        y: 298.6667
-        width: 300
-        height: 149.33333
+        x: 0
+        y: 450
+        width: 436
+        height: 225
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,10 +312,10 @@ TextureImporter:
       name: button_hover_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 149.66667
-        width: 300
-        height: 149.33333
+        x: 436
+        y: 450
+        width: 436
+        height: 225
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -333,10 +333,10 @@ TextureImporter:
       name: button_hover_5
       rect:
         serializedVersion: 2
-        x: 300
-        y: 149.66667
-        width: 300
-        height: 149.33333
+        x: 872
+        y: 450
+        width: 436
+        height: 225
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -354,10 +354,10 @@ TextureImporter:
       name: button_hover_6
       rect:
         serializedVersion: 2
-        x: 600
-        y: 149.66667
-        width: 300
-        height: 149.33333
+        x: 0
+        y: 225
+        width: 436
+        height: 225
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -375,10 +375,10 @@ TextureImporter:
       name: button_hover_7
       rect:
         serializedVersion: 2
-        x: 900
-        y: 149.66667
-        width: 300
-        height: 149.33333
+        x: 436
+        y: 225
+        width: 436
+        height: 225
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -396,10 +396,10 @@ TextureImporter:
       name: button_hover_10
       rect:
         serializedVersion: 2
-        x: 600
-        y: 0.66667175
-        width: 300
-        height: 149.33333
+        x: 436
+        y: 0
+        width: 436
+        height: 225
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -417,10 +417,10 @@ TextureImporter:
       name: button_hover_11
       rect:
         serializedVersion: 2
-        x: 900
-        y: 0.66667175
-        width: 300
-        height: 149.33333
+        x: 872
+        y: 0
+        width: 436
+        height: 225
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
