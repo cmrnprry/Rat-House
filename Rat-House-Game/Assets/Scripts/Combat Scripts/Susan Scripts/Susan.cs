@@ -152,6 +152,15 @@ public class Susan : EnemyCombatBehaviour
     {
         //Waits for the text to stop typing
         yield return new WaitUntil(() => GameManager.instance.dialogue.isTyping == false);
+        GameManager.instance.dialogue.enterText.SetActive(true);
+
+        //wait for the player to press enter/space
+        yield return new WaitUntil(() => Input.GetButton("SelectAction"));
+        GameManager.instance.dialogue.enterText.SetActive(false);
+        
+
+
+        yield return new WaitUntil(() => Input.GetButton("SelectAction"));
 
         //wait for the player to press enter/space
         yield return new WaitUntil(() => Input.GetButton("SelectAction"));

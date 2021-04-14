@@ -9,6 +9,7 @@ public class Dialogue : MonoBehaviour
 {
     //Animator for the text box
     public Animator anim;
+    public GameObject enterText;
 
     //Text Boxes
     public TextMeshProUGUI dia;

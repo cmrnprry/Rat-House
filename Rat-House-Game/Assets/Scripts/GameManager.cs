@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
     [Header("Tutorial Script")]
     //tutorial
     public TutorialScript tutorial;
+    public GameObject tutorialPage;
 
     [Header("Scene Objects")]
     public Animator anim;
@@ -273,7 +274,12 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ShowEnemyDialogue()
     {
-        yield return new WaitUntil(() => dialogue.isTyping == false && Input.GetButton("SelectAction"));
+        yield return new WaitUntil(() => dialogue.isTyping == false);
+        dialogue.enterText.SetActive(true);
+
+
+        yield return new WaitUntil(() => Input.GetButton("SelectAction"));
+        dialogue.enterText.SetActive(false);
         yield return new WaitForSecondsRealtime(0.15f);
 
         //when you press space...
@@ -337,10 +343,11 @@ public class GameManager : MonoBehaviour
 
         // plum's gf's debug skip fight code
 #if UNITY_EDITOR
-if (Input.GetKey(KeyCode.LeftShift)) {
-    StartCoroutine(BattleWon());
-    yield break;
-}
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            StartCoroutine(BattleWon());
+            yield break;
+        }
 #endif
     }
 
@@ -487,10 +494,18 @@ if (Input.GetKey(KeyCode.LeftShift)) {
         //Not sure why we wait here but I will not temp God
         yield return new WaitForSecondsRealtime(1f);
 
+        yield return new WaitUntil(() => tutorialPage.GetComponent<TutorialMenu>().turnoff);
+
+        anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSecondsRealtime(2);
+        tutorialPage.SetActive(false);
+        anim.CrossFade("Fade_In", 1);
+
+        //Not sure why we wait here but I will not temp God
+        yield return new WaitForSecondsRealtime(1f);
+
         overworldObjects = SceneManager.GetActiveScene().GetRootGameObjects();
         StartCoroutine(SetEnemyDialogue(levelOneDialogue));
-
-        Debug.Log("Waiting");
 
         yield return new WaitForEndOfFrame();
         yield return new WaitUntil(() => !dialogueInProgress && dialogueOver);

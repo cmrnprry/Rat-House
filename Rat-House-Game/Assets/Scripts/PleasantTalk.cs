@@ -37,11 +37,12 @@ public class PleasantTalk : MonoBehaviour
 
     IEnumerator HaveANiceConversation()
     {
-        //Waits for the text to stop typing
         yield return new WaitUntil(() => GameManager.instance.dialogue.isTyping == false);
+        GameManager.instance.dialogue.enterText.SetActive(true);
 
         //wait for the player to press enter/space
         yield return new WaitUntil(() => Input.GetButton("SelectAction"));
+        GameManager.instance.dialogue.enterText.SetActive(false);
 
         //when you press space...
         //When we're at the end of the intro dialogue

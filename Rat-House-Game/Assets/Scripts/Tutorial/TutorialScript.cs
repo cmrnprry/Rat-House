@@ -45,15 +45,12 @@ public class TutorialScript : MonoBehaviour
     public IEnumerator ShowOpeningDialogue()
     {
         Debug.Log("wait to stop typing");
-        //Waits for the text to stop typing
         yield return new WaitUntil(() => dialogue.isTyping == false);
+        dialogue.enterText.SetActive(true);
 
-        yield return new WaitForEndOfFrame();
-
-        Debug.Log("wait to hit action");
         //wait for the player to press enter/space
-        yield return new WaitUntil(() => Input.GetButtonDown("SelectAction"));
-
+        yield return new WaitUntil(() => Input.GetButton("SelectAction"));
+        dialogue.enterText.SetActive(false);
         yield return new WaitForEndOfFrame();
 
         Debug.Log("action hit");
@@ -223,11 +220,12 @@ public class TutorialScript : MonoBehaviour
         Debug.Log("show after dialogue");
         Debug.Log("index: " + _index);
 
-        //Waits for the text to stop typing
-        yield return new WaitUntil(() => !dialogue.isTyping);
+        yield return new WaitUntil(() => dialogue.isTyping == false);
+        dialogue.enterText.SetActive(true);
 
         //wait for the player to press enter/space
         yield return new WaitUntil(() => Input.GetButton("SelectAction"));
+        dialogue.enterText.SetActive(false);
 
         //when you press space...
         Debug.Log("Next Line");
