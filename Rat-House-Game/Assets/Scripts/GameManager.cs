@@ -342,15 +342,6 @@ public class GameManager : MonoBehaviour
 
         //Spawn the correct enemies 
         CombatController.instance.SetUpBattleScene();
-
-        // plum's gf's debug skip fight code
-#if UNITY_EDITOR
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            StartCoroutine(BattleWon());
-            yield break;
-        }
-#endif
     }
 
     public IEnumerator BattleWon()
@@ -597,11 +588,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
         susanVideo.SetActive(true);
         anim.CrossFade("Fade_In", 1);
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(6f);
         yield return new WaitForEndOfFrame();
-
-        print("play");
-        susanVideoPlayer.Play();
     }
 
 }

@@ -155,7 +155,6 @@ public class CombatController : MonoBehaviour
         {
             copyItems.Add(i);
         }
-        Debug.Log(copyItems.Count);
 
         //find the enemy parent
         _enemyParent = GameObject.FindGameObjectWithTag("Enemy Parent");

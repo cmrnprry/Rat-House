@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7926202670088244093}
   - component: {fileID: 5578912527076105551}
   - component: {fileID: 1217220064167690495}
+  - component: {fileID: 1065093148}
   m_Layer: 0
   m_Name: Susan
   m_TagString: Susan
@@ -91,11 +92,11 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 885643733926557914}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 3.6447406, y: 6.3294783, z: 3.8108292}
+  m_Center: {x: 0.29462743, y: 2.6647391, z: -0.2812004}
 --- !u!54 &5578912527076105551
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -138,48 +139,43 @@ MonoBehaviour:
   phaseTwoBattle: 0300000003000000
   changePhase: 0
   preBattleDialogue:
-  - Joe_0:Ah, at last, I've madeth it to the top floor! The third floor. Which only
-    contains the break room and nothing else.
-  - "Susan_0: Joe! I didn't see you there! Are you providing exposition to yourself
-    regarding your surroundings again? I love that! You have such. Great. Energy.\r"
-  - 'Joe_1: Susan! Speaketh not of my narrative devices and unhand my mug at once! '
-  - "Susan_0: Sorry, Joe! I had to microwave myself a nice cup of tea, and since
-    I fired you I figured you wouldn't be needing your mug anymore\u2026"
-  - 'Joe_2: Nonsense! Surely thou would assume that I wo- wait what the HELL did
-    you just say you did with my mug?'
-  - 'Susan_0: I.  '
-  - 'Susan_1: MICROWAVED.'
-  - 'Susan_1: TEA. IN YOUR NOVELTY COFFEE MUG. '
-  - "Susan_2: That's right, Joe Vampire. That's my secret. I hire employees with
-    rare novelty mugs and then FIRE them so I can take them for my own wicked purpose\u2026"
+  - Joe_1:Ah, at last, I've madeth it to the top floor!
+  - "Joe_1:Cometh to bethink of 't, this is kind of a weird location for the breaketh
+    room, is it not? \r\n"
+  - Joe_1:Regardless, at last I can reclaim mine beloved mug and beest on mine way.
+  - Susan_1:*slurping from Joe's mug*
+  - Joe_1:Egads! That's... that's mine mug!
+  - Susan_1:Joe! How'd you get in here?
+  - Joe_1:Thou art drinking from mine most beloved mug!
+  - Susan_1:So you've discovered my darkest secret...I fire my employees, then take
+    their leftover mugs for myself!
+  - Joe_1:Thee evil witch! Thee won't get away with this! I'll square for mine mug!
   - 'Joe_1: Egads! It seems all along, twasn''t I, a vampire, but Corporate America
     who was the REAL monster!'
   - 'Susan_0: Again with the exposition! How charming. Well, don''t worry Joe, you''ll
     have plenty of time to exposit... '
   - 'Susan_2: ...IN HELL.'
   phaseOneDialogue:
-  - "Susan_1:Give it up, Joe Vampire! You can never defeat me - my position gives
-    me too much authority over you! Your precious mug is mine!\r"
-  - "Joe_3: Hah! Foolish! Thou hast forgot the ace in mine sleeve! I shall contact
-    HR! Now to pull out my celluar phone\u2026"
-  - 'Susan_2: No, Joe, YOU are the fool! I''m already on the line with them! '
-  - 'Joe_2: Gasp! '
-  - "Susan_0: Hello? Human Resources? Yes, yes, I'm doing swell. And you? Wonderful!
-    Now, I just had a little problem\u2026"
-  - 'Susan_0: Why yes, it IS Joe again! He''s up on the fifth floor... Yes, yes he
-    did kill Dave from accounting....'
+  - Susan_1:Give it up, Joe Vampire! You can never defeat me - my position gives
+    me too much authority over you! Your precious mug is mine!
+  - "Joe_1: Hahaha... Susan... you\u2019re forgetting one very important thing..."
+  - "Susan_1:Oh yeah? And what\u2019s that?"
+  - 'Joe_1: I has''t HR on speed dial!'
+  - Susan_1:What?! No!
+  - "Joe_1: Good morrow to you, m'lady. Aye, I\u2019d like to maketh a complaint
+    against Susan for theft of employee property."
   - 'Susan_1: What? What''s that? You can''t help me? ...Not a hu- VR? I need to
     call VAMPIRE resources?! '
   - 'Susan_0: Dammit, just get down here and help me kill him once and for all!'
   phaseTwoDialogue:
   - 'Susan_1: This is taking FOREVER. My tea is going to get cold! I''m calling VR. '
-  - 'Joe_0: Alright, I shall remain bobbing up and down here for the duration of
-    your call.'
+  - Joe_1:No! I am Joethius P...ugh. Aye. Joe Vampire speaking.
   - 'Susan_0: Hello! Is this VR? Yes, well, I have a complaint about an employee....
     Joe Vampire? Perhaps you''ve heard of him? '
   - 'Susan_0: Pale? Red glasses? Teeth? Faux-Shakesparian accent?'
-  - 'Susan_1: Killed everyone on the first and second floors?'
-  - 'Susan_0: Yes! That IS the one! Now- I was wondering if you could help me by-'
+  - "Susan_1:No! How could you! You\u2019ll pay for this, Joe Vampire! "
+  - Susan_1:Harry! Jason! If you want good references from me at your next jobs,
+    then get in here and help me kill Joe Vampire!
   - 'Susan_0: What''s that? You can''t help me? Isn''t this VR?'
   - 'Susan_ 4: ....VIRTUAL REALITY?!'
   - 'Susan_ 2: We''re a [Fax Machine Noises] FAX MACHINE company! WHY on EARTH do
@@ -187,9 +183,23 @@ MonoBehaviour:
   - 'Susan_ 2: Forget VR! Just come down here and help me! I''m going to miss my
     three o''clock at this rate!'
   postBattleDialogue:
-  - Joe_3:At last! I've completed mine quest and taken back what wast rightfully
+  - Joe_1:At last! I've completed mine quest and taken back what wast rightfully
     mine!
-  - "Joe_3: Now to take a nice, long victory sip from my mug\u2026"
+  - Joe_1:Mine most precious mug... I'll nev'r alloweth thee out of mine sight again.
+--- !u!114 &1065093148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885643733926557914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74890c135db80144c8f6a85cffda98f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  exclamation: {fileID: 0}
 --- !u!1 &946027272030525306
 GameObject:
   m_ObjectHideFlags: 0

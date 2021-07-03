@@ -49,7 +49,7 @@ public class Susan : EnemyCombatBehaviour
 
         if (_currentHealth <= 0)
         {
-            StartCoroutine(SusanDeath());
+           //dead
         }
         else if (_currentHealth <= 50 && phase == 2)
         {
@@ -142,6 +142,7 @@ public class Susan : EnemyCombatBehaviour
 
     public void SetDialogue(string[] dia)
     {
+        print("dialogue");
         GameManager.instance.diaAnim.SetBool("isOpen", true);
         GameManager.instance.dialogue.sentences = dia;
         GameManager.instance.dialogue.StartDialogue();
@@ -157,7 +158,6 @@ public class Susan : EnemyCombatBehaviour
         //wait for the player to press enter/space
         yield return new WaitUntil(() => Input.GetButton("SelectAction"));
         GameManager.instance.dialogue.enterText.SetActive(false);
-        
 
 
         yield return new WaitUntil(() => Input.GetButton("SelectAction"));
@@ -194,14 +194,8 @@ public class Susan : EnemyCombatBehaviour
                 GameManager.instance.anim.CrossFade("Fade_Out", 1);
                 yield return new WaitForSecondsRealtime(1);
 
-                GameManager.instance.finalImage.SetActive(false);
-
-                yield return new WaitForFixedUpdate();
-
-                SceneManager.LoadScene("Main Menu");
-                yield return new WaitForFixedUpdate();
-                GameManager.instance.anim.CrossFade("Fade_In", 1);
-
+                SceneManager.UnloadSceneAsync("Battle-FINAL");
+                SceneManager.LoadScene("LastScene");
             }
 
             phase += 1;
@@ -271,22 +265,11 @@ public class Susan : EnemyCombatBehaviour
 
         GameManager.instance.battleAnimator.SetBool("IsOpen", false);
         GameManager.instance.healthParent.SetActive(false);
-        CombatController.instance.ClearBattle();
-        CombatController.instance.TurnOffHighlight();
+      //  CombatController.instance.ClearBattle();
+       // CombatController.instance.TurnOffHighlight();
         phase = 3;
-
-        GameManager.instance.finalImage.SetActive(true);
-
-        yield return new WaitForFixedUpdate();
-
-        SceneManager.LoadScene("LastScene");
-        yield return new WaitForFixedUpdate();
-        GameManager.instance.anim.CrossFade("Fade_In", 1);
-
-        yield return new WaitForSecondsRealtime(1);
-
-
         SetDialogue(postBattleDialogue);
+        print("end");
     }
 
 }

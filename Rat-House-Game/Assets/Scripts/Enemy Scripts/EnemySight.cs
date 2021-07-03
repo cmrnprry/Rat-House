@@ -26,25 +26,36 @@ public class EnemySight : MonoBehaviour
         {
             Debug.Log("here");
             player.GetComponent<PlayerController>().StopPlayerMovement();
-            exclamation.SetActive(true);
-            _= (enemyMovement != null) ? enemyMovement.canMove = false : true;
-
-            if (!enemyController.isBeaten)
+            if (gameObject.tag == "Susan")
             {
-                Debug.Log("not beaten");
-                //Set battle enemies
-                CombatController.instance.SetEnemies(enemyController.enemiesInBattle);
-                GameManager.instance.currEnemy = this.gameObject;
-
-                //Set dialogue and enable the ability to start battle
-                StartCoroutine(GameManager.instance.SetEnemyDialogue(enemyController.preBattleDialogue));
-                StartCoroutine(StartBattle());
+                StartCoroutine(PlayVideo(gameObject.GetComponent<Susan>()));
             }
-            else if (enemyController.isBeaten)
+            else
             {
-                Debug.Log("beaten");
-                StartCoroutine(GameManager.instance.SetEnemyDialogue(enemyController.beatenBattleDialogue));
-                StartCoroutine(GivePlayerBack());
+                exclamation.SetActive(true);
+
+
+                _ = (enemyMovement != null) ? enemyMovement.canMove = false : true;
+
+                if (!enemyController.isBeaten)
+                {
+                    Debug.Log("not beaten");
+                    //Set battle enemies
+                    CombatController.instance.SetEnemies(enemyController.enemiesInBattle);
+                    GameManager.instance.currEnemy = this.gameObject;
+
+                    //Set dialogue and enable the ability to start battle
+                    StartCoroutine(GameManager.instance.SetEnemyDialogue(enemyController.preBattleDialogue));
+                    StartCoroutine(StartBattle());
+
+
+                }
+                else if (enemyController.isBeaten)
+                {
+                    Debug.Log("beaten");
+                    StartCoroutine(GameManager.instance.SetEnemyDialogue(enemyController.beatenBattleDialogue));
+                    StartCoroutine(GivePlayerBack());
+                }
             }
 
         }
@@ -56,10 +67,11 @@ public class EnemySight : MonoBehaviour
         yield return new WaitForEndOfFrame();
         yield return new WaitUntil(() => GameManager.instance.dialogueOver && !GameManager.instance.dialogueInProgress);
 
-        exclamation.SetActive(false);
+        if (exclamation != null)
+            exclamation.SetActive(false);
+
         if (gameObject.tag == "Susan")
         {
-
             GameManager.instance.SetGameState(GameState.Susan);
         }
         else
@@ -83,5 +95,25 @@ public class EnemySight : MonoBehaviour
             exclamation.SetActive(false);
             GameManager.instance.tempWait = false;
         }
+    }
+
+    IEnumerator PlayVideo(Susan s)
+    {
+        CombatController.instance.SetEnemies(s.startBattle);
+        GameManager.instance.currEnemy = this.gameObject;
+        StartCoroutine(GameManager.instance.SetEnemyDialogue(s.preBattleDialogue));
+        yield return new WaitUntil(() => GameManager.instance.dialogueOver && !GameManager.instance.dialogueInProgress);
+        yield return new WaitForEndOfFrame();
+
+
+        yield return StartCoroutine(GameManager.instance.PlaySusanVideo());
+        yield return new WaitForEndOfFrame();
+
+        GameManager.instance.anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSecondsRealtime(2f);
+        GameManager.instance.susanVideo.SetActive(false);
+
+
+        StartCoroutine(StartBattle());
     }
 }
