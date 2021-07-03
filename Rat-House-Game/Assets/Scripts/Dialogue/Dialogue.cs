@@ -128,14 +128,41 @@ public class Dialogue : MonoBehaviour
     public IEnumerator Type()
     {
         isTyping = true;
+        dia.alpha = 0;
+        dia.text = text;
 
-        //Type each letter in the sentence one at a time at a speed of one letter per unit of typingSpeed
-        foreach (char letter in text.ToCharArray())
+        yield return new WaitForSecondsRealtime(typingSpeed);
+
+
+        dia.ForceMeshUpdate();
+        TMP_TextInfo textInfo = dia.textInfo;
+        int totalCharacters = dia.textInfo.characterCount;
+
+        for (int i = 0; i < totalCharacters; i++)
         {
-            dia.text += letter;
+            // Get the index of the material used by the current character.
+            int materialIndex = textInfo.characterInfo[i].materialReferenceIndex;
+
+            // Get the vertex colors of the mesh used by this text element (character or sprite).
+            var newVertexColors = textInfo.meshInfo[materialIndex].colors32;
+
+            // Get the index of the first vertex used by this text element.
+            int vertexIndex = textInfo.characterInfo[i].vertexIndex;
+
+            // Set all to full alpha
+            newVertexColors[vertexIndex + 0].a = 255;
+            newVertexColors[vertexIndex + 1].a = 255;
+            newVertexColors[vertexIndex + 2].a = 255;
+            newVertexColors[vertexIndex + 3].a = 255;
+
+            dia.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
 
             yield return new WaitForSecondsRealtime(typingSpeed);
         }
+
+        dia.alpha = 225;
+        yield return new WaitForSecondsRealtime(typingSpeed);
+
 
         isTyping = false;
     }

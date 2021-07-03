@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.Video;
 
 public enum GameState
 {
@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
     //reference to the canvas
     public GameObject canvas;
     public GameObject pauseMenu;
+    public GameObject susanVideo;
+    public VideoPlayer susanVideoPlayer;
 
     [Header("Overworld Inventoy")]
     public InventoryMenu inventory;
@@ -588,4 +590,18 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         StartCoroutine(player.PlayerMovement());
     }
+
+    public IEnumerator PlaySusanVideo()
+    {
+        anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSecondsRealtime(2f);
+        susanVideo.SetActive(true);
+        anim.CrossFade("Fade_In", 1);
+        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForEndOfFrame();
+
+        print("play");
+        susanVideoPlayer.Play();
+    }
+
 }
