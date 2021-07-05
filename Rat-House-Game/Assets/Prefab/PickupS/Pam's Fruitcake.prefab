@@ -109,5 +109,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 3
-  effectType: 12
+  effectType: 8
   itialDmg: 15

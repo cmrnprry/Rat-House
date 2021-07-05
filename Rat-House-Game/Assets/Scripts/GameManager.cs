@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("Main Menu") && SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LastScene"))
+        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("Main Menu") && SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LastScene") && tutorialPage.activeSelf == false)
         {
             if (Input.GetButtonDown("Pause"))
             {
