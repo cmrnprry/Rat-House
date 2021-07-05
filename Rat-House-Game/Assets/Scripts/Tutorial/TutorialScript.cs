@@ -379,14 +379,14 @@ public class TutorialScript : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         //change to item menu
-        ShowItemMenu(2, 2);
+        StartCoroutine(ShowItemMenu(2, 2));
 
         //wait for the player to press hit down
         yield return new WaitUntil(() => Input.GetButtonDown("Down"));
 
         //Change the selected action
         var x = CombatController.instance.itemMenu.transform.GetChild(1).GetChild(0);
-        CombatController.instance.menuSelect.transform.position = x.position;
+        CombatController.instance.menuSelect.transform.position = x.position + new Vector3(7, 0, 0);
 
         yield return new WaitForEndOfFrame();
 
@@ -589,7 +589,7 @@ public class TutorialScript : MonoBehaviour
             yield return new WaitForEndOfFrame();
 
             //Switch to the menu selection
-            ShowItemMenu(2, 1);
+            StartCoroutine(ShowItemMenu(2, 1));
 
             //reset the selected action to 0
             _selected = 0;
@@ -659,7 +659,7 @@ public class TutorialScript : MonoBehaviour
         }
         else if (Input.GetButtonDown("Down"))
         {
-            if (_selected == 1)
+            if (_selected == 2)
             {
                 _selected = 0;
             }
@@ -798,7 +798,7 @@ public class TutorialScript : MonoBehaviour
         _enemySelected = true;
     }
 
-    void ShowItemMenu(int health, int damage)
+    IEnumerator ShowItemMenu(int health, int damage)
     {
         //sets the text pos
         var text = CombatController.instance.attackMenu.transform.GetChild(0).gameObject;
@@ -822,9 +822,11 @@ public class TutorialScript : MonoBehaviour
 
         }
 
+        yield return new WaitForEndOfFrame();
+
         //resets highlight to 0
         var x = CombatController.instance.itemMenu.transform.GetChild(0).GetChild(0);
-        CombatController.instance.menuSelect.transform.position = x.position;
+        CombatController.instance.menuSelect.transform.position = x.position + new Vector3(7, 0, 0);
     }
 
     void ShowBattleMenu()
@@ -858,9 +860,11 @@ public class TutorialScript : MonoBehaviour
 
         //Waits for the text to stop typing
         yield return new WaitUntil(() => !dialogue.isTyping);
+        dialogue.enterText.SetActive(true);
 
         //wait for the player to press enter/space
         yield return new WaitUntil(() => Input.GetButtonDown("SelectAction"));
+        dialogue.enterText.SetActive(false);
 
         //when you press space...
         if (Input.GetButton("SelectAction"))

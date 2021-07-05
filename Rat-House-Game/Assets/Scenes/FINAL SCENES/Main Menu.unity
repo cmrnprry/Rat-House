@@ -5504,7 +5504,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 71aab257f6e7b534ba23b5bfa7d44013, type: 3}
   - {fileID: 8300000, guid: d175784c1a29cfe43a5bab324bc5024a, type: 3}
   metronome:
-  - {fileID: 8300000, guid: 3261e78818adf7d47b3383b2d65587a9, type: 3}
+  - {fileID: 8300000, guid: f777127974648f3499a81b6700cb09dc, type: 3}
   - {fileID: 8300000, guid: f22d82607e58ed24980390c195fb528b, type: 3}
   startAction: 0
   startDodge: 0

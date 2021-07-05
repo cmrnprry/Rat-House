@@ -14,7 +14,7 @@ public class Dialogue : MonoBehaviour
     //Text Boxes
     public TextMeshProUGUI dia;
     public TextMeshProUGUI speakerName;
-
+    
     //Array of the dialogue
     [TextArea(3, 5)]
     public string[] sentences;

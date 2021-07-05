@@ -450,7 +450,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(AfterTutorial());
                 break;
             case GameState.Tutorial:
-                StartTutorial();
+                StartCoroutine(StartTutorial());
                 break;
             case GameState.SkipTutorial:
                 StartCoroutine(SkipTutorial());
@@ -466,8 +466,22 @@ public class GameManager : MonoBehaviour
     /****************************   HANDLES LOADING AND TUTORIAL   **********************************************/
 
 
-    void StartTutorial()
+    IEnumerator StartTutorial()
     {
+        anim.gameObject.SetActive(true);
+        anim.CrossFade("Fade_In", 1);
+
+        //Not sure why we wait here but I will not temp God
+        yield return new WaitForSecondsRealtime(1f);
+
+        anim.CrossFade("Fade_Out", 1);
+        yield return new WaitForSecondsRealtime(2);
+        tutorialPage.SetActive(false);
+        anim.CrossFade("Fade_In", 1);
+
+        //Not sure why we wait here but I will not temp God
+        yield return new WaitForSecondsRealtime(1f);
+
         //open the text box and start dialogue
         diaAnim.SetBool("isOpen", true);
 
