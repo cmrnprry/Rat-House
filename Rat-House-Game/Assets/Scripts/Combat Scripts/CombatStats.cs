@@ -371,105 +371,116 @@ public class CombatStats : MonoBehaviour
         }
         else
         {
-            if (CombatController.instance.isMultiple)
-            {
-                e2.EnemyHit();
-                e3.EnemyHit();
-
-                enemyHealth[CombatController.instance.enemy2] -= damage;
-                e2.UpdateHealth(damage);
-
-                enemyHealth[CombatController.instance.enemy3] -= damage;
-                e3.UpdateHealth(damage);
-
-                if (enemyHealth[CombatController.instance.enemy2] <= 0)
-                {
-                    Debug.Log("Enemy Dead");
-
-                    StartCoroutine(EnemyDeath(CombatController.instance.enemy2, e2));
-                }
-                else
-                {
-                    StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
-
-                    yield return new WaitUntil(() => AudioManager.instance.nextBeat);
-                    AudioManager.instance.nextBeat = false;
-                    e2.Idle();
-
-                    if (e2.gameObject.tag == "Susan" && e2.nextPhase)
-                    {
-                        yield break;
-                    }
-                }
-
-                if (enemyHealth[CombatController.instance.enemy3] <= 0)
-                {
-                    Debug.Log("Enemy Dead");
-
-                    StartCoroutine(EnemyDeath(CombatController.instance.enemy3, e3));
-                }
-                else
-                {
-                    StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
-
-                    yield return new WaitUntil(() => AudioManager.instance.nextBeat);
-                    AudioManager.instance.nextBeat = false;
-                    e3.Idle();
-
-                    if (e3.gameObject.tag == "Susan" && e3.nextPhase)
-                    {
-                        yield break;
-                    }
-                }
-            }
             Debug.Log("Hit Enemy");
             //Show hit Animation
             e.EnemyHit();
-
             enemyHealth[enemyAttacked] -= damage;
             e.UpdateHealth(damage);
+
+            if (enemyHealth[enemyAttacked] <= 0)
+            {
+                Debug.Log("Enemy Dead");
+
+                yield return StartCoroutine(EnemyDeath(enemyAttacked, e));
+
+                yield return new WaitUntil(() => CombatController.instance._inBattle[enemyAttacked] == null);
+            }
+            else
+            {
+                yield return StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
+
+                yield return new WaitUntil(() => AudioManager.instance.nextBeat);
+                AudioManager.instance.nextBeat = false;
+                e.Idle();
+
+                if (e.gameObject.tag == "Susan" && e.nextPhase)
+                {
+                    yield break;
+                }
+            }
 
             if (e.gameObject.tag == "Susan" && e._currentHealth <= 0)
             {
                 StartCoroutine(e.gameObject.GetComponent<Susan>().SusanDeath());
                 yield break;
             }
+
+            if (CombatController.instance.isMultiple)
+            {
+                Debug.Log("Hit Enemy Multi");
+
+                if (CombatController.instance._inBattle[CombatController.instance.enemy2] != null)
+                {
+                    e2.EnemyHit();
+                    enemyHealth[CombatController.instance.enemy2] -= damage;
+                    e2.UpdateHealth(damage);
+
+                    if (enemyHealth[CombatController.instance.enemy2] <= 0)
+                    {
+                        Debug.Log("Enemy Dead");
+
+                        yield return StartCoroutine(EnemyDeath(CombatController.instance.enemy2, e2));
+                    }
+                    else
+                    {
+                        yield return StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
+
+                        yield return new WaitUntil(() => AudioManager.instance.nextBeat);
+                        AudioManager.instance.nextBeat = false;
+                        e2.Idle();
+
+                        if (e2.gameObject.tag == "Susan" && e2.nextPhase)
+                        {
+                            yield break;
+                        }
+                    }
+                }
+
+                if (CombatController.instance._inBattle[CombatController.instance.enemy3] != null)
+                {
+                    e3.EnemyHit();
+                    enemyHealth[CombatController.instance.enemy3] -= damage;
+                    e3.UpdateHealth(damage);
+
+                    if (enemyHealth[CombatController.instance.enemy3] <= 0)
+                    {
+                        Debug.Log("Enemy Dead");
+
+                        yield return StartCoroutine(EnemyDeath(CombatController.instance.enemy3, e3));
+                    }
+                    else
+                    {
+                        yield return StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
+
+                        yield return new WaitUntil(() => AudioManager.instance.nextBeat);
+                        AudioManager.instance.nextBeat = false;
+                        e3.Idle();
+
+                        if (e3.gameObject.tag == "Susan" && e3.nextPhase)
+                        {
+                            yield break;
+                        }
+                    }
+                }
+            }
         }
 
-        if (enemyHealth[enemyAttacked] <= 0)
+
+
+        //If there are no more enemies, return to overworld
+        if (_enemiesLeft <= 0)
         {
-            Debug.Log("Enemy Dead");
+            Debug.Log("battle Won eqwbij");
 
-            StartCoroutine(EnemyDeath(enemyAttacked, e));
-
-            //If there are no more enemies, return to overworld
-            if (_enemiesLeft <= 0)
-            {
-                Debug.Log("battle Won eqwbij");
-
-                StartCoroutine(GameManager.instance.BattleWon());
-                yield break;
-            }
-
-            yield return new WaitUntil(() => CombatController.instance._inBattle[enemyAttacked] == null);
-        }
-        else
-        {
-            StartCoroutine(AudioManager.instance.WaitUntilNextBeat(Math.Round(AudioManager.instance.songPositionInBeats, MidpointRounding.AwayFromZero)));
-
-            yield return new WaitUntil(() => AudioManager.instance.nextBeat);
-            AudioManager.instance.nextBeat = false;
-            e.Idle();
-
-            if (e.gameObject.tag == "Susan" && e.nextPhase)
-            {
-                yield break;
-            }
+            yield return StartCoroutine(GameManager.instance.BattleWon());
+            yield break;
         }
 
         yield return new WaitForEndOfFrame();
 
         SwitchToEnemyTurn();
+
+        yield return new WaitForEndOfFrame();
 
         StartCoroutine(CombatController.instance.EnemyPhase());
     }

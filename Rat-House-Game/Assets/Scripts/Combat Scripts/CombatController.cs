@@ -416,6 +416,7 @@ public class CombatController : MonoBehaviour
             {
                 if (_actionList[_selectedAction] == ActionType.Throw)
                 {
+                    print("multiple");
                     StartCoroutine(ChooseMultipleEnemy());
                 }
                 else
@@ -801,6 +802,11 @@ public class CombatController : MonoBehaviour
         spotlightOne.gameObject.SetActive(true);
         spotlightTwo.gameObject.SetActive(true);
 
+        if (enemyList.Count <= 2)
+        {
+            print("2 enemies");
+            enemy2 = _selectedEnemy == 0 ? 1 : 0;
+        }
         enemy2 = (_selectedEnemy + 1) % (_battleEnd + 1);
         Debug.Log("one: " + enemy2);
         enemy2 = CheckDeaths(enemy2);
@@ -811,11 +817,11 @@ public class CombatController : MonoBehaviour
         spotlightOne.transform.position = enemyPlacement[enemy2];
         spotlightTwo.transform.position = enemyPlacement[enemy3];
 
-        if (_battleEnd == 2)
+        if (_battleEnd == 2 && _inBattle.Count == 2)
         {
             spotlightTwo.gameObject.SetActive(false);
         }
-        else if (_battleEnd == 1)
+        else if (_battleEnd == 1 && _inBattle.Count == 1)
         {
             spotlightOne.gameObject.SetActive(false);
         }
