@@ -9,9 +9,9 @@ public class Final : MonoBehaviour
     public GameObject two;
     public GameObject three;
     public GameObject four;
-    public GameObject panel;
-    public GameObject panel2;
-    public GameObject panel3;
+    public GameObject last;
+    public Animator panel2;
+    public AudioSource music;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,20 +32,26 @@ public class Final : MonoBehaviour
         yield return new WaitForSecondsRealtime(3f);
         three.SetActive(true);
 
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(6f);
         four.SetActive(true);
+        music.Play();
+        StartCoroutine(Fadein());
 
-        yield return new WaitForSecondsRealtime(3f);
-        panel.SetActive(true);
+        yield return new WaitForSecondsRealtime(15.5f);
+        panel2.SetTrigger("Bounce");
+        last.SetActive(true);
 
-        yield return new WaitForSecondsRealtime(3f);
-        panel2.SetActive(true);
-        panel.SetActive(false);
-
-        yield return new WaitForSecondsRealtime(2f);
-        panel3.SetActive(true);
-
-        yield return new WaitForSecondsRealtime(10f);
+        yield return new WaitForSecondsRealtime(30f);
         SceneManager.LoadScene(0);
+    }
+
+    IEnumerator Fadein()
+    {
+        
+        music.volume += .01f;
+        yield return new WaitForSecondsRealtime(.01f);
+
+        if (music.volume <= 0.8)
+            StartCoroutine(Fadein());
     }
 }
