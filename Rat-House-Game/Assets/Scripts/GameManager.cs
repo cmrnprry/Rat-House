@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Key Items")]
     public Animator itemGetAnim;
+    //public GameObject itemGetOBJ;
     public TextMeshProUGUI itemText;
     public bool hasKey = false;
 

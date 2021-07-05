@@ -363,6 +363,7 @@ public class CombatStats : MonoBehaviour
         }
 
         Debug.Log("Damage: " + damage);
+        Debug.Log("Enemy: " + CombatController.instance._inBattle[enemyAttacked]);
 
         if (CombatController.instance.selectedActionType == ActionType.Heal)
         {
@@ -397,12 +398,11 @@ public class CombatStats : MonoBehaviour
                 {
                     yield break;
                 }
-            }
-
-            if (e.gameObject.tag == "Susan" && e._currentHealth <= 0)
-            {
-                StartCoroutine(e.gameObject.GetComponent<Susan>().SusanDeath());
-                yield break;
+                else if (e.gameObject.tag == "Susan" && e._currentHealth <= 0)
+                {
+                    StartCoroutine(e.gameObject.GetComponent<Susan>().SusanDeath());
+                    yield break;
+                }
             }
 
             if (CombatController.instance.isMultiple)

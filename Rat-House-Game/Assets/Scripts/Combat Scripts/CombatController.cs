@@ -466,6 +466,8 @@ public class CombatController : MonoBehaviour
     public IEnumerator ChooseItem()
     {
         //Wait until a correct key is pressed
+        yield return new WaitForEndOfFrame();
+        HighlightMenuItem();
         yield return new WaitUntil(() => Input.GetButtonDown("Up") || Input.GetButtonDown("Down") || Input.GetButtonDown("SelectAction") || Input.GetButtonDown("Left"));
 
         if (Input.GetButton("Left"))
@@ -1107,8 +1109,8 @@ public class CombatController : MonoBehaviour
         //Set to 0
         _selectedItem = 0;
 
+
         //Start the item choice coroutine 
-        HighlightMenuItem();
         StartCoroutine(ChooseItem());
 
     }

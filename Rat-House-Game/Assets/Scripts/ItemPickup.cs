@@ -19,6 +19,7 @@ public class ItemPickup : MonoBehaviour
                 GameManager.instance.CollapseItemList(CombatController.instance.itemList);
 
                 GameManager.instance.itemText.text = this.gameObject.name + " has been added to your record";
+                //GameManager.instance.itemGetOBJ.SetActive(true);
                 GameManager.instance.itemGetAnim.SetTrigger("textPopup");
 
                 this.gameObject.SetActive(false);
