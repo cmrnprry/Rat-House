@@ -38,6 +38,8 @@ public class PleasantTalk : MonoBehaviour
     IEnumerator HaveANiceConversation()
     {
         yield return new WaitUntil(() => GameManager.instance.dialogue.isTyping == false);
+        yield return new WaitUntil(() => Input.GetButton("SelectAction") == false);
+
         GameManager.instance.dialogue.enterText.SetActive(true);
 
         //wait for the player to press enter/space

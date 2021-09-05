@@ -41,7 +41,8 @@ public class Final : MonoBehaviour
         panel2.SetTrigger("Bounce");
         last.SetActive(true);
 
-        yield return new WaitForSecondsRealtime(30f);
+        yield return new WaitForSecondsRealtime(15f);
+        StartCoroutine(AudioManager.instance.Fadein());
         SceneManager.LoadScene(0);
     }
 

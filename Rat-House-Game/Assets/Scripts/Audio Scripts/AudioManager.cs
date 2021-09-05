@@ -290,6 +290,27 @@ public class AudioManager : MonoBehaviour
         countdownText.gameObject.SetActive(false);
     }
 
+
+    public IEnumerator FadeOut()
+    {
+
+        bgMusic.volume -= .01f;
+        yield return new WaitForSecondsRealtime(.01f);
+
+        if (bgMusic.volume > 0)
+            StartCoroutine(FadeOut());
+    }
+
+    public IEnumerator Fadein()
+    {
+
+        bgMusic.volume += .01f;
+        yield return new WaitForSecondsRealtime(.01f);
+
+        if (bgMusic.volume <= 0.321)
+            StartCoroutine(Fadein());
+    }
+
     //Keeps track of the position of the attack music
     //Will also possibly deal with handling Hit/Misses of the player but probably not
     //After each attack there should be a check if all the enemies have been defeated

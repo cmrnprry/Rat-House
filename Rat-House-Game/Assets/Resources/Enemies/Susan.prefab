@@ -126,62 +126,78 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 150
-  _currentHealth: 0
+  _currentHealth: 150
   hasEffect: 0
   _baseAttack: 0
   healthSlider: {fileID: 0}
   numberOfAttacks: 4
   nextPhase: 0
-  anim: {fileID: 0}
+  anim: {fileID: 3493511259393303749}
   effectName: susan_effect
   startBattle: 040000000100000001000000
   phaseOneBattle: 0000000002000000
   phaseTwoBattle: 0300000003000000
   changePhase: 0
   preBattleDialogue:
-  - Joe_1:Ah, at last, I've madeth it to the top floor!
-  - "Joe_1:Cometh to bethink of 't, this is kind of a weird location for the breaketh
-    room, is it not? \r\n"
-  - Joe_1:Regardless, at last I can reclaim mine beloved mug and beest on mine way.
-  - Susan_1:*slurping from Joe's mug*
-  - Joe_1:Egads! That's... that's mine mug!
-  - Susan_1:Joe! How'd you get in here?
-  - Joe_1:Thou art drinking from mine most beloved mug!
-  - Susan_1:So you've discovered my darkest secret...I fire my employees, then take
-    their leftover mugs for myself!
-  - Joe_1:Thee evil witch! Thee won't get away with this! I'll square for mine mug!
-  - 'Joe_1: Egads! It seems all along, twasn''t I, a vampire, but Corporate America
-    who was the REAL monster!'
-  - 'Susan_0: Again with the exposition! How charming. Well, don''t worry Joe, you''ll
-    have plenty of time to exposit... '
-  - 'Susan_2: ...IN HELL.'
+  - Joe_0:Ah, at last, I've madeth it to the top floor!
+  - "Joe_2:Cometh to bethink of 't, this is kind of a weird location for the breaketh
+    room, is it not? \r"
+  - Joe_0:Regardless, at last I can reclaim mine beloved mug and beest on mine way.
+  - Susan_0:....
+  - Joe_1:Egads! That's... that's...!
+  - Susan_0:Mr. Vampire. Quite lovely to see you.
+  - Joe_1:Y-You're...you're drinking from...!
+  - Susan_1:How disapointing. It seems my wonderful employees didn't work hard enough.
+  - Susan_0:No matter, everyone's replaceable.
+  - 'Joe_1:Wench! You won''t get away with this! '
+  - Susan_1:And why not?
+  - Joe_1:Such monstrous deeds will never go unpunished.
+  - Susan_2:Montrous? Me? You're one to talk, Mr. Vampire.
+  - Susan_0:Was it not you that faught your way up here? All for one silly mug?
+  - Joe_3:Impressive, is it not? Enough to rehire me?
+  - Susan_0:....
+  - Susan_2:HA! Drinking from all the red pens in the office finally caught up to
+    you?
+  - 'Joe_1:That''s- You have- '
+  - Joe_1:This is slander!
+  - Susan_1:Ugh! I'm getting tired of all this. I fired you for a reason!
+  - Joe_1:Bring it, you sickly hag!
   phaseOneDialogue:
-  - Susan_1:Give it up, Joe Vampire! You can never defeat me - my position gives
-    me too much authority over you! Your precious mug is mine!
-  - "Joe_1: Hahaha... Susan... you\u2019re forgetting one very important thing..."
-  - "Susan_1:Oh yeah? And what\u2019s that?"
-  - 'Joe_1: I has''t HR on speed dial!'
-  - Susan_1:What?! No!
-  - "Joe_1: Good morrow to you, m'lady. Aye, I\u2019d like to maketh a complaint
-    against Susan for theft of employee property."
-  - 'Susan_1: What? What''s that? You can''t help me? ...Not a hu- VR? I need to
-    call VAMPIRE resources?! '
-  - 'Susan_0: Dammit, just get down here and help me kill him once and for all!'
+  - Susan_0:Joe this all seems like too much. All for just one mug? Really?
+  - Joe_1:Nothing will keep me from getting mine mug!
+  - Susan_1:Ugh, Joe, I was hoping it wouldn't have to come to this...
+  - Susan_2:I'm calling HR!
+  - Joe_1:I would like to see you try! HR has no power over me, Joethius P-
+  - Susan_0:Hell this is Susan from the third floor? I'd like to file a complaint...
+  - Joe_2:...
+  - Joe_1:Two can play at this game!
+  - "Joe_0:Good morrow to you, m'lady. Aye, I\u2019d like to maketh a complaint against
+    Susan for theft of employee property."
+  - Joe_0:Yes, I'll hold.
+  - 'Susan_2:What? What''s that? You can''t help me? ...Not a hu- VR? I need to call
+    VAMPIRE resources?! '
+  - Susan_1:Whatever! Just get down here and help me!
   phaseTwoDialogue:
-  - 'Susan_1: This is taking FOREVER. My tea is going to get cold! I''m calling VR. '
+  - 'Susan_3:This is taking FOREVER. My tea is going to get cold! I''m calling VR. '
   - Joe_1:No! I am Joethius P...ugh. Aye. Joe Vampire speaking.
-  - 'Susan_0: Hello! Is this VR? Yes, well, I have a complaint about an employee....
+  - 'Susan_0:Hello! Is this VR? Yes, well, I have a complaint about an employee....
     Joe Vampire? Perhaps you''ve heard of him? '
-  - 'Susan_0: Pale? Red glasses? Teeth? Faux-Shakesparian accent?'
-  - "Susan_1:No! How could you! You\u2019ll pay for this, Joe Vampire! "
-  - Susan_1:Harry! Jason! If you want good references from me at your next jobs,
+  - Susan_0:Pale? Red glasses? Teeth? Faux-Shakesparian accent?
+  - Susan_1:What's that? You can't help me? Isn't this VR?
+  - Susan_3:....VIRTUAL REALITY?!
+  - Susan_3:We're a FAX MACHINE company! WHY on EARTH do we have a virtual reality
+    department?!
+  - Joe_3:Aye. She tookth my mug, and dare thinks she can replace me!
+  - Joe_2:...
+  - Joe_3:I'll break the news to her myself.
+  - Susan_ 2:News? What news?
+  - Joe_3:Mine vengence would not be complete without your downfall. I'd start lookink
+    for new jobs if I were you.
+  - Susan_3:That's prosperous!
+  - Susan_3:How could the likes of you...
+  - Susan_4:...
+  - Susan_4:H-Harry! Jason! If you want good references from me at your next jobs,
     then get in here and help me kill Joe Vampire!
-  - 'Susan_0: What''s that? You can''t help me? Isn''t this VR?'
-  - 'Susan_ 4: ....VIRTUAL REALITY?!'
-  - 'Susan_ 2: We''re a [Fax Machine Noises] FAX MACHINE company! WHY on EARTH do
-    we have a virtual reality department?!'
-  - 'Susan_ 2: Forget VR! Just come down here and help me! I''m going to miss my
-    three o''clock at this rate!'
   postBattleDialogue:
   - Joe_1:At last! I've completed mine quest and taken back what wast rightfully
     mine!

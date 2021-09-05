@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("Main Menu") && SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LastScene") && tutorialPage.activeSelf == false)
+        if (SceneManager.GetActiveScene() != SceneManager.GetSceneByName("Main Menu") && SceneManager.GetActiveScene() != SceneManager.GetSceneByName("LastScene") && healthParent.activeSelf == false && tutorialPage.activeSelf == false)
         {
             if (Input.GetButtonDown("Pause"))
             {
@@ -278,9 +278,10 @@ public class GameManager : MonoBehaviour
     IEnumerator ShowEnemyDialogue()
     {
         yield return new WaitUntil(() => dialogue.isTyping == false);
+
         dialogue.enterText.SetActive(true);
 
-
+        yield return new WaitUntil(() => Input.GetButton("SelectAction") == false);
         yield return new WaitUntil(() => Input.GetButton("SelectAction"));
         dialogue.enterText.SetActive(false);
         yield return new WaitForSecondsRealtime(0.15f);

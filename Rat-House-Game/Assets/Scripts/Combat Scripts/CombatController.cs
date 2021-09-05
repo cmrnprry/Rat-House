@@ -782,7 +782,7 @@ public class CombatController : MonoBehaviour
         var spotlight = _enemyEffects.transform.GetChild(0);
 
         spotlight.gameObject.SetActive(true);
-        spotlight.transform.localPosition = new Vector3(-4.14f, 0f, -0.14f);
+        spotlight.transform.localPosition = new Vector3(-4.14f, 1f, -0.14f);
     }
 
     public void HighlightSingleEnemy()

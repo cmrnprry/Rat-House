@@ -46,9 +46,11 @@ public class TutorialScript : MonoBehaviour
     {
         Debug.Log("wait to stop typing");
         yield return new WaitUntil(() => dialogue.isTyping == false);
+
         dialogue.enterText.SetActive(true);
 
         //wait for the player to press enter/space
+        yield return new WaitUntil(() => Input.GetButton("SelectAction") == false);
         yield return new WaitUntil(() => Input.GetButton("SelectAction"));
         dialogue.enterText.SetActive(false);
         yield return new WaitForEndOfFrame();
@@ -224,6 +226,7 @@ public class TutorialScript : MonoBehaviour
         dialogue.enterText.SetActive(true);
 
         //wait for the player to press enter/space
+        yield return new WaitUntil(() => Input.GetButton("SelectAction") == false);
         yield return new WaitUntil(() => Input.GetButton("SelectAction"));
         dialogue.enterText.SetActive(false);
 
@@ -302,6 +305,8 @@ public class TutorialScript : MonoBehaviour
             StartCoroutine(HitEnemy(e));
             e.healthSlider.value -= .25f;
         }
+
+
 
         if (CombatController.instance.selectedActionType == ActionType.Heal)
         {
@@ -631,7 +636,14 @@ public class TutorialScript : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
-        StartCoroutine(SelectEnemy());
+        if (CombatController.instance.selectedActionType == ActionType.Heal)
+        {
+            StartCoroutine(SelectPlayer());
+        }
+        else
+        {
+            StartCoroutine(SelectEnemy());
+        }
 
         //wait for the player to slesct enemy
         yield return new WaitUntil(() => _enemySelected);
@@ -849,7 +861,16 @@ public class TutorialScript : MonoBehaviour
 
         yield return new WaitUntil(() => AudioManager.instance.nextBeat);
         AudioManager.instance.nextBeat = false;
-        e.Idle();
+
+        if (e.healthSlider.value <= 0)
+        {
+            e.EnemyDeath();
+        }
+        else
+        {
+            e.Idle();
+        }
+
     }
 
     //Shows the Battle Dialogue for the tutorial
@@ -863,6 +884,7 @@ public class TutorialScript : MonoBehaviour
         dialogue.enterText.SetActive(true);
 
         //wait for the player to press enter/space
+        yield return new WaitUntil(() => Input.GetButton("SelectAction") == false);
         yield return new WaitUntil(() => Input.GetButtonDown("SelectAction"));
         dialogue.enterText.SetActive(false);
 

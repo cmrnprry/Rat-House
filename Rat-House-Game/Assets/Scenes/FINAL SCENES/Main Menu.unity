@@ -6223,43 +6223,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   afterBattleDialogue:
-  - Joe_0:Ha! That'll showeth thee not to cometh between me and mine mug!
-  - Joe_0:Hang on, muggy... Lord Joethius P. Bradford III, Esquire's coming.
+  - Joe_0:Ha! Another victory for me.
+  - Joe_0:Now. I must get to the bottom of this.
   duringBattleDialogue:
-  - Joe_0:I need to chooseth an attack. Useth the ARROW KEYS to select PUNCH, hitteth
-    Z to confirm, then select an enemy the same way!
-  - 'Intern_0:Joe, I''m going to call HR. '
-  - Joe_0:I'll start with a classic. Press Z or < on RED SQUARES at which hour the
-    slider hitteth a beat to hitteth this fool!
-  - Intern_0:Who are you talking to? Do not hit me!
-  - 'Joe_0: I''ll followeth that up with a KICK. Select KICK, then hitteth Z or <
-    at which hour the slider hitteth a RED SQUARE, and C or / at which hour the slider
-    hitteth a PURPLE CIRCLE.'
-  - Intern_0:What the hell man? I'm just an intern.
-  - Joe_0:She's still standing? Valorous thing I has't mine ITEMS. Select an item
-    to throweth at that lady.
-  - Intern_0:You got that stuff back? Joanne promised me that they wouldn't give
-    you any more "dangerous office supplies!"
-  - 'Intern_0:Okay, I do not get payed enough to be attacked by an buisness-emo wannabe. '
+  - Joe_0:I need to choose an attack. Use the ARROW KEYS to select PUNCH, hit Z to
+    confirm, then select an enemy the same way!
+  - Intern_0:This isn't fair! I missed battle orientation!
+  - Joe_0:I'll start with a classic. Press Z or < on RED SQUARES in time with the
+    slider to hit this fool!
+  - Intern_0:Who are you talking to? Don't hit me!
+  - 'Joe_0: I''ll follow that up with a KICK. Select KICK, then hit  Z or < for the
+    RED SQUARE, and C or / for the PURPLE CIRCLE.'
+  - Intern_0:What the hell!
+  - Joe_0:She's still standing? Valorous thing I have my ITEMS. Select an item to
+    throw.
+  - Intern_0:Where did you get that? I thought they confiscated all of your things!
+  - Intern_0:I'm not getting paid enough for this.
   - Joe_0:That lady looks quite annoyed... prepare to DODGE her attack!
-  - Joe_0:Ouch! I should heal up. Valorous thing I keepeth some BLOOD on me.
+  - Joe_0:Ouch! I should heal up. Valorous thing I also keep some BLOOD on me.
   - Intern_0:WHY would you have that?!
-  - Joe_0:Now to finish that lady off! Any attack should doth!
-  - Intern_0:Is this how it ends? Getting knocked out by some asshole who narrates
-    his life as if he's the main character in a video game??
+  - Joe_0:Do not worry, it's plant based. Now to finish her off! Any attack should
+    do!
+  - Intern_0:Is this how it ends? Getting knocked out by a guy who narrates his life
+    as if he's the main character in a video game?
   beforeBattleDialogue:
-  - Joe_0:Ah, anoth'r day anoth'r dollar.
-  - Joe_0:I, Lord Joethius P. Bradford III, Esquire, (Joe Vampire) hath returned
-    to mine place of employment for another day of worketh.
-  - Intern_0:Joe? What are you doing here?
-  - Joe_0:What doth thee mean? I worketh hither.
-  - Intern_0:No??? You were literally fired yesterday for never actually doing any
-    work and attacking all your coworkers.
-  - Joe_0:Ah, I see.
-  - Joe_0:In that case, alloweth me to just retrieveth mine mug.
-  - Intern_0:Joe, you're not allowed back into the building.
-  - Joe_0:What? Thee dare to standeth in mine way? Then prepare for battle!
-  - Intern_0:This is exactly what I was talking about...
+  - Joe_0:Ah, another day another dollar.
+  - Joe_0:I, Lord Joethius P. Bradford III, Esquire, (Joe Vampire) have returned
+    to my place of employment for another day of normal human work.
+  - Intern_1:Um, excuse me!
+  - Joe_0:Hm? Who dares interrupt my monologuing?
+  - Intern_0:Sorry, I just started yesterday. You're Joe right?
+  - Joe_0:That is correct.
+  - Joe_0:I've come to do normal human work at this normal human business office.
+  - Intern_1:Uh, I was specifically instructed to not let you back into the building.
+    Since you got fired and all that. Sorry.
+  - Joe_0:What? You dare stand in my way? Prepare for battle!
+  - Intern_1:Oh jeez, they warned me about this.
   overworldLevelOne: []
 --- !u!114 &511622178
 MonoBehaviour:
@@ -6283,10 +6282,9 @@ MonoBehaviour:
     I has't mine mug.
   levelTwoDialogue:
   - Joe_0:This is the second floor.
-  - Joe_0:I wilt needeth to findeth another keycard to taketh the elevator up one
-    more level.
-  - Joe_2:In hindsight, this seemeth like a really inefficient way for an office
-    to be setteth up.
+  - Joe_0:I will need to find another keycard to take the elevator up one more level.
+  - Joe_2:In hindsight, this seems like a really inefficient way for an office to
+    be set up.
   tempWait: 0
   isSusanBattle: 0
   canvas: {fileID: 20798670}

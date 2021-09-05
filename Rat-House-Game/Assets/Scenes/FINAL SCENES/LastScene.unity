@@ -2176,7 +2176,7 @@ MonoBehaviour:
   four: {fileID: 1779114112}
   last: {fileID: 2094689802}
   panel2: {fileID: 1791689159}
-  music: {fileID: 0}
+  music: {fileID: 2002515762}
 --- !u!82 &2002515762
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2187,7 +2187,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 7c881c0831990be419b9ad8ac98eebf8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0
   m_Pitch: 1

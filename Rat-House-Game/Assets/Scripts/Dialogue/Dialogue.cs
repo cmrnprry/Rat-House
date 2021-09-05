@@ -14,7 +14,7 @@ public class Dialogue : MonoBehaviour
     //Text Boxes
     public TextMeshProUGUI dia;
     public TextMeshProUGUI speakerName;
-    
+
     //Array of the dialogue
     [TextArea(3, 5)]
     public string[] sentences;
@@ -79,13 +79,16 @@ public class Dialogue : MonoBehaviour
             case "Intern":
                 speakerHead.sprite = internheads[type];
                 break;
-            case "Bill":
+            case "Wade":
                 speakerHead.sprite = waterheads[type];
                 break;
             case "Robert":
                 speakerHead.sprite = coffeeheads[type];
                 break;
             case "???":
+                speakerHead.sprite = computerheads[type];
+                break;
+            case "Cybil":
                 speakerHead.sprite = computerheads[type];
                 break;
             case "Susan":

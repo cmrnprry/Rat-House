@@ -156,6 +156,7 @@ public class Susan : EnemyCombatBehaviour
         GameManager.instance.dialogue.enterText.SetActive(true);
 
         //wait for the player to press enter/space
+        yield return new WaitUntil(() => Input.GetButton("SelectAction") == false);
         yield return new WaitUntil(() => Input.GetButton("SelectAction"));
         GameManager.instance.dialogue.enterText.SetActive(false);
 
@@ -192,6 +193,7 @@ public class Susan : EnemyCombatBehaviour
                 yield return new WaitForSecondsRealtime(5f);
 
                 GameManager.instance.anim.CrossFade("Fade_Out", 1);
+                StartCoroutine(AudioManager.instance.FadeOut());
                 yield return new WaitForSecondsRealtime(1);
 
                 SceneManager.UnloadSceneAsync("Battle-FINAL");
